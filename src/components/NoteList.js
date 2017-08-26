@@ -1,5 +1,46 @@
 import React, { Component } from 'react';
-import Notes from './Notes.js';
+import { connect } from 'react-redux';
+//import Note from './Note.js';
+
+function formatDate(timeStamp) {
+    var date = new Date(timeStamp);
+	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+}
+
+function Note(props) {
+    const notesRef = props.notes;
+
+
+    if (!notesRef || notesRef.inProgress) {
+        return (
+            <div className="note-preview">Loading...</div>
+        );
+    }
+    
+    if (notesRef.success && notesRef.length === 0) {
+        return (
+            <div className="note-preview">
+                No notes yet.
+            </div>
+        );
+    }
+    
+    const note = notesRef.notes.map((note) =>
+        <li className="note" key={note.id} id={note.id}>
+            <button className="delete">X</button>
+            <h2 className="title">{note.title}</h2>
+            <p>
+                <span className="date">{formatDate(note.modified_date)}</span>
+                <span className="tag-item">{note.tags}</span>
+                <span className="description">{note.description}</span>
+            </p>
+        </li>
+    );
+
+    return (
+        <ul>{note}</ul>
+    );
+};
 
 class NoteList extends Component {
     constructor(props) {
@@ -8,6 +49,10 @@ class NoteList extends Component {
         this.state = {
             notebook: ''
         };
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
@@ -26,7 +71,9 @@ class NoteList extends Component {
                     </select>
                 </div>
                 
-                <Notes />
+                <div id="notes">
+                    <Note notes={this.props.notes} />
+                </div>
             </div>
         );
     }

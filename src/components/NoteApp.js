@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import NoteList from './NoteList.js';
 import EditNote from './EditNote.js';
-import NewNote from './NewNote.js';
+import AddNote from './AddNote.js';
 
 import '../App.css';
 
 class NoteApp extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            notes: ''
+        };
     }
     
     componentDidMount() {
-        this.props.onGetNote();
+        this.props.onGetNotes();
+        // this.props.onAddNote();
+        // this.props.onEditNote();
     }
 
     render() {
@@ -34,7 +40,7 @@ class NoteApp extends Component {
                             <li><a href="#">Tools</a></li>
                             <li><a href="#">Help</a></li>
                             <li className="new-note">
-                                <NewNote />
+                                <AddNote onAddNote={this.props.onAddNote} />
                             </li>
                         </ul>
                     </nav>
@@ -141,10 +147,10 @@ class NoteApp extends Component {
                                     </div>
                                 </td>
                                 <td className="middle note-list-col">
-                                    <NoteList notes={this.props.note} />
+                                    <NoteList onGetNotes={this.props.onGetNotes} notes={this.props.notes} />
                                 </td>
                                 <td className="edit-note-col">
-                                    <EditNote />
+                                    <EditNote onEditNote={this.props.onEditNote} />
                                 </td>
                             </tr>
                         </tbody>
@@ -155,4 +161,5 @@ class NoteApp extends Component {
     }
 }
 
+NoteApp = connect()(NoteApp);
 export default NoteApp;

@@ -6,7 +6,6 @@ function formatDate(timeStamp) {
     var date = new Date(timeStamp);
 	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 }
-
 class Notes extends Component {
     constructor(props) {
         super(props);
@@ -19,29 +18,8 @@ class Notes extends Component {
     }
 
     componentDidMount() {
-        const notesRef = firebase.database().ref('notes');
-        
-        notesRef.on('value', (snapshot) => {
-            let notes = snapshot.val();
-            let newState = [];
-
-            for (let note in notes) {
-                newState.push({
-                    id: note,
-                    title: notes[note].title,
-                    notebook: notes[note].notebook,
-                    url: notes[note].url,
-                    tags: notes[note].tags,
-                    description: notes[note].description,
-                    created_date: notes[note].created_date,
-                    modified_date: notes[note].modified_date
-                });
-            }
-
-            this.setState({
-                notes: newState
-            });
-        });
+        debugger
+        this.props.onGetNotes();
     }
 
     handleClick(e) {
