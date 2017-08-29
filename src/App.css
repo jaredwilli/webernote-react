@@ -12,7 +12,6 @@
 html {
     padding: 0;
     margin: 0;
-    overflow: hidden;
 }
 body {
     font: 14px/22px "Helvetica Neue", "Helvetica", "Arial";
@@ -167,33 +166,37 @@ STRUCTURE
 	position: absolute;
 	right: 0;
 	top: 0;
-	padding: 4px 6px 4px 0;
 }
+
 #toolbar .new-note:hover {
 	background: hsla(22, 100%, 53%, 0.9);
 }
+
 #toolbar .new-note button {
     background: transparent;
 	border: 0;
     color: #fff;
     text-shadow: -1px -1px 0 hsla(0, 92%, 25%, 0.9), 1px 1px 0 hsla(12, 81%, 54%, 0.75);
     cursor: pointer;
-    padding: 0;
+	padding: 5px 10px 6px 0;
+	vertical-align: middle;
+	line-height: 18px;
 }
+
 #toolbar .new-note button .plus {
 	background: rgba(0, 0, 0, 0.1);
 	border-right: 1px solid rgba(119, 0, 0, 0.5);
 	font-size: 20px;
 	line-height: 19px;
-	vertical-align: middle;
-	padding: 2px 10px;
+	vertical-align: top;
+	padding: 4px 10px;
 	position: relative;
-	top: -1px;
-	margin: 0 5px 0 0;
+	margin: 0 10px 0 0;
 
 	-webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.25);
 			box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.25);
 }
+
 #toolbar .new-note:hover button .plus {
 	border-right: 1px solid rgb(185, 74, 0, 0.5);
 }
@@ -208,6 +211,7 @@ STRUCTURE
     display: inline-block;
     padding: 4px 10px;
 }
+
 #toolbar a:hover,
 #actions a:hover {
 	background: rgba(14, 188, 255, 0.74);
@@ -215,6 +219,7 @@ STRUCTURE
 	text-shadow: -1px -1px 0 rgba(33, 170, 213, 0.9),
 				  1px 1px 0 rgba(168, 224, 255, 0.75);*/
 }
+
 #toolbar .new-note button:hover {
 	background: transparent;
 }
@@ -350,11 +355,14 @@ STRUCTURE
 	position: relative;
 }
 #notes .delete {
-	color: rgb(236, 0, 0);
-	text-shadow: -1px -1px 0px rgba(54, 0, 0, 0.65);
+    background: rgb(236, 0, 0);;
+    border: 0;
+	color: #fff;
+	text-shadow: -1px -1px 0px rgba(213, 81, 81, 0.65);
 	font-size: 10px;
 	font-weight: bold;
-	font-family: helvetica;
+    font-family: helvetica;
+    cursor: pointer;
 	padding: 3px 6px;
 	position: absolute;
 	right: 5px;
@@ -376,10 +384,12 @@ STRUCTURE
 }
 #notes .date {
 	color: rgb(190, 190, 190);
-	font-size: 14px;
+    font-size: 14px;
+    margin-right: 5px;
 }
 #notes .tag-item {
-	color: rgb(157, 183, 252);
+    color: rgb(157, 183, 252);
+    margin-right: 5px;
 }
 #notes ul {
     list-style: none;
@@ -495,7 +505,7 @@ STRUCTURE
 	padding: 5px;
 }
 #show-note .mid {
-	padding: 2px 5px;
+	padding: 2px 0;
 }
 #show-note .top {
 	background: #fff;
@@ -556,13 +566,26 @@ STRUCTURE
 #show-note select.notebook {
 	font-size: 14px;
 }
+
 #show-note .new-notebook {
-	width: 33%;
+    font-size: 12px;
+    display: inline-block;
+    width: 31%;
 	position: absolute;
-	margin: 5px 1px 5px 5px;
-	padding: 0;
-	display: inline-block;
-	height: 26px;
+	margin: 5px 1px 5px 0;
+	padding: 0 3px;
+	height: 27px;
+}
+
+#show-note .cancel-new {
+	background: #F17A7A;
+	border: 0;
+	border-radius: 100px;
+    color: #fff;
+    cursor: pointer;
+	position: absolute;
+	right: 10px;
+	z-index: 1;
 }
 #show-note input.notebook {
 	width: 100%;
@@ -570,6 +593,7 @@ STRUCTURE
 	padding: 4px 5px 3px;
 	position: absolute;
 }
+
 #show-note #cancel {
 	position: absolute;
 	right: 10px;
@@ -578,13 +602,16 @@ STRUCTURE
 }
 #show-note input.url,
 #show-note input.tag {
-	width: 46%;
-	margin: 0 10px 0 0;
+    width: 46%;
+	margin: 0 4px 0 0;
 	border: 1px solid rgb(190, 202, 213);
 }
+
 #show-note input.tag {
+    width: 47.8%;
 	margin: 0;
 }
+
 #show-note select {
 	border: 1px solid #EEE;
     height: 30px;
@@ -602,10 +629,11 @@ STRUCTURE
 }
 #show-note textarea,
 #show-note textarea:active {
-	border: 0;
+    border: 0;
+    font-size: 13px;
 	padding: 5px;
 	width: 100%;
-	min-height: 87%;
+	height: 200px;
 }
 #show-note .tagit {
 	background: #fff;

@@ -3,29 +3,36 @@ import { connect } from 'react-redux';
 
 function formatDate(timeStamp) {
     var date = new Date(timeStamp);
+
 	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 }
 
-function Note(props) {
-    const notes = props.notes;
+function sortNotes(notes) {
+    notes.sort((a, b) => {
+        return new Date(a.modified_date).getTime() - new Date(b.modified_date).getTime();
+    }).reverse();
+    
+    return notes;
+}
 
-    if (!notes) {
+function Note(props) {
+    const notesRef = props.notes;
+
+    if (!notesRef) {
         return (
-            <div className="note-preview">Loading...</div>
+            <div className="note">Loading...</div>
         );
     }
     
-    if (notes.length === 0) {
+    if (notesRef.length === 0) {
         return (
-            <div className="note-preview">
-                No notes yet.
-            </div>
+            <div className="note">No notes yet.</div>
         );
     }
-    
-    const note = notes.map((note) =>
-        <li className="note" key={note.id} id={note.id} onClick={this.handleClick}>
-            <button className="delete">X</button>
+
+    const note = sortNotes(notesRef).map((note) =>
+        <li className="note" key={note.id} id={note.id} onClick={() => props.selectNote(note)}>
+            <button className="delete" onClick={() => props.deleteNote(note)}>X</button>
             <h2 className="title">{note.title}</h2>
             <p>
                 <span className="date">{formatDate(note.modified_date)}</span>
@@ -36,12 +43,8 @@ function Note(props) {
     );
 
     return (
-        <ul>
-            {note}
-        </ul>
+        <ul>{note}</ul>
     );
 };
 
-export default connect(state => {
-    note: state.label
- })(Note);
+export default connect((state) => state)(Note);

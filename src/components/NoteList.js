@@ -1,82 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import Note from './Note.js';
-
-function formatDate(timeStamp) {
-    var date = new Date(timeStamp);
-	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
-}
-
-function Note(props) {
-    const notesRef = props.notes;
-
-
-    if (!notesRef || notesRef.inProgress) {
-        return (
-            <div className="note-preview">Loading...</div>
-        );
-    }
-    
-    if (notesRef.success && notesRef.length === 0) {
-        return (
-            <div className="note-preview">
-                No notes yet.
-            </div>
-        );
-    }
-    
-    const note = notesRef.notes.map((note) =>
-        <li className="note" key={note.id} id={note.id}>
-            <button className="delete">X</button>
-            <h2 className="title">{note.title}</h2>
-            <p>
-                <span className="date">{formatDate(note.modified_date)}</span>
-                <span className="tag-item">{note.tags}</span>
-                <span className="description">{note.description}</span>
-            </p>
-        </li>
-    );
-
-    return (
-        <ul>{note}</ul>
-    );
-};
+import Note from './Note';
+import NoteBookContainer from '../containers/notebooks.js';
 
 class NoteList extends Component {
     constructor(props) {
         super(props);
 
+        this.handleSearch = this.handleSearch.bind(this);
+
         this.state = {
-            notebook: ''
+            notes: this.props.notes,
+            notebooks: 'My Notebook'
         };
     }
 
-    componentDidMount() {
-
+    handleSearch(text) {
+        // search seems to be able to be controlled by the type of search you want to do
     }
-
+    
+    componentWillReceiveProps(nextProps) {
+        // this.setState({
+        //     notes: nextProps.note
+        // });
+    }
+    
     render() {
         return (
             <div id="note-list">
                 <div className="filter">
                     <a href>Notes created by</a>
-                    <input type="text" name="search" placeholder="Search" />
+                    <input type="text" name="search" placeholder="Search"
+                        onChange={(text) => this.handleSearch(text)} />
                 </div>
                 <div className="viewing">
                     <span className="viewtext">
-                        Viewing <span className="count">0</span> notes from
+                        Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
-                    <select name="notebook" className="notebook" value={this.state.notebook}>
-                        <option>My Notebook</option>
-                    </select>
+                    <NoteBookContainer notebook="My Notebook" canAddNotebook={false} />
                 </div>
                 
                 <div id="notes">
-                    <Note notes={this.props.notes} />
+                    <Note notes={this.props.notes} 
+                        selectNote={(selectedNote) => this.props.onSelectNote(selectedNote)}
+                        deleteNote={this.props.onDeleteNote} />
                 </div>
             </div>
         );
     }
 }
 
-export default NoteList;
+export default connect((state) => state)(NoteList);

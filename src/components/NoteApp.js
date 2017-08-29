@@ -1,24 +1,65 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import NoteNav from './NoteNav.js';
+import NoteTypes from './NoteTypes.js';
 import NoteList from './NoteList.js';
 import EditNote from './EditNote.js';
 import AddNote from './AddNote.js';
 
+import NotebooksContainer from './containers/notebooks.js';
+
 import '../App.css';
+
+const newNote = {
+    title: 'Untitled note...',
+    notebook: '',
+    url: '',
+    tags: '',
+    description: '',
+    created_date: new Date().getTime(),
+    modified_date: new Date().getTime()
+};
 
 class NoteApp extends Component {
     constructor(props) {
         super(props);
+
+        this.selectNote = this.selectNote.bind(this);
+        this.deleteNote = this.deleteNote.bind(this);
+        this.editNote = this.editNote.bind(this);
+
         this.state = {
-            notes: ''
-        };
+            selectedNote: {}
+        }
     }
     
     componentDidMount() {
         this.props.onGetNotes();
-        // this.props.onAddNote();
-        // this.props.onEditNote();
+    }
+    
+    componentWillMount() {
+        this.props.selectedNote;
+    }
+
+    selectNote(note) {
+        this.setState({
+            selectedNote: note
+        });
+        
+        this.props.onSelectNote(note);
+    }
+
+    deleteNote(note) {
+        this.props.onDeleteNote(note);
+    }
+    
+    editNote(note) {
+        this.setState({
+            selectedNote: note
+        });
+        
+        this.props.onEditNote(note);
     }
 
     render() {
@@ -40,117 +81,31 @@ class NoteApp extends Component {
                             <li><a href="#">Tools</a></li>
                             <li><a href="#">Help</a></li>
                             <li className="new-note">
-                                <AddNote onAddNote={this.props.onAddNote} />
+                                <button id="newNote" onClick={() => this.props.onAddNote(newNote)}>
+                                    <span className="plus">+</span>
+                                    Add Note
+                                </button>
                             </li>
                         </ul>
                     </nav>
                     <nav id="note-types">
-                        <ul>
-                            <li><a href="#">All Notes</a></li>
-                            <li><a href="#">Notebooks</a></li>
-                            <li><a href="#">Tags</a></li>
-                            <li><em>For quick access, drag notes, notebooks and tags here</em></li>
-                        </ul>
+                        <NoteTypes />
                     </nav>
                     <table id="resizable">
                         <tbody>
                             <tr>
                                 <td>
-                                    <div id="note-nav">
-                                        <ul id="notebooks">
-                                            <li><a href="#">Notebooks</a>
-                                                <ul className="notebooks">
-                                                    <li id="notebook-notebookId">
-                                                        <a href="?notebook=notebookId">
-                                                            <span className="name">notebookName</span>
-                                                        </a>
-                                                        <span className="count">(notebookCount}</span>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul id="tags">
-                                            <li><a href="#">Tags</a>
-                                                <ul className="tags hidden">
-                                                    <li id="tag-tagId" className="tag-link">
-                                                        <a href="?tag=tagId">
-                                                            <span className="name">tagId</span>
-                                                        </a>
-                                                        <span className="count">noteCount</span>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul id="attributes">
-                                            <li><a href="#">Attributes</a>
-                                                <ul id="created" className="attributes hidden">
-                                                    <li><a href="#">Created</a>
-                                                        <ul className="created hidden">
-                                                            <li id="create-createdId">
-                                                                <a href="#since">Since</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#before">Before</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <ul id="modified" className="attributes hidden">
-                                                    <li><a href="#">Last Modified</a>
-                                                        <ul className="modified hidden">
-                                                            <li id="modified-modifiedId">
-                                                                <a href="#since">Since</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#before">Before</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <ul id="contains" className="attributes hidden">
-                                                    <li><a href="#">Contains</a>
-                                                        <ul className="contains hidden">
-                                                            <li id="contains-containsId">
-                                                                <a href="#since">Since</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#before">Before</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <ul id="source" className="attributes hidden">
-                                                    <li><a href="#">Source</a>
-                                                        <ul className="source hidden">
-                                                            <li id="source-sourceId">
-                                                                <a href="#since">Since</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#before">Before</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul id="searches">
-                                            <li><a href="#">Saved&nbsp;Searches</a>
-                                                <ul className="searches hidden">
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul className="trash">
-                                            <li>
-                                                <a href="#trash">Trash</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <NoteNav />
                                 </td>
                                 <td className="middle note-list-col">
-                                    <NoteList onGetNotes={this.props.onGetNotes} notes={this.props.notes} />
+                                    <NoteList onGetNotes={this.props.onGetNotes} 
+                                        onSelectNote={(note) => this.selectNote(note)} 
+                                        onDeleteNote={this.props.onDeleteNote} 
+                                        notes={this.props.notes} />
                                 </td>
                                 <td className="edit-note-col">
-                                    <EditNote onEditNote={this.props.onEditNote} />
+                                    <EditNote onEditNote={(note) => this.editNote(note)}
+                                        selectedNote={this.props.selectedNote} />
                                 </td>
                             </tr>
                         </tbody>
@@ -161,5 +116,4 @@ class NoteApp extends Component {
     }
 }
 
-NoteApp = connect()(NoteApp);
-export default NoteApp;
+export default connect((state) => state)(NoteApp);

@@ -9,7 +9,22 @@ const actionTypes = {
     
 	EditNoteRequested: 'EDIT_NOTE_REQUESTED',
 	EditNoteRejected: 'EDIT_NOTE_REJECTED',
-	EditNoteFulfilled: 'EDIT_NOTE_FULFILLED'
+    EditNoteFulfilled: 'EDIT_NOTE_FULFILLED',
+    
+    SelectNote: 'SELECT_NOTE',
+    DeleteNote: 'DELETE_NOTE',
+
+    GetNotebooksRequested: 'GET_NOTEBOOKS_REQUESTED',
+	GetNotebooksRejected: 'GET_NOTEBOOKS_REJECTED',
+    GetNotebooksFulfilled: 'GET_NOTEBOOKS_FULFILLED',
+
+	AddNotebookRequested: 'ADD_NOTEBOOK_REQUESTED',
+	AddNotebookRejected: 'ADD_NOTEBOOK_REJECTED',
+    AddNotebookFulfilled: 'ADD_NOTEBOOK_FULFILLED',
+    
+    EditNotebookRequested: 'EDIT_NOTEBOOK_REQUESTED',
+	EditNotebookRejected: 'EDIT_NOTEBOOK_REJECTED',
+    EditNotebookFulfilled: 'EDIT_NOTEBOOK_FULFILLED',
 };
 
 export default actionTypes;

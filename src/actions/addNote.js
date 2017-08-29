@@ -8,10 +8,8 @@ export function addNote(note) {
         const notesRef = database.ref('/notes');
 
         notesRef.push(note)
-        .then(() => {
-            dispatch(addNoteFulfilledAction({ 
-                note
-            }));
+        .then((note) => {
+            dispatch(addNoteFulfilledAction(note));
         })
         .catch((error) => {
             console.log(error);

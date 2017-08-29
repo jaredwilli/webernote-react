@@ -1,67 +1,68 @@
-import React, { Component } from 'react';
-import firebase from '../firebase.js';
+import React from 'react';
+import NotebookContainer from '../containers/notebooks.js';
 
-class EditNote extends Component {
+class EditNote extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleOnBlur = this.handleOnBlur.bind(this);
 
         this.state = {
-            title: '',
-            notebook: '',
-            url: '',
-            tags: '',
-            description: '',
-            created: props.created,
-            modified: props.modified
+            note: this.props.selectedNote
         };
     }
 
-    handleChange(e) {
-        console.log(e.target.value);
-
-        // do something to show input for when select value is new notebook
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            [e.target.name]: e.target.value,
-            modified_date: new Date().getTime()
+            note: nextProps.selectedNote
         });
     }
 
-    handleOnBlur(e) {
-        e.preventDefault();
+    handleChange(e) {
+        let note = this.state.note;
+        note[e.target.name] = e.target.value;
+        
+        this.setState({
+            note: note
+        });
 
-        const notesRef = firebase.database().ref('notes');
-        const note = {
-            title: this.state.title,
-            notebook: this.state.notebook,
-            url: this.state.url,
-            tags: this.state.tags,
-            description: this.state.description,
-            created_date: this.state.created,
-            modified_date: this.state.modified
-        };
-        notesRef.push(note);
+        this.props.onEditNote(this.state.note);
     }
-
+    
     render() {
+        if (!this.state.note.id) {
+            return (
+                <div className="show-note"></div>
+            );
+        }
+
         return (
             <div id="show-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."  value={this.state.title} onChange={this.handleChange} onBlur={this.handleOnBlur} />
-                        <select name="notebook" className="notebook" value={this.state.notebook} onChange={this.handleChange} onBlur={this.handleOnBlur}>
-                            <option>My Notebook</option>
-                            <option>New Notebook</option>
-                        </select>
-                        <input type="text" name="notebook" className="new-notebook visuallyhidden" placeholder="Notebook name..." />
+                        <input type="text" className="title" name="title" placeholder="Enter title..."  
+                            value={this.state.note.title} 
+                            onChange={this.handleChange} />
+                        
+                        <NotebookContainer 
+                            canAddNotebook={true} 
+                            note={this.state.note}
+                            notebook={this.state.note.notebook} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://" value={this.state.url} onChange={this.handleChange} onBlur={this.handleOnBlur} />
-                        <input type="text" className="tag" name="tags" placeholder="Click to add tag..." value={this.state.tags} onChange={this.handleChange} onBlur={this.handleOnBlur} />
+                        <input type="url" className="url" name="url" placeholder="http://" 
+                            value={this.state.note.url} 
+                            onChange={this.handleChange} />
+                        <input type="text" className="tag" name="tags" placeholder="Click to add tag..." 
+                            value={this.state.note.tags} 
+                            onChange={this.handleChange} />
                     </div>
-                    <textarea className="description" name="description" value={this.state.description} onChange={this.handleChange} onBlur={this.handleOnBlur}></textarea>
+                    <div className="bottom">
+                        <textarea className="description" name="description" 
+                            value={this.state.note.description} 
+                            onChange={this.handleChange}>
+                        </textarea>
+                    </div>
                 </form>
             </div>
         );

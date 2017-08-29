@@ -8,7 +8,7 @@ class NoteNav extends Component {
                     <li><a href="#">Notebooks</a>
                         <ul className="notebooks">
                             <li id="notebook-notebookId">
-                                <a href="?notebook=notebookId">
+                                <a href="">
                                     <span className="name">notebookName</span>
                                 </a>
                                 <span className="count">(notebookCount}</span>
