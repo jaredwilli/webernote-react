@@ -24,6 +24,7 @@ class EditNote extends React.Component {
         this.setState({
             selectedNote: note
         });
+        
         this.props.editNote(note);
     }
     
