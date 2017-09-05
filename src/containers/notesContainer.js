@@ -18,7 +18,8 @@ const newNote = {
     url: '',
     tags: [],
     description: '',
-    created_date: new Date().getTime()
+    created_date: new Date().getTime(),
+    modified_date: new Date().getTime()
 };
 
 class NotesContainer extends React.PureComponent {
@@ -53,7 +54,7 @@ class NotesContainer extends React.PureComponent {
     }
 
     render() {
-        if (this.props.notes.loading) {
+        if (!this.props.notes) {
             return (
                 <div className="loading">Loading...</div>
             );
@@ -88,7 +89,7 @@ class NotesContainer extends React.PureComponent {
                         <tbody>
                             <tr>
                                 <td>
-                                    
+                                    <NoteNav />
                                 </td>
                                 <td className="middle note-list-col">
                                     <NoteList notes={this.props.notes}
@@ -109,14 +110,11 @@ class NotesContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        notes: (state.noteData.notes) ? state.noteData.notes : {
-            loading: true
-        },
-        selectedNote: (state.noteData.selectedNote) ? state.noteData.selectedNote : {
-            loading: true
-        }
-    };
-    // console.log('STATE: ', state, newState);
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        selectedNote: state.noteData.selectedNote
+    };    
+    console.log('STATE: ', state, newState);
 
     return newState;
 }

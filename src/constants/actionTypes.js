@@ -47,6 +47,28 @@ export const EditNotebookRequested = 'EDIT_NOTEBOOK_REQUESTED';
 export const EditNotebookRejected = 'EDIT_NOTEBOOK_REJECTED';
 export const EditNotebookFulfilled = 'EDIT_NOTEBOOK_FULFILLED';
 
-export const DeleteNoteBookRequested = 'DELETE_NOTEBOOK_REQUESTED';
-export const DeleteNoteBookRejected = 'DELETE_NOTBOOKE_REJECTED';
-export const DeleteNoteBookFulFilled = 'DELETE_NOTEBOOK_FULFILLED';
+export const DeleteNotebookRequested = 'DELETE_NOTEBOOK_REQUESTED';
+export const DeleteNotebookRejected = 'DELETE_NOTEBOOK_REJECTED';
+export const DeleteNotebookFulFilled = 'DELETE_NOTEBOOK_FULFILLED';
+
+/* TAGS */
+
+export const GetTagsRequested = 'GET_TAGS_REQUESTED';
+export const GetTagsRejected = 'GET_TAGS_REJECTED';
+export const GetTagsFulfilled = 'GET_TAGS_FULFILLED';
+
+export const GetTagRequested = 'GET_TAG_REQUESTED';
+export const GetTagRejected = 'GET_TAG_REJECTED';
+export const GetTagFulfilled = 'GET_TAG_FULFILLED';
+
+export const AddTagRequested = 'ADD_TAG_REQUESTED';
+export const AddTagRejected = 'ADD_TAG_REJECTED';
+export const AddTagFulfilled = 'ADD_TAG_FULFILLED';
+
+export const EditTagRequested = 'EDIT_TAG_REQUESTED';
+export const EditTagRejected = 'EDIT_TAG_REJECTED';
+export const EditTagFulfilled = 'EDIT_TAG_FULFILLED';
+
+export const DeleteTagRequested = 'DELETE_TAG_REQUESTED';
+export const DeleteTagRejected = 'DELETE_TAG_REJECTED';
+export const DeleteTagFulFilled = 'DELETE_TAG_FULFILLED';

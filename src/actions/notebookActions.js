@@ -4,7 +4,7 @@ import * as types from '../constants/actionTypes';
 export function getNotebooks() {
     return dispatch => {
         dispatch(getNotebooksRequestedAction());
-debugger
+
         return database.ref('/notebooks').once('value', snap => {
             const notebooks = snap.val();
 
@@ -33,7 +33,13 @@ export function addNotebook(notebook) {
         return database.ref('/notebooks')
             .push(notebook)
             .then((notebook) => {
-                dispatch(addNotebookFulfilledAction(notebook));
+                const id = notebook.key;
+                
+                notebook.once('value', snap => {
+                    notebook = {};
+                    notebook[id] = snap.val();
+                    dispatch(addNotebookFulfilledAction(notebook));
+                });
             })
             .catch((error) => {
                 console.error(error);
@@ -47,10 +53,8 @@ export function editNotebook(notebook, note) {
         dispatch(editNotebookRequestedAction());
 
         return database.ref('/notes/' + note.id + '/notebook')
-            .set(notebook.name)
-            .then((notebook) => {
-                dispatch(editNotebookFulfilledAction(notebook));
-            })
+            .update(notebook.name)
+            .then(dispatch(editNotebookFulfilledAction(notebook)))
             .catch((error) => {
                 console.error(error);
                 dispatch(editNotebookRejectedAction());
@@ -58,11 +62,12 @@ export function editNotebook(notebook, note) {
     }
 }
 
-export function selectNotebook(id) {
+export function selectNotebook(notebook) {
     return (dispatch, getState) => {
-        debugger
+
         const notebook = getState().notebookData.notebooks.filter(function(n) {
-            return n.id = id;
+            debugger
+            return n.id = notebook.id;
         });
     }
 }

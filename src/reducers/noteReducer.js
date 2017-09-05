@@ -128,15 +128,13 @@ export default function noteReducer(state = {}, action) {
         
         case types.EditNoteFulfilled: {
             const note = action.note;
+            
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Edited note'
             });
 
-            if (note) {
-                debugger
-            }
-
+            newState.selectedNote = note;
             return newState;
         }
         

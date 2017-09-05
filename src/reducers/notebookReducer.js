@@ -54,7 +54,7 @@ export default function notebookReducer(state = {}, action) {
 
         case types.GetNotebookFulfilled: {
             const notebook = action.notebook;
-debugger
+
             if (notebook) {
                 state.notebooks.filter(function(n) {
                     if (n.id === notebook.id) {
@@ -91,10 +91,19 @@ debugger
         }
         
         case types.AddNotebookFulfilled: {
+            const notebook = action.notebook;
+            const id = Object.keys(notebook)[0];
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added notebook'
             });
+
+            if (id) {
+                notebook[id].id = id;
+                state.notebooks.push(notebook[id]);
+            }
+            newState.notebooks = state.notebooks;
             return newState;
         }
         

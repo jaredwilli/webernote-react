@@ -342,7 +342,7 @@ STRUCTURE
 	margin: 1px 0 0 5px;
 }
 
-.left-nav > ul > li > a {
+.left-nav > ul > li > span {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
 	text-decoration: none;
 	padding: 0 0 0 14px;
@@ -352,11 +352,11 @@ STRUCTURE
 	text-decoration: underline;
 }
 
-.left-nav li.tag-link > a {
+.left-nav li.tag-link > span {
 	background: none;
 }
 
-.left-nav li.expanded > a {
+.left-nav li.expanded > span {
 	background-position: 1px -10px;
 }
 

@@ -31,7 +31,11 @@ export function getNote(id) {
         const note = getState().noteData.notes.filter(function(n) {
             return n.id === id;
         })[0];
-
+        
+        if (!note) {
+            dispatch(getNoteRejectedAction());
+        }
+        
         dispatch(getNoteFulfilledAction(note));
     }
 }
@@ -39,8 +43,6 @@ export function getNote(id) {
 export function addNote(note) {
     return (dispatch) => {
         dispatch(addNoteRequestedAction());
-
-        note.modifiedDate = new Date().getTime();
 
         return database.ref('/notes')
             .push(note)
@@ -73,12 +75,11 @@ export function editNote(note, notebook = null) {
         if (notebook && notebook.name !== note.notebook) {
             note.notebook = notebook.name;
         }
-        
-        return database.ref('/notes/' + note.id)
-            .update(note)
-            .then((note) => {
-                dispatch(editNoteFulfilledAction(note));
-            })
+
+        const noteRef = database.ref('/notes/' + note.id);
+
+        noteRef.update(note)
+            .then(dispatch(editNoteFulfilledAction(note)))
             .catch((error) => {
                 console.error(error);
                 dispatch(editNoteRejectedAction());

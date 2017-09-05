@@ -10,6 +10,10 @@ class NotebookContainer extends React.PureComponent {
         this.selectNotebook = this.selectNotebook.bind(this);
         this.addNotebook = this.addNotebook.bind(this);
         // this.props.actions.getNotebooks();
+
+        this.state = {
+            addNotebook: false
+        };
     }
 
     addNotebook(e) {
@@ -22,7 +26,8 @@ class NotebookContainer extends React.PureComponent {
             notebook: notebook
         });
 
-        this.props.onAddNotebook(notebook);
+        this.props.actions.addNotebook(notebook);
+        this.props.editNotebook(notebook);
     }
     
     selectNotebook(e) {
@@ -32,6 +37,7 @@ class NotebookContainer extends React.PureComponent {
             this.setState({
                 addNotebook: true
             });
+
         } else {
             let notebookId = '';
             
@@ -47,6 +53,7 @@ class NotebookContainer extends React.PureComponent {
             })[0];
             
             this.setState({
+                canAddNotebook: false,
                 notebook: notebook
             });
 
@@ -57,10 +64,11 @@ class NotebookContainer extends React.PureComponent {
     render() {
         let addNoteBookOption = '';
 
-        if (this.props.notebooks.loading) {
+        if (!this.props.notebooks) {
             return <div className="loading">Loading...</div>;
         }
-
+        
+        // Notebook menu options
         const notebookOptions = this.props.notebooks.map((notebook) => 
             <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
         );
@@ -71,7 +79,7 @@ class NotebookContainer extends React.PureComponent {
         }
 
         // Show add notebook input if selected add notebook
-        if (this.props.addNotebook) {
+        if (this.state.addNotebook) {
             return (
                 <span>
                     <button className="cancel-new" onClick={() => this.setState({ addNotebook: false })}>x</button>
@@ -94,9 +102,9 @@ class NotebookContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        notebooks: (state.notebookData.notebooks) ? state.notebookData.notebooks : {
-            loading: true
-        }
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        selectedNote: state.noteData.selectedNote
     };
     console.log('STATE: ', state, newState);
 

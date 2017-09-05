@@ -12,16 +12,58 @@ class NoteList extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.handleSearch = this.handleSearch.bind(this);
         this.getNote = this.getNote.bind(this);
+        this.filterList = this.filterList.bind(this);
+        this.setFilterType = this.setFilterType.bind(this);
+        this.filterByNotebook = this.filterByNotebook.bind(this);
 
         this.state = {
-            selectedNote: ''
+            searchTerm: '',
+            filterType: '',
+            notes: this.props.notes,
+            currentNotes: this.props.notes,
+            selectedNote: this.props.selectedNote
         };
     }
     
-    handleSearch(text) {
-        // search seems to be able to be controlled by the type of search you want to do
+    getInitialState() {
+        return {
+            currentNotes: this.props.notes,
+            notes: []
+        }
+    }
+
+    componentWillMount() {
+        this.setState({
+            notes: this.state.initialNotes
+        });
+    }
+
+    filterByNotebook(e) {
+        let filterNotebook = e.target.value
+    }
+
+    setFilterType(e) {
+        let filterType = e.target.name;
+        let updatedList = this.state.initialNotes;
+        // TODO: set a daterange picker value somehow here
+        //updatedList = updatedList.filter(function(note) { });
+    }
+
+    filterList(e) {
+        // TODO: Get the filterType for controlling what to filter based on
+
+        let updatedList = this.state.initialNotes;
+        
+        updatedList = updatedList.filter(function(note) {
+            return note.description
+                .toLowerCase()
+                .search(e.target.value.toLowerCase()) !== -1;
+        });
+
+        this.setState({
+            currentNotes: updatedList
+        });
     }
 
     getNote(e, id) {
@@ -39,15 +81,27 @@ class NoteList extends Component {
         return (
             <div id="note-list">
                 <div className="filter">
-                    <a href>Notes created by</a>
+                    Search type: 
+                    <select name="filterType" className="filter-type" 
+                        value={this.props.filterType}
+                        onChange={(e) => this.setFilterType(e)}>
+                        <option>Description</option>
+                        <option>Title</option>
+                        <option>Url</option>
+                        <option>Tags</option>
+                        <option>Created Date</option>
+                        <option>Modified Date</option>
+                    </select>
+
                     <input type="text" name="search" placeholder="Search"
-                        onChange={(text) => this.handleSearch(text)} />
+                        onChange={(e) => this.filterList(e)} />
                 </div>
                 <div className="viewing">
                     <span className="viewtext">
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
-                    <NotebookContainer notebook="My Notebook" canAddNotebook={false} />
+                    
+                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} />
                 </div>
                 
                 <div id="notes">
@@ -62,7 +116,9 @@ class NoteList extends Component {
 
 function mapStateToProps(state) {
     const newState = {
-        notes: state.noteData.notes
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        selectedNote: state.noteData.selectedNote
     };
     console.log('STATE: ', state, newState);
 

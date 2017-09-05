@@ -41,7 +41,8 @@ class EditNote extends React.Component {
             selectedNote: note
         });
 
-        this.props.editNote(note);
+        this.props.editNote(note, notebook);
+        
     }
 
     render() {

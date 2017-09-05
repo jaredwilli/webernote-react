@@ -21,3 +21,13 @@ export function getNotebookCount(notes, notebook) {
     });
     return count
 }
+
+export function getTagCount(notes, tag) {
+    let count = 0;
+    notes.forEach(function(c) {
+        if (c.notebook === tag.name) {
+            count++;
+        }
+    });
+    return count
+}
