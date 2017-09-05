@@ -1,66 +1,68 @@
 import React from 'react';
-import NotebookContainer from '../containers/notebooks.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as noteActions from '../actions/noteActions';
+
+import NotebooksContainer from '../containers/notebooksContainer';
 
 class EditNote extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-
         this.state = {
-            note: this.props.selectedNote
+            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            note: nextProps.selectedNote
-        });
-    }
-
     handleChange(e) {
-        let note = this.state.note;
+        let note = this.props.selectedNote;
         note[e.target.name] = e.target.value;
-        
-        this.setState({
-            note: note
-        });
+        note.modified_date = new Date().getTime();
 
-        this.props.onEditNote(this.state.note);
+        this.setState({
+            selectedNote: note
+        });
+        this.props.editNote(note);
     }
     
     render() {
-        if (!this.state.note.id) {
+        // get the selectedNote from props
+        const selectedNote = this.props.selectedNote;
+
+        if (!selectedNote || !selectedNote.id) {
+            // this.updateState();
+
             return (
                 <div className="show-note"></div>
             );
         }
-
+        
         return (
             <div id="show-note">
                 <form>
                     <div className="top">
                         <input type="text" className="title" name="title" placeholder="Enter title..."  
-                            value={this.state.note.title} 
-                            onChange={this.handleChange} />
-                        
-                        <NotebookContainer 
+                            value={selectedNote.title} 
+                            onChange={(e) => this.handleChange(e)} />
+                        <NotebooksContainer 
                             canAddNotebook={true} 
-                            note={this.state.note}
-                            notebook={this.state.note.notebook} />
+                            note={selectedNote}
+                            notebook={selectedNote.notebook} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://" 
-                            value={this.state.note.url} 
-                            onChange={this.handleChange} />
+                            value={selectedNote.url} 
+                            onChange={(e) => this.handleChange(e)} />
                         <input type="text" className="tag" name="tags" placeholder="Click to add tag..." 
-                            value={this.state.note.tags} 
-                            onChange={this.handleChange} />
+                            value={selectedNote.tags} 
+                            onChange={(e) => this.handleChange(e)} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description" 
-                            value={this.state.note.description} 
-                            onChange={this.handleChange}>
+                            value={selectedNote.description} 
+                            onChange={(e) => this.handleChange(e)}>
                         </textarea>
                     </div>
                 </form>
@@ -69,4 +71,19 @@ class EditNote extends React.Component {
     }
 }
 
-export default EditNote;
+function mapStateToProps(state) {
+    const newState = {
+        selectedNote: state.noteData.selectedNote
+    };
+    console.log('STATE: ', state, newState);
+
+    return newState;
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(noteActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditNote);

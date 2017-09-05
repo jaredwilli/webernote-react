@@ -1,25 +1,9 @@
-import ActionTypes from '../constants/actionTypes.js';
+import * as types from '../constants/actionTypes.js';
 
-/* {
-        title: 'This is an example note...',
-        notebook: 'My Notebook',
-        url: 'http://anti-code.com',
-        tags: 'react, redux, firebase, es6',
-        description: 'This note is defined as the initial state of Webernote (v3), an application that is built with React, Redux, and Firebase for storing the data. Written with es6, transpiled with Babel, and built with Webpack.\n\n I\'ve developed this same application 2 times already using jQuery and again with AngularJS. It is a great way to learn new technologies.',
-        created_date: new Date().getTime(),
-        modified_date: new Date().getTime()
-    } */
-
-const initialState = {
-    notes: [],
-    selectedNote: {}
-};
-
-function noteReducer(state = initialState, action) {
+export default function noteReducer(state = {}, action) {
     switch(action.type) {
-        
         // *** GET NOTES
-        case ActionTypes.GetNotesRequested: {
+        case types.GetNotesRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -27,20 +11,19 @@ function noteReducer(state = initialState, action) {
             });
         }
 
-        case ActionTypes.GetNotesRejected: {
+        case types.GetNotesRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
-                error: 'Error in getting note'
+                error: 'Error in getting notes'
             });
         }
 
-        case ActionTypes.GetNotesFulfilled: {
+        case types.GetNotesFulfilled: {
             const notes = action.notes;
             
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Got notes',
-                notes
+                success: 'Got notes'
             });
             
             if (notes) {
@@ -49,13 +32,11 @@ function noteReducer(state = initialState, action) {
                     return notes[k];
                 });
             }
-            
             return newState;
         }
 
-
-        // *** ADD NOTES
-        case ActionTypes.AddNoteRequested: {
+        // *** GET NOTE
+        case types.GetNoteRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -63,28 +44,74 @@ function noteReducer(state = initialState, action) {
             });
         }
         
-        case ActionTypes.AddNoteRejected: {
+        case types.GetNoteRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error in getting note'
+            });
+        }
+
+        case types.GetNoteFulfilled: {
+            const note = action.note;
+
+            if (note) {
+                note.isEditing = true;
+                state.notes.filter(function(n) {
+                    if (n.id === note.id) {
+                        n = note;
+                    }
+                    return n;
+                });
+            }
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Got note'
+            });
+            
+            newState.notes = state.notes;
+            newState.selectedNote = note;
+            return newState;
+        }
+
+        // *** ADD NOTE
+        case types.AddNoteRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.AddNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error adding note'
             });
         }
         
-        case ActionTypes.AddNoteFulfilled: {
+        case types.AddNoteFulfilled: {
             const note = action.note;
+            const id = Object.keys(note)[0];
 
+            if (id) {
+                note[id].id = id;
+                note[id].isEditing = true;
+                state.notes.push(note[id]);
+            }
+            
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Added note',
-                note
+                success: 'Added note'
             });
-
+            
+            newState.notes = state.notes;
+            newState.selectedNote = note[id];
             return newState;
         }
 
-
-        // *** EDIT NOTES
-        case ActionTypes.EditNoteRequested: {
+        // *** EDIT NOTE
+        case types.EditNoteRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -92,52 +119,75 @@ function noteReducer(state = initialState, action) {
             });
         }
         
-        case ActionTypes.EditNoteRejected: {
+        case types.EditNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error editing note'
             });
         }
         
-        case ActionTypes.EditNoteFulfilled: {
-            const editedNte = action.editedNte;
-
+        case types.EditNoteFulfilled: {
+            const note = action.note;
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Edited note',
-                editedNte
+                success: 'Edited note'
             });
+
+            if (note) {
+                debugger
+            }
 
             return newState;
         }
         
-
-        // *** SELECT NOTE
-        case ActionTypes.SelectNote: {
-            const selectedNote = action.selectedNote;
-
-            return Object.assign({}, state, {
-                inProgress: false,
-                success: 'Success',
-                selectedNote
-            });
-        }
-        
-        
         // *** DELETE NOTE
-        case ActionTypes.DeleteNote: {
-            const note = action.note;
-
+        case types.DeleteNoteRequested: {
             return Object.assign({}, state, {
-                inProgress: false,
-                success: 'Success',
-                note
+                inProgress: true,
+                error: '',
+                success: ''
             });
         }
         
+        case types.DeleteNoteRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error delete note'
+            });
+        }
+        
+        case types.DeleteNoteFulfilled: {
+            const note = action.note;
+            return Object.assign({}, state, {
+                inProgress: false,
+                success: 'Deleted note'
+            });
+        }
+        
+        // *** RESET SELECTED NOTE
+        case types.ResetSelectedNoteRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.ResetSelectedNoteRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error resetting selected note'
+            });
+        }
+        
+        case types.ResetSelectedNoteFulfilled: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                success: 'Reset selected note'
+            });
+        }
+
         default: 
             return state;
     }
 }
-
-export default noteReducer;

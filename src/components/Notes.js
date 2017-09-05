@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
-//import Note from './Note.js';
-import firebase from '../firebase.js';
-
-function formatDate(timeStamp) {
-    var date = new Date(timeStamp);
-	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
-}
-class Notes extends Component {
+import React from 'react';
+import { formatDate } from '../common/helpers';
+class Notes extends React.Component {
     constructor(props) {
         super(props);
 
@@ -16,12 +10,7 @@ class Notes extends Component {
             notes: []
         };
     }
-
-    componentDidMount() {
-        debugger
-        this.props.onGetNotes();
-    }
-
+    
     handleClick(e) {
         console.log(e.target.id);
         // this.props.onNoteSelected(e.target);
@@ -33,7 +22,7 @@ class Notes extends Component {
                 <ul>
                     {this.state.notes.map((note) => {
                         return (
-                            <li className="note" key={note.id} id={note.id} onClick={this.handleClick}>
+                            <li className={(note.isEditing) ? 'note selected' : 'note'} key={note.id} id={note.id} onClick={this.handleClick}>
                                 <button className="delete">X</button>
                                 <h2 className="title">{note.title}</h2>
                                 <p>

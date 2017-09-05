@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as noteActions from '../actions/noteActions';
 
 class NoteNav extends Component {
     render() {
+        // const bookLinks = this.props.notebooks.map((note) =>
+        //     <li id="notebook-notebookId">
+        //         <a href="">
+        //             <span className="name">{note.name}</span>
+        //         </a>
+        //         <span className="count">({this.props.notebooks.length})</span>
+        //     </li>
+        // );
+        // debugger
         return (
             <div id="note-nav">
                 <ul id="notebooks">
                     <li><a href="#">Notebooks</a>
                         <ul className="notebooks">
-                            <li id="notebook-notebookId">
-                                <a href="">
-                                    <span className="name">notebookName</span>
-                                </a>
-                                <span className="count">(notebookCount}</span>
-                            </li>
+                            
                         </ul>
                     </li>
                 </ul>
@@ -96,4 +103,21 @@ class NoteNav extends Component {
     }
 }
 
-export default NoteNav;
+function mapStateToProps(state) {
+    const newState = {
+        notes: state.noteData.notes,
+        selectedNote: state.noteData.selectedNote
+    };
+    
+    // console.log('STATE: ', state, newState);
+
+    return newState;
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(noteActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteNav);
