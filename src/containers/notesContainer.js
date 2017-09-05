@@ -18,8 +18,7 @@ const newNote = {
     url: '',
     tags: [],
     description: '',
-    created_date: new Date().getTime(),
-    modified_date: new Date().getTime()
+    created_date: new Date().getTime()
 };
 
 class NotesContainer extends React.PureComponent {
@@ -64,19 +63,19 @@ class NotesContainer extends React.PureComponent {
             <div>
                 <header>
                     <div id="loginout">
-                        <a id="login" href="#">Login</a>
+                        <a id="login" href="">Login</a>
                     </div>
-                    <h1><a href="#">Webernote</a></h1>
+                    <h1><a href="">Webernote</a></h1>
                 </header>
                 <div id="pagewrap">
                     <nav id="toolbar">
                         <ul>
-                            <li><a href="#">File</a></li>
-                            <li><a href="#">Edit</a></li>
-                            <li><a href="#">View</a></li>
-                            <li><a href="#">Note</a></li>
-                            <li><a href="#">Tools</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="">File</a></li>
+                            <li><a href="">Edit</a></li>
+                            <li><a href="">View</a></li>
+                            <li><a href="">Note</a></li>
+                            <li><a href="">Tools</a></li>
+                            <li><a href="">Help</a></li>
                             <li className="new-note">
                                 <AddNote addNote={(e) => this.addNote(e)} />
                             </li>
@@ -89,7 +88,7 @@ class NotesContainer extends React.PureComponent {
                         <tbody>
                             <tr>
                                 <td>
-                                    <NoteNav />
+                                    
                                 </td>
                                 <td className="middle note-list-col">
                                     <NoteList notes={this.props.notes}
@@ -117,7 +116,7 @@ function mapStateToProps(state) {
             loading: true
         }
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

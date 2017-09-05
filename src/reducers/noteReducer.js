@@ -164,6 +164,34 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
+        // *** SELECT NOTE
+        case types.SelectNoteRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.SelectNoteRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error selecting note'
+            });
+        }
+        
+        case types.SelectNoteFulfilled: {
+            const note = action.notes;
+            
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Note selected'
+            });
+
+            debugger
+            return newState;
+        }
+        
         // *** RESET SELECTED NOTE
         case types.ResetSelectedNoteRequested: {
             return Object.assign({}, state, {

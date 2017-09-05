@@ -13,16 +13,16 @@ class NotebookContainer extends React.PureComponent {
     }
 
     addNotebook(e) {
+        let notebook = {
+            name: e.target.value
+        };
+
         this.setState({
             addNotebook: false,
-            notebook: {
-                name: e.target.value
-            }
+            notebook: notebook
         });
 
-        this.props.onAddNotebook({
-            name: e.target.value
-        }, this.state);
+        this.props.onAddNotebook(notebook);
     }
     
     selectNotebook(e) {
@@ -33,34 +33,44 @@ class NotebookContainer extends React.PureComponent {
                 addNotebook: true
             });
         } else {
-            this.setState({
-                notebook: {
-                    name: e.target.value
+            let notebookId = '';
+            
+            // get selected notebook id
+            for (let n of e.target.children) {
+                if (n.value === e.target.value) {
+                    notebookId = n.getAttribute('id');
                 }
+            }
+
+            const notebook = this.props.notebooks.filter(function(b) {
+                return b.id === notebookId;
+            })[0];
+            
+            this.setState({
+                notebook: notebook
             });
 
-            this.props.onSelectNotebook({
-                name: e.target.value
-            }, this.state);
+            this.props.editNotebook(notebook);
         }
     }
-        
+
     render() {
-        let addBookOption;
-    
+        let addNoteBookOption = '';
+
         if (this.props.notebooks.loading) {
             return <div className="loading">Loading...</div>;
         }
 
-        const bookOptions = this.props.notebooks.map((note) => 
-            <option key={note.id}>{note.name}</option>
+        const notebookOptions = this.props.notebooks.map((notebook) => 
+            <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
         );
 
         // Add the New Note book option if need to
         if (this.props.canAddNotebook) {
-            addBookOption = <option>+Create notebook</option>;
+            addNoteBookOption = <option>+Create notebook</option>;
         }
 
+        // Show add notebook input if selected add notebook
         if (this.props.addNotebook) {
             return (
                 <span>
@@ -74,15 +84,15 @@ class NotebookContainer extends React.PureComponent {
         return (
             <select name="notebook" className="notebook" 
                 value={this.props.notebook}
-                onChange={this.selectNotebook}>
-                {bookOptions}
-                {addBookOption}
+                onChange={(e) => this.selectNotebook(e)}>
+                {notebookOptions}
+                {addNoteBookOption}
             </select>
         );
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     const newState = {
         notebooks: (state.notebookData.notebooks) ? state.notebookData.notebooks : {
             loading: true

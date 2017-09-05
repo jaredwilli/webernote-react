@@ -11,6 +11,8 @@ class EditNote extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+        this.editNotebook = this.editNotebook.bind(this);
+
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
         };
@@ -18,16 +20,30 @@ class EditNote extends React.Component {
 
     handleChange(e) {
         let note = this.props.selectedNote;
+
         note[e.target.name] = e.target.value;
         note.modified_date = new Date().getTime();
 
         this.setState({
             selectedNote: note
         });
-        
+
         this.props.editNote(note);
     }
     
+    editNotebook(notebook) {
+        let note = this.props.selectedNote;
+        
+        note.notebook = notebook.name;
+        note.modified_date = new Date().getTime();
+
+        this.setState({
+            selectedNote: note
+        });
+
+        this.props.editNote(note);
+    }
+
     render() {
         // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
@@ -50,7 +66,8 @@ class EditNote extends React.Component {
                         <NotebooksContainer 
                             canAddNotebook={true} 
                             note={selectedNote}
-                            notebook={selectedNote.notebook} />
+                            notebook={selectedNote.notebook}
+                            editNotebook={(notebook) => this.editNotebook(notebook)} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://" 

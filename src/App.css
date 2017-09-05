@@ -298,7 +298,7 @@ STRUCTURE
 
 /* COMBINED STYLES for the COLUMNS */
 
-#note-nav,
+.left-nav,
 #note-list,
 #show-note {
     margin-bottom: 5px;
@@ -318,57 +318,57 @@ STRUCTURE
 			box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.4);
 }
 
-/* NOTE NAV */
+/* LEFT NAV */
 
-#note-nav {
+.left-nav {
 	padding: 5px 0 0 5px;
 	min-width: 70px;
 	overflow: hidden;
 }
 
-#note-nav ul {
+.left-nav ul {
 	margin-bottom: 20px;
 }
 
-#note-nav ul ul {
+.left-nav ul ul {
 	margin: 4px 0 4px 15px;
 }
 
-#note-nav ul li {
+.left-nav ul li {
 	width: 100%;
 }
 
-#note-nav ul ul li {
+.left-nav ul ul li {
 	margin: 1px 0 0 5px;
 }
 
-#note-nav li > a {
+.left-nav > ul > li > a {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
-	padding: 0 0 0 14px;
 	text-decoration: none;
+	padding: 0 0 0 14px;
 }
 
-#note-nav li > a:hover {
+.left-nav li > a:hover {
 	text-decoration: underline;
 }
 
-#note-nav li.tag-link > a {
+.left-nav li.tag-link > a {
 	background: none;
 }
 
-#note-nav li.expanded > a {
+.left-nav li.expanded > a {
 	background-position: 1px -10px;
 }
 
-#note-nav li .count {
+.left-nav li .count {
 	color: #999;
 }
 
-#note-nav li .count:before {
+.left-nav li .count:before {
 	content: '(';
 }
 
-#note-nav li .count:after {
+.left-nav li .count:after {
 	content: ')';
 }
 
@@ -675,7 +675,7 @@ STRUCTURE
 #show-note .description {
 	border: 0;
 	padding: 5px;
-	width: 100%;
+	width: 98%;
 	min-height: 87%;
 	white-space: pre-line;
 }

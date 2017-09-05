@@ -11,3 +11,13 @@ export function sortNotes(notes) {
     }).reverse();
     return notes;
 }
+
+export function getNotebookCount(notes, notebook) {
+    let count = 0;
+    notes.forEach(function(c) {
+        if (c.notebook === notebook.name) {
+            count++;
+        }
+    });
+    return count
+}

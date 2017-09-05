@@ -40,6 +40,8 @@ export function addNote(note) {
     return (dispatch) => {
         dispatch(addNoteRequestedAction());
 
+        note.modifiedDate = new Date().getTime();
+
         return database.ref('/notes')
             .push(note)
             .then((note) => {
@@ -102,12 +104,19 @@ export function deleteNote(id) {
 
 export function selectNote(id) {
     return (dispatch, getState) => {
+        dispatch(selectNoteRequestedAction());
+        
         const note = getState().noteData.notes.filter(function(n) {
             return n.id = id;
         });
 
         database.ref('/notes/' + id + '/isEditing/')
-            .set(true);
+            .set(true)
+            .then(dispatch(selectNoteFulfilledAction(note)))
+            .catch((error) => {
+                console.error(error);
+                dispatch(selectNoteRejectedAction());
+            });
     }
 }
 
@@ -127,7 +136,7 @@ export function resetSelectedNote() {
                 .then(dispatch(resetSelectedNoteFulfilledAction()))
                 .catch((error) => {
                     console.error(error);
-                    dispatch(resetSelectedNoteRejectedAction())
+                    dispatch(resetSelectedNoteRejectedAction());
                 });
         }
     }
@@ -159,8 +168,8 @@ function getNoteRejectedAction() {
     return { type: types.GetNoteRejected };
 }
 
-function getNoteFulfilledAction(note, notes) {
-    return { type: types.GetNoteFulfilled, note, notes };
+function getNoteFulfilledAction(note) {
+    return { type: types.GetNoteFulfilled, note };
 }
 
 /**
@@ -206,6 +215,21 @@ function deleteNoteRejectedAction() {
 
 function deleteNoteFulfilledAction() {
     return { type: types.DeleteNoteFulfilled };
+}
+
+/**
+ * Select Note
+ */
+function selectNoteRequestedAction() {
+    return { type: types.SelectNoteRequested };
+}
+
+function selectNoteRejectedAction() {
+    return { type: types.SelectNoteRejected };
+}
+
+function selectNoteFulfilledAction(note) {
+    return { type: types.SelectNoteFulfilled, note };
 }
 
 /**

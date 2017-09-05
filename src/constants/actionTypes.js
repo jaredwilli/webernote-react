@@ -20,6 +20,10 @@ export const DeleteNoteRequested = 'DELETE_NOTE_REQUESTED';
 export const DeleteNoteRejected = 'DELETE_NOTE_REJECTED';
 export const DeleteNoteFulfilled = 'DELETE_NOTE_FULFILLED';
 
+export const SelectNoteRequested = 'SELECT_NOTE_REQUESTED';
+export const SelectNoteRejected = 'SELECT_NOTE_REJECTED';
+export const SelectNoteFulfilled = 'SELECT_NOTE_FULFILLED';
+
 export const ResetSelectedNoteRequested = 'RESET_SELECTED_NOTE_REQUESTED';
 export const ResetSelectedNoteRejected = 'RESET_SELECTED_NOTE_REJECTED';
 export const ResetSelectedNoteFulfilled = 'RESET_SELECTED_NOTE_FULFILLED';

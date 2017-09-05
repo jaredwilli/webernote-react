@@ -4,7 +4,7 @@ import * as types from '../constants/actionTypes';
 export function getNotebooks() {
     return dispatch => {
         dispatch(getNotebooksRequestedAction());
-
+debugger
         return database.ref('/notebooks').once('value', snap => {
             const notebooks = snap.val();
 
@@ -21,7 +21,7 @@ export function getNotebook(notebook) {
     return dispatch => {
         dispatch(getNotebookRequestedAction());
         
-        
+        debugger
         dispatch(getNotebookFulfilledAction(notebook));
     }
 }
@@ -58,6 +58,15 @@ export function editNotebook(notebook, note) {
     }
 }
 
+export function selectNotebook(id) {
+    return (dispatch, getState) => {
+        debugger
+        const notebook = getState().notebookData.notebooks.filter(function(n) {
+            return n.id = id;
+        });
+    }
+}
+
 /**
  * Get Notebooks
  */
@@ -78,6 +87,10 @@ function getNotebooksFulfilledAction(notebooks) {
  */
 function getNotebookRequestedAction() {
     return { type: types.GetNotebooksRequested };
+}
+
+function getNotebookRejectedAction() {
+    return { type: types.GetNotebooksRejected };
 }
 
 function getNotebookFulfilledAction(notebook) {
