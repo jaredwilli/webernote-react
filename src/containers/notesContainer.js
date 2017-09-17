@@ -18,39 +18,23 @@ const newNote = {
     url: '',
     tags: [],
     description: '',
+    isEditing: true,
     created_date: new Date().getTime(),
-    modified_date: new Date().getTime()
+    modified_date: ''
 };
 
 class NotesContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.getNote = this.getNote.bind(this);        
         this.addNote = this.addNote.bind(this);
-        this.editNote = this.editNote.bind(this);
-        this.deleteNote = this.deleteNote.bind(this);
-    }
-    
-    getNote(id) {
-        this.props.actions.resetSelectedNote();
-        this.props.actions.getNote(id);
     }
     
     addNote(e) {
         e.preventDefault();
+
         this.props.actions.resetSelectedNote();
         this.props.actions.addNote(newNote);
-    }
-
-    editNote(note) {
-        this.props.actions.editNote(note);
-        this.props.actions.getNotes();
-    }
-    
-    deleteNote(id) {
-        this.props.actions.deleteNote(id);
-        this.props.actions.getNotes();
     }
 
     render() {
@@ -66,7 +50,7 @@ class NotesContainer extends React.PureComponent {
                     <div id="loginout">
                         <a id="login" href="">Login</a>
                     </div>
-                    <h1><a href="">Webernote</a></h1>
+                    <h1><a href="/">Webernote</a></h1>
                 </header>
                 <div id="pagewrap">
                     <nav id="toolbar">
@@ -92,12 +76,10 @@ class NotesContainer extends React.PureComponent {
                                     <NoteNav />
                                 </td>
                                 <td className="middle note-list-col">
-                                    <NoteList notes={this.props.notes}
-                                        getNote={(id) => this.getNote(id)}
-                                        deleteNote={(id) => this.deleteNote(id)} />
+                                    <NoteList />
                                 </td>
                                 <td className="edit-note-col">
-                                    <EditNote editNote={(note) => this.editNote(note)} />
+                                    <EditNote />
                                 </td>
                             </tr>
                         </tbody>
@@ -112,8 +94,8 @@ function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        selectedNote: state.noteData.selectedNote
-    };    
+        tags: state.tagData.tags
+    };
     console.log('STATE: ', state, newState);
 
     return newState;
@@ -124,9 +106,5 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(noteActions, dispatch)
     };
 }
-
-// Note list in middle column
-// export const NoteContainer = connect(mapStateToProps, mapDispatchToProps)(NoteList);
-// export const AddNoteContainer = connect(mapStateToProps, mapDispatchToProps)(AddNote);
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);

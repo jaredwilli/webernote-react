@@ -33,6 +33,7 @@ export default function notebookReducer(state = {}, action) {
                     return notebooks[k];
                 });
             }
+
             return newState;
         }
 
@@ -71,6 +72,7 @@ export default function notebookReducer(state = {}, action) {
             
             newState.notebook = state.notebook;
             newState.selectedNotebook = notebook;
+            
             return newState;
         }
 
@@ -103,9 +105,41 @@ export default function notebookReducer(state = {}, action) {
                 notebook[id].id = id;
                 state.notebooks.push(notebook[id]);
             }
+
             newState.notebooks = state.notebooks;
+            newState.selectedNotebook = notebook;
             return newState;
         }
+        
+        // *** SELECT NOTEBOOKS
+        /* case types.SelectNotebookRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.SelectNotebookRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error selecting notebook'
+            });
+        }
+        
+        case types.SelectNotebookFulfilled: {
+            const notebook = action.notebook[0];
+
+            action.selectedNote.notebook = notebook.name;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Selected notebook'
+            });
+
+            newState.selectedNotebook = action.selectedNotebook;
+            return newState;
+        } */
         
         default: 
             return state;

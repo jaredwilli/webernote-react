@@ -23,7 +23,7 @@ export function getNotes() {
     }
 }
 
-export function getNote(id) {
+/* export function getNote(id) {
     return (dispatch, getState) => {
         dispatch(getNoteRequestedAction());
         
@@ -39,7 +39,7 @@ export function getNote(id) {
         dispatch(getNoteFulfilledAction(note));
     }
 }
-
+ */
 export function addNote(note) {
     return (dispatch) => {
         dispatch(addNoteRequestedAction());
@@ -62,7 +62,7 @@ export function addNote(note) {
     }
 }
 
-export function editNote(note, notebook = null) {
+export function editNote(note, obj = null) {
     return dispatch => {
         dispatch(editNoteRequestedAction());
 
@@ -70,20 +70,41 @@ export function editNote(note, notebook = null) {
             dispatch(editNoteRejectedAction());
             return;
         }
-        
-        // if notebook value has changed update note
-        if (notebook && notebook.name !== note.notebook) {
-            note.notebook = notebook.name;
+
+
+        if (obj) {
+            // If notebook not null and value has changed update the notes notebook only
+            if (obj.notebook && obj.notebook.name !== note.notebook) {
+                // update the notebook of the note
+                database.ref('/notes/' + note.id + '/notebook/')
+                    .set(obj.notebook.name)
+                    .then(dispatch(editNoteFulfilledAction(note, obj)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(editNoteRejectedAction());
+                    });
+            } 
+            else if (obj.tags && obj.tags !== note.tags) {
+                // update the tags of the note
+                database.ref('/notes/' + note.id + '/tags/')
+                    .set(obj.tags)
+                    .then(dispatch(editNoteFulfilledAction(note, obj)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(editNoteRejectedAction());
+                    });
+            }
         }
-
-        const noteRef = database.ref('/notes/' + note.id);
-
-        noteRef.update(note)
-            .then(dispatch(editNoteFulfilledAction(note)))
-            .catch((error) => {
-                console.error(error);
-                dispatch(editNoteRejectedAction());
-            });
+        else {
+            // Update the rest of the note data if not editing notebook
+            database.ref('/notes/' + note.id)
+                .update(note)
+                .then(dispatch(editNoteFulfilledAction(note)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
+        }
     }
 }
 
@@ -103,15 +124,16 @@ export function deleteNote(id) {
     }
 }
 
-export function selectNote(id) {
+export function selectNote(note) {
     return (dispatch, getState) => {
         dispatch(selectNoteRequestedAction());
-        
-        const note = getState().noteData.notes.filter(function(n) {
-            return n.id = id;
-        });
+        const currentNotes = getState().noteData.notes;
 
-        database.ref('/notes/' + id + '/isEditing/')
+        note = currentNotes.filter(function(n) {
+            return n.id === note.id;
+        })[0];
+
+        database.ref('/notes/' + note.id + '/isEditing/')
             .set(true)
             .then(dispatch(selectNoteFulfilledAction(note)))
             .catch((error) => {
@@ -124,22 +146,19 @@ export function selectNote(id) {
 export function resetSelectedNote() {
     return (dispatch, getState) => {
         dispatch(resetSelectedNoteRequestedAction());
+        const notes = getState().noteData.notes;
 
-        const prevSelected = getState().noteData.notes.filter(function(n) {
-            return n.isEditing;
-        })[0];
-        
-        if (prevSelected) {
-            prevSelected.isEditing = false;
-
-            database.ref('/notes/' + prevSelected.id + '/isEditing/')
-                .set(false)
-                .then(dispatch(resetSelectedNoteFulfilledAction()))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(resetSelectedNoteRejectedAction());
-                });
-        }
+        const note = notes.forEach((n) => {
+            if (n.isEditing) {
+                database.ref('/notes/' + n.id + '/isEditing/')
+                    .set(false)
+                    .then(dispatch(resetSelectedNoteFulfilledAction(n)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(resetSelectedNoteRejectedAction());
+                    });
+            }
+        });
     }
 }
 
@@ -161,7 +180,7 @@ function getNotesFulfilledAction(notes) {
 /**
  * Get Note
  */
-function getNoteRequestedAction() {
+/* function getNoteRequestedAction() {
     return { type: types.GetNoteRequested };
 }
 
@@ -171,7 +190,7 @@ function getNoteRejectedAction() {
 
 function getNoteFulfilledAction(note) {
     return { type: types.GetNoteFulfilled, note };
-}
+} */
 
 /**
  * Add Note
@@ -199,8 +218,8 @@ function editNoteRejectedAction() {
     return { type: types.EditNoteRejected };
 }
 
-function editNoteFulfilledAction(note) {
-    return { type: types.EditNoteFulfilled, note };
+function editNoteFulfilledAction(note, obj) {
+    return { type: types.EditNoteFulfilled, note, obj };
 }
 
 /**
@@ -244,6 +263,6 @@ function resetSelectedNoteRejectedAction() {
     return { type: types.ResetSelectedNoteRejected };
 }
 
-function resetSelectedNoteFulfilledAction() {
-    return { type: types.ResetSelectedNoteFulfilled };
+function resetSelectedNoteFulfilledAction(note) {
+    return { type: types.ResetSelectedNoteFulfilled, note };
 }

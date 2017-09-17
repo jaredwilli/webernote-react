@@ -7,6 +7,7 @@ import configureStore from './store/index';
 
 import { getNotes } from './actions/noteActions';
 import { getNotebooks } from './actions/notebookActions';
+import { getTags } from './actions/tagActions';
 
 import NotesContainer from './containers/notesContainer';
 import './index.css';
@@ -20,6 +21,7 @@ export default class WebernoteApp extends React.PureComponent {
         this.store = configureStore;
         this.store.dispatch(getNotes());
         this.store.dispatch(getNotebooks());
+        this.store.dispatch(getTags());
     }
 
     render() {

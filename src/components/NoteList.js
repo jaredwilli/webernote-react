@@ -12,33 +12,19 @@ class NoteList extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.getNote = this.getNote.bind(this);
+        this.selectNote = this.selectNote.bind(this);
+        this.deleteNote = this.deleteNote.bind(this);
+
         this.filterList = this.filterList.bind(this);
         this.setFilterType = this.setFilterType.bind(this);
         this.filterByNotebook = this.filterByNotebook.bind(this);
 
         this.state = {
             searchTerm: '',
-            filterType: '',
-            notes: this.props.notes,
-            currentNotes: this.props.notes,
-            selectedNote: this.props.selectedNote
+            filterType: ''
         };
     }
     
-    getInitialState() {
-        return {
-            currentNotes: this.props.notes,
-            notes: []
-        }
-    }
-
-    componentWillMount() {
-        this.setState({
-            notes: this.state.initialNotes
-        });
-    }
-
     filterByNotebook(e) {
         let filterNotebook = e.target.value
     }
@@ -66,9 +52,16 @@ class NoteList extends Component {
         });
     }
 
-    getNote(e, id) {
+    selectNote(e, note) {
         if (e.target.className === 'delete') return;
-        this.props.getNote(id);
+
+        this.props.actions.resetSelectedNote();
+        this.props.actions.selectNote(note);
+    }
+
+    deleteNote(id) {
+        this.props.actions.deleteNote(id);
+        this.props.actions.getNotes();
     }
     
     render() {
@@ -106,8 +99,8 @@ class NoteList extends Component {
                 
                 <div id="notes">
                     <Note notes={this.props.notes} 
-                        getNote={(e, id) => this.getNote(e, id)}
-                        deleteNote={(id) => this.props.deleteNote(id)} />
+                        selectNote={(e, id) => this.selectNote(e, id)}
+                        deleteNote={(id) => this.deleteNote(id)} />
                 </div>
             </div>
         );

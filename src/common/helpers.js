@@ -7,7 +7,10 @@ export function formatDate(timeStamp) {
 
 export function sortNotes(notes) {
     notes.sort((a, b) => {
-        return new Date(a.modified_date).getTime() - new Date(b.modified_date).getTime();
+        let aDate = a.created_date; // (a.modified_date !== '') ? a.modified_date : a.created_date;
+        let bDate = b.created_date; // (b.modified_date !== '') ? b.modified_date : b.created_date;
+
+        return new Date(aDate).getTime() - new Date(bDate).getTime();
     }).reverse();
     return notes;
 }
@@ -24,8 +27,9 @@ export function getNotebookCount(notes, notebook) {
 
 export function getTagCount(notes, tag) {
     let count = 0;
+
     notes.forEach(function(c) {
-        if (c.notebook === tag.name) {
+        if (c.tags === tag.name) {
             count++;
         }
     });

@@ -20,23 +20,32 @@ export default function noteReducer(state = {}, action) {
 
         case types.GetNotesFulfilled: {
             const notes = action.notes;
-            
+            let selectedNote = '';
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got notes'
             });
             
             if (notes) {
+                // Get keys and set id for each note and set selectedNote
                 newState.notes = Object.keys(notes).map(function(k) {
                     notes[k].id = k;
+
+                    if (notes[k].isEditing) {
+                        selectedNote = notes[k];
+                    }
+
                     return notes[k];
                 });
             }
+            
+            newState.selectedNote = selectedNote;
             return newState;
         }
 
         // *** GET NOTE
-        case types.GetNoteRequested: {
+        /* case types.GetNoteRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -55,7 +64,6 @@ export default function noteReducer(state = {}, action) {
             const note = action.note;
 
             if (note) {
-                note.isEditing = true;
                 state.notes.filter(function(n) {
                     if (n.id === note.id) {
                         n = note;
@@ -66,13 +74,13 @@ export default function noteReducer(state = {}, action) {
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Got note'
+                success: 'Got note: ' + note.title
             });
             
             newState.notes = state.notes;
             newState.selectedNote = note;
             return newState;
-        }
+        } */
 
         // *** ADD NOTE
         case types.AddNoteRequested: {
@@ -96,7 +104,6 @@ export default function noteReducer(state = {}, action) {
 
             if (id) {
                 note[id].id = id;
-                note[id].isEditing = true;
                 state.notes.push(note[id]);
             }
             
@@ -128,11 +135,22 @@ export default function noteReducer(state = {}, action) {
         
         case types.EditNoteFulfilled: {
             const note = action.note;
+            const obj = action.obj;
             
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Edited note'
             });
+
+            // If notebook changed update selectedNote notebook
+            if (obj && obj.notebook) {
+                note.notebook = obj.notebook.name;
+            }
+
+            // If tags changed update selectedNote tags
+            if (obj && obj.tags) {
+                note.tags = obj.tags;
+            }
 
             newState.selectedNote = note;
             return newState;
@@ -156,6 +174,7 @@ export default function noteReducer(state = {}, action) {
         
         case types.DeleteNoteFulfilled: {
             const note = action.note;
+            
             return Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
@@ -177,16 +196,17 @@ export default function noteReducer(state = {}, action) {
                 error: 'Error selecting note'
             });
         }
-        
+
         case types.SelectNoteFulfilled: {
-            const note = action.notes;
+            const note = action.note;
+            note.isEditing = true;
             
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Note selected'
+                success: 'Note selected: ' + note.title
             });
-
-            debugger
+            
+            newState.selectedNote = note;
             return newState;
         }
         
@@ -207,10 +227,16 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.ResetSelectedNoteFulfilled: {
-            return Object.assign({}, state, {
+            const note = action.note;
+            note.isEditing = false;
+
+            const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Reset selected note'
+                success: 'Reset selected note' + note.title
             });
+
+            newState.selectedNote = '';
+            return newState;
         }
 
         default: 

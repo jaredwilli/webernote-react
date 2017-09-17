@@ -21,13 +21,12 @@ export function getNotebook(notebook) {
     return dispatch => {
         dispatch(getNotebookRequestedAction());
         
-        debugger
         dispatch(getNotebookFulfilledAction(notebook));
     }
 }
 
 export function addNotebook(notebook) {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(addNotebookRequestedAction());
 
         return database.ref('/notebooks')
@@ -38,6 +37,7 @@ export function addNotebook(notebook) {
                 notebook.once('value', snap => {
                     notebook = {};
                     notebook[id] = snap.val();
+                    
                     dispatch(addNotebookFulfilledAction(notebook));
                 });
             })
@@ -62,15 +62,17 @@ export function editNotebook(notebook, note) {
     }
 }
 
-export function selectNotebook(notebook) {
+/* export function selectNotebook(notebook, selectedNote) {
     return (dispatch, getState) => {
+        dispatch(selectNotebookRequestedAction());
 
-        const notebook = getState().notebookData.notebooks.filter(function(n) {
-            debugger
-            return n.id = notebook.id;
+        const book = getState().notebookData.notebooks.filter(function(n) {
+            return n.id === notebook.id;
         });
+
+        dispatch(selectNotebookFulfilledAction(book, selectedNote));
     }
-}
+} */
 
 /**
  * Get Notebooks
@@ -131,3 +133,18 @@ function editNotebookRejectedAction() {
 function editNotebookFulfilledAction(notebook) {
     return { type: types.EditNotebookFulfilled, notebook };
 }
+
+/**
+ * Select Notebook
+ */
+/* function selectNotebookRequestedAction() {
+    return { type: types.SelectNotebookRequested };
+}
+
+function selectNotebookRejectedAction() {
+    return { type: types.SelectNotebookRejected };
+}
+
+function selectNotebookFulfilledAction(notebook, selectedNote) {
+    return { type: types.SelectNotebookFulfilled, notebook, selectedNote };
+} */

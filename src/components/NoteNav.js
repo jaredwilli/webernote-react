@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import * as notebookActions from '../actions/notebookActions';
+import * as tagActions from '../actions/tagActions';
 
 import { getNotebookCount, getTagCount } from '../common/helpers.js';
 
 class NoteNav extends React.Component {
     constructor(props) {
         super(props);
-
     }
-
+    
     /* function toggleExpanded(expanded) {
         if (this.props.notebooks.length > 0) {
             expanded = 'expanded';
@@ -19,12 +20,14 @@ class NoteNav extends React.Component {
     } */
 
     render() {
-        const { notebooks } = this.props;
-        let notebookItems = '';
+        const { notebooks, tags } = this.props;
+
+        // NOTEBOOKS MENU
         let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
+        let notebookItems = '';
 
         if (notebooks && notebooks.length) {
-            notebookItems = notebooks.map((notebook) =>
+            notebookItems = notebooks.map((notebook) => 
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
                         <span className="name">{notebook.name}</span>
@@ -34,9 +37,9 @@ class NoteNav extends React.Component {
             );
         }
         
-        const { tags } = this.props;
-        let tagItems = '';
+        // TAGS MENU
         let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
+        let tagItems = '';
 
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
@@ -62,7 +65,6 @@ class NoteNav extends React.Component {
 
                 </ul>
                 <ul id="tags">
-                    
                     <li className={expandTagsMenu}>
                         <span>Tags</span>
                         <ul className="tags">
@@ -79,7 +81,8 @@ class NoteNav extends React.Component {
 function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
-        notebooks: state.notebookData.notebooks
+        notebooks: state.notebookData.notebooks,
+        tags: state.tagData.tags
     };
     console.log('STATE: ', state, newState);
 
@@ -88,7 +91,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(notebookActions, dispatch)
+        actions: bindActionCreators(notebookActions, tagActions, dispatch)
     };
 }
 

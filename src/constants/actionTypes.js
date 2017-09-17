@@ -51,6 +51,11 @@ export const DeleteNotebookRequested = 'DELETE_NOTEBOOK_REQUESTED';
 export const DeleteNotebookRejected = 'DELETE_NOTEBOOK_REJECTED';
 export const DeleteNotebookFulFilled = 'DELETE_NOTEBOOK_FULFILLED';
 
+export const SelectNotebookRequested = 'SELECT_NOTEBOOK_REQUESTED';
+export const SelectNotebookRejected = 'SELECT_NOTEBOOK_REJECTED';
+export const SelectNotebookFulfilled = 'SELECT_NOTEBOOK_FULFILLED';
+
+
 /* TAGS */
 
 export const GetTagsRequested = 'GET_TAGS_REQUESTED';
@@ -72,3 +77,7 @@ export const EditTagFulfilled = 'EDIT_TAG_FULFILLED';
 export const DeleteTagRequested = 'DELETE_TAG_REQUESTED';
 export const DeleteTagRejected = 'DELETE_TAG_REJECTED';
 export const DeleteTagFulFilled = 'DELETE_TAG_FULFILLED';
+
+export const SelectTagRequested = 'SELECT_TAG_REQUESTED';
+export const SelectTagRejected = 'SELECT_TAG_REJECTED';
+export const SelectTagFulfilled = 'SELECT_TAG_FULFILLED';
