@@ -44,16 +44,16 @@ class EditNote extends React.Component {
         this.props.actions.editNote(note, { notebook: notebook });
     }
     
-    editTags(tags) {
+    editTags(tag) {
         let note = this.props.selectedNote;
 
         this.setState({
             selectedNote: note
         });
 
-        console.log('tags: ', tags);
+        console.log('tag: ', tag);
         
-        this.props.actions.editNote(note, { tags: tags });
+        this.props.actions.editNote(note, { tag: tag });
     }
 
     render() {

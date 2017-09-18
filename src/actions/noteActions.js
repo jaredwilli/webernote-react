@@ -63,14 +63,16 @@ export function addNote(note) {
 }
 
 export function editNote(note, obj = null) {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
+
+        let currentState = getState();
+
 
         if (!note) {
             dispatch(editNoteRejectedAction());
             return;
         }
-
 
         if (obj) {
             // If notebook not null and value has changed update the notes notebook only
@@ -84,15 +86,44 @@ export function editNote(note, obj = null) {
                         dispatch(editNoteRejectedAction());
                     });
             }
-            else if (obj.tags && obj.tags !== note.tags) {
-                // update the tags of the note
-                database.ref('/notes/' + note.id + '/tags/')
-                    .set(obj.tags)
-                    .then(dispatch(editNoteFulfilledAction(note, obj)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(editNoteRejectedAction());
-                    });
+
+            else if (obj.tag && obj.tag !== note.tags) {
+                let noteTagsRef = database.ref('/notes/' + note.id + '/tags/');
+
+                if (!note.tags) {
+                    noteTagsRef
+                        .push(obj.tag[0])
+                        .then((note, tag) => {
+                            const id = tag.key;
+
+                            database.ref('/notes/' + note.id).once('value', snap => {
+                                let t = {};
+                                t[id] = snap.val();
+                                
+                                dispatch(editNoteFulfilledAction(note, t));
+                            });
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            dispatch(editNoteRejectedAction());
+                        });
+
+                } else {
+                    // update the tags of the note
+                    noteTagsRef.once('value', snap => {
+                        const tags = snap.val();
+                        debugger
+            
+                        // dispatch(getNotesFulfilledAction(notes));
+                    })
+                    // noteTagsRef
+                    //     .update(obj.tags)
+                    //     .then(dispatch(editNoteFulfilledAction(note, obj)))
+                    //     .catch((error) => {
+                    //         console.error(error);
+                    //         dispatch(editNoteRejectedAction());
+                    //     });
+                }
             }
         }
         else {

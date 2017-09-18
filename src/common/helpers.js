@@ -40,8 +40,8 @@ export function getTags(noteTags) {
     let tags = [];
 
     if (noteTags) {
-        noteTags.forEach((tag) => {
-            tags.push(tag.label);
+        Object.keys(noteTags).forEach((i) => {
+            tags.push(noteTags[i].label);
         });
         tags = tags.join(', ');
     }

@@ -30,6 +30,7 @@ export function addTag(tag) {
     return dispatch => {
         dispatch(addTagRequestedAction());
 
+        // Remove these fields
         delete tag[0].className;
         delete tag[0].value;
 

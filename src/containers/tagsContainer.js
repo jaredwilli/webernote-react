@@ -20,7 +20,7 @@ class TagsContainer extends React.PureComponent {
 
         if (tag && tag[0].className === 'Select-create-option-placeholder') {
             this.props.actions.addTag(tag);
-            this.props.actions.getTags();
+            this.props.actions.editTags(tag);
         } else if (tag && !tag[0].className) {
             this.props.editTags(tag, tags);
         } else {
