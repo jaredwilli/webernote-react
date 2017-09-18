@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, sortNotes } from '../common/helpers';
+import { formatDate, sortNotes, getTags } from '../common/helpers';
 
 function Note(props) {
     const notes = props.notes;
@@ -15,7 +15,7 @@ function Note(props) {
             <div className="note">No notes yet.</div>
         );
     }
-
+    
     const note = sortNotes(notes).map((note) => 
         <li className={(note.isEditing) ? 'note selected' : 'note'} 
             key={note.id} id={note.id} 
@@ -23,8 +23,10 @@ function Note(props) {
             <button className="delete" onClick={() => props.deleteNote(note.id)}>X</button>
             <h2 className="title">{note.title}</h2>
             <p>
-                <span className="date">{formatDate((note.modified_date) ? note.modified_date : note.created_date)}</span>
-                <span className="tag-item">{note.tags}</span>
+                <span className="date">
+                    {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
+                </span>
+                {getTags(note.tags)}
                 <span className="description">{note.description}</span>
             </p>
         </li>

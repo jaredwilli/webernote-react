@@ -51,6 +51,8 @@ class EditNote extends React.Component {
             selectedNote: note
         });
 
+        console.log('tags: ', tags);
+        
         this.props.actions.editNote(note, { tags: tags });
     }
 
@@ -63,7 +65,7 @@ class EditNote extends React.Component {
                 <div className="show-note"></div>
             );
         }
-        
+
         return (
             <div id="show-note">
                 <form>
@@ -80,6 +82,7 @@ class EditNote extends React.Component {
                             value={selectedNote.url} 
                             onChange={(e) => this.editNote(e)} />
                         <TagsContainer 
+                            tags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />
                     </div>
                     <div className="bottom">

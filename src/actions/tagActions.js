@@ -30,10 +30,19 @@ export function addTag(tag) {
     return dispatch => {
         dispatch(addTagRequestedAction());
 
+        delete tag[0].className;
+        delete tag[0].value;
+
         return database.ref('/tags')
-            .push(tag)
+            .push(tag[0])
             .then((tag) => {
-                dispatch(addTagFulfilledAction(tag));
+                const id = tag.key;
+                
+                tag.once('value', snap => {
+                    tag = {};
+                    tag[id] = snap.val();
+                    dispatch(addTagFulfilledAction(tag));
+                });
             })
             .catch((error) => {
                 console.error(error);
@@ -42,12 +51,12 @@ export function addTag(tag) {
     }
 }
 
-export function editTag(tag, note) {
+export function editTag(tag) {
     return dispatch => {
         dispatch(editTagRequestedAction());
 
-        return database.ref('/notes/' + note.id + '/tag')
-            .set(tag.name)
+        return database.ref('/tags/' + tag.id)
+            .set(tag.label)
             .then((tag) => {
                 dispatch(editTagFulfilledAction(tag));
             })

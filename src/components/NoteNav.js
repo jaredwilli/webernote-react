@@ -43,9 +43,9 @@ class NoteNav extends React.Component {
 
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
-                <li key={tag.id} id={tag.id}>
-                    <a href={'#/' + tag.name}>
-                        <span className="name">{tag.name}</span>
+                <li key={tag.value} value={tag.value}>
+                    <a href={'#/' + tag.label}>
+                        <span className="name">{tag.label}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(this.props.notes, tag)}</span>
                 </li>

@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Select, { Creatable } from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import * as tagActions from '../actions/tagActions';
 
 class TagsContainer extends React.PureComponent {
@@ -9,45 +12,44 @@ class TagsContainer extends React.PureComponent {
         super(props);
 
         this.editTags = this.editTags.bind(this);
+        this.logChange = this.logChange.bind(this);
     }
 
-    editTags(e) {
-        // let tags = this.props.tags;
+    editTags(tag) {
+        let tags = this.props.tags;
 
-        // this.setState({
-        //     tags: tags
-        // });
+        if (tag && tag[0].className === 'Select-create-option-placeholder') {
+            this.props.actions.addTag(tag);
+            this.props.actions.getTags();
+        } else if (tag && !tag[0].className) {
+            this.props.editTags(tag, tags);
+        } else {
+            // this.props.deleteTag(tag);
+        }
+    }
 
-        // this.props.editTags(tags);
+
+    logChange(val) {
+        console.log("Selected: " + JSON.stringify(val));
     }
 
     render() {
-        debugger
-        if (!this.props.tags) {
+        const { selectedNote, tags } = this.props;
+
+        if (!tags) {
             return <div className="loading">Loading...</div>;
         }
-
         
-        // Show add tag input if selected add tag
-        // if (this.props.addTag) {
-        //     return (
-        //         <span>
-        //             <button className="cancel-new" onClick={() => this.setState({ addTag: false })}>x</button>
-        //             <input type="text" name="tag" className="new-tag" placeholder="Tag name..."
-        //                 onBlur={this.addTag} />
-        //         </span>
-        //     );
-        // }
-
+        console.log(selectedNote.tags);
+        
         return (
-            // <select name="tag" className="tag" 
-            //     value={this.props.tag}
-            //     onChange={(e) => this.editTag(e)}>
-            //     {tagOptions}
-            //     {addNoteBookOption}
-            // </select>
-            <input type="text" className="tag" name="tags" placeholder="Click to add tag..." 
-                value={this.props.selectedNote.tags} 
+            <Creatable
+                className="tags"
+                name="form-field-name"
+                multi
+                noResultsText="Click to add tag..."
+                value={selectedNote.tags}
+                options={tags}
                 onChange={(e) => this.editTags(e)} />
         );
     }

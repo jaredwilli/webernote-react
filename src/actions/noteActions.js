@@ -83,7 +83,7 @@ export function editNote(note, obj = null) {
                         console.error(error);
                         dispatch(editNoteRejectedAction());
                     });
-            } 
+            }
             else if (obj.tags && obj.tags !== note.tags) {
                 // update the tags of the note
                 database.ref('/notes/' + note.id + '/tags/')

@@ -35,3 +35,15 @@ export function getTagCount(notes, tag) {
     });
     return count
 }
+
+export function getTags(noteTags) {
+    let tags = [];
+
+    if (noteTags) {
+        noteTags.forEach((tag) => {
+            tags.push(tag.label);
+        });
+        tags = tags.join(', ');
+    }
+    return tags;    
+}

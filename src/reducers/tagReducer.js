@@ -30,6 +30,7 @@ export default function tagReducer(state = {}, action) {
             if (tags) {
                 newState.tags = Object.keys(tags).map(function(k) {
                     tags[k].id = k;
+                    tags[k].value = k;
                     return tags[k];
                 });
             }
@@ -103,11 +104,11 @@ export default function tagReducer(state = {}, action) {
 
             if (id) {
                 tag[id].id = id;
+                tag[id].value = id;
                 state.tags.push(tag[id]);
             }
 
             newState.tags = state.tags;
-            newState.selectedTag = tag;
             return newState;
         }
         

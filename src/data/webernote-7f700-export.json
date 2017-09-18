@@ -36,7 +36,7 @@
 			"isEditing": false,
 			"modified_date": 1367034106843,
 			"notebook": "React",
-			"tags": "firebase",
+			"tags": "",
 			"title": "It's updates the data in REAL TIME!!!",
 			"url": ""
 		},
@@ -60,7 +60,7 @@
 			"isEditing": false,
 			"modified_date": 1503929694807,
 			"notebook": "React",
-			"tags": "react, redux, firebase, es6",
+			"tags": "",
 			"title": "About Webernote (v3)",
 			"url": ""
 		},
@@ -95,7 +95,7 @@
 			"isEditing": false,
 			"modified_date": 1504577643681,
 			"notebook": "Redux",
-			"tags": "react",
+			"tags": "",
 			"title": "Testing notes dude. i kinda dont know",
 			"url": "google.com"
 		},
@@ -122,25 +122,24 @@
 	},
 	"tags": {
         "-Isyb7Z64-e_Ryseqh-Lp": {
-            "count": 2,
-			"name": "react"
+            "value": "-Isyb7Z64-e_Ryseqh-Lp",
+            "label": "react"
 		},
 		"-seyb7Z64-e_Ryseqh-Lp": {
-            "name": "redux",
-            "count": 1
+            "value": "-seyb7Z64-e_Ryseqh-Lp",
+            "label": "redux"
 		},
 		"-seyb7Z64-e_Ryh-996Lp": {
-            "name": "firebase",
-            "count": 2
+            "value": "-seyb7Z64-e_Ryh-996Lp",
+            "label": "firebase"
 		},
 		"-sey33764-e_Ryseqh-Lp": {
-            "name": "es6",
-            "count": 1
-		}
+            "value": "-sey33764-e_Ryseqh-Lp",
+            "label": "es6"
 		},
 		"-sey33764-e_Ryseqh-Lp": {
-            "name": "javascript",
-            "count": 1
+            "value": "-sey33764-e_Ryseqh-Lp",
+            "label": "javascript"
 		}
 	}
 }

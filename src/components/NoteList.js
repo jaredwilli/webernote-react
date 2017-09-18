@@ -94,7 +94,8 @@ class NoteList extends Component {
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
                     
-                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} />
+                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} 
+                        canAddNotebook={false} />
                 </div>
                 
                 <div id="notes">

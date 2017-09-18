@@ -600,8 +600,7 @@ STRUCTURE
 
 #show-note input.title,
 #show-note .new-notebook,
-#show-note input.url,
-#show-note input.tag {
+#show-note input.url {
 	border: 1px solid rgb(238, 238, 238);
 	padding: 5px;
 }
@@ -652,15 +651,22 @@ STRUCTURE
 }
 
 #show-note input.url,
-#show-note input.tag {
+#show-note .tags {
+    display: inline-block;
     width: 46%;
-	margin: 0 4px 0 0;
+    margin: 0 4px 0 0;
 	border: 1px solid rgb(190, 202, 213);
 }
 
-#show-note input.tag {
-    width: 48.145678%;
-	margin: 0;
+#show-note input.url {
+    font-size: 14px;
+    padding: 7px 5px;
+}
+
+#show-note .tags {
+    width: 50.145678%;
+    margin: 0;
+	vertical-align: top;
 }
 
 #show-note select {
@@ -672,22 +678,22 @@ STRUCTURE
     vertical-align: top;
 }
 
-#show-note .description {
+#show-note textarea,
+#show-note textarea:active {
+    border: 0;
+    font-size: 13px;
+    padding: 5px;
+    width: 98.5%;
+    height: 550px;
+    resize: none;
+}
+
+#show-note textarea.description {
 	border: 0;
 	padding: 5px;
 	width: 98%;
 	min-height: 87%;
 	white-space: pre-line;
-}
-
-#show-note textarea,
-#show-note textarea:active {
-    border: 0;
-    font-size: 13px;
-	padding: 5px;
-	width: 98.5%;
-    height: 550px;
-    resize: none;
 }
 
 #show-note .tagit {
@@ -709,6 +715,22 @@ STRUCTURE
 }
 
 
+
+
+
+/* Select2 Styles */
+
+.Select-control {
+    border-radius: 0;
+    border: 0;
+    height: 32px;
+    display: block;
+}
+
+.Select-placeholder, 
+.Select--single > .Select-control .Select-value {
+    line-height: 30px;
+}
 
 
 /************************************/
