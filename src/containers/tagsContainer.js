@@ -15,16 +15,17 @@ class TagsContainer extends React.PureComponent {
         this.logChange = this.logChange.bind(this);
     }
 
-    editTags(tag) {
-        let tags = this.props.tags;
+    editTags(tags) {
+        let allTags = this.props.tags;
 
-        if (tag && tag[0].className === 'Select-create-option-placeholder') {
-            this.props.actions.addTag(tag);
-            this.props.actions.editTags(tag);
-        } else if (tag && !tag[0].className) {
-            this.props.editTags(tag, tags);
-        } else {
-            // this.props.deleteTag(tag);
+        if (tags.length) {
+            tags.forEach((tag) => {
+                if (tag.className) {
+                    this.props.actions.addTag(tag);
+                }
+            });
+
+            this.props.editTags(tags);
         }
     }
 

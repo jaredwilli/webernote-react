@@ -15,19 +15,12 @@
 		"-KsfWKXcJKrD2CKzItNd": {
 			"id": "-KsfWKXcJKrD2CKzItNd",
 			"name": "React"
+		},
+		"-KuKL1oqxvGQQLiQqlLN": {
+			"name": "test"
 		}
 	},
 	"notes": {
-        "-IsybGXJ-Cu9VebnSJ6h": {
-            "created_date": 1366850082964,
-            "description": "First note FTW!!",
-            "id": "-IsybGXJ-Cu9VebnSJ6h",
-            "modified_date": 1366850082964,
-            "notebook": "General",
-            "tags": "",
-            "title": "Hello world!",
-            "url": "http://webernote.surge.sh/"
-        },
 		"-Isyb7Z64-e_RyTth-Lp": {
 			"created_date": 1366850046215,
 			"description":
@@ -39,6 +32,16 @@
 			"tags": "",
 			"title": "It's updates the data in REAL TIME!!!",
 			"url": ""
+		},
+		"-IsybGXJ-Cu9VebnSJ6h": {
+			"created_date": 1366850082964,
+			"description": "First note FTW!!",
+			"id": "-IsybGXJ-Cu9VebnSJ6h",
+			"modified_date": 1366850082964,
+			"notebook": "General",
+			"tags": "",
+			"title": "Hello world!",
+			"url": "http://webernote.surge.sh/"
 		},
 		"-IsyqBRhFxyfC6dbNEAr": {
 			"created_date": 1366853994283,
@@ -81,7 +84,7 @@
 			"description":
 				"- Should the most recently edited not pop up to the top of the list in the middle column?\n\n- Should line breaks be represented in the middle column preview of description?  \n\n- Should add Note button scroll the middle column to top to show the newly added note?\n\n",
 			"id": "-KtES-dwYtFdCafTYmkT",
-			"isEditing": true,
+			"isEditing": false,
 			"modified_date": 1504579913250,
 			"notebook": "General",
 			"title": "Questions about the UX",
@@ -118,28 +121,46 @@
 			"notebook": "General",
 			"title": "Untitled note...",
 			"url": ""
+		},
+		"-KuJvPNYObYKghl-S3LV": {
+			"created_date": 1505737146483,
+			"description": "",
+			"id": "-KuJvPNYObYKghl-S3LV",
+			"isEditing": false,
+			"modified_date": 1505744141238,
+			"notebook": "My Notebook",
+			"title": "Tags are working!!!",
+			"url": " "
+		},
+		"-KuLFnBUjuMSA56R-QMm": {
+			"created_date": 1505755779485,
+			"description": "",
+			"isEditing": true,
+			"modified_date": "",
+			"notebook": "General",
+			"tags": {
+				"-KuMWAWnO8uPHp7r2g7w": {
+					"id": "-Isyb7Z64-e_Ryseqh-Lp",
+					"label": "react",
+					"value": "-Isyb7Z64-e_Ryseqh-Lp"
+				}
+			},
+			"title": "Untitled note...",
+			"url": ""
 		}
 	},
 	"tags": {
-        "-Isyb7Z64-e_Ryseqh-Lp": {
-            "value": "-Isyb7Z64-e_Ryseqh-Lp",
-            "label": "react"
-		},
-		"-seyb7Z64-e_Ryseqh-Lp": {
-            "value": "-seyb7Z64-e_Ryseqh-Lp",
-            "label": "redux"
+		"-Isyb7Z64-e_Ryseqh-Lp": {
+			"label": "react",
+			"value": "-Isyb7Z64-e_Ryseqh-Lp"
 		},
 		"-seyb7Z64-e_Ryh-996Lp": {
-            "value": "-seyb7Z64-e_Ryh-996Lp",
-            "label": "firebase"
+			"label": "firebase",
+			"value": "-seyb7Z64-e_Ryh-996Lp"
 		},
-		"-sey33764-e_Ryseqh-Lp": {
-            "value": "-sey33764-e_Ryseqh-Lp",
-            "label": "es6"
-		},
-		"-sey33764-e_Ryseqh-Lp": {
-            "value": "-sey33764-e_Ryseqh-Lp",
-            "label": "javascript"
+		"-seyb7Z64-e_Ryseqh-Lp": {
+			"label": "redux",
+			"value": "-seyb7Z64-e_Ryseqh-Lp"
 		}
 	}
 }

@@ -21,7 +21,7 @@ export function getTag(tag) {
     return dispatch => {
         dispatch(getTagRequestedAction());
         
-        debugger
+        // debugger
         dispatch(getTagFulfilledAction(tag));
     }
 }
@@ -31,11 +31,11 @@ export function addTag(tag) {
         dispatch(addTagRequestedAction());
 
         // Remove these fields
-        delete tag[0].className;
-        delete tag[0].value;
+        delete tag.className;
+        delete tag.value;
 
         return database.ref('/tags')
-            .push(tag[0])
+            .push(tag)
             .then((tag) => {
                 const id = tag.key;
                 

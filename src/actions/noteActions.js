@@ -68,7 +68,6 @@ export function editNote(note, obj = null) {
 
         let currentState = getState();
 
-
         if (!note) {
             dispatch(editNoteRejectedAction());
             return;
@@ -86,44 +85,41 @@ export function editNote(note, obj = null) {
                         dispatch(editNoteRejectedAction());
                     });
             }
+            else if (obj.tags && obj.tags.length) {
+                const selectedNoteTags = currentState.noteData.notes.tags;
+                const noteRef = database.ref('/notes/' + note.id);
 
-            else if (obj.tag && obj.tag !== note.tags) {
-                let noteTagsRef = database.ref('/notes/' + note.id + '/tags/');
+                // Check if tag exists in note.tags
+                /* var tags = [];
+                noteRef.child('/tags/').on('value', function(snap) {
+                    snap.forEach(function(tag) {
+                        tags.push(tag.val());
+                    });
+                    console.log('There are ' + tags.length + ' tags');
+                }); */
 
-                if (!note.tags) {
-                    noteTagsRef
-                        .push(obj.tag[0])
-                        .then((note, tag) => {
-                            const id = tag.key;
+                // noteRef.child('/tags').once('value', (snap) => {
+                //     const tags = snap.val();
+                //     debugger
+                // });
 
-                            database.ref('/notes/' + note.id).once('value', snap => {
-                                let t = {};
-                                t[id] = snap.val();
-                                
-                                dispatch(editNoteFulfilledAction(note, t));
-                            });
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });
+                // TODO: Need to only add new and unique tags to the note
+                obj.tagList = [];
+                obj.tags.forEach((tag) => {
+                    let tagsRef = noteRef.child('/tags').push();
+                    tag.id = tagsRef.key;
+                    tag.value = tagsRef.key;
 
-                } else {
-                    // update the tags of the note
-                    noteTagsRef.once('value', snap => {
-                        const tags = snap.val();
-                        debugger
-            
-                        // dispatch(getNotesFulfilledAction(notes));
-                    })
-                    // noteTagsRef
-                    //     .update(obj.tags)
-                    //     .then(dispatch(editNoteFulfilledAction(note, obj)))
-                    //     .catch((error) => {
-                    //         console.error(error);
-                    //         dispatch(editNoteRejectedAction());
-                    //     });
-                }
+                    tagsRef.set(tag);
+
+                    obj.tagList.push({
+                        id: tagsRef.key,
+                        value: tagsRef.key,
+                        label: tag.label
+                    });
+
+                    dispatch(editNoteFulfilledAction(note, obj));
+                });
             }
         }
         else {

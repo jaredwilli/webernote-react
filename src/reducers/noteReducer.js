@@ -36,6 +36,15 @@ export default function noteReducer(state = {}, action) {
                         selectedNote = notes[k];
                     }
 
+                    // Convert tag objects to arrays
+                    if (!notes[k].tags) {
+                        notes[k].tags = [];
+                    } else {
+                        notes[k].tags = Object.keys(notes[k].tags).map((j) => {
+                            return notes[k].tags[j];
+                        });
+                    }
+
                     return notes[k];
                 });
             }
@@ -134,22 +143,35 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.EditNoteFulfilled: {
-            const note = action.note;
-            const obj = action.obj;
-            
+            const { note } = action;
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Edited note'
             });
 
-            // If notebook changed update selectedNote notebook
-            if (obj && obj.notebook) {
-                note.notebook = obj.notebook.name;
+            // Set note.tags as an array
+            if (!note.tags) {
+                note.tags = [];
+            } else {
+                note.tags = note.tags.slice();
             }
 
-            // If tags changed update selectedNote tags
-            if (obj && obj.tags) {
-                note.tags = obj.tags;
+            // Handle notebooks and tags on obj
+            if (action.obj) {
+                let { notebook, tags } = action.obj;
+
+                // If notebook changed update selectedNote notebook
+                if (notebook) {
+                    note.notebook = notebook.name;
+                }
+
+                // If tag changed update selectedNote tags
+                if (tags && tags.length) {
+                    tags.forEach((tag) => {
+                        note.tags.push(tag);
+                    });
+                }
             }
 
             newState.selectedNote = note;
