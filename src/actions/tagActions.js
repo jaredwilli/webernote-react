@@ -37,19 +37,22 @@ export function addTag(tags) {
         let tagList = [];
         
         // Only add new tags but make full tagList
-        tags.forEach((t) => {
+        tags.forEach((tag) => {
             const tagsRef = database.ref('/tags');
             
             // if no ID push a new tag to the list
-            if (!t.id && t.className) {
-                delete t.className;
+            if (!tag.id && tag.className) {
+                delete tag.className;
 
                 const tagRef = database.ref('/tags').push();
-                t.id = tagRef.key;
-                t.value = tagRef.key;
-                tagRef.set(t);
+
+                tag.id = tagRef.key;
+                tag.value = tagRef.key;
+                tagRef.set(tag);
             }
-            tagList.push(t);
+            
+            // push to tagList
+            tagList.push(tag);
         });
 
         dispatch(addTagFulfilledAction(tagList));
@@ -76,7 +79,6 @@ export function selectTag(tag) {
     return (dispatch, getState) => {
         
         const tag = getState().tagData.tags.filter(function(n) {
-            // debugger
             return n.id = tag.id;
         });
     }
