@@ -55,16 +55,15 @@ class NoteNav extends React.Component {
         return (
             <div id="note-nav" className="left-nav">
                 <ul id="notebooks" className="top-nav-item">
-
                     <li className={expandNotebookMenu}>
                         <span>Notebooks</span>
                         <ul className="notebooks">
                             {notebookItems}
                         </ul>
                     </li>
-
                 </ul>
-                <ul id="tags">
+
+                <ul id="tags" className="top-nav-item">
                     <li className={expandTagsMenu}>
                         <span>Tags</span>
                         <ul className="tags">

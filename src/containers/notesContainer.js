@@ -44,24 +44,26 @@ class NotesContainer extends React.PureComponent {
             );
         }
 
-        // <div id="loginout">
-        //     <a id="login" href="">Login</a>
+        // <div class="loginout">
+        //     <a class="login" href="">Login</a>
         // </div>
         return (
             <div>
                 <header>
                     <h1><a href="/">Webernote</a></h1>
 
-                    <div class="old-versions-nav">
+                    <span className="old-versions-nav">
                         Check out v1 and v2:
-                        <nav class="webernote-links">
-                            <a href="http://anti-code.com/webernote/" target="_blank">jQuery</a>
-                            <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">AngularJS</a>
+                        <nav className="webernote-links">
+                            <ul>
+                                <li><a href="http://anti-code.com/webernote/" target="_blank">jQuery</a></li>
+                                <li><a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">AngularJS</a></li>
+                            </ul>
                         </nav>
-                    </div>
+                    </span>
                 </header>
-                <div id="pagewrap">
-                    <nav id="toolbar">
+                <div className="wrapper">
+                    <nav className="toolbar">
                         <ul>
                             <li><a href="">File</a></li>
                             <li><a href="">Edit</a></li>
@@ -74,10 +76,10 @@ class NotesContainer extends React.PureComponent {
                             </li>
                         </ul>
                     </nav>
-                    <nav id="note-types">
+                    <nav className="note-types">
                         <NoteTypes />
                     </nav>
-                    <table id="resizable">
+                    <table id="resizable" className="resizable">
                         <tbody>
                             <tr>
                                 <td>

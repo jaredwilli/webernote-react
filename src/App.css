@@ -17,7 +17,7 @@ html {
 }
 
 body {
-    font: 14px/22px "Helvetica Neue", "Helvetica", "Arial";
+    font: 14px/22px "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
     padding: 0;
     margin: 5px auto;
     width: 90%;
@@ -29,13 +29,14 @@ a {
 }
 
 h1 {
-    font: bold 18px "Helvetica", "Myriad Pro";
+    font: bold 18px "Myriad Pro", "Helvetica";
     padding: 0;
-    margin: 0;
+    margin: 0 20px 0 0;
+    display: inline-block
 }
 
 h2 {
-    font: bold 12px/100% "Helvetica", "Arial", "sans-serif";
+    font: bold 12px/100% "Myriad Pro", "Helvetica", "Arial", "sans-serif";
     margin: 0 0 0.5em;
     padding: 0;
 }
@@ -116,7 +117,7 @@ td:first-child {
 STRUCTURE
 *************************************************************************************/
 
-#pagewrap {
+.wrapper {
     border: 1px solid #B8CDE0;
     display: inline-block;
     width: 100%;
@@ -140,14 +141,27 @@ STRUCTURE
 	font-weight: bold;
 }
 
-#loginout {
+.old-versions-nav nav {
+    margin-left: 10px;
+}
+
+.old-versions-nav nav li:first-child::after {
+    content: ' | ';
+    padding: 0 3px;
+    margin: 0 3px;
+}
+
+.old-versions-nav nav li a:hover {
+    text-decoration: underline;
+}
+
+.loginout {
 	float: right;
 }
 
 /* TOOLBAR NAV */
 
-#toolbar,
-#actions {
+.toolbar {
 	/*width: 50%;
 	float: left;*/
 	display: block;
@@ -163,7 +177,7 @@ STRUCTURE
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=0 );
 }
 
-#toolbar ul {
+.toolbar ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -171,23 +185,23 @@ STRUCTURE
     width: 100%;
 }
 
-#toolbar li {
+.toolbar li {
     display: inline-block;
     width: auto;
 }
 
-#toolbar .new-note {
+.toolbar .new-note {
 	background: rgba(255, 15, 15, 0.74);
 	position: absolute;
 	right: 0;
 	top: 0;
 }
 
-#toolbar .new-note:hover {
+.toolbar .new-note:hover {
 	background: hsla(22, 100%, 53%, 0.9);
 }
 
-#toolbar .new-note button {
+.toolbar .new-note button {
     background: transparent;
 	border: 0;
     color: #fff;
@@ -198,7 +212,7 @@ STRUCTURE
 	line-height: 18px;
 }
 
-#toolbar .new-note button .plus {
+.toolbar .new-note button .plus {
 	background: rgba(0, 0, 0, 0.1);
 	border-right: 1px solid rgba(119, 0, 0, 0.5);
 	font-size: 20px;
@@ -212,12 +226,11 @@ STRUCTURE
 			box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.25);
 }
 
-#toolbar .new-note:hover button .plus {
+.toolbar .new-note:hover button .plus {
 	border-right: 1px solid rgb(185, 74, 0, 0.5);
 }
 
-#toolbar a,
-#actions a {
+.toolbar a {
     color: hsl(85, 88%, 96%);
     text-shadow: -1px -1px 1px hsla(183, 41%, 40%, 0.7),
     			  1px 1px 0 hsl(201, 100%, 44%);
@@ -227,36 +240,17 @@ STRUCTURE
     padding: 4px 10px;
 }
 
-#toolbar a:hover,
-#actions a:hover {
+.toolbar a:hover {
 	background: rgba(14, 188, 255, 0.74);
-	/*color: rgb(255, 255, 98);
-	text-shadow: -1px -1px 0 rgba(33, 170, 213, 0.9),
-				  1px 1px 0 rgba(168, 224, 255, 0.75);*/
 }
 
-#toolbar .new-note button:hover {
+.toolbar .new-note button:hover {
 	background: transparent;
-}
-
-
-/* ACTIONS
-	removed for now
-*/
-
-#actions ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#actions li {
-    float: right;
 }
 
 /* NOTE TYPES */
 
-#note-types {
+.note-types {
 	border: solid #B8CDE0;
 	border-width: 1px 0;
 	padding: 2px;
@@ -272,19 +266,19 @@ STRUCTURE
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8eef2', endColorstr='#e3eaed',GradientType=0 );
 }
 
-#note-types ul {
+.note-types ul {
     list-style: none;
 }
 
-#note-types li {}
+.note-types li {}
 
-#note-types li a {
+.note-types li a {
     padding: 0 5px;
     margin: 1px;
 }
 
-#note-types li a:hover,
-#note-types li a.active {
+.note-types li a:hover,
+.note-types li a.active {
 	background: rgba(85, 187, 255, 0.85);
 	border: 1px solid rgb(118, 158, 218);
 	color: #fff;
@@ -299,16 +293,16 @@ STRUCTURE
 /* COMBINED STYLES for the COLUMNS */
 
 .left-nav,
-#note-list,
-#show-note {
+.note-list,
+.show-note {
     margin-bottom: 5px;
    	overflow-y: scroll;
     overflow-x: hidden;
     max-height: 650px;
 }
 
-#note-list,
-#show-note {
+.note-list,
+.show-note {
     background: #f8f8f8;
 	border: 1px solid #B8CDE0;
 	padding: 0;
@@ -378,15 +372,15 @@ STRUCTURE
 	NOTES- List ?
    ============== */
 
-#notes {
+.notes {
     min-width: 150px;
 }
 
-#notes li {
+.notes li {
 	position: relative;
 }
 
-#notes .delete {
+.notes .delete {
     background: rgb(236, 0, 0);;
     border: 0;
 	color: #fff;
@@ -409,30 +403,30 @@ STRUCTURE
 			box-shadow: 0 0 5px 0 rgba(94, 0, 0, 0.4);
 }
 
-#notes li:hover {
+.notes li:hover {
 	cursor: pointer;
 }
 
-#notes li:hover .delete {
+.notes li:hover .delete {
 	display: inline-block;
 }
 
-#notes .date {
+.notes .date {
 	color: rgb(190, 190, 190);
     font-size: 14px;
     margin-right: 5px;
 }
 
-#notes .tag-item {
+.notes .tag-item {
     color: rgb(157, 183, 252);
     margin-right: 5px;
 }
 
-#notes ul {
+.notes ul {
     list-style: none;
 }
 
-#notes li {
+.notes li {
 	border: 1px solid #fff;
 	display: block;
 	width: 96.5%;
@@ -444,8 +438,8 @@ STRUCTURE
 			border-radius: 6px;
 }
 
-#notes li:hover,
-#notes .selected {
+.notes li:hover,
+.notes .selected {
 	border: 1px solid hsl(206, 90%, 61%);
 
 	background: rgb(235,241,246);
@@ -486,7 +480,7 @@ STRUCTURE
 	);
 }
 
-#notes li.delete {
+.notes li.delete {
 	border-color: #ff1a00;
 
 	background: rgb(241, 111, 92);
@@ -520,13 +514,13 @@ STRUCTURE
 	);
 }
 
-#notes h2 {
+.notes h2 {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 }
 
-#notes p {
+.notes p {
 	max-height: 60px;
 	overflow: hidden;
 }
@@ -534,30 +528,26 @@ STRUCTURE
 
 /* SHOW NOTE */
 
-#show-note {
-
-}
-
-#note-list .filter,
-#note-list .viewing,
-#show-note .top,
-#show-note .mid {
+.note-list .filter,
+.note-list .viewing,
+.show-note .top,
+.show-note .mid {
 	display: block;
 	width: 100%;
 	padding: 5px;
 }
 
-#show-note .mid {
+.show-note .mid {
 	padding: 2px 0;
 }
 
-#show-note .top {
+.show-note .top {
 	background: #fff;
 	position: relative;
 }
 
-#note-list .filter,
-#show-note .mid {
+.note-list .filter,
+.show-note .mid {
 	border: solid rgb(216, 227, 228);
 	border-width: 2px 0;
 
@@ -572,14 +562,14 @@ STRUCTURE
 	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
 }
 
-#note-list .viewing {
+.note-list .viewing {
 	background: hsla(17, 100%, 37%, 0.12);
 	border: solid hsla(26, 45%, 54%, 0.4);
 	border-width: 1px 0;
 	font-size: 14px;
 }
 
-#note-list .viewing select {
+.note-list .viewing select {
 	border: 1px solid hsla(17, 100%, 37%, 0.12);
 	color: #666;
 	font-size: 14px;
@@ -589,7 +579,7 @@ STRUCTURE
 
 /* NOTE Parts */
 
-#show-note h2 {
+.show-note h2 {
 	display: inline-block;
 	padding: 0 5px;
 	min-width: 100px;
@@ -598,24 +588,24 @@ STRUCTURE
 	padding: 0 5px;
 }
 
-#show-note input.title,
-#show-note .new-notebook,
-#show-note input.url {
+.show-note input.title,
+.show-note .new-notebook,
+.show-note input.url {
 	border: 1px solid rgb(238, 238, 238);
 	padding: 5px;
 }
 
-#show-note input.title {
+.show-note input.title {
 	width: 60%;
 	margin: 5px 5px 5px 1px;
 	position: relative;
 }
 
-#show-note select.notebook {
+.show-note select.notebook {
 	font-size: 14px;
 }
 
-#show-note .new-notebook {
+.show-note .new-notebook {
     font-size: 12px;
     display: inline-block;
     width: 31%;
@@ -625,7 +615,7 @@ STRUCTURE
 	height: 27px;
 }
 
-#show-note .cancel-new {
+.show-note .cancel-new {
 	background: #F17A7A;
 	border: 0;
 	border-radius: 100px;
@@ -636,40 +626,40 @@ STRUCTURE
 	z-index: 1;
 }
 
-#show-note input.notebook {
+.show-note input.notebook {
 	width: 100%;
 	border: 0;
 	padding: 4px 5px 3px;
 	position: absolute;
 }
 
-#show-note #cancel {
+.show-note #cancel {
 	position: absolute;
 	right: 10px;
 	top: 2px;
 	z-index: 1;
 }
 
-#show-note input.url,
-#show-note .tags {
+.show-note input.url,
+.show-note .tags {
     display: inline-block;
     width: 46%;
     margin: 0 4px 0 0;
 	border: 1px solid rgb(190, 202, 213);
 }
 
-#show-note input.url {
+.show-note input.url {
     font-size: 14px;
     padding: 7px 5px;
 }
 
-#show-note .tags {
+.show-note .tags {
     width: 50.145678%;
     margin: 0;
 	vertical-align: top;
 }
 
-#show-note select {
+.show-note select {
 	border: 1px solid #EEE;
     height: 30px;
     width: 150px;
@@ -678,8 +668,8 @@ STRUCTURE
     vertical-align: top;
 }
 
-#show-note textarea,
-#show-note textarea:active {
+.show-note textarea,
+.show-note textarea:active {
     border: 0;
     font-size: 13px;
     padding: 5px;
@@ -688,7 +678,7 @@ STRUCTURE
     resize: none;
 }
 
-#show-note textarea.description {
+.show-note textarea.description {
 	border: 0;
 	padding: 5px;
 	width: 98%;
@@ -696,16 +686,6 @@ STRUCTURE
 	white-space: pre-line;
 }
 
-#show-note .tagit {
-	background: #fff;
-    border: 1px solid #BECAD5;
-    display: inline-block;
-    position: relative;
-    top: 3px;
-    width: 46%;
-    margin: 0 0 6px;
-    vertical-align: top;
-}
 
 .placeholder {
 	position: absolute;
@@ -713,9 +693,6 @@ STRUCTURE
 	left: 5px;
 	color: rgb(153, 153, 153);
 }
-
-
-
 
 
 /* Select2 Styles */
@@ -733,138 +710,6 @@ STRUCTURE
 }
 
 
-/************************************/
-
-.ui-autocomplete {
-    background-color: #fff;
-    position: absolute;
-    cursor: default;
-    list-style: none;
-    margin: 25px 0 0;
-    padding: 0;
-    border: 1px solid #E5E5E5;
-    border-top: none;
-    font-size: 12px;
-
-    -webkit-box-shadow: 0 3px 5px #888;
-       -moz-box-shadow: 0 3px 5px #888;
-    		box-shadow: 0 3px 5px #888;
-}
-
-.ui-autocomplete .ui-menu-item {
-    padding: 0;
-    margin: 0;
-}
-
-.ui-autocomplete .ui-menu-item a {
-    display: block;
-    padding: 4px 6px;
-    margin: 0;
-    text-decoration: none;
-    line-height: 12px;
-    /*border-bottom: 1px solid #E5E5E5;
-    border-top: 1px solid #fff;*/
-    color: #78959D;
-}
-
-.ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active {
-    background-color: #c0d1e2;
-    color: #555;
-    border-color: #a6cef7;
-}
-
-.ui-autocomplete-loading {
-    /*background: white url(ui-anim_basic_16x16.gif) right center no-repeat;*/
-}
-
-ul.tagit.ui-sortable li.tagit-choice a.ui-icon.ui-icon-grip-dotted-vertical{
-    float: left;
-    width: 12px;
-    margin-left: -5px;
-    cursor: move;
-}
-
-ul.tagit li.tagit-choice {
-    background-color: #DEE7F8;
-    border: 1px solid #CAD8F3;
-    padding: 2px 13px 3px 4px;
-}
-
-ul.tagit li.tagit-choice.selected {
-    background-color: #f5b0b0;
-    border-color: #f76464;
-}
-
-.tagit-hiddenSelect {
-    display: none;
-}
-
-/*******************************/
-
-ul.tagit {
-	background: #fff;
-	border: 1px solid rgb(190, 202, 213);
-	display: inline-block;
-/*	overflow: hidden;
-*/	position: relative;
-	top: 5px;
-	margin: 0;
-	width: 46%;
-}
-
-ul.tagit li {
-	display: inline-block;
-	float: left;
-
-	-webkit-border-radius: 5px;
-			border-radius: 5px;
-}
-
-ul.tagit li.tagit-choice {
-	background: #DEE7F8;
-	border: 1px solid #CAD8F3;
-	padding: 2px;
-	margin: 2px;
-}
-
-ul.tagit li.tagit-choice:hover {
-	background: #bbcef1;
-	border: 1px solid #6d95e0;
-}
-
-ul.tagit li.tagit-new {
-	padding: 2px;
-}
-
-ul.tagit li.tagit-choice input {
-	display: inline-block;
-	float: left;
-	margin: 2px 5px 2px 0;
-}
-
-ul.tagit li.tagit-choice .tagit-close {
-	color: #777;
-	cursor: pointer;
-	font-size: 10px;
-	padding: 2px 0 2px 4px;
-	vertical-align: top;
-	text-decoration: none;
-	content: 'x';
-}
-
-ul.tagit input[type="text"] {
-	border: none;
-	color: rgb(51, 51, 51);
-	margin: 0;
-	padding: 0;
-	width: 60px;
-	height: 25px;
-
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-		 	box-sizing: border-box;
-}
 
 /* ==========================================================================
    Helper classes
@@ -878,4 +723,3 @@ ul.tagit input[type="text"] {
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
-

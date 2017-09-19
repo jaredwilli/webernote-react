@@ -45,7 +45,7 @@ class TagsContainer extends React.PureComponent {
 		if (!tags) {
             return <div className="loading">Loading...</div>;
 		} else {
-            let tagOptions = tags;
+            tagOptions = tags;
             tagOptions = uniq(tagOptions);
         }
 

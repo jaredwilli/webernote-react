@@ -72,7 +72,7 @@ class NoteList extends Component {
         }
 
         return (
-            <div id="note-list">
+            <div className="note-list">
                 <div className="filter">
                     Search type: 
                     <select name="filterType" className="filter-type" 
@@ -98,7 +98,7 @@ class NoteList extends Component {
                         canAddNotebook={false} />
                 </div>
                 
-                <div id="notes">
+                <div className="notes">
                     <Note notes={this.props.notes} 
                         selectNote={(e, id) => this.selectNote(e, id)}
                         deleteNote={(id) => this.deleteNote(id)} />

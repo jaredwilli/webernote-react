@@ -67,7 +67,7 @@ class EditNote extends React.Component {
         }
 
         return (
-            <div id="show-note">
+            <div className="show-note">
                 <form>
                     <div className="top">
                         <input type="text" className="title" name="title" placeholder="Enter title..."  

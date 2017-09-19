@@ -143,7 +143,7 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.EditNoteFulfilled: {
-            const { note } = action;
+            const { note, obj } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -158,22 +158,20 @@ export default function noteReducer(state = {}, action) {
             }
 
             // Handle notebooks and tags on obj
-            if (action.obj) {
-                let { notebook, tagList } = action.obj;
-
+            if (obj) {
                 // If notebook changed update selectedNote notebook
-                if (notebook) {
-                    note.notebook = notebook.name;
+                if (obj.hasOwnProperty('notebook')) {
+                    note.notebook = obj.notebook.name;
                 }
 
                 // If tag changed update selectedNote tags
-                if (tagList && tagList.length) {
-                    note.tags = tagList;
+                if (obj.hasOwnProperty('tagList')) {
+                    note.tags = obj.tagList;
                 }
             }
 
             newState.selectedNote = note;
-            // console.log('editNote newState: ', newState);
+            console.log('editNote newState: ', newState);
             return newState;
         }
         
