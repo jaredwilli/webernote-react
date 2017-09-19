@@ -1,6 +1,8 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
+import { uniq } from '../common/helpers.js';
+
 export function getTags() {
     return dispatch => {
         dispatch(getTagsRequestedAction());
@@ -26,29 +28,31 @@ export function getTag(tag) {
     }
 }
 
-export function addTag(tag) {
+export function addTag(tags) {
     return dispatch => {
         dispatch(addTagRequestedAction());
 
-        // Remove these fields
-        delete tag.className;
-        delete tag.value;
+        // Make tag list unique
+        tags = uniq(tags);
+        let tagList = [];
+        
+        // Only add new tags but make full tagList
+        tags.forEach((t) => {
+            const tagsRef = database.ref('/tags');
+            
+            // if no ID push a new tag to the list
+            if (!t.id && t.className) {
+                delete t.className;
 
-        return database.ref('/tags')
-            .push(tag)
-            .then((tag) => {
-                const id = tag.key;
-                
-                tag.once('value', snap => {
-                    tag = {};
-                    tag[id] = snap.val();
-                    dispatch(addTagFulfilledAction(tag));
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(addTagRejectedAction());
-            });
+                const tagRef = database.ref('/tags').push();
+                t.id = tagRef.key;
+                t.value = tagRef.key;
+                tagRef.set(t);
+            }
+            tagList.push(t);
+        });
+
+        dispatch(addTagFulfilledAction(tagList));
     }
 }
 
@@ -119,8 +123,8 @@ function addTagRejectedAction() {
     return { type: types.AddTagRejected };
 }
 
-function addTagFulfilledAction(tag) {
-    return { type: types.AddTagFulfilled, tag };
+function addTagFulfilledAction(tagList) {
+    return { type: types.AddTagFulfilled, tagList };
 }
 
 /**

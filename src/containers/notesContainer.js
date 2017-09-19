@@ -44,13 +44,21 @@ class NotesContainer extends React.PureComponent {
             );
         }
 
+        // <div id="loginout">
+        //     <a id="login" href="">Login</a>
+        // </div>
         return (
             <div>
                 <header>
-                    <div id="loginout">
-                        <a id="login" href="">Login</a>
-                    </div>
                     <h1><a href="/">Webernote</a></h1>
+
+                    <div class="old-versions-nav">
+                        Check out v1 and v2:
+                        <nav class="webernote-links">
+                            <a href="http://anti-code.com/webernote/" target="_blank">jQuery</a>
+                            <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">AngularJS</a>
+                        </nav>
+                    </div>
                 </header>
                 <div id="pagewrap">
                     <nav id="toolbar">

@@ -26,7 +26,7 @@ function Note(props) {
                 <span className="date">
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
                 </span>
-                {getTags(note.tags)}
+                <span className="tag-item">{getTags(note.tags)}</span>
                 <span className="description">{note.description}</span>
             </p>
         </li>

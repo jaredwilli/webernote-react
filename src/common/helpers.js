@@ -47,3 +47,31 @@ export function getTags(noteTags) {
     }
     return tags;    
 }
+
+/**
+ * uniq
+ * 
+ * @description 
+ * Remove duplicate objects from an array.
+ * https://stackoverflow.com/a/36744732/297765
+ * 
+ * @param {Array} thing 
+ * @returns {Array} thing a unique array of objects.
+ */
+export function uniq(thing) {
+    // things = new Object();
+    // things.thing = new Array();
+    
+    // things.thing.push({place:"here",name:"stuff"});
+    // things.thing.push({place:"there",name:"morestuff"});
+    // things.thing.push({place:"there",name:"morestuff"});
+    
+    console.log(thing)
+
+    thing = thing.filter((thing, index, self) => self.findIndex((t) => {
+        return t.id === thing.id && t.label === thing.label; 
+    }) === index);
+    
+    console.log(thing)
+    return thing;
+}

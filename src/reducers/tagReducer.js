@@ -94,21 +94,14 @@ export default function tagReducer(state = {}, action) {
         }
         
         case types.AddTagFulfilled: {
-            const tag = action.tag;
-            const id = Object.keys(tag)[0];
+            const tagList = action.tagList;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added tag'
             });
 
-            if (id) {
-                tag[id].id = id;
-                tag[id].value = id;
-                state.tags.push(tag[id]);
-            }
-
-            newState.tags = state.tags;
+            newState.tags = tagList;
             return newState;
         }
         

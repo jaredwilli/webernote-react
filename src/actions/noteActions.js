@@ -1,6 +1,8 @@
 import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
+import { uniq } from '../common/helpers.js';
+
 export function getState() {
     return (dispatch, getState) => {
         return getState();
@@ -89,37 +91,34 @@ export function editNote(note, obj = null) {
                 const selectedNoteTags = currentState.noteData.notes.tags;
                 const noteRef = database.ref('/notes/' + note.id);
 
-                // Check if tag exists in note.tags
-                /* var tags = [];
-                noteRef.child('/tags/').on('value', function(snap) {
-                    snap.forEach(function(tag) {
-                        tags.push(tag.val());
-                    });
-                    console.log('There are ' + tags.length + ' tags');
-                }); */
-
-                // noteRef.child('/tags').once('value', (snap) => {
-                //     const tags = snap.val();
-                //     debugger
-                // });
-
-                // TODO: Need to only add new and unique tags to the note
+                // Make tag list unique
+                obj.tags = uniq(obj.tags);
                 obj.tagList = [];
+                
+                // Update existing tags and add new ones
                 obj.tags.forEach((tag) => {
-                    let tagsRef = noteRef.child('/tags').push();
-                    tag.id = tagsRef.key;
-                    tag.value = tagsRef.key;
-
-                    tagsRef.set(tag);
-
-                    obj.tagList.push({
-                        id: tagsRef.key,
-                        value: tagsRef.key,
-                        label: tag.label
-                    });
-
-                    dispatch(editNoteFulfilledAction(note, obj));
+                    // if tag has an ID update that ref
+                    if (tag.id) {
+                        noteRef.child('/tags/' + tag.id).update(tag);
+                        
+                        obj.tagList.push(tag);
+                    } else {
+                        // if no ID push a new tag to the list
+                        let tagsRef = noteRef.child('/tags/').push();
+                        tag.id = tagsRef.key;
+                        tag.value = tagsRef.key;
+                        tagsRef.set(tag);
+                        
+                        // push each tag to tagList to update state
+                        obj.tagList.push({
+                            id: tagsRef.key,
+                            value: tagsRef.key,
+                            label: tag.label
+                        });
+                    }
                 });
+
+                dispatch(editNoteFulfilledAction(note, obj));
             }
         }
         else {

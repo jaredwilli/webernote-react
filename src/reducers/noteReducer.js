@@ -159,7 +159,7 @@ export default function noteReducer(state = {}, action) {
 
             // Handle notebooks and tags on obj
             if (action.obj) {
-                let { notebook, tags } = action.obj;
+                let { notebook, tagList } = action.obj;
 
                 // If notebook changed update selectedNote notebook
                 if (notebook) {
@@ -167,14 +167,13 @@ export default function noteReducer(state = {}, action) {
                 }
 
                 // If tag changed update selectedNote tags
-                if (tags && tags.length) {
-                    tags.forEach((tag) => {
-                        note.tags.push(tag);
-                    });
+                if (tagList && tagList.length) {
+                    note.tags = tagList;
                 }
             }
 
             newState.selectedNote = note;
+            // console.log('editNote newState: ', newState);
             return newState;
         }
         
