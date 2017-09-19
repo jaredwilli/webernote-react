@@ -141,19 +141,18 @@ STRUCTURE
 	font-weight: bold;
 }
 
-.old-versions-nav nav {
-    margin-left: 10px;
+sup {
+    font-size: 6px;
 }
 
-.old-versions-nav nav li:first-child::after {
-    content: ' | ';
-    padding: 0 3px;
-    margin: 0 3px;
+small {
+    font-size: 8px;
 }
 
-.old-versions-nav nav li a:hover {
+.old-versions-nav a:hover {
     text-decoration: underline;
 }
+
 
 .loginout {
 	float: right;
