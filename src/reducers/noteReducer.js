@@ -171,7 +171,6 @@ export default function noteReducer(state = {}, action) {
             }
 
             newState.selectedNote = note;
-            console.log('editNote newState: ', newState);
             return newState;
         }
         

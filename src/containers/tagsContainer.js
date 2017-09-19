@@ -18,7 +18,6 @@ class TagsContainer extends React.PureComponent {
 
 	editTags(tags) {
         const allTags = this.props.tags;
-        this.logChange(tags);
         
         if (tags.length) {
             tags.forEach((tag) => {
@@ -29,10 +28,6 @@ class TagsContainer extends React.PureComponent {
         }
 
         this.props.editTags(tags, allTags);
-	}
-
-	logChange(val) {
-		console.log('Selected: ' + JSON.stringify(val));
 	}
 
 	render() {

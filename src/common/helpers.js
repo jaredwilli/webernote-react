@@ -71,6 +71,5 @@ export function uniq(thing) {
         return t.id === thing.id && t.label === thing.label; 
     }) === index);
     
-    console.log(thing)
     return thing;
 }
