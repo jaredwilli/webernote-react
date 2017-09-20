@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Select, { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
+import { guid } from '../common/helpers';
 import * as tagActions from '../actions/tagActions';
 
 class TagsContainer extends React.PureComponent {
@@ -15,18 +16,25 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	editTags(tags) {
-        // debugger
-        const allTags = this.props.tags;
+        const propTags = this.props.tags;
         
-        if (tags.length) {
-            tags.forEach((tag) => {
-                if (tag.className) {
-                    this.props.actions.addTag(tags, allTags);
-                }
-            });
-        }
+        if (tags) {
+            console.log('if tags');
+            // need to add GUID to tags if dont have one
 
-        this.props.editTags(tags, allTags);
+            debugger
+            
+            let allTags = propTags.concat(tags);
+            // Send all Tags including these
+            this.props.actions.addTag(allTags);
+            
+            // Only send these Tags
+            this.props.editNoteTags(tags);
+        } else {
+            console.log('====================================');
+            console.log('if !tags');
+            console.log('====================================');
+        }
 	}
 
 	render() {
@@ -56,7 +64,7 @@ function mapStateToProps(state) {
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote
 	};
-	console.log('STATE: ', state, newState);
+	// console.log('STATE: ', state, newState);
 
 	return newState;
 }

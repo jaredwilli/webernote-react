@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes.js';
 
-import { uniq } from '../common/helpers.js';
+import { uniq, guid } from '../common/helpers.js';
 
 export default function noteReducer(state = {}, action) {
     switch(action.type) {
@@ -32,12 +32,9 @@ export default function noteReducer(state = {}, action) {
             if (notes) {
                 // Get keys and set id for each note and set selectedNote
                 newState.notes = Object.keys(notes).map(function(k) {
-                    notes[k].id = k;
-
-                    if (notes[k].isEditing) {
-                        selectedNote = notes[k];
-                    }
-
+                    // notes[k].id = k;
+                    // notes[k].uid = guid();
+                    
                     // Convert tag objects to arrays
                     if (!notes[k].tags) {
                         notes[k].tags = [];
@@ -46,10 +43,15 @@ export default function noteReducer(state = {}, action) {
                             return notes[k].tags[j];
                         });
                     }
+                    
+                    if (notes[k].isEditing) {
+                        selectedNote = notes[k];
+                    }
 
                     return notes[k];
                 });
             }
+            console.log(newState.notes);
             
             newState.selectedNote = selectedNote;
             return newState;
@@ -111,20 +113,19 @@ export default function noteReducer(state = {}, action) {
         
         case types.AddNoteFulfilled: {
             const note = action.note;
-            const id = Object.keys(note)[0];
-
-            if (id) {
-                note[id].id = id;
-                state.notes.push(note[id]);
-            }
             
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added note'
             });
             
-            newState.notes = state.notes;
-            newState.selectedNote = note[id];
+            let notes = state.notes;
+            if (note) {
+                notes.push(note);
+            }
+            
+            newState.notes = notes;
+            newState.selectedNote = note;
             return newState;
         }
 
@@ -219,13 +220,10 @@ export default function noteReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Edited note tags'
             });
-
-            // Set note.tags as an array
-            if (!note.tags) {
-                note.tags = [];
-            } else {
-                note.tags = note.tags.slice();
-            }
+            
+            console.log('note: ', note);
+            console.log(tagList);
+            debugger
             
             // If tags changed update selectedNote tags
             if (tagList) {
@@ -256,12 +254,20 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.DeleteNoteFulfilled: {
-            const note = action.note;
+            const noteId = action.noteId;
             
-            return Object.assign({}, state, {
+            const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+
+            let notes = state.notes;
+            newState.notes = notes.filter(function(n) {
+                return n.id !== noteId;
+            });
+            console.log(newState);
+            
+            return newState;
         }
         
         // *** SELECT NOTE

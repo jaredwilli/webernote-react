@@ -108,7 +108,7 @@ function mapStateToProps(state) {
         selectedNote: state.noteData.selectedNote,
         selectedNotebook: state.notebookData.selectedNotebook
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

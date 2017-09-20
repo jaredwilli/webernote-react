@@ -96,7 +96,7 @@ function mapStateToProps(state) {
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

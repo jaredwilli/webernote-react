@@ -52,11 +52,11 @@ export function getTagCount(notes, tag) {
 	let count = 0;
 
 	notes.forEach(function(note) {
-        note.tags.forEach((t) => {
-            if (t.label === tag.label) {
-                count++;
-            }
-        });
+		note.tags.forEach(t => {
+			if (t.label === tag.label) {
+				count++;
+			}
+		});
 	});
 	return count;
 }
@@ -94,7 +94,7 @@ export function uniq(thing) {
 	// things.thing.push({place:"here",name:"stuff"});
 	// things.thing.push({place:"there",name:"morestuff"});
 	// things.thing.push({place:"there",name:"morestuff"});
-    
+
 	thing = thing.filter(
 		(thing, index, self) =>
 			self.findIndex(t => {
@@ -103,4 +103,19 @@ export function uniq(thing) {
 	);
 
 	return thing;
+}
+
+/**
+ * guid
+ * 
+ * Generates a unique ID.
+ */
+export function guid() {
+	return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
+}
+
+function s4() {
+	return Math.floor((1 + Math.random()) * 0x10000)
+		.toString(16)
+		.substring(1);
 }

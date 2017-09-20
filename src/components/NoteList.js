@@ -94,8 +94,7 @@ class NoteList extends Component {
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
                     
-                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} 
-                        canAddNotebook={false} />
+                    <NotebookContainer />
                 </div>
                 
                 <div className="notes">
@@ -114,7 +113,7 @@ function mapStateToProps(state) {
         notebooks: state.notebookData.notebooks,
         selectedNote: state.noteData.selectedNote
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

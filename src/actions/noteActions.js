@@ -1,7 +1,7 @@
 import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
-import { uniq } from '../common/helpers.js';
+import { uniq, guid } from '../common/helpers.js';
 
 export function getState() {
     return (dispatch, getState) => {
@@ -45,22 +45,18 @@ export function getNotes() {
 export function addNote(note) {
     return (dispatch) => {
         dispatch(addNoteRequestedAction());
+        
+        const notesRef = database.ref('/notes');        
+        const noteRef = notesRef.push();
 
-        return database.ref('/notes')
-            .push(note)
-            .then((note) => {
-                const id = note.key;
-                
-                note.once('value', snap => {
-                    note = {};
-                    note[id] = snap.val();
-                    dispatch(addNoteFulfilledAction(note));
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(addNoteRejectedAction());
-            });
+        // Add a unique ID and ref ID to note object
+        note.uid = guid();
+        note.id = noteRef.key
+
+        // Push note data
+        noteRef.set(note);
+        
+        dispatch(addNoteFulfilledAction(note));
     }
 }
 
@@ -117,70 +113,117 @@ export function editNoteNotebook(note, notebook) {
     }
 }
 
-export function editNoteTags(note, tags) {
+export function editNoteTags(note, allNoteTags) {
     return (dispatch) => {
+        const noteTagsRef = database.ref('/notes/' + note.id + '/tags/');
+        const tagsRef = database.ref('/tags/');
+        
         dispatch(editNoteTagsRequestedAction());
 
         if (!note) {
             dispatch(editNoteTagsRejectedAction());
         }
+        
+        // Remove all Note Tags
+        if (!allNoteTags) {
+            noteTagsRef.remove();
+
+            dispatch(editNoteTagsFulfilledAction(note));
+        }
+        
+        let newTag = '';
+        // Its a problem to have the tag added to /tags and note/tags with no way to associate them together
+        tagsRef.on('child_added', (snap) => {
+            newTag = snap.val();
+        });
+
+        // Make tag list unique
+		allNoteTags = uniq(allNoteTags);
+        
+        noteTagsRef.once('value', snap => {
+			let remoteNoteTags = snap.val();
+			// console.log(remoteNoteTags);
+
+			// Only add new tags but make full tagList
+			allNoteTags.forEach((tag) => {
+				// console.log(!remoteNoteTags || remoteNoteTags.hasOwnProperty(tag.label));
+
+                // Add the new tag
+				if (!remoteNoteTags || !remoteNoteTags.hasOwnProperty(tag.label)) {
+					const noteTagRef = noteTagsRef.push();
+
+					tag.id = noteTagRef.key;
+                    tag.value = noteTagRef.key;
+                    
+					noteTagRef.set(tag);
+				}
+            });
+        });
+
+        let noteTag = '';
+        noteTagsRef.on('child_added', (snap) => {
+            noteTag = snap.val();
+            
+            debugger
+            dispatch(editNoteTagsFulfilledAction(note, noteTag));
+        });
 
         // if tags is empty then REMOVE them from note
-        if (!tags.length) {
-            const noteRef = database.ref('/notes/' + note.id);
+        // // if (!tags.length) {
+        // //     const noteRef = database.ref('/notes/' + note.id);
 
-            noteRef.child('/tags/').remove()
-                .then(dispatch(editNoteTagsFulfilledAction(note)))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(editNoteTagsRejectedAction());
-                });
-        } else {
-            const noteRef = database.ref('/notes/' + note.id);
-            let tagList = [];
+        // //     noteRef.child('/tags/').remove()
+        // //         .then(dispatch(editNoteTagsFulfilledAction(note)))
+        // //         .catch((error) => {
+        // //             console.error(error);
+        // //             dispatch(editNoteTagsRejectedAction());
+        // //         });
+        // // } else {
+        // //     const noteRef = database.ref('/notes/' + note.id);
+        // //     let tagList = [];
 
-            // Make tag list unique
-            tags = uniq(tags);
+        // //     // Make tag list unique
+        // //     tags = uniq(tags);
             
-            // Update existing tags and add new ones
-            noteRef.child('/tags/').once('value', (snap) => {
-                let noteTags = snap.val();
-                // console.log(noteTags);
+        // //     // Update existing tags and add new ones
+        // //     noteRef.child('/tags/').once('value', (snap) => {
+        // //         let noteTags = snap.val();
+        // //         // console.log(noteTags);
 
-                tags.forEach((tag) => {
-                    // if tag has an ID update that ref
-                    if (tag.id) {
-                        if (noteTags && noteTags.hasOwnProperty(tag.id)) {
-                            tagList.push(tag);
-                        } else {
-                            noteRef.child('/tags/' + tag.id)
-                            .update(tag);
+        // //         tags.forEach((tag) => {
+        // //             // if tag has an ID update that ref
+        // //             if (tag.id) {
+        // //                 if (noteTags && noteTags.hasOwnProperty(tag.id)) {
+        // //                     tagList.push(tag);
+        // //                 } else {
+        // //                     noteRef.child('/tags/' + tag.id)
+        // //                     .update(tag);
                             
-                            // Push to tagList
-                            tagList.push(tag);
-                        }
-                    } else if (!tag.id) {
-                        if (!noteTags.hasOwnProperty(tag.id)) {
-                            // if no ID push a new tag to the list
-                            let tagsRef = noteRef.child('/tags/').push();
+        // //                     // Push to tagList
+        // //                     tagList.push(tag);
+        // //                 }
+        // //             } else if (!tag.id) {
+        // //                 if (!noteTags.hasOwnProperty(tag.id)) {
+        // //                     // if no ID push a new tag to the list
+        // //                     let tagsRef = noteRef.child('/tags/').push();
                             
-                            tag.id = tagsRef.key;
-                            tag.value = tagsRef.key;
-                            tagsRef.set(tag);
+        // //                     tag.id = tagsRef.key;
+        // //                     tag.value = tagsRef.key;
+        // //                     tagsRef.set(tag);
                             
-                            // push each tag to tagList to update state
-                            tagList.push({
-                                id: tagsRef.key,
-                                value: tagsRef.key,
-                                label: tag.label
-                            });
-                        }
-                    }
-                });
-                dispatch(editNoteTagsFulfilledAction(note, tagList));
-            });
+        // //                     // push each tag to tagList to update state
+        // //                     tagList.push({
+        // //                         id: tagsRef.key,
+        // //                         value: tagsRef.key,
+        // //                         label: tag.label
+        // //                     });
+        // //                 }
+        // //             }
+        // //         });
+        // //         dispatch(editNoteTagsFulfilledAction(note, tagList));
+        // //     });
 
-        }
+        // }
     }
 }
 
@@ -188,28 +231,26 @@ export function deleteNote(id) {
     return dispatch => {
         dispatch(deleteNoteRequestedAction());
 
-        database.ref('/notes/' + id)
-            .remove()
-            .then(function() {
-                dispatch(deleteNoteFulfilledAction())
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(deleteNoteRejectedAction());
-            });
+        const noteRef = database.ref('/notes/' + id);
+        
+        noteRef.remove();
+
+        dispatch(deleteNoteFulfilledAction(id));
     }
 }
 
 export function selectNote(note) {
     return (dispatch, getState) => {
         dispatch(selectNoteRequestedAction());
+        
+        const notesRef = database.ref('/notes/');
         const currentNotes = getState().noteData.notes;
 
         note = currentNotes.filter(function(n) {
             return n.id === note.id;
         })[0];
 
-        database.ref('/notes/' + note.id + '/isEditing/')
+        notesRef.child(note.id + '/isEditing/')
             .set(true)
             .then(dispatch(selectNoteFulfilledAction(note)))
             .catch((error) => {
@@ -339,8 +380,8 @@ function deleteNoteRejectedAction() {
     return { type: types.DeleteNoteRejected };
 }
 
-function deleteNoteFulfilledAction() {
-    return { type: types.DeleteNoteFulfilled };
+function deleteNoteFulfilledAction(noteId) {
+    return { type: types.DeleteNoteFulfilled, noteId };
 }
 
 /**

@@ -13,7 +13,7 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editNotebook = this.editNotebook.bind(this);
-        this.editTags = this.editTags.bind(this);
+        this.editNoteTags = this.editNoteTags.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
@@ -45,15 +45,25 @@ class EditNote extends React.Component {
         // this.props.actions.getNotes();
     }
     
-    editTags(tags) {
+    editNoteTags(tags) {
         let note = this.props.selectedNote;
 
-        this.setState({
-            selectedNote: note
-        });
+        // this.setState({
+        //     selectedNote: note
+        // });
         // debugger
-        this.props.actions.editNoteTags(note, tags);
-        // this.props.actions.getNotes();
+        
+        if (note.tags) {
+            console.log('if note.tags');
+            
+            let allNoteTags = note.tags.concat(tags);
+            
+            this.props.actions.editNoteTags(note, allNoteTags);
+        } else {
+            console.log('====================================');
+            console.log('if !note.tags');
+            console.log('====================================');
+        }
     }
 
     render() {
@@ -70,7 +80,8 @@ class EditNote extends React.Component {
             <div className="show-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..." autofocus  
+                        <input type="text" className="title" name="title" placeholder="Enter title..." 
+                            autoFocus
                             value={selectedNote.title} 
                             onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer 
@@ -83,7 +94,7 @@ class EditNote extends React.Component {
                             onChange={(e) => this.editNote(e)} />
                         <TagsContainer 
                             tags={selectedNote.tags}
-                            editTags={(tags) => this.editTags(tags)} />
+                            editNoteTags={(tags) => this.editNoteTags(tags)} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description" 
@@ -101,7 +112,7 @@ function mapStateToProps(state) {
     const newState = {
         selectedNote: state.noteData.selectedNote
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

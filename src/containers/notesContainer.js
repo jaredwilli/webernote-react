@@ -13,7 +13,7 @@ import AddNote from '../components/AddNote';
 import '../App.css';
 
 const newNote = {
-    title: 'Untitled note...',
+    title: '',
     notebook: 'General',
     url: '',
     tags: [],
@@ -68,7 +68,8 @@ class NotesContainer extends React.PureComponent {
                             <li><a href="">Tools</a></li>
                             <li><a href="">Help</a></li>
                             <li className="new-note">
-                                <AddNote addNote={(e) => this.addNote(e)} />
+                                <AddNote addNote={(e) => this.addNote(e)}
+                                    disabled={this.props.notes} />
                             </li>
                         </ul>
                     </nav>
@@ -102,7 +103,7 @@ function mapStateToProps(state) {
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }
