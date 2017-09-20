@@ -1,5 +1,7 @@
 import * as types from '../constants/actionTypes.js';
 
+import { uniq } from '../common/helpers.js';
+
 export default function tagReducer(state = {}, action) {
     switch(action.type) {
 
@@ -34,7 +36,8 @@ export default function tagReducer(state = {}, action) {
                     return tags[k];
                 });
             }
-
+            
+            newState.tags = uniq(newState.tags);
             return newState;
         }
 

@@ -19,37 +19,50 @@ class NoteNav extends React.Component {
         return expanded;
     } */
 
+    getNotebooksMenu(notebooks) {
+        let notebookItems = '';
+
+        notebookItems = notebooks.map((notebook) => 
+            <li key={notebook.id} id={notebook.id}>
+                <a href={'#/' + notebook.name}>
+                    <span className="name">{notebook.name}</span>
+                </a>&nbsp;
+                <span className="count">{getNotebookCount(this.props.notes, notebook)}</span>
+            </li>
+        );
+        return notebookItems;
+    }
+
+    getTagsMenu(tags) {
+        let tagItems = '';
+
+        tagItems = tags.map((tag) =>
+            <li key={tag.id} value={tag.id}>
+                <a href={'#/' + tag.label}>
+                    <span className="name">{tag.label}</span>
+                </a>&nbsp;
+                <span className="count">{getTagCount(this.props.notes, tag)}</span>
+            </li>
+        );
+        return tagItems;
+    }
+
     render() {
         const { notebooks, tags } = this.props;
+        let notebookItems, tagItems;
 
         // NOTEBOOKS MENU
         let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
-        let notebookItems = '';
 
         if (notebooks && notebooks.length) {
-            notebookItems = notebooks.map((notebook) => 
-                <li key={notebook.id} id={notebook.id}>
-                    <a href={'#/' + notebook.name}>
-                        <span className="name">{notebook.name}</span>
-                    </a>&nbsp;
-                    <span className="count">{getNotebookCount(this.props.notes, notebook)}</span>
-                </li>
-            );
+            notebookItems = this.getNotebooksMenu(notebooks);
         }
         
         // TAGS MENU
         let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
-        let tagItems = '';
 
         if (tags && tags.length) {
-            tagItems = tags.map((tag) =>
-                <li key={tag.value} value={tag.value}>
-                    <a href={'#/' + tag.label}>
-                        <span className="name">{tag.label}</span>
-                    </a>&nbsp;
-                    <span className="count">{getTagCount(this.props.notes, tag)}</span>
-                </li>
-            );
+            tagItems = this.getTagsMenu(tags);
         }
     
         return (

@@ -41,7 +41,8 @@ class EditNote extends React.Component {
             selectedNote: note
         });
 
-        this.props.actions.editNote(note, { notebook: notebook });
+        this.props.actions.editNoteNotebook(note, notebook);
+        // this.props.actions.getNotes();
     }
     
     editTags(tags) {
@@ -50,8 +51,9 @@ class EditNote extends React.Component {
         this.setState({
             selectedNote: note
         });
-        
-        this.props.actions.editNote(note, { tags: tags });
+        // debugger
+        this.props.actions.editNoteTags(note, tags);
+        // this.props.actions.getNotes();
     }
 
     render() {
@@ -68,7 +70,7 @@ class EditNote extends React.Component {
             <div className="show-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."  
+                        <input type="text" className="title" name="title" placeholder="Enter title..." autofocus  
                             value={selectedNote.title} 
                             onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer 

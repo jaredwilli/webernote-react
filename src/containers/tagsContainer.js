@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { uniq } from '../common/helpers.js';
-
 import Select, { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -17,6 +15,7 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	editTags(tags) {
+        // debugger
         const allTags = this.props.tags;
         
         if (tags.length) {
@@ -32,16 +31,9 @@ class TagsContainer extends React.PureComponent {
 
 	render() {
         const { selectedNote, tags } = this.props;
-        let tagOptions;
-
-        // Make tags uniq
-        selectedNote.tags = uniq(selectedNote.tags);
         
 		if (!tags) {
             return <div className="loading">Loading...</div>;
-		} else {
-            tagOptions = tags;
-            tagOptions = uniq(tagOptions);
         }
 
 		return (
@@ -51,8 +43,8 @@ class TagsContainer extends React.PureComponent {
 				multi
 				noResultsText="Click to add tag..."
 				value={selectedNote.tags}
-				options={tagOptions}
-				onChange={e => this.editTags(e)}
+				options={tags}
+				onChange={(e) => this.editTags(e)}
 			/>
 		);
 	}

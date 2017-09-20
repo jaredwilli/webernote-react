@@ -64,58 +64,103 @@ export function addNote(note) {
     }
 }
 
-export function editNote(note, obj = null) {
+/**
+ * editNote
+ * 
+ * @param {*} note 
+ */
+export function editNote(note) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
 
-        let currentState = getState();
-
         if (!note) {
             dispatch(editNoteRejectedAction());
-            return;
         }
 
-        if (obj) {
-            /* If notebook not null and value has changed update the notes notebook only */
-            if (obj.notebook && obj.notebook.name !== note.notebook) {
-                // update the notebook of the note
-                database.ref('/notes/' + note.id + '/notebook/')
-                    .set(obj.notebook.name)
-                    .then(dispatch(editNoteFulfilledAction(note, obj)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(editNoteRejectedAction());
-                    });
-            }
+        // Update the rest of the note data if not editing notebook
+        database.ref('/notes/' + note.id)
+            .update(note)
+            .then(dispatch(editNoteFulfilledAction(note, {})))
+            .catch((error) => {
+                console.error(error);
+                dispatch(editNoteRejectedAction());
+            });
+    }
+}
 
-            /* Handle when tags are defined */
-            else if (obj.hasOwnProperty('tags')) {
-                // if tags is empty then remove them from note
-                if (!obj.tags.length) {
-                    const noteRef = database.ref('/notes/' + note.id);
+/**
+ * editNoteNotebook
+ * 
+ * @param {Object} note 
+ * @param {Object} notebook 
+ */
+export function editNoteNotebook(note, notebook) {
+    return (dispatch) => {
+        dispatch(editNoteNotebookRequestedAction());
 
-                    noteRef.child('/tags/').remove()
-                        .then(dispatch(editNoteFulfilledAction(note, { tagList: null })))
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });
-                } else {
-                    const selectedNoteTags = currentState.noteData.notes.tags;
-                    const noteRef = database.ref('/notes/' + note.id);
+        if (!note) {
+            dispatch(editNoteNotebookRejectedAction());
+        }
 
-                    // Make tag list unique
-                    obj.tags = uniq(obj.tags);
-                    obj.tagList = [];
-                    
-                    // Update existing tags and add new ones
-                    obj.tags.forEach((tag) => {
-                        // if tag has an ID update that ref
-                        if (tag.id) {
-                            noteRef.child('/tags/' + tag.id).update(tag);
-                            // Push to tagList
-                            obj.tagList.push(tag);
+        /* If notebook not null and value has changed update the notes notebook only */
+        if (notebook && notebook.name !== note.notebook) {
+            // update the notebook of the note
+            let notebookRef = database.ref('/notes/' + note.id + '/notebook/');
+            
+            notebookRef.set(notebook.name)
+                .then(dispatch(editNoteNotebookFulfilledAction(note, notebook)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteNotebookRejectedAction());
+                });
+        }
+    }
+}
+
+export function editNoteTags(note, tags) {
+    return (dispatch) => {
+        dispatch(editNoteTagsRequestedAction());
+
+        if (!note) {
+            dispatch(editNoteTagsRejectedAction());
+        }
+
+        // if tags is empty then REMOVE them from note
+        if (!tags.length) {
+            const noteRef = database.ref('/notes/' + note.id);
+
+            noteRef.child('/tags/').remove()
+                .then(dispatch(editNoteTagsFulfilledAction(note)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteTagsRejectedAction());
+                });
+        } else {
+            const noteRef = database.ref('/notes/' + note.id);
+            let tagList = [];
+
+            // Make tag list unique
+            tags = uniq(tags);
+            
+            // Update existing tags and add new ones
+            noteRef.child('/tags/').once('value', (snap) => {
+                let noteTags = snap.val();
+                // console.log(noteTags);
+
+                tags.forEach((tag) => {
+                    // if tag has an ID update that ref
+                    if (tag.id) {
+                        if (noteTags && noteTags.hasOwnProperty(tag.id)) {
+                            tagList.push(tag);
                         } else {
+                            noteRef.child('/tags/' + tag.id)
+                            .update(tag);
+                            
+                            // Push to tagList
+                            tagList.push(tag);
+                        }
+                    } else if (!tag.id) {
+                        if (!noteTags.hasOwnProperty(tag.id)) {
                             // if no ID push a new tag to the list
                             let tagsRef = noteRef.child('/tags/').push();
                             
@@ -124,26 +169,17 @@ export function editNote(note, obj = null) {
                             tagsRef.set(tag);
                             
                             // push each tag to tagList to update state
-                            obj.tagList.push({
+                            tagList.push({
                                 id: tagsRef.key,
                                 value: tagsRef.key,
                                 label: tag.label
                             });
                         }
-                    });
-
-                    dispatch(editNoteFulfilledAction(note, obj));
-                }
-            }
-        } else {
-            // Update the rest of the note data if not editing notebook
-            database.ref('/notes/' + note.id)
-                .update(note)
-                .then(dispatch(editNoteFulfilledAction(note, {})))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(editNoteRejectedAction());
+                    }
                 });
+                dispatch(editNoteTagsFulfilledAction(note, tagList));
+            });
+
         }
     }
 }
@@ -260,6 +296,36 @@ function editNoteRejectedAction() {
 
 function editNoteFulfilledAction(note, obj) {
     return { type: types.EditNoteFulfilled, note, obj };
+}
+
+/**
+ * Edit Note Notebook
+ */
+function editNoteNotebookRequestedAction() {
+    return { type: types.EditNoteNotebookRequested };
+}
+
+function editNoteNotebookRejectedAction() {
+    return { type: types.EditNoteNotebookRejected };
+}
+
+function editNoteNotebookFulfilledAction(note, notebook) {
+    return { type: types.EditNoteNotebookFulfilled, note, notebook };
+}
+
+/**
+ * Edit Note Tags
+ */
+function editNoteTagsRequestedAction() {
+    return { type: types.EditNoteTagsRequested };
+}
+
+function editNoteTagsRejectedAction() {
+    return { type: types.EditNoteTagsRejected };
+}
+
+function editNoteTagsFulfilledAction(note, tagList) {
+    return { type: types.EditNoteTagsFulfilled, note, tagList };
 }
 
 /**

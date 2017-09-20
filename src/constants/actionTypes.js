@@ -16,6 +16,14 @@ export const EditNoteRequested = 'EDIT_NOTE_REQUESTED';
 export const EditNoteRejected = 'EDIT_NOTE_REJECTED';
 export const EditNoteFulfilled = 'EDIT_NOTE_FULFILLED';
 
+export const EditNoteNotebookRequested = 'EDIT_NOTE_NOTEBOOK_REQUESTED';
+export const EditNoteNotebookRejected = 'EDIT_NOTE_NOTEBOOK_REJECTED';
+export const EditNoteNotebookFulfilled = 'EDIT_NOTE_NOTEBOOK_FULFILLED';
+
+export const EditNoteTagsRequested = 'EDIT_NOTE_TAGS_REQUESTED';
+export const EditNoteTagsRejected = 'EDIT_NOTE_TAGS_REJECTED';
+export const EditNoteTagsFulfilled = 'EDIT_NOTE_TAGS_FULFILLED';
+
 export const DeleteNoteRequested = 'DELETE_NOTE_REQUESTED';
 export const DeleteNoteRejected = 'DELETE_NOTE_REJECTED';
 export const DeleteNoteFulfilled = 'DELETE_NOTE_FULFILLED';

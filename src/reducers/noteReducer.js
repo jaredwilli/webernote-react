@@ -1,5 +1,7 @@
 import * as types from '../constants/actionTypes.js';
 
+import { uniq } from '../common/helpers.js';
+
 export default function noteReducer(state = {}, action) {
     switch(action.type) {
         // *** GET NOTES
@@ -143,7 +145,7 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.EditNoteFulfilled: {
-            const { note, obj } = action;
+            const { note } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -157,20 +159,83 @@ export default function noteReducer(state = {}, action) {
                 note.tags = note.tags.slice();
             }
 
-            // Handle notebooks and tags on obj
-            if (obj) {
-                // If notebook changed update selectedNote notebook
-                if (obj.hasOwnProperty('notebook')) {
-                    note.notebook = obj.notebook.name;
-                }
+            newState.selectedNote = note;
+            return newState;
+        }
+        
+        // *** EDIT NOTE NOTEBOOK
+        case types.EditNoteNotebookRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.EditNoteNotebookRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error editing note notebook'
+            });
+        }
+        
+        case types.EditNoteNotebookFulfilled: {
+            const { note, notebook } = action;
 
-                // If tag changed update selectedNote tags
-                if (obj.hasOwnProperty('tagList')) {
-                    note.tags = obj.tagList;
-                }
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Edited note notebook'
+            });
+
+            // If notebook changed update selectedNote notebook
+            if (notebook) {
+                note.notebook = notebook.name;
             }
 
             newState.selectedNote = note;
+            return newState;
+        }
+        
+        // *** EDIT NOTE TAGS
+        case types.EditNoteTagsRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.EditNoteTagsRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error editing note tags'
+            });
+        }
+        
+        case types.EditNoteTagsFulfilled: {
+            const { note, tagList } = action;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Edited note tags'
+            });
+
+            // Set note.tags as an array
+            if (!note.tags) {
+                note.tags = [];
+            } else {
+                note.tags = note.tags.slice();
+            }
+            
+            // If tags changed update selectedNote tags
+            if (tagList) {
+                note.tags = uniq(tagList);
+            }
+
+            newState.selectedNote = note;
+            console.log(newState);
+            console.log(newState.selectedNote.tags);
+            
             return newState;
         }
         

@@ -53,7 +53,9 @@ class NotesContainer extends React.PureComponent {
                     <h1><a href="/">Webernote<sup>TM</sup></a></h1>
 
                     <span className="old-versions-nav">
-                        Check out <a href="http://anti-code.com/webernote/" target="_blank">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">v2</a>!
+                        Check out 
+                        <a href="http://anti-code.com/webernote/" target="_blank">v1</a> and 
+                        <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">v2</a>!
                     </span>
                 </header>
                 <div className="wrapper">

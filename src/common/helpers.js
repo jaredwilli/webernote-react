@@ -1,51 +1,80 @@
 // helper functions
 
+/**
+ * 
+ * @param {*} timeStamp 
+ */
 export function formatDate(timeStamp) {
-    var date = new Date(timeStamp);
-	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+	var date = new Date(timeStamp);
+	return (
+		date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
+	);
 }
 
+/**
+ * 
+ * @param {*} notes 
+ */
 export function sortNotes(notes) {
-    notes.sort((a, b) => {
-        let aDate = a.created_date; // (a.modified_date !== '') ? a.modified_date : a.created_date;
-        let bDate = b.created_date; // (b.modified_date !== '') ? b.modified_date : b.created_date;
+	notes
+		.sort((a, b) => {
+			let aDate = a.created_date; // (a.modified_date !== '') ? a.modified_date : a.created_date;
+			let bDate = b.created_date; // (b.modified_date !== '') ? b.modified_date : b.created_date;
 
-        return new Date(aDate).getTime() - new Date(bDate).getTime();
-    }).reverse();
-    return notes;
+			return new Date(aDate).getTime() - new Date(bDate).getTime();
+		})
+		.reverse();
+	return notes;
 }
 
+/**
+ * 
+ * @param {*} notes 
+ * @param {*} notebook 
+ */
 export function getNotebookCount(notes, notebook) {
-    let count = 0;
-    notes.forEach(function(c) {
-        if (c.notebook === notebook.name) {
-            count++;
-        }
-    });
-    return count
+	let count = 0;
+
+	notes.forEach(function(note) {
+		if (note.notebook === notebook.name) {
+			count++;
+		}
+	});
+	return count;
 }
 
+/**
+ * 
+ * @param {*} notes 
+ * @param {*} tag 
+ */
 export function getTagCount(notes, tag) {
-    let count = 0;
+	let count = 0;
 
-    notes.forEach(function(c) {
-        if (c.tags === tag.name) {
-            count++;
-        }
-    });
-    return count
+	notes.forEach(function(note) {
+        note.tags.forEach((t) => {
+            if (t.label === tag.label) {
+                count++;
+            }
+        });
+	});
+	return count;
 }
 
+/**
+ * 
+ * @param {*} noteTags 
+ */
 export function getTags(noteTags) {
-    let tags = [];
+	let tags = [];
 
-    if (noteTags) {
-        Object.keys(noteTags).forEach((i) => {
-            tags.push(noteTags[i].label);
-        });
-        tags = tags.join(', ');
-    }
-    return tags;    
+	if (noteTags) {
+		Object.keys(noteTags).forEach(i => {
+			tags.push(noteTags[i].label);
+		});
+		tags = tags.join(', ');
+	}
+	return tags;
 }
 
 /**
@@ -59,17 +88,19 @@ export function getTags(noteTags) {
  * @returns {Array} thing a unique array of objects.
  */
 export function uniq(thing) {
-    if (!thing || thing.length) return thing;
-    // things = new Object();
-    // things.thing = new Array();
+	if (thing !== null && thing.length) return thing;
+	// things = new Object();
+	// things.thing = new Array();
+	// things.thing.push({place:"here",name:"stuff"});
+	// things.thing.push({place:"there",name:"morestuff"});
+	// things.thing.push({place:"there",name:"morestuff"});
     
-    // things.thing.push({place:"here",name:"stuff"});
-    // things.thing.push({place:"there",name:"morestuff"});
-    // things.thing.push({place:"there",name:"morestuff"});
+	thing = thing.filter(
+		(thing, index, self) =>
+			self.findIndex(t => {
+				return t.id === thing.id && t.label === thing.label;
+			}) === index
+	);
 
-    thing = thing.filter((thing, index, self) => self.findIndex((t) => {
-        return t.id === thing.id && t.label === thing.label; 
-    }) === index);
-    
-    return thing;
+	return thing;
 }
