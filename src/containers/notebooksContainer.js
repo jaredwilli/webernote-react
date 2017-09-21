@@ -10,10 +10,19 @@ class NotebooksContainer extends React.PureComponent {
 
         this.selectNotebook = this.selectNotebook.bind(this);
         this.addNotebook = this.addNotebook.bind(this);
+        this.keyPress = this.keyPress.bind(this);
 
         this.state = {
             addNotebook: false
         };
+    }
+
+    // Handle tab or enter keypress for new notebooks
+    keyPress(e) {
+        // If enter or tab key pressed on new notebook input
+        if (e.keyCode === 13 || e.keyCode === 9) {
+            this.addNotebook(e);
+        }
     }
 
     addNotebook(e) {
@@ -86,7 +95,9 @@ class NotebooksContainer extends React.PureComponent {
                 <span>
                     <button className="cancel-new" onClick={() => this.setState({ addNotebook: false })}>x</button>
                     <input type="text" name="notebook" className="new-notebook" placeholder="Notebook name..."
-                        onBlur={this.addNotebook} />
+                        autoFocus={true}
+                        onBlur={this.addNotebook}
+                        onKeyDown={this.keyPress} />
                 </span>
             );
         }
