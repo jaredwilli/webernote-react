@@ -53,44 +53,6 @@ export default function noteReducer(state = {}, action) {
             return newState;
         }
 
-        // *** GET NOTE
-        /* case types.GetNoteRequested: {
-            return Object.assign({}, state, {
-                inProgress: true,
-                error: '',
-                success: ''
-            });
-        }
-        
-        case types.GetNoteRejected: {
-            return Object.assign({}, state, {
-                inProgress: false,
-                error: 'Error in getting note'
-            });
-        }
-
-        case types.GetNoteFulfilled: {
-            const note = action.note;
-
-            if (note) {
-                state.notes.filter(function(n) {
-                    if (n.id === note.id) {
-                        n = note;
-                    }
-                    return n;
-                });
-            }
-
-            const newState = Object.assign({}, state, {
-                inProgress: false,
-                success: 'Got note: ' + note.title
-            });
-            
-            newState.notes = state.notes;
-            newState.selectedNote = note;
-            return newState;
-        } */
-
         // *** ADD NOTE
         case types.AddNoteRequested: {
             return Object.assign({}, state, {

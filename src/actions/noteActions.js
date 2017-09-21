@@ -68,7 +68,10 @@ export function editNote(note, obj = null) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
 
-        let currentState = getState();
+        // refs
+        const noteRef = database.ref('notes/' + note.id);
+        const noteNotebookRef = noteRef.child('notebook');
+        const noteTagsRef = noteRef.child('tags');
 
         if (!note) {
             dispatch(editNoteRejectedAction());
@@ -77,10 +80,12 @@ export function editNote(note, obj = null) {
 
         if (obj) {
             /* If notebook not null and value has changed update the notes notebook only */
-            if (obj.notebook && obj.notebook.name !== note.notebook) {
+            if (obj.notebook && obj.notebook.name !== note.notebook.name) {
                 // update the notebook of the note
-                database.ref('/notes/' + note.id + '/notebook/')
-                    .set(obj.notebook.name)
+                let notebookRef = noteNotebookRef.push();
+                obj.noteook.id = notebookRef.key;
+                
+                notebookRef.set(obj.notebook)
                     .then(dispatch(editNoteFulfilledAction(note, obj)))
                     .catch((error) => {
                         console.error(error);
@@ -95,13 +100,13 @@ export function editNote(note, obj = null) {
                     const noteRef = database.ref('/notes/' + note.id);
 
                     noteRef.child('/tags/').remove()
-                        .then(dispatch(editNoteFulfilledAction(note, { tagList: null })))
+                        .then(dispatch(editNoteFulfilledAction(note, { tagList: [] })))
                         .catch((error) => {
                             console.error(error);
                             dispatch(editNoteRejectedAction());
                         });
                 } else {
-                    const selectedNoteTags = currentState.noteData.notes.tags;
+                    // const selectedNoteTags = currentState.noteData.notes.tags;
                     const noteRef = database.ref('/notes/' + note.id);
 
                     // Make tag list unique
@@ -216,21 +221,6 @@ function getNotesRejectedAction() {
 function getNotesFulfilledAction(notes) {
     return { type: types.GetNotesFulfilled, notes };
 }
-
-/**
- * Get Note
- */
-/* function getNoteRequestedAction() {
-    return { type: types.GetNoteRequested };
-}
-
-function getNoteRejectedAction() {
-    return { type: types.GetNoteRejected };
-}
-
-function getNoteFulfilledAction(note) {
-    return { type: types.GetNoteFulfilled, note };
-} */
 
 /**
  * Add Note

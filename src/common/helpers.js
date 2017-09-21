@@ -17,8 +17,9 @@ export function sortNotes(notes) {
 
 export function getNotebookCount(notes, notebook) {
     let count = 0;
-    notes.forEach(function(c) {
-        if (c.notebook === notebook.name) {
+    // iterate over notes
+    notes.forEach(function(n) {
+        if (n.notebook.name === notebook.name) {
             count++;
         }
     });
@@ -27,11 +28,15 @@ export function getNotebookCount(notes, notebook) {
 
 export function getTagCount(notes, tag) {
     let count = 0;
-
-    notes.forEach(function(c) {
-        if (c.tags === tag.name) {
-            count++;
-        }
+    // iterate over notes
+    notes.forEach((n) => {
+        if (!n.tags.length) return;
+        // iterate over note tags
+        n.tags.forEach((t) => {
+            if (t.label === tag.name) {
+                count++;
+            }
+        })
     });
     return count
 }
@@ -73,3 +78,93 @@ export function uniq(thing) {
     
     return thing;
 }
+
+export function getDeletedTags(tags, note) {
+    let noteTagsCopy = note.tags;
+    let tagsCopy = tags;
+    let tagSize = _.size(tagsCopy);
+    let noteTagSize = _.size(noteTagsCopy);
+
+    // Need to remove tags if tagSize is smaller than note tags
+    if (tagSize < noteTagSize) {
+        for (let i = 0; i < tagsCopy.length; i++) {
+            for (let j = 0; j < noteTagsCopy.length; j++) {
+                // If they match splice it out. whats left needs to be removed.
+                if (tagsCopy[i].id === noteTagsCopy[j].id) {
+                    noteTagsCopy.splice(j, 1);
+                }
+            }
+        }
+        console.log(noteTagsCopy);
+    }
+    return noteTagsCopy;
+}
+
+/**
+ + * Generate a new tag object
+ + * 
+ + * @param {*} refId 
+ + * @param {*} tag 
+ + * @param {*} note 
+ + */
+ export function createNewTag(refId, tag, note) {
+    // no className - not new tag...
+    if (!tag.className) return;
+    delete tag.className;
+
+    // Add some extra data to tag object
+    tag.userId = 1;
+    tag.uid = guid();
+    tag.id = refId;
+    tag.value = refId;
+
+    return tag;
+}
+
+/**
+ * guid
+ * 
+ * Generates a unique ID.
+ */
+export function guid() {
+	return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
+}
+
+function s4() {
+	return Math.floor((1 + Math.random()) * 0x10000)
+		.toString(16)
+		.substring(1);
+}
+
+/**
+ * checkIfUserExists
+ * 
+ * @param {Object} authData 
+ */
+export function checkIfUserExists(authData) {
+	return database
+		.child('users')
+		.child(authData.uid)
+		.once('value')
+		.then(dataSnapshot => {
+			return Promise.resolve({
+				authData,
+				userExists: dataSnapshot.exists()
+			});
+		});
+}
+
+// example usage
+/* database
+	.authWithOAuthPopup(provider)
+	.then(checkIfUserExists)
+	.then(({ authData, userExists }) => {
+		if (userExists) {
+			// update user
+		} else {
+			// go create a user
+		}
+	})
+	.catch(err => {
+		console.warn('Error signing in.', err);
+	}); */

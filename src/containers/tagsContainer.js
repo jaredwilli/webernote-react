@@ -16,6 +16,7 @@ class TagsContainer extends React.PureComponent {
 		this.editTags = this.editTags.bind(this);
 	}
 
+    // TODO: add a minimum character limit for new tags
 	editTags(tags) {
         const allTags = this.props.tags;
         

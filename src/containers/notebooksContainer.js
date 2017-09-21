@@ -18,6 +18,7 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     // Handle tab or enter keypress for new notebooks
+    // TODO: add a minimum character limit for new notebooks
     keyPress(e) {
         // If enter or tab key pressed on new notebook input
         if (e.keyCode === 13 || e.keyCode === 9) {

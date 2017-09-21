@@ -4,10 +4,6 @@ export const GetNotesRequested = 'GET_NOTES_REQUESTED';
 export const GetNotesRejected = 'GET_NOTES_REJECTED';
 export const GetNotesFulfilled = 'GET_NOTES_FULFILLED';
 
-export const GetNoteRequested = 'GET_NOTE_REQUESTED';
-export const GetNoteRejected = 'GET_NOTE_REJECTED';
-export const GetNoteFulfilled = 'GET_NOTE_FULFILLED';
-
 export const AddNoteRequested = 'ADD_NOTE_REQUESTED';
 export const AddNoteRejected = 'ADD_NOTE_REJECTED';
 export const AddNoteFulfilled = 'ADD_NOTE_FULFILLED';
