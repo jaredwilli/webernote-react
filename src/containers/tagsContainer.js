@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { uniq } from '../common/helpers.js';
-
-import Select, { Creatable } from 'react-select';
+import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
 import * as tagActions from '../actions/tagActions';
@@ -18,31 +16,27 @@ class TagsContainer extends React.PureComponent {
 
     // TODO: add a minimum character limit for new tags
 	editTags(tags) {
-        const allTags = this.props.tags;
+        const selectedNote = this.props.selectedNote;
         
         if (tags.length) {
             tags.forEach((tag) => {
                 if (tag.className) {
-                    this.props.actions.addTag(tags, allTags);
+                    this.props.actions.addTag(tags, selectedNote);
                 }
             });
         }
 
-        this.props.editTags(tags, allTags);
+        this.props.editTags(tags, selectedNote);
 	}
 
 	render() {
         const { selectedNote, tags } = this.props;
         let tagOptions;
 
-        // Make tags uniq
-        selectedNote.tags = uniq(selectedNote.tags);
-        
-		if (!tags) {
+        if (!tags) {
             return <div className="loading">Loading...</div>;
 		} else {
             tagOptions = tags;
-            // tagOptions = uniq(tagOptions);
         }
 
 		return (

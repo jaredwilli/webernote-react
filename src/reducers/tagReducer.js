@@ -94,14 +94,46 @@ export default function tagReducer(state = {}, action) {
         }
         
         case types.AddTagFulfilled: {
-            const tagList = action.tagList;
+            const tags = action.tags;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added tag'
             });
 
-            newState.tags = tagList;
+            newState.tags = tags;
+            console.log('newState.tags: @@@@@', newState.tags);
+            
+            return newState;
+        }
+        
+        // *** EDIT TAGS
+        case types.EditTagsRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.EditTagsRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error editing tags'
+            });
+        }
+        
+        case types.EditTagsFulfilled: {
+            const tags = action.tags;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Edited tags'
+            });
+
+            newState.tags = tags;
+            console.log('newState.tags: @@@@@', newState.tags);
+            
             return newState;
         }
         

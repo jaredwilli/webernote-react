@@ -1,7 +1,7 @@
 import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
-import { uniq } from '../common/helpers.js';
+import { uniq, getDeletedTags } from '../common/helpers.js';
 
 export function getState() {
     return (dispatch, getState) => {
@@ -70,44 +70,52 @@ export function editNote(note, obj = null) {
 
         // refs
         const noteRef = database.ref('notes/' + note.id);
-        const noteNotebookRef = noteRef.child('notebook');
-        const noteTagsRef = noteRef.child('tags');
-
+        
         if (!note) {
             dispatch(editNoteRejectedAction());
             return;
         }
-
+        
         if (obj) {
             /* If notebook not null and value has changed update the notes notebook only */
             if (obj.notebook && obj.notebook.name !== note.notebook.name) {
-                // update the notebook of the note
-                let notebookRef = noteNotebookRef.push();
-                obj.noteook.id = notebookRef.key;
+                const noteNotebookRef = noteRef.child('notebook');
                 
+                let notebookRef = noteNotebookRef.push();
+                obj.notebook.id = notebookRef.key;
+                
+                // update the notebook of the note
                 notebookRef.set(obj.notebook)
-                    .then(dispatch(editNoteFulfilledAction(note, obj)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(editNoteRejectedAction());
-                    });
+                .then(dispatch(editNoteFulfilledAction(note, obj)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
             }
-
+            
             /* Handle when tags are defined */
             else if (obj.hasOwnProperty('tags')) {
-                // if tags is empty then remove them from note
-                if (!obj.tags.length) {
-                    const noteRef = database.ref('/notes/' + note.id);
+                const noteTagsRef = noteRef.child('tags');
+                
+                // Remove all tags removed from edit input
+                const removedTags = getDeletedTags(obj.tags, note);
+        
+                if (removedTags.length) {
+                    removedTags.forEach((tag) => {
+                        noteTagsRef.child(tag.id).remove();
+                    });
+                }
 
-                    noteRef.child('/tags/').remove()
-                        .then(dispatch(editNoteFulfilledAction(note, { tagList: [] })))
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });
-                } else {
-                    // const selectedNoteTags = currentState.noteData.notes.tags;
-                    const noteRef = database.ref('/notes/' + note.id);
+                // If tags is empty then remove them from note
+                if (!obj.tags) {
+                    noteTagsRef.remove();
+                    dispatch(editNoteFulfilledAction(note, { 
+                        tags: [] 
+                    }));
+                } 
+                
+                // Note has tags
+                else {
 
                     // Make tag list unique
                     obj.tags = uniq(obj.tags);

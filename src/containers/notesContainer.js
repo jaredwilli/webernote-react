@@ -13,6 +13,7 @@ import AddNote from '../components/AddNote';
 import '../App.css';
 
 const newNote = {
+    userId: 1,
     title: 'Untitled note...',
     notebook: 'General',
     url: '',

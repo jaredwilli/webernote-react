@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { uniq } from '../common/helpers.js';
+import { uniq, createNewTag, getDeletedTags } from '../common/helpers.js';
 
 export function getTags() {
     return dispatch => {
@@ -28,7 +28,7 @@ export function getTag(tag) {
     }
 }
 
-export function addTag(tags) {
+export function addTag(tags, note) {
     return dispatch => {
         dispatch(addTagRequestedAction());
 
@@ -42,12 +42,9 @@ export function addTag(tags) {
             
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
-                delete tag.className;
-
                 const tagRef = database.ref('/tags').push();
-
-                tag.id = tagRef.key;
-                tag.value = tagRef.key;
+                
+                tag = createNewTag(tagRef, tag, note)
                 tagRef.set(tag);
             }
             
@@ -61,18 +58,94 @@ export function addTag(tags) {
 
 export function editTag(tag) {
     return dispatch => {
-        dispatch(editTagRequestedAction());
+        dispatch(editTagsRequestedAction());
 
         return database.ref('/tags/' + tag.id)
             .set(tag.label)
             .then((tag) => {
-                dispatch(editTagFulfilledAction(tag));
+                dispatch(editTagsFulfilledAction(tag));
             })
             .catch((error) => {
                 console.error(error);
-                dispatch(editTagRejectedAction());
+                dispatch(editTagsRejectedAction());
             });
     }
+}
+
+export function editTags(tags, note) {
+	return dispatch => {
+		dispatch(editTagsRequestedAction());
+
+        // Refs to the selectedNote and tags
+        const noteRef = database.ref('/notes/' + note.id);
+        const tagsRef = database.ref('/tags/');
+
+        
+		// Remove all tags if none exist
+		if (!tags) {
+            noteRef.child('tags').remove();
+			dispatch(editTagsFulfilledAction(noteRef.key));
+        }
+
+        // Remove all tags removed from edit input
+        const removedTags = getDeletedTags(tags, note);
+
+        if (removedTags.length) {
+            removedTags.forEach((tag) => {
+                noteRef.child('tags/' + tag.id).remove();
+            });
+        }
+
+        // Get all existing tags to add new and use existing for notes
+        tagsRef.once('value')
+            .then((snap) => {
+                // get all children in tags
+                let tagsChildren = snap.val();
+                let tagList = [];
+
+                // Loop over the tags array added to selectedNote
+                tags.forEach((tag) => {
+                    if (tagsChildren && tagsChildren.hasOwnProperty(tag.label)) {
+                        return;
+                    }
+
+                    // Add new tags to tags and selectedNote
+                    if (tag.className && !tagsChildren.hasOwnProperty(tag.id)) {
+                        let refId = tagsRef.push();
+                        let newTag = createNewTag(refId.key, tag, note);
+
+                        // Set new tag
+                        refId.set(newTag);
+
+                        // Set note tags since new tag means note wont have it
+                        noteRef.child('tags/' + newTag.id).set(newTag);
+                    } else {
+                        let noteTagRef = noteRef.child('tags');
+
+                        // Checkout the value of the noteTagsRef for value at tag.id path
+                        noteTagRef.once('value')
+                            .then((snap) => {
+                                // If snap doesn't exist add set the noteTagRef value
+                                if (!snap.exists()) {
+                                    noteTagRef.set(tag);
+                                } else {
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                dispatch(editTagsRejectedAction());
+                            });
+                    }
+                });
+
+                dispatch(editTagsFulfilledAction(tagsChildren));
+            })
+            .catch((error) => {
+                console.error(error);
+                dispatch(editTagsRejectedAction());
+            });;
+	};
 }
 
 export function selectTag(tag) {
@@ -125,21 +198,21 @@ function addTagRejectedAction() {
     return { type: types.AddTagRejected };
 }
 
-function addTagFulfilledAction(tagList) {
-    return { type: types.AddTagFulfilled, tagList };
+function addTagFulfilledAction(tags) {
+    return { type: types.AddTagFulfilled, tags };
 }
 
 /**
  * Edit Tag
  */
-function editTagRequestedAction() {
-    return { type: types.EditTagRequested };
+function editTagsRequestedAction() {
+    return { type: types.EditTagsRequested };
 }
 
-function editTagRejectedAction() {
-    return { type: types.EditTagRejected };
+function editTagsRejectedAction() {
+    return { type: types.EditTagsRejected };
 }
 
-function editTagFulfilledAction(tag) {
-    return { type: types.EditTagFulfilled, tag };
+function editTagsFulfilledAction(tag) {
+    return { type: types.EditTagsFulfilled, tag };
 }

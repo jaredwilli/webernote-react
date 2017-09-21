@@ -66,9 +66,9 @@ export const AddTagRequested = 'ADD_TAG_REQUESTED';
 export const AddTagRejected = 'ADD_TAG_REJECTED';
 export const AddTagFulfilled = 'ADD_TAG_FULFILLED';
 
-export const EditTagRequested = 'EDIT_TAG_REQUESTED';
-export const EditTagRejected = 'EDIT_TAG_REJECTED';
-export const EditTagFulfilled = 'EDIT_TAG_FULFILLED';
+export const EditTagsRequested = 'EDIT_TAGS_REQUESTED';
+export const EditTagsRejected = 'EDIT_TAGS_REJECTED';
+export const EditTagsFulfilled = 'EDIT_TAGS_FULFILLED';
 
 export const DeleteTagRequested = 'DELETE_TAG_REQUESTED';
 export const DeleteTagRejected = 'DELETE_TAG_REJECTED';

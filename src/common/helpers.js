@@ -1,4 +1,5 @@
 // helper functions
+import _ from 'lodash';
 
 export function formatDate(timeStamp) {
     var date = new Date(timeStamp);
@@ -74,8 +75,7 @@ export function uniq(thing) {
 
     thing = thing.filter((thing, index, self) => self.findIndex((t) => {
         return t.id === thing.id && t.label === thing.label; 
-    }) === index);
-    
+    }) === index);    
     return thing;
 }
 
@@ -95,9 +95,9 @@ export function getDeletedTags(tags, note) {
                 }
             }
         }
-        console.log(noteTagsCopy);
+        return noteTagsCopy;
     }
-    return noteTagsCopy;
+    return false;
 }
 
 /**
@@ -115,8 +115,9 @@ export function getDeletedTags(tags, note) {
     // Add some extra data to tag object
     tag.userId = 1;
     tag.uid = guid();
-    tag.id = refId;
-    tag.value = refId;
+    tag.id = refId.key;
+    tag.value = refId.key;
+    tag.label = tag.label;
 
     return tag;
 }
@@ -141,8 +142,8 @@ function s4() {
  * 
  * @param {Object} authData 
  */
-export function checkIfUserExists(authData) {
-	return database
+export function checkIfUserExists(authData, userRef) {
+	return userRef
 		.child('users')
 		.child(authData.uid)
 		.once('value')
@@ -168,3 +169,5 @@ export function checkIfUserExists(authData) {
 	.catch(err => {
 		console.warn('Error signing in.', err);
 	}); */
+
+
