@@ -8,10 +8,6 @@ import * as tagActions from '../actions/tagActions';
 import { getNotebookCount, getTagCount } from '../common/helpers.js';
 
 class NoteNav extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     /* function toggleExpanded(expanded) {
         if (this.props.notebooks.length > 0) {
             expanded = 'expanded';

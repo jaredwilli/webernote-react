@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Select, { Creatable } from 'react-select';
+import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import { guid } from '../common/helpers';
 import * as tagActions from '../actions/tagActions';
 
 class TagsContainer extends React.PureComponent {
@@ -16,25 +15,11 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	editTags(tags) {
-        const propTags = this.props.tags;
+        const selectedNote = this.props.selectedNote;
         
-        if (tags) {
-            console.log('if tags');
-            // need to add GUID to tags if dont have one
-
-            debugger
-            
-            let allTags = propTags.concat(tags);
-            // Send all Tags including these
-            this.props.actions.addTag(allTags);
-            
-            // Only send these Tags
-            this.props.editNoteTags(tags);
-        } else {
-            console.log('====================================');
-            console.log('if !tags');
-            console.log('====================================');
-        }
+        // Send tags and note to add tags and edit tags
+        this.props.actions.editTags(tags, selectedNote);
+        this.props.editNoteTags(tags)
 	}
 
 	render() {
@@ -60,8 +45,8 @@ class TagsContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
 	const newState = {
-		notes: state.noteData.notes,
 		tags: state.tagData.tags,
+		notes: state.noteData.notes,
 		selectedNote: state.noteData.selectedNote
 	};
 	// console.log('STATE: ', state, newState);
@@ -70,9 +55,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(tagActions, dispatch)
-	};
+    return {
+        actions: bindActionCreators(tagActions, dispatch)
+    };
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagsContainer);

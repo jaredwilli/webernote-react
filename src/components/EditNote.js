@@ -22,7 +22,7 @@ class EditNote extends React.Component {
 
     editNote(e) {
         let note = this.props.selectedNote;
-
+debugger
         note[e.target.name] = e.target.value;
         note.modified_date = new Date().getTime();
 
@@ -35,35 +35,11 @@ class EditNote extends React.Component {
     }
     
     editNotebook(notebook) {
-        let note = this.props.selectedNote;
-
-        this.setState({
-            selectedNote: note
-        });
-
-        this.props.actions.editNoteNotebook(note, notebook);
-        // this.props.actions.getNotes();
+        this.props.actions.editNoteNotebook(notebook);
     }
     
-    editNoteTags(tags) {
-        let note = this.props.selectedNote;
-
-        // this.setState({
-        //     selectedNote: note
-        // });
-        // debugger
-        
-        if (note.tags) {
-            console.log('if note.tags');
-            
-            let allNoteTags = note.tags.concat(tags);
-            
-            this.props.actions.editNoteTags(note, allNoteTags);
-        } else {
-            console.log('====================================');
-            console.log('if !note.tags');
-            console.log('====================================');
-        }
+    editNoteTags(tags, callback) {
+        this.props.actions.editNoteTags(this.props.selectedNote, tags);
     }
 
     render() {
@@ -71,9 +47,7 @@ class EditNote extends React.Component {
         const selectedNote = this.props.selectedNote;
 
         if (!selectedNote || !selectedNote.id) {
-            return (
-                <div className="show-note"></div>
-            );
+            return (<div className="show-note"></div>);
         }
 
         return (

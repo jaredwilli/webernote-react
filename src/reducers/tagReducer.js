@@ -1,7 +1,5 @@
 import * as types from '../constants/actionTypes.js';
 
-import { uniq } from '../common/helpers.js';
-
 export default function tagReducer(state = {}, action) {
     switch(action.type) {
 
@@ -31,13 +29,10 @@ export default function tagReducer(state = {}, action) {
             
             if (tags) {
                 newState.tags = Object.keys(tags).map(function(k) {
-                    tags[k].id = k;
-                    tags[k].value = k;
                     return tags[k];
                 });
             }
             
-            newState.tags = uniq(newState.tags);
             return newState;
         }
 
@@ -98,15 +93,44 @@ export default function tagReducer(state = {}, action) {
         
         case types.AddTagFulfilled: {
             const tagList = action.tagList;
-            let tags = [];
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Added tag'
+                success: 'Added tags'
             });
 
             newState.tags = Object.keys(tagList).map(function(t) {
                 return tagList[t];
+            });
+            return newState;
+        }
+        
+        // *** EDIT TAGS
+        case types.EditTagsRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.EditTagsRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error adding tag'
+            });
+        }
+        
+        case types.EditTagsFulfilled: {
+            const tags = action.tags;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Edited tags'
+            });
+
+            newState.tags = Object.keys(tags).map(function(t) {
+                return tags[t];
             });
             return newState;
         }
@@ -130,14 +154,24 @@ export default function tagReducer(state = {}, action) {
         case types.SelectTagFulfilled: {
             const tag = action.tag[0];
 
-            // action.selectedNote.tags = tag.name;
-
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Selected tag'
             });
 
             newState.tags.selectedTag = tag;
+            return newState;
+        }
+        
+        case types.DeleteNoteTagsFulFilled: {
+            const noteId = action.noteId;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Deleted note tags',
+                noteId
+            });
+
             return newState;
         }
         

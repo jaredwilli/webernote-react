@@ -1,4 +1,6 @@
 // helper functions
+import _ from 'lodash';
+import { database } from '../data/firebase';
 
 /**
  * 
@@ -101,8 +103,49 @@ export function uniq(thing) {
 				return t.id === thing.id && t.label === thing.label;
 			}) === index
 	);
-
 	return thing;
+}
+
+export function getDeletedTags(tags, note) {
+    let noteTagsCopy = note.tags;
+    let tagsCopy = tags;
+    let tagSize = _.size(tagsCopy);
+    let noteTagSize = _.size(noteTagsCopy);
+
+    // Need to remove tags if tagSize is smaller than note tags
+    if (tagSize < noteTagSize) {
+        for (let i = 0; i < tagsCopy.length; i++) {
+            for (let j = 0; j < noteTagsCopy.length; j++) {
+                // If they match splice it out. whats left needs to be removed.
+                if (tagsCopy[i].id === noteTagsCopy[j].id) {
+                    noteTagsCopy.splice(j, 1);
+                }
+            }
+        }
+        console.log(noteTagsCopy);
+    }
+    return noteTagsCopy;
+}
+
+/**
+ * Generate a new tag object
+ * 
+ * @param {*} refId 
+ * @param {*} tag 
+ * @param {*} note 
+ */
+export function createNewTag(refId, tag, note) {
+    // no className - not new tag...
+    if (!tag.className) return;
+    delete tag.className;
+
+    // Add some extra data to tag object
+    tag.userId = 1;
+    tag.uid = guid();
+    tag.id = refId;
+    tag.value = refId;
+
+    return tag;
 }
 
 /**
@@ -119,3 +162,36 @@ function s4() {
 		.toString(16)
 		.substring(1);
 }
+
+/**
+ * checkIfUserExists
+ * 
+ * @param {Object} authData 
+ */
+export function checkIfUserExists(authData) {
+	return database
+		.child('users')
+		.child(authData.uid)
+		.once('value')
+		.then(dataSnapshot => {
+			return Promise.resolve({
+				authData,
+				userExists: dataSnapshot.exists()
+			});
+		});
+}
+
+// example usage
+/* database
+	.authWithOAuthPopup(provider)
+	.then(checkIfUserExists)
+	.then(({ authData, userExists }) => {
+		if (userExists) {
+			// update user
+		} else {
+			// go create a user
+		}
+	})
+	.catch(err => {
+		console.warn('Error signing in.', err);
+	}); */

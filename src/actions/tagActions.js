@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { uniq } from '../common/helpers.js';
+import { createNewTag, getDeletedTags } from '../common/helpers.js';
 
 export function getTags() {
 	return dispatch => {
@@ -25,50 +25,91 @@ export function getTag(tag) {
 	return dispatch => {
 		dispatch(getTagRequestedAction());
 
-		// debugger
+		//
 		dispatch(getTagFulfilledAction(tag));
 	};
 }
 
-export function addTag(tags) {
+/**
+ * addNoteTags
+ * 
+ * @param {*} tags 
+ * @param {*} note 
+ * @param {*} callback 
+ */
+export function editTags(tags, note) {
 	return dispatch => {
-		const tagsRef = database.ref('/tags');
-        let tagList = [];
+		dispatch(editTagsRequestedAction());
+
+        // Refs to the selectedNote and tags
+        const noteRef = database.ref('/notes/' + note.id);
+        const tagsRef = database.ref('/tags/');
+
         
-		dispatch(addTagRequestedAction());
+		// Remove all tags if none exist
+		if (!tags) {
+            noteRef.remove();
+			dispatch(deleteNoteTagsFulfilledAction(noteRef.key));
+        }
 
-        // Remove all tags
-		if (!tags || !tags.length) {
-			tagsRef.remove();
-			dispatch(deleteTagsFulfilledAction());
-		}
+        // Remove all tags removed from edit input
+        const removedTags = getDeletedTags(tags, note);
 
-		// Make tag list unique
-		tags = uniq(tags);
-
-		tagsRef.on('value', snap => {
-			let remoteTags = snap.val();
-			console.log(remoteTags);
-
-			// Only add new tags but make full tagList
-			tags.forEach(tag => {
-				console.log(remoteTags.hasOwnProperty(tag.label));
-
-                // Add the new tag
-				if (tag.className && !remoteTags.hasOwnProperty(tag.label)) {
-					delete tag.className;
-
-					const tagRef = tagsRef.push();
-
-					tag.id = tagRef.key;
-                    tag.value = tagRef.key;
-                    
-					tagRef.set(tag);
-				}
-
-                dispatch(addTagFulfilledAction(remoteTags));
+        if (removedTags.length) {
+            removedTags.forEach((tag) => {
+                noteRef.child('tags/' + tag.id).remove();
             });
-		});
+        }
+
+        // Get all existing tags to add new and use existing for notes
+        tagsRef.once('value')
+            .then((snap) => {
+                // get all children in tags
+                let tagsChildren = snap.val();
+                let tagList = [];
+
+                // Loop over the tags array added to selectedNote
+                tags.forEach((tag) => {
+                    if (tagsChildren && tagsChildren.hasOwnProperty(tag.label)) {
+                        return;
+                    }
+
+                    // Add new tags to tags and selectedNote
+                    if (tag.className && !tagsChildren.hasOwnProperty(tag.id)) {
+                        let refId = tagsRef.push();
+                        let newTag = createNewTag(refId.key, tag, note);
+
+                        // Set new tag
+                        refId.set(newTag);
+
+                        // Set note tags since new tag means note wont have it
+                        noteRef.child('tags/' + newTag.id).set(newTag);
+                    } else {
+                        let noteTagRef = noteRef.child('tags');
+
+                        // Checkout the value of the noteTagsRef for value at tag.id path
+                        noteTagRef.once('value')
+                            .then((snap) => {
+                                // If snap doesn't exist add set the noteTagRef value
+                                if (!snap.exists()) {
+                                    noteTagRef.set(tag);
+                                } else {
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                dispatch(editTagsRejectedAction());
+                            });
+                    }
+                });
+
+                dispatch(editTagsFulfilledAction(tagsChildren));
+            })
+            .catch((error) => {
+                console.error(error);
+                dispatch(editTagsRejectedAction());
+            });;
 	};
 }
 
@@ -138,8 +179,23 @@ function addTagRejectedAction() {
 	return { type: types.AddTagRejected };
 }
 
-function addTagFulfilledAction(tagList) {
-	return { type: types.AddTagFulfilled, tagList };
+function addTagFulfilledAction(tags) {
+	return { type: types.AddTagFulfilled, tags };
+}
+
+/**
+ * Edit Tags
+ */
+function editTagsRequestedAction() {
+	return { type: types.EditTagsRequested };
+}
+
+function editTagsRejectedAction() {
+	return { type: types.EditTagsRejected };
+}
+
+function editTagsFulfilledAction(tags) {
+	return { type: types.EditTagsFulfilled, tags };
 }
 
 /**
@@ -158,8 +214,8 @@ function editTagFulfilledAction(tag) {
 }
 
 /**
- * Delete Tags
+ * Delete Note Tags
  */
-function deleteTagsFulfilledAction() {
-	return { type: types.DeleteTagFulFilled };
+function deleteNoteTagsFulfilledAction(noteId) {
+	return { type: types.DeleteNoteTagsFulFilled, noteId };
 }
