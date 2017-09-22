@@ -80,7 +80,7 @@ class EditNote extends React.Component {
                             value={selectedNote.url} 
                             onChange={(e) => this.editNote(e)} />
                         <TagsContainer 
-                            tags={selectedNote.tags}
+                            noteTags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />
                     </div>
                     <div className="bottom">

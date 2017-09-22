@@ -7,7 +7,7 @@ export function getTags() {
     return dispatch => {
         dispatch(getTagsRequestedAction());
 
-        return database.ref('/tags').once('value', snap => {
+        return database.ref('tags').once('value', snap => {
             const tags = snap.val();
 
             dispatch(getTagsFulfilledAction(tags));

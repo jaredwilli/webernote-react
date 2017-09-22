@@ -12,18 +12,6 @@ import AddNote from '../components/AddNote';
 
 import '../App.css';
 
-const newNote = {
-    userId: 1,
-    title: 'Untitled note...',
-    notebook: 'General',
-    url: '',
-    tags: [],
-    description: '',
-    isEditing: true,
-    created_date: new Date().getTime(),
-    modified_date: ''
-};
-
 class NotesContainer extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -35,7 +23,7 @@ class NotesContainer extends React.PureComponent {
         e.preventDefault();
 
         this.props.actions.resetSelectedNote();
-        this.props.actions.addNote(newNote);
+        this.props.actions.addNote();
     }
 
     render() {
@@ -98,6 +86,7 @@ class NotesContainer extends React.PureComponent {
 function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
+        selectedNote: state.noteData.selectedNote,
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };

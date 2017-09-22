@@ -41,6 +41,7 @@ class NotebooksContainer extends React.PureComponent {
     }
     
     selectNotebook(e) {
+        debugger
         // Handle New Notebook selection
         if (e.target.name === 'notebook' && e.target.value === '+Create notebook') {
             // will have to make new component for notebook select and new notebook input
@@ -66,12 +67,14 @@ class NotebooksContainer extends React.PureComponent {
             });
 
             this.props.editNotebook(notebook);
+            // get notebooks again to update the state
+            this.props.actions.getNotebooks();
         }
     }
 
     render() {
         let addNoteBookOption = '';
-        
+
         if (!this.props.selectedNote) {
             return <div className="loading">Loading...</div>;
         }

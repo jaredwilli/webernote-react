@@ -1,28 +1,34 @@
 {
 	"notebooks": {
+        "e_RyT-Isyb7Z6s04-tha": {
+            "id": "e_RyT-Isyb7Z6s04-tha",
+            "userId": 0,
+            "name": "General",
+            "uid": "62ed9f35-e4b3-7ef3-4746-2183c1fcd8b1"
+        },
 		"-Isyb7Z64-e_RyTthas0": {
             "id": "-Isyb7Z64-e_RyTthas0",
             "userId": 1,
 			"name": "My Notebook",
-			"uid": "62ed9f35-e4b3-7ef3-4746-2183c1fcd8b1"
-        },
-        "-Isyb7Z64-e_RyTthas0": {
-            "id": "7Z64--Ihas0sybe_RyTt",
-            "userId": 0,
-			"name": "My Notebook",
-			"uid": "62ed9f35-e4b3-7ef3-4746-2183c1fcd8b1"
-		}
-	},
+            "uid": "b362ed9f35-e4-7ef3-4746-2183c1fcd8b1"
+        }
+    },
+    
+
 	"notes": {
 		"-Isyb7Z64-e_RyTth-Lp": {
-            "description": "A - mazing! Try it out!\n\n1. Click the red Add Note button ^\n2. Selected the note (still working out auto-select)\n3. Add content to the form fields, and watch the magic.\n\nTry refreshing the page, the data you entered is still there, thanks to Firebase's real-time database storing and syncing. ",
+            "description": "A - mazing! Try it out!\n\n1. Click the red Add Note button ^\n2. Selected the note (still working out auto-select)\n3. Add content to the form fields, and watch the magic.\n\nTry refreshing the page, the data you entered is still there, thanks to Firebase's real-time database storing and syncing.",
             "id": "-Isyb7Z64-e_RyTth-Lp",
             "userId": 1,
 			"isEditing": false,
 			"created_date": 1366850046215,
 			"modified_date": 1505922250109,
-			"notebook": "React",
-			"title": "It's updates the data in REAL TIME!!!",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "It's updates the data in REAL TIME!!!",
 			"uid": "837f1866-678d-a9e4-1181-d3f162c78e2e",
 			"url": ""
 		},
@@ -33,8 +39,12 @@
 			"isEditing": false,
 			"created_date": 1366850082964,
 			"modified_date": 1505922248907,
-			"notebook": "General",
-			"title": "Hello world!",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Hello world!",
 			"uid": "fdd91e9a-0efd-ba89-4769-89f6fee1b5aa",
 			"url": "http://webernote.surge.sh/"
 		},
@@ -45,8 +55,12 @@
 			"isEditing": false,
 			"created_date": 1366853994283,
 			"modified_date": 1505922246182,
-			"notebook": "My Notebook",
-			"title": "Still to come...",
+			"notebook": {
+                "id": "-Isyb7Z64-e_RyTthas0",
+                "name": "My Notebook"
+            },
+            "tags": {},
+            "title": "Still to come...",
 			"uid": "bb83f9ae-3ed7-e14a-28f8-ee1fa0d5bf94",
 			"url": ""
 		},
@@ -57,8 +71,12 @@
 			"isEditing": false,
 			"created_date": 1503929694807,
 			"modified_date": 1505922247557,
-			"notebook": "React",
-			"title": "About Webernote (v3)",
+			"notebook": {
+                "id": "-Isyb7Z64-e_RyTthas0",
+                "name": "My Notebook"
+            },
+            "tags": {},
+            "title": "About Webernote (v3)",
 			"uid": "abb70714-4ab1-4000-a25a-09b9fa2c5853",
 			"url": ""
 		},
@@ -69,8 +87,12 @@
 			"isEditing": false,
 			"created_date": 1503934986565,
 			"modified_date": 1505922244826,
-			"notebook": "My Notebook",
-			"title": "Welcome to Webernote (v3)!!!",
+			"notebook": {
+                "id": "-Isyb7Z64-e_RyTthas0",
+                "name": "My Notebook"
+            },
+            "tags": {},
+            "title": "Welcome to Webernote (v3)!!!",
 			"uid": "a6689011-6cbb-1153-1293-6381b257e079",
 			"url": "http://anti-code.com/webernote/"
 		},
@@ -81,8 +103,12 @@
 			"isEditing": false,
 			"created_date": 1504571556457,
 			"modified_date": 1505922243325,
-			"notebook": "General",
-			"title": "Questions about the UX",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Questions about the UX",
 			"uid": "b67075e3-ff4f-e9ab-fc98-ddbd8c59ba09",
 			"url": ""
 		},
@@ -94,7 +120,8 @@
 			"created_date": 1504574815871,
 			"modified_date": 1505922240998,
 			"notebook": "Redux",
-			"title": "Testing notes dude. i kinda dont know",
+            "tags": {},
+            "title": "Testing notes dude. i kinda dont know",
 			"uid": "68e15fef-2dd7-fabf-3fa6-26cea74ab08f",
 			"url": "google.com"
 		},
@@ -105,8 +132,12 @@
 			"isEditing": false,
 			"created_date": 1504575762504,
 			"modified_date": 1505922239537,
-			"notebook": "General",
-			"title": "Time to wire up notebooks... again...",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Time to wire up notebooks... again...",
 			"uid": "6db0dd71-aa4a-18a1-94b8-7054001b9940",
 			"url": ""
 		},
@@ -117,8 +148,12 @@
 			"isEditing": false,
 			"created_date": 1505737146483,
 			"modified_date": 1505922236870,
-			"notebook": "My Notebook",
-			"title": "Tags are working!!!",
+			"notebook": {
+                "id": "-Isyb7Z64-e_RyTthas0",
+                "name": "My Notebook"
+            },
+            "tags": {},
+            "title": "Tags are working!!!",
 			"uid": "9f0b48ec-ae7c-7450-378f-e89b9b40d7b6",
 			"url": " "
 		},
@@ -129,8 +164,12 @@
 			"isEditing": false,
 			"created_date": 1505755779485,
 			"modified_date": 1505922234753,
-			"notebook": "General",
-			"title": "React form plugins",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "React form plugins",
 			"uid": "39b3a75c-2a89-1a28-0d30-0c869090737e",
 			"url": ""
 		},
@@ -141,8 +180,12 @@
 			"isEditing": false,
 			"created_date": 1505782676551,
 			"modified_date": 1505922233273,
-			"notebook": "General",
-			"title": "Things to try out here",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Things to try out here",
 			"uid": "797bf5ab-6117-bb6a-e282-554679a2e83a",
 			"url": ""
 		},
@@ -153,8 +196,12 @@
 			"isEditing": false,
 			"created_date": 1505784769905,
 			"modified_date": 1505922232256,
-			"notebook": "General",
-			"title": "Where is my Team Drive",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Where is my Team Drive",
 			"uid": "fb57547f-90e6-cc6d-9d24-5840085799cd",
 			"url": ""
 		},
@@ -165,8 +212,12 @@
 			"isEditing": false,
 			"created_date": 1505837079714,
 			"modified_date": 1505922231097,
-			"notebook": "General",
-			"title": "Everything in edit note is working now!!!",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Everything in edit note is working now!!!",
 			"uid": "4b405613-2755-dfbf-5931-19ddf7288561",
 			"url": ""
 		},
@@ -177,8 +228,12 @@
 			"isEditing": false,
 			"created_date": 1505852555496,
 			"modified_date": 1505922228039,
-			"notebook": "Redux",
-			"title": "Theres a weird bug with tags and needing to call editNote with no tags/notebook object",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Theres a weird bug with tags and needing to call editNote with no tags/notebook object",
 			"uid": "f53b844a-ddcf-9b9f-fa67-356abe13ed14",
 			"url": ""
 		},
@@ -189,8 +244,12 @@
 			"isEditing": false,
 			"created_date": 1505864241807,
 			"modified_date": 1505922225921,
-			"notebook": "General",
-			"title": "Untitled note...",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
+            "title": "Untitled note...",
 			"uid": "724c6649-159d-fc71-6a72-a5390b8f5cc5",
 			"url": ""
 		},
@@ -201,7 +260,11 @@
 			"isEditing": false,
 			"created_date": 1505876377003,
 			"modified_date": 1505922224413,
-			"notebook": "General",
+			"notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
+            "tags": {},
 			"title": "You can do it Warren! ",
 			"uid": "ef42644f-260a-9a84-2947-a22ed358fc34",
 			"url": ""
@@ -213,13 +276,14 @@
 			"isEditing": false,
 			"created_date": 1505927201419,
 			"modified_date": 1505927752374,
-            "notebook": "General",
+            "notebook": {
+                "id": "e_RyT-Isyb7Z6s04-tha",
+                "name": "General"
+            },
             "tags": {
                 "-14eqh-Lpyb7Z64-e_Rys": {
-                    "userId": 1,
                     "id": "-14eqh-Lpyb7Z64-e_Rys",
                     "label": "react",
-                    "uid": "2c308781-ae50-7e04-0d9d-3b7e36c16ba0",
                     "value": "-14eqh-Lpyb7Z64-e_Rys"
                 }
             },
@@ -236,16 +300,12 @@
 			"modified_date": 1505943792089,
 			"notebook": {
                 "id": "-Isyb7Z64-e_RyTthas0",
-                "userId": 1,
-                "name": "My Notebook",
-                "uid": "62ed9f35-e4b3-7ef3-4746-2183c1fcd8b1"
+                "name": "My Notebook"
             },
 			"tags": {
                 "Isyb7-e_RyZqh-Lp64-se": {
-                    "userId": 1,
                     "id": "Isyb7-e_RyZqh-Lp64-se",
                     "label": "general",
-                    "uid": "2c308781-ae50-7e04-0d9d-3b7e36c16ba0",
                     "value": "Isyb7-e_RyZqh-Lp64-se"
                 }
             },
@@ -253,7 +313,9 @@
 			"uid": "da6b1a56-1097-166f-3119-ab373c7b2a4c",
 			"url": "http://anit-code.com"
 		}
-	},
+    },
+    
+
 	"tags": {
         "Isyb7-e_RyZqh-Lp64-se": {
             "userId": 0,
@@ -270,13 +332,22 @@
             "value": "-14eqh-Lpyb7Z64-e_Rys"
 		}
     },
+
+    
     "users": {
-        "id": "Z64-e_Ry-Isyb7Tthas0",
-            "Z64-e_Ry-Isyb7Tthas0": {
+        "0": {
+            "id": "0",
+            "firstName": "Default",
+            "lastName": "User",
+            "username": "default",
+            "uid": null
+        },
+        "1": {
+            "id": "1",
             "firstName": "Jared",
             "lastName": "Williams",
             "username": "jaredwilli",
             "uid": "62e4b3-7ef3-4746-ed9f35-2183c1fcd8b1"
-		}
+        }
     }
 }

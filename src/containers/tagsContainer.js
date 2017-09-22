@@ -27,10 +27,13 @@ class TagsContainer extends React.PureComponent {
         }
 
         this.props.editTags(tags, selectedNote);
+        // get tags again to update the state
+        this.props.actions.getTags();
 	}
 
 	render() {
         const { selectedNote, tags } = this.props;
+        // debugger
         let tagOptions;
 
         if (!tags) {

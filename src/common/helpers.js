@@ -34,7 +34,7 @@ export function getTagCount(notes, tag) {
         if (!n.tags.length) return;
         // iterate over note tags
         n.tags.forEach((t) => {
-            if (t.label === tag.name) {
+            if (tag.label === t.label) {
                 count++;
             }
         })
@@ -65,14 +65,6 @@ export function getTags(noteTags) {
  * @returns {Array} thing a unique array of objects.
  */
 export function uniq(thing) {
-    if (!thing || thing.length) return thing;
-    // things = new Object();
-    // things.thing = new Array();
-    
-    // things.thing.push({place:"here",name:"stuff"});
-    // things.thing.push({place:"there",name:"morestuff"});
-    // things.thing.push({place:"there",name:"morestuff"});
-
     thing = thing.filter((thing, index, self) => self.findIndex((t) => {
         return t.id === thing.id && t.label === thing.label; 
     }) === index);    
@@ -80,10 +72,10 @@ export function uniq(thing) {
 }
 
 export function getDeletedTags(tags, note) {
-    let noteTagsCopy = note.tags;
-    let tagsCopy = tags;
-    let tagSize = _.size(tagsCopy);
-    let noteTagSize = _.size(noteTagsCopy);
+    let noteTagsCopy = note.tags,
+        tagsCopy = tags,
+        tagSize = _.size(tagsCopy),
+        noteTagSize = _.size(noteTagsCopy);
 
     // Need to remove tags if tagSize is smaller than note tags
     if (tagSize < noteTagSize) {
@@ -100,14 +92,34 @@ export function getDeletedTags(tags, note) {
     return false;
 }
 
+export function createNewNote(refId) {
+    const newNote = {
+        id: refId,
+        userId: 1,
+        title: 'Untitled note...',
+        notebook: {
+            id: "e_RyT-Isyb7Z6s04-tha",
+            name: 'General'
+        },
+        url: '',
+        tags: [],
+        description: '',
+        isEditing: true,
+        created_date: new Date().getTime(),
+        modified_date: '',
+        uid: guid()
+    };
+
+}
+
 /**
- + * Generate a new tag object
- + * 
- + * @param {*} refId 
- + * @param {*} tag 
- + * @param {*} note 
- + */
- export function createNewTag(refId, tag, note) {
+ * Generate a new tag object
+ * 
+ * @param {*} refId 
+ * @param {*} tag 
+ * @param {*} note 
+ */
+export function createNewTag(refId, tag, note) {
     // no className - not new tag...
     if (!tag.className) return;
     delete tag.className;
@@ -120,6 +132,26 @@ export function getDeletedTags(tags, note) {
     tag.label = tag.label;
 
     return tag;
+}
+
+/**
+ * Generate a new notebook object
+ * 
+ * @param {*} refId 
+ * @param {*} notebook
+ * @param {*} note 
+ */
+export function createNewNotebook(refId, notebook, note) {
+    if (!notebook.name) return;
+
+    // Add some extra data to notebook object
+    notebook.userId = 1;
+    notebook.uid = guid();
+    notebook.id = refId.key;
+    notebook.value = refId.key;
+    notebook.name = notebook.name;
+
+    return notebook;
 }
 
 /**

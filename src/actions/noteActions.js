@@ -1,7 +1,7 @@
 import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
-import { uniq, getDeletedTags } from '../common/helpers.js';
+import { uniq, guid, createNewNote, getDeletedTags } from '../common/helpers.js';
 
 export function getState() {
     return (dispatch, getState) => {
@@ -40,20 +40,24 @@ export function getNotes() {
         
         dispatch(getNoteFulfilledAction(note));
     }
-}
- */
+}*/
+
 export function addNote(note) {
     return (dispatch) => {
         dispatch(addNoteRequestedAction());
 
-        return database.ref('/notes')
-            .push(note)
+        const notesRef = database.ref('notes');
+        const notebooksRef = database.ref('notebooks');
+
+        let noteRef = notesRef.push();
+        note = createNewNote(noteRef.key);
+
+        noteRef.push(note)
             .then((note) => {
-                const id = note.key;
-                
-                note.once('value', snap => {
-                    note = {};
-                    note[id] = snap.val();
+                note.once('value', (snap) => {
+                    // let note = snap();
+                    console.log('note.val(): ', snap.val());
+                    
                     dispatch(addNoteFulfilledAction(note));
                 });
             })
@@ -80,16 +84,27 @@ export function editNote(note, obj = null) {
             /* If notebook not null and value has changed update the notes notebook only */
             if (obj.notebook && obj.notebook.name !== note.notebook.name) {
                 const noteNotebookRef = noteRef.child('notebook');
+                const notebooksRef = database.ref('notebooks');
                 
-                let notebookRef = noteNotebookRef.push();
-                obj.notebook.id = notebookRef.key;
-                
-                // update the notebook of the note
-                notebookRef.set(obj.notebook)
-                .then(dispatch(editNoteFulfilledAction(note, obj)))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(editNoteRejectedAction());
+                notebooksRef.once('value', (snap) => {
+                    let books = snap.val(),
+                        keys = Object.keys(books);
+
+                    // Get the notebook ID from the notebook bucket
+                    keys.forEach((n) => { 
+                        if (note.notebook.name === books[n].name) {
+                            note.notebook.id = books[n].id;
+                        }
+                    });
+
+                    // update the notebook of the note
+                    notebooksRef.set(obj.notebook)
+                        .then(dispatch(editNoteFulfilledAction(note, obj)))
+                        .catch((error) => {
+                            console.error(error);
+                            dispatch(editNoteRejectedAction());
+                        });
+
                 });
             }
             
@@ -125,23 +140,17 @@ export function editNote(note, obj = null) {
                     obj.tags.forEach((tag) => {
                         // if tag has an ID update that ref
                         if (tag.id) {
-                            noteRef.child('/tags/' + tag.id).update(tag);
-                            // Push to tagList
-                            obj.tagList.push(tag);
+                            let noteTagRef = noteRef.child('/tags/' + tag.id)
+                            // Update the tag by ID
+                            noteTagRef.update(tag);
                         } else {
                             // if no ID push a new tag to the list
                             let tagsRef = noteRef.child('/tags/').push();
                             
+                            // Add extra things to the tag for the note
                             tag.id = tagsRef.key;
                             tag.value = tagsRef.key;
                             tagsRef.set(tag);
-                            
-                            // push each tag to tagList to update state
-                            obj.tagList.push({
-                                id: tagsRef.key,
-                                value: tagsRef.key,
-                                label: tag.label
-                            });
                         }
                     });
 
@@ -199,9 +208,10 @@ export function selectNote(note) {
 export function resetSelectedNote() {
     return (dispatch, getState) => {
         dispatch(resetSelectedNoteRequestedAction());
+        
         const notes = getState().noteData.notes;
 
-        const note = notes.forEach((n) => {
+        notes.forEach((n) => {
             if (n.isEditing) {
                 database.ref('/notes/' + n.id + '/isEditing/')
                     .set(false)
