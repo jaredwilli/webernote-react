@@ -12,12 +12,14 @@ class TagsContainer extends React.PureComponent {
 		super(props);
 
 		this.editTags = this.editTags.bind(this);
+		// this.removeEmptyTags = this.removeEmptyTags.bind(this);
 	}
 
     // TODO: add a minimum character limit for new tags
 	editTags(tags) {
         const selectedNote = this.props.selectedNote;
-        
+
+        // Check for new tags to be added
         if (tags.length) {
             tags.forEach((tag) => {
                 if (tag.className) {
@@ -25,15 +27,20 @@ class TagsContainer extends React.PureComponent {
                 }
             });
         }
+        
+        // Check for tags to be removed
+        if (tags.length < selectedNote.tags.length) {
+            this.props.actions.removeTags(this.props.notes);
+        }
 
+        // Edit the notes tags
         this.props.editTags(tags, selectedNote);
-        // get tags again to update the state
+        // Get tags again to update the state
         this.props.actions.getTags();
 	}
 
 	render() {
-        const { selectedNote, tags } = this.props;
-        // debugger
+        const { notes, selectedNote, tags } = this.props;
         let tagOptions;
 
         if (!tags) {

@@ -33,12 +33,13 @@ class NotesContainer extends React.PureComponent {
             );
         }
 
-        // <div class="loginout">
-        //     <a class="login" href="">Login</a>
-        // </div>
         return (
             <div>
                 <header>
+                    <div className="loginout">
+                        <a className="login" href="">Login</a>
+                    </div>
+                    
                     <h1><a href="/">Webernote<sup>TM</sup></a></h1>
 
                     <span className="old-versions-nav">

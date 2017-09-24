@@ -45,7 +45,7 @@ export const EditNotebookFulfilled = 'EDIT_NOTEBOOK_FULFILLED';
 
 export const DeleteNotebookRequested = 'DELETE_NOTEBOOK_REQUESTED';
 export const DeleteNotebookRejected = 'DELETE_NOTEBOOK_REJECTED';
-export const DeleteNotebookFulFilled = 'DELETE_NOTEBOOK_FULFILLED';
+export const DeleteNotebookFulfilled = 'DELETE_NOTEBOOK_FULFILLED';
 
 export const SelectNotebookRequested = 'SELECT_NOTEBOOK_REQUESTED';
 export const SelectNotebookRejected = 'SELECT_NOTEBOOK_REJECTED';
@@ -66,13 +66,9 @@ export const AddTagRequested = 'ADD_TAG_REQUESTED';
 export const AddTagRejected = 'ADD_TAG_REJECTED';
 export const AddTagFulfilled = 'ADD_TAG_FULFILLED';
 
-export const EditTagsRequested = 'EDIT_TAGS_REQUESTED';
-export const EditTagsRejected = 'EDIT_TAGS_REJECTED';
-export const EditTagsFulfilled = 'EDIT_TAGS_FULFILLED';
-
-export const DeleteTagRequested = 'DELETE_TAG_REQUESTED';
-export const DeleteTagRejected = 'DELETE_TAG_REJECTED';
-export const DeleteTagFulFilled = 'DELETE_TAG_FULFILLED';
+export const DeleteTagsRequested = 'DELETE_TAGS_REQUESTED';
+export const DeleteTagsRejected = 'DELETE_TAGS_REJECTED';
+export const DeleteTagsFulfilled = 'DELETE_TAGS_FULFILLED';
 
 export const SelectTagRequested = 'SELECT_TAG_REQUESTED';
 export const SelectTagRejected = 'SELECT_TAG_REJECTED';

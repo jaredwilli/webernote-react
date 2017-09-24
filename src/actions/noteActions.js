@@ -1,7 +1,8 @@
 import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
-import { uniq, guid, createNewNote, getDeletedTags } from '../common/helpers.js';
+import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
+import { uniq, guid } from '../common/helpers.js';
 
 export function getState() {
     return (dispatch, getState) => {
@@ -13,9 +14,8 @@ export function getNotes() {
     return dispatch => {
         dispatch(getNotesRequestedAction());
 
-        return database.ref('/notes').once('value', snap => {
+        return database.ref('/notes').once('value', (snap) => {
             const notes = snap.val();
-
             dispatch(getNotesFulfilledAction(notes));
         })
         .catch((error) => {
@@ -47,24 +47,12 @@ export function addNote(note) {
         dispatch(addNoteRequestedAction());
 
         const notesRef = database.ref('notes');
-        const notebooksRef = database.ref('notebooks');
 
         let noteRef = notesRef.push();
         note = createNewNote(noteRef.key);
 
-        noteRef.push(note)
-            .then((note) => {
-                note.once('value', (snap) => {
-                    // let note = snap();
-                    console.log('note.val(): ', snap.val());
-                    
-                    dispatch(addNoteFulfilledAction(note));
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(addNoteRejectedAction());
-            });
+        noteRef.set(note);
+        dispatch(addNoteFulfilledAction(note));
     }
 }
 
@@ -84,28 +72,14 @@ export function editNote(note, obj = null) {
             /* If notebook not null and value has changed update the notes notebook only */
             if (obj.notebook && obj.notebook.name !== note.notebook.name) {
                 const noteNotebookRef = noteRef.child('notebook');
-                const notebooksRef = database.ref('notebooks');
-                
-                notebooksRef.once('value', (snap) => {
-                    let books = snap.val(),
-                        keys = Object.keys(books);
 
-                    // Get the notebook ID from the notebook bucket
-                    keys.forEach((n) => { 
-                        if (note.notebook.name === books[n].name) {
-                            note.notebook.id = books[n].id;
-                        }
+                // If has uid and userId
+                noteNotebookRef.set(obj.notebook)
+                    .then(dispatch(editNoteFulfilledAction(note, obj)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(editNoteRejectedAction());
                     });
-
-                    // update the notebook of the note
-                    notebooksRef.set(obj.notebook)
-                        .then(dispatch(editNoteFulfilledAction(note, obj)))
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });
-
-                });
             }
             
             /* Handle when tags are defined */
@@ -114,7 +88,7 @@ export function editNote(note, obj = null) {
                 
                 // Remove all tags removed from edit input
                 const removedTags = getDeletedTags(obj.tags, note);
-        
+                
                 if (removedTags.length) {
                     removedTags.forEach((tag) => {
                         noteTagsRef.child(tag.id).remove();

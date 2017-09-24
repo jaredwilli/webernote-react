@@ -112,7 +112,8 @@ function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        selectedNote: state.noteData.selectedNote
+        selectedNote: state.noteData.selectedNote,
+        tags: state.tagData.tags
     };
     console.log('STATE: ', state, newState);
 

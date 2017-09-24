@@ -1,5 +1,7 @@
 import React from 'react';
-import { formatDate, sortNotes, getTags } from '../common/helpers';
+
+import { formatDate } from '../common/helpers';
+import { sortNotes, getTags } from '../common/noteHelpers';
 
 function Note(props) {
     const notes = props.notes;
