@@ -1,92 +1,132 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as notebookActions from '../actions/notebookActions';
 
-class NotebookContainer extends React.PureComponent {
+import * as notebookActions from '../actions/notebookActions';
+import { getSelectedNotebook } from '../common/noteHelpers.js';
+
+class NotebooksContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.selectNotebook = this.selectNotebook.bind(this);
         this.addNotebook = this.addNotebook.bind(this);
-        // this.props.actions.getNotebooks();
+        this.keyPress = this.keyPress.bind(this);
+
+        this.state = {
+            addNotebook: false,
+            selectedNotebook: (this.props.selectedNotebook) ? this.props.selectedNotebook : this.props.selectedNote.notebook
+        };
+    }
+
+    // Handle tab or enter keypress for new notebooks
+    // TODO: add a minimum character limit for new notebooks
+    keyPress(e) {
+        // If enter or tab key pressed on new notebook input
+        if (e.keyCode === 13 || e.keyCode === 9) {
+            this.addNotebook(e);
+        }
     }
 
     addNotebook(e) {
-        this.setState({
-            addNotebook: false,
-            notebook: {
+        if (e.target.value === '') {
+            this.setState({
+                addNotebook: false
+            });  
+        } else {
+            this.setState({
+                addNotebook: false
+            });
+            
+            let notebook = {
                 name: e.target.value
-            }
-        });
+            };
 
-        this.props.onAddNotebook({
-            name: e.target.value
-        }, this.state);
+            this.props.actions.addNotebook(notebook);
+
+            // edit notebook to update the state
+            this.props.editNotebook(notebook);
+
+            // Check if need to remove a notebook
+            // this.props.actions.removeNotebook(this.props.notes);
+        }
     }
     
     selectNotebook(e) {
-        // handle New Notebook selection
+        // Handle New Notebook selection
         if (e.target.name === 'notebook' && e.target.value === '+Create notebook') {
             // will have to make new component for notebook select and new notebook input
             this.setState({
                 addNotebook: true
             });
         } else {
+            const notebook = getSelectedNotebook(e, this.props.notebooks);
+
             this.setState({
-                notebook: {
-                    name: e.target.value
-                }
+                canAddNotebook: false,
+                selectedNotebook: notebook
             });
 
-            this.props.onSelectNotebook({
-                name: e.target.value
-            }, this.state);
+            // Check if need to remove a notebook
+            this.props.actions.removeNotebook(this.props.notes);
+            // Edit notebook selection
+            this.props.editNotebook(notebook);
+            // get notebooks again to update the state
+            this.props.actions.getNotebooks();
         }
     }
-        
+
     render() {
-        let addBookOption;
-    
-        if (this.props.notebooks.loading) {
+        let addNoteBookOption = '';
+
+        if (!this.props.selectedNote || !this.props.notebooks) {
             return <div className="loading">Loading...</div>;
         }
 
-        const bookOptions = this.props.notebooks.map((note) => 
-            <option key={note.id}>{note.name}</option>
+        // Notebook menu options
+        const notebookOptions = this.props.notebooks.map((notebook) => 
+            <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
         );
 
         // Add the New Note book option if need to
         if (this.props.canAddNotebook) {
-            addBookOption = <option>+Create notebook</option>;
+            addNoteBookOption = <option>+Create notebook</option>;
         }
 
-        if (this.props.addNotebook) {
+        // Show add notebook input if selected add notebook
+        if (this.state.addNotebook) {
             return (
                 <span>
-                    <button className="cancel-new" onClick={() => this.setState({ addNotebook: false })}>x</button>
-                    <input type="text" name="notebook" className="new-notebook" placeholder="Notebook name..."
-                        onBlur={this.addNotebook} />
+                    <button className="cancel-new" 
+                        onClick={() => this.setState({ addNotebook: false })}>
+                        x
+                    </button>
+                    <input type="text" name="notebook" className="new-notebook" 
+                        placeholder="Notebook name"
+                        autoFocus={true}
+                        onBlur={this.addNotebook}
+                        onKeyDown={this.keyPress} />
                 </span>
             );
         }
 
         return (
             <select name="notebook" className="notebook" 
-                value={this.props.notebook}
-                onChange={this.selectNotebook}>
-                {bookOptions}
-                {addBookOption}
+                value={this.props.selectedNote.notebook.name}
+                onChange={(e) => this.selectNotebook(e)}>
+                {notebookOptions}
+                {addNoteBookOption}
             </select>
         );
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     const newState = {
-        notebooks: (state.notebookData.notebooks) ? state.notebookData.notebooks : {
-            loading: true
-        }
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        selectedNote: state.noteData.selectedNote,
+        selectedNotebook: state.notebookData.selectedNotebook
     };
     console.log('STATE: ', state, newState);
 
@@ -99,4 +139,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotebookContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(NotebooksContainer);

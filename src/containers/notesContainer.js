@@ -12,49 +12,22 @@ import AddNote from '../components/AddNote';
 
 import '../App.css';
 
-const newNote = {
-    title: 'Untitled note...',
-    notebook: 'General',
-    url: '',
-    tags: [],
-    description: '',
-    created_date: new Date().getTime(),
-    modified_date: new Date().getTime()
-};
-
 class NotesContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.getNote = this.getNote.bind(this);        
         this.addNote = this.addNote.bind(this);
-        this.editNote = this.editNote.bind(this);
-        this.deleteNote = this.deleteNote.bind(this);
-    }
-    
-    getNote(id) {
-        this.props.actions.resetSelectedNote();
-        this.props.actions.getNote(id);
     }
     
     addNote(e) {
         e.preventDefault();
-        this.props.actions.resetSelectedNote();
-        this.props.actions.addNote(newNote);
-    }
 
-    editNote(note) {
-        this.props.actions.editNote(note);
-        this.props.actions.getNotes();
-    }
-    
-    deleteNote(id) {
-        this.props.actions.deleteNote(id);
-        this.props.actions.getNotes();
+        this.props.actions.resetSelectedNote();
+        this.props.actions.addNote();
     }
 
     render() {
-        if (this.props.notes.loading) {
+        if (!this.props.notes) {
             return (
                 <div className="loading">Loading...</div>
             );
@@ -63,41 +36,45 @@ class NotesContainer extends React.PureComponent {
         return (
             <div>
                 <header>
-                    <div id="loginout">
-                        <a id="login" href="#">Login</a>
+                    <div className="loginout">
+                        <a className="login" href="">Login</a>
                     </div>
-                    <h1><a href="#">Webernote</a></h1>
+                    
+                    <h1><a href="/">Webernote<sup>TM</sup></a></h1>
+                    <span>A TodoApp on steroids...</span>
+
+                    <span className="old-versions-nav">
+                        Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
+                    </span>
                 </header>
-                <div id="pagewrap">
-                    <nav id="toolbar">
+                <div className="wrapper">
+                    <nav className="toolbar">
                         <ul>
-                            <li><a href="#">File</a></li>
-                            <li><a href="#">Edit</a></li>
-                            <li><a href="#">View</a></li>
-                            <li><a href="#">Note</a></li>
-                            <li><a href="#">Tools</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="">File</a></li>
+                            <li><a href="">Edit</a></li>
+                            <li><a href="">View</a></li>
+                            <li><a href="">Note</a></li>
+                            <li><a href="">Tools</a></li>
+                            <li><a href="">Help</a></li>
                             <li className="new-note">
                                 <AddNote addNote={(e) => this.addNote(e)} />
                             </li>
                         </ul>
                     </nav>
-                    <nav id="note-types">
+                    <nav className="note-types">
                         <NoteTypes />
                     </nav>
-                    <table id="resizable">
+                    <table id="resizable" className="resizable">
                         <tbody>
                             <tr>
                                 <td>
                                     <NoteNav />
                                 </td>
                                 <td className="middle note-list-col">
-                                    <NoteList notes={this.props.notes}
-                                        getNote={(id) => this.getNote(id)}
-                                        deleteNote={(id) => this.deleteNote(id)} />
+                                    <NoteList />
                                 </td>
                                 <td className="edit-note-col">
-                                    <EditNote editNote={(note) => this.editNote(note)} />
+                                    <EditNote />
                                 </td>
                             </tr>
                         </tbody>
@@ -110,12 +87,10 @@ class NotesContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        notes: (state.noteData.notes) ? state.noteData.notes : {
-            loading: true
-        },
-        selectedNote: (state.noteData.selectedNote) ? state.noteData.selectedNote : {
-            loading: true
-        }
+        notes: state.noteData.notes,
+        selectedNote: state.noteData.selectedNote,
+        notebooks: state.notebookData.notebooks,
+        tags: state.tagData.tags
     };
     console.log('STATE: ', state, newState);
 
@@ -127,9 +102,5 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(noteActions, dispatch)
     };
 }
-
-// Note list in middle column
-// export const NoteContainer = connect(mapStateToProps, mapDispatchToProps)(NoteList);
-// export const AddNoteContainer = connect(mapStateToProps, mapDispatchToProps)(AddNote);
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);

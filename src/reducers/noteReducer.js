@@ -20,57 +20,35 @@ export default function noteReducer(state = {}, action) {
 
         case types.GetNotesFulfilled: {
             const notes = action.notes;
-            
+            let selectedNote = '';
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got notes'
             });
             
-            if (notes) {
-                newState.notes = Object.keys(notes).map(function(k) {
-                    notes[k].id = k;
-                    return notes[k];
-                });
-            }
-            return newState;
-        }
-
-        // *** GET NOTE
-        case types.GetNoteRequested: {
-            return Object.assign({}, state, {
-                inProgress: true,
-                error: '',
-                success: ''
-            });
-        }
-        
-        case types.GetNoteRejected: {
-            return Object.assign({}, state, {
-                inProgress: false,
-                error: 'Error in getting note'
-            });
-        }
-
-        case types.GetNoteFulfilled: {
-            const note = action.note;
-
-            if (note) {
-                note.isEditing = true;
-                state.notes.filter(function(n) {
-                    if (n.id === note.id) {
-                        n = note;
-                    }
-                    return n;
-                });
-            }
-
-            const newState = Object.assign({}, state, {
-                inProgress: false,
-                success: 'Got note'
-            });
-            
             newState.notes = state.notes;
-            newState.selectedNote = note;
+
+            if (notes) {
+                // Get keys and set id for each note and set selectedNote
+                newState.notes = Object.keys(notes).map(function(n) {
+                    if (notes[n].isEditing) {
+                        selectedNote = notes[n];
+                    }
+
+                    // Convert tag objects to arrays
+                    if (!notes[n].tags) {
+                        notes[n].tags = [];
+                    } else {
+                        notes[n].tags = Object.keys(notes[n].tags).map((t) => {
+                            return notes[n].tags[t];
+                        });
+                    }
+                    return notes[n];
+                });
+            }
+        
+            newState.selectedNote = selectedNote;
             return newState;
         }
 
@@ -92,21 +70,16 @@ export default function noteReducer(state = {}, action) {
         
         case types.AddNoteFulfilled: {
             const note = action.note;
-            const id = Object.keys(note)[0];
 
-            if (id) {
-                note[id].id = id;
-                note[id].isEditing = true;
-                state.notes.push(note[id]);
-            }
-            
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added note'
             });
-            
+
             newState.notes = state.notes;
-            newState.selectedNote = note[id];
+            newState.notes.push(note);
+            
+            newState.selectedNote = note;
             return newState;
         }
 
@@ -127,16 +100,24 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.EditNoteFulfilled: {
-            const note = action.note;
+            let note = action.note;
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Edited note'
             });
 
-            if (note) {
-                debugger
+            if (action.obj.notebook) {
+                note.notebook = action.obj.notebook
             }
 
+            if (action.obj.tags) {
+                note.tags = action.obj.tags;
+            } else {
+                note.tags = (note.tags) ? note.tags.slice() : [];
+            }
+
+            newState.selectedNote = note;
             return newState;
         }
         
@@ -156,12 +137,40 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
-        case types.DeleteNoteFulfilled: {
-            const note = action.note;
+        case types.DeleteNoteFulfilled: {            
             return Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+        }
+        
+        // *** SELECT NOTE
+        case types.SelectNoteRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+        
+        case types.SelectNoteRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error selecting note'
+            });
+        }
+
+        case types.SelectNoteFulfilled: {
+            const note = action.note;
+            note.isEditing = true;
+            
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Note selected: ' + note.title
+            });
+            
+            newState.selectedNote = note;
+            return newState;
         }
         
         // *** RESET SELECTED NOTE
@@ -181,10 +190,16 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.ResetSelectedNoteFulfilled: {
-            return Object.assign({}, state, {
+            const note = action.note;
+            note.isEditing = false;
+
+            const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Reset selected note'
+                success: 'Reset selected note' + note.title,
             });
+
+            newState.selectedNote = '';
+            return newState;
         }
 
         default: 

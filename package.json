@@ -1,25 +1,36 @@
 {
-  "name": "webernote",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "firebase": "^4.3.0",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-redux": "^4.4.5",
-    "react-scripts": "1.0.11",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.7.0",
-    "redux-thunk": "^2.1.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "redux-devtools": "^3.4.0"
-  }
+	"name": "webernote",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"firebase": "^4.3.1",
+		"prop-types": "^15.5.10",
+		"prosemirror": "^0.10.1",
+		"react": "^15.6.1",
+		"react-dom": "^15.6.1",
+		"react-redux": "^4.4.8",
+		"react-rte": "^0.15.0",
+		"react-scripts": "^1.0.11",
+		"react-select": "^1.0.0-rc.10",
+		"redux": "^3.7.2",
+		"redux-logger": "^2.10.2",
+		"redux-thunk": "^2.2.0",
+		"underscore": "^1.8.3"
+	},
+	"git": {
+		"scripts": {
+			"pre-push": "surge --project ./build --domain webernote.surge.sh"
+		}
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --env=jsdom",
+		"eject": "react-scripts eject"
+	},
+	"devDependencies": {
+		"git-scripts": "^0.2.1",
+		"redux-devtools": "^3.4.0",
+		"surge": "^0.19.0"
+	}
 }
