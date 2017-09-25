@@ -1,6 +1,8 @@
 // helper functions
 import _ from 'lodash';
+import React from 'react';
 import { guid } from './helpers';
+
 /**
  * sortNotes
  * 
@@ -68,17 +70,28 @@ export function getTagCount(tag, notes) {
 /**
  * getTags
  * 
- * @param {*} noteTags 
+ * @param {Object} noteTags 
  */
 export function getTags(noteTags) {
-    let tags = [];
+    let tags = '';
     if (noteTags) {
-        Object.keys(noteTags).forEach((i) => {
-            tags.push(noteTags[i].label);
-        });
-        tags = tags.join(', ');
+        tags = noteTags.map((t) => 
+            <span className="Select-value">
+                <span className="Select-value-label" id="react-select-2--value-">
+                    {t.label}
+                </span>
+            </span>
+        );
     }
-    return tags;    
+
+    return (
+        <div className="Select tags Select--multi has-value">
+            <span className="Select-multi-value-wrapper" id="react-select-2--value">
+                {tags}
+            </span>
+        </div>
+
+    );    
 }
 
 /**

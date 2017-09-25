@@ -26,6 +26,7 @@ class NoteList extends Component {
     }
     
     filterByNotebook(e) {
+        debugger
         let filterNotebook = e.target.value
     }
 

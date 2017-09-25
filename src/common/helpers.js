@@ -6,6 +6,14 @@ export function formatDate(timeStamp) {
 	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 }
 
+export function shorten(text, maxLength) {
+    var ret = text;
+    if (ret.length > maxLength) {
+        ret = ret.substr(0, maxLength - 1) + '…';
+    }
+    return ret;
+}
+
 /**
  * guid
  * 

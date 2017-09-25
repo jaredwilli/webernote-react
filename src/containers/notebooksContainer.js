@@ -30,21 +30,22 @@ class NotebooksContainer extends React.PureComponent {
 
     addNotebook(e) {
         if (e.target.value === '') {
-            // this.setState({
-            //     addNotebook: false
-            // });    
+            this.setState({
+                addNotebook: false
+            });  
         } else {
-
             this.setState({
                 addNotebook: false
             });
             
-            this.props.actions.addNotebook({
+            let notebook = {
                 name: e.target.value
-            });
+            };
 
-            // get notebooks again to update the state
-            this.props.actions.getNotebooks();
+            this.props.actions.addNotebook(notebook);
+
+            // edit notebook to update the state
+            this.props.editNotebook(notebook);
 
             // Check if need to remove a notebook
             // this.props.actions.removeNotebook(this.props.notes);
