@@ -12,18 +12,6 @@ import AddNote from '../components/AddNote';
 
 import '../App.css';
 
-const newNote = {
-    userId: 1,
-    title: 'Untitled note...',
-    notebook: 'General',
-    url: '',
-    tags: [],
-    description: '',
-    isEditing: true,
-    created_date: new Date().getTime(),
-    modified_date: ''
-};
-
 class NotesContainer extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -35,7 +23,7 @@ class NotesContainer extends React.PureComponent {
         e.preventDefault();
 
         this.props.actions.resetSelectedNote();
-        this.props.actions.addNote(newNote);
+        this.props.actions.addNote();
     }
 
     render() {
@@ -45,16 +33,18 @@ class NotesContainer extends React.PureComponent {
             );
         }
 
-        // <div class="loginout">
-        //     <a class="login" href="">Login</a>
-        // </div>
         return (
             <div>
                 <header>
+                    <div className="loginout">
+                        <a className="login" href="">Login</a>
+                    </div>
+                    
                     <h1><a href="/">Webernote<sup>TM</sup></a></h1>
+                    <span>A TodoApp on steroids...</span>
 
                     <span className="old-versions-nav">
-                        Check out <a href="http://anti-code.com/webernote/" target="_blank">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank">v2</a>!
+                        Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
                     </span>
                 </header>
                 <div className="wrapper">
@@ -98,6 +88,7 @@ class NotesContainer extends React.PureComponent {
 function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
+        selectedNote: state.noteData.selectedNote,
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };

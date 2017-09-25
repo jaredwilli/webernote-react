@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as notebookActions from '../actions/notebookActions';
+import { getSelectedNotebook } from '../common/noteHelpers.js';
 
 class NotebooksContainer extends React.PureComponent {
     constructor(props) {
@@ -13,7 +14,8 @@ class NotebooksContainer extends React.PureComponent {
         this.keyPress = this.keyPress.bind(this);
 
         this.state = {
-            addNotebook: false
+            addNotebook: false,
+            selectedNotebook: (this.props.selectedNotebook) ? this.props.selectedNotebook : this.props.selectedNote.notebook
         };
     }
 
@@ -27,17 +29,27 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     addNotebook(e) {
-        let notebook = {
-            name: e.target.value
-        };
+        if (e.target.value === '') {
+            this.setState({
+                addNotebook: false
+            });  
+        } else {
+            this.setState({
+                addNotebook: false
+            });
+            
+            let notebook = {
+                name: e.target.value
+            };
 
-        this.setState({
-            addNotebook: false,
-            notebook: notebook
-        });
+            this.props.actions.addNotebook(notebook);
 
-        this.props.actions.addNotebook(notebook);
-        this.props.editNotebook(notebook);
+            // edit notebook to update the state
+            this.props.editNotebook(notebook);
+
+            // Check if need to remove a notebook
+            // this.props.actions.removeNotebook(this.props.notes);
+        }
     }
     
     selectNotebook(e) {
@@ -48,35 +60,26 @@ class NotebooksContainer extends React.PureComponent {
                 addNotebook: true
             });
         } else {
-            let notebookId = '';
-            
-            // get selected notebook id
-            for (let n of e.target.children) {
-                if (n.value === e.target.value) {
-                    notebookId = n.getAttribute('id');
-                }
-            }
+            const notebook = getSelectedNotebook(e, this.props.notebooks);
 
-            const notebook = this.props.notebooks.filter(function(b) {
-                return b.id === notebookId;
-            })[0];
-            
             this.setState({
-                canAddNotebook: false
+                canAddNotebook: false,
+                selectedNotebook: notebook
             });
 
+            // Check if need to remove a notebook
+            this.props.actions.removeNotebook(this.props.notes);
+            // Edit notebook selection
             this.props.editNotebook(notebook);
+            // get notebooks again to update the state
+            this.props.actions.getNotebooks();
         }
     }
 
     render() {
         let addNoteBookOption = '';
-        
-        if (!this.props.selectedNote) {
-            return <div className="loading">Loading...</div>;
-        }
 
-        if (!this.props.notebooks) {
+        if (!this.props.selectedNote || !this.props.notebooks) {
             return <div className="loading">Loading...</div>;
         }
 
@@ -94,8 +97,12 @@ class NotebooksContainer extends React.PureComponent {
         if (this.state.addNotebook) {
             return (
                 <span>
-                    <button className="cancel-new" onClick={() => this.setState({ addNotebook: false })}>x</button>
-                    <input type="text" name="notebook" className="new-notebook" placeholder="Notebook name..."
+                    <button className="cancel-new" 
+                        onClick={() => this.setState({ addNotebook: false })}>
+                        x
+                    </button>
+                    <input type="text" name="notebook" className="new-notebook" 
+                        placeholder="Notebook name"
                         autoFocus={true}
                         onBlur={this.addNotebook}
                         onKeyDown={this.keyPress} />
@@ -105,7 +112,7 @@ class NotebooksContainer extends React.PureComponent {
 
         return (
             <select name="notebook" className="notebook" 
-                value={this.props.selectedNote.notebook}
+                value={this.props.selectedNote.notebook.name}
                 onChange={(e) => this.selectNotebook(e)}>
                 {notebookOptions}
                 {addNoteBookOption}
@@ -116,6 +123,7 @@ class NotebooksContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
+        notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
         selectedNote: state.noteData.selectedNote,
         selectedNotebook: state.notebookData.selectedNotebook

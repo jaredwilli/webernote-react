@@ -5,13 +5,9 @@ import { bindActionCreators } from 'redux';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 
-import { getNotebookCount, getTagCount } from '../common/helpers.js';
+import { getNotebookCount, getTagCount } from '../common/noteHelpers.js';
 
 class NoteNav extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     /* function toggleExpanded(expanded) {
         if (this.props.notebooks.length > 0) {
             expanded = 'expanded';
@@ -20,7 +16,7 @@ class NoteNav extends React.Component {
     } */
 
     render() {
-        const { notebooks, tags } = this.props;
+        const { notes, notebooks, tags } = this.props;
 
         // NOTEBOOKS MENU
         let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
@@ -32,7 +28,7 @@ class NoteNav extends React.Component {
                     <a href={'#/' + notebook.name}>
                         <span className="name">{notebook.name}</span>
                     </a>&nbsp;
-                    <span className="count">{getNotebookCount(this.props.notes, notebook)}</span>
+                    <span className="count">{getNotebookCount(notebook, notes).count}</span>
                 </li>
             );
         }
@@ -47,7 +43,7 @@ class NoteNav extends React.Component {
                     <a href={'#/' + tag.label}>
                         <span className="name">{tag.label}</span>
                     </a>&nbsp;
-                    <span className="count">{getTagCount(this.props.notes, tag)}</span>
+                    <span className="count">{getTagCount(tag, this.props.notes).count}</span>
                 </li>
             );
         }

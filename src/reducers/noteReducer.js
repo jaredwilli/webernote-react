@@ -27,28 +27,27 @@ export default function noteReducer(state = {}, action) {
                 success: 'Got notes'
             });
             
+            newState.notes = state.notes;
+
             if (notes) {
                 // Get keys and set id for each note and set selectedNote
-                newState.notes = Object.keys(notes).map(function(k) {
-                    notes[k].id = k;
-
-                    if (notes[k].isEditing) {
-                        selectedNote = notes[k];
+                newState.notes = Object.keys(notes).map(function(n) {
+                    if (notes[n].isEditing) {
+                        selectedNote = notes[n];
                     }
 
                     // Convert tag objects to arrays
-                    if (!notes[k].tags) {
-                        notes[k].tags = [];
+                    if (!notes[n].tags) {
+                        notes[n].tags = [];
                     } else {
-                        notes[k].tags = Object.keys(notes[k].tags).map((j) => {
-                            return notes[k].tags[j];
+                        notes[n].tags = Object.keys(notes[n].tags).map((t) => {
+                            return notes[n].tags[t];
                         });
                     }
-
-                    return notes[k];
+                    return notes[n];
                 });
             }
-            
+        
             newState.selectedNote = selectedNote;
             return newState;
         }
@@ -71,20 +70,16 @@ export default function noteReducer(state = {}, action) {
         
         case types.AddNoteFulfilled: {
             const note = action.note;
-            const id = Object.keys(note)[0];
 
-            if (id) {
-                note[id].id = id;
-                state.notes.push(note[id]);
-            }
-            
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Added note'
             });
-            
+
             newState.notes = state.notes;
-            newState.selectedNote = note[id];
+            newState.notes.push(note);
+            
+            newState.selectedNote = note;
             return newState;
         }
 
@@ -105,7 +100,7 @@ export default function noteReducer(state = {}, action) {
         }
         
         case types.EditNoteFulfilled: {
-            const note = action.note;
+            let note = action.note;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -123,8 +118,6 @@ export default function noteReducer(state = {}, action) {
             }
 
             newState.selectedNote = note;
-            
-            console.log('newState: @@@@@:', newState);
             return newState;
         }
         
@@ -144,9 +137,7 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
-        case types.DeleteNoteFulfilled: {
-            const note = action.note;
-            
+        case types.DeleteNoteFulfilled: {            
             return Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
@@ -204,7 +195,7 @@ export default function noteReducer(state = {}, action) {
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Reset selected note' + note.title
+                success: 'Reset selected note' + note.title,
             });
 
             newState.selectedNote = '';

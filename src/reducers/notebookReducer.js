@@ -1,44 +1,43 @@
 import * as types from '../constants/actionTypes.js';
 
 export default function notebookReducer(state = {}, action) {
-    switch(action.type) {
+	switch (action.type) {
+		// *** GET NOTEBOOKS
+		case types.GetNotebooksRequested: {
+			return Object.assign({}, state, {
+				inProgress: true,
+				error: '',
+				success: ''
+			});
+		}
 
-        // *** GET NOTEBOOKS
-        case types.GetNotebooksRequested: {
-            return Object.assign({}, state, {
-                inProgress: true,
-                error: '',
-                success: ''
-            });
-        }
+		case types.GetNotebooksRejected: {
+			return Object.assign({}, state, {
+				inProgress: false,
+				error: 'Error getting notebooks'
+			});
+		}
 
-        case types.GetNotebooksRejected: {
-            return Object.assign({}, state, {
-                inProgress: false,
-                error: 'Error getting notebooks'
-            });
-        }
+		case types.GetNotebooksFulfilled: {
+			let notebooks = action.notebooks;
 
-        case types.GetNotebooksFulfilled: {
-            const notebooks = action.notebooks;
+			const newState = Object.assign({}, state, {
+				inProgress: false,
+				success: 'Got notebooks'
+			});
 
-            const newState = Object.assign({}, state, {
-                inProgress: false,
-                success: 'Got notebooks'
-            });
-            
-            if (notebooks) {
-                newState.notebooks = Object.keys(notebooks).map(function(k) {
-                    notebooks[k].id = k;
-                    return notebooks[k];
-                });
-            }
+			if (notebooks) {
+				notebooks = Object.keys(notebooks).map(function(k) {
+					return notebooks[k];
+				});
+			}
 
-            return newState;
-        }
+			newState.notebooks = notebooks;
+			return newState;
+		}
 
-        // *** GET NOTEBOOK
-        case types.GetNotebookRequested: {
+		// *** GET NOTEBOOK
+		/* case types.GetNotebookRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -74,10 +73,41 @@ export default function notebookReducer(state = {}, action) {
             newState.selectedNotebook = notebook;
             
             return newState;
-        }
+        } */
 
-        // *** ADD NOTEBOOKS
-        case types.AddNotebookRequested: {
+		// *** ADD NOTEBOOKS
+		case types.AddNotebookRequested: {
+			return Object.assign({}, state, {
+				inProgress: true,
+				error: '',
+				success: ''
+			});
+		}
+
+		case types.AddNotebookRejected: {
+			return Object.assign({}, state, {
+				inProgress: false,
+				error: 'Error adding notebook'
+			});
+		}
+
+		case types.AddNotebookFulfilled: {
+			const notebook = action.notebook;
+
+			const newState = Object.assign({}, state, {
+				inProgress: false,
+				success: 'Added notebook'
+			});
+
+			newState.notebooks = state.notebooks;
+			newState.notebooks.push(notebook);
+
+			newState.selectedNotebook = notebook;
+			return newState;
+		}
+
+        // *** DELETE NOTEBOOK
+        case types.DeleteNotebookRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -85,34 +115,58 @@ export default function notebookReducer(state = {}, action) {
             });
         }
         
-        case types.AddNotebookRejected: {
+        case types.DeleteNotebookRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
-                error: 'Error adding notebook'
+                error: 'Error deleting notebook'
             });
         }
         
-        case types.AddNotebookFulfilled: {
-            const notebook = action.notebook;
-            const id = Object.keys(notebook)[0];
+        case types.DeleteNotebookFulfilled: {
+            const notebooks = action.notebooks;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Added notebook'
+                success: 'Deleted notebook'
             });
 
-            if (id) {
-                notebook[id].id = id;
-                state.notebooks.push(notebook[id]);
-            }
-
-            newState.notebooks = state.notebooks;
-            newState.selectedNotebook = notebook;
+            newState.notebooks = notebooks;
             return newState;
         }
-        
-        // *** SELECT NOTEBOOKS
-        /* case types.SelectNotebookRequested: {
+
+        // *** EDIT NOTEBOOKS
+		/* case types.EditNotebookRequested: {
+			return Object.assign({}, state, {
+				inProgress: true,
+				error: '',
+				success: ''
+			});
+		}
+
+		case types.EditNotebookRejected: {
+			return Object.assign({}, state, {
+				inProgress: false,
+				error: 'Error adding notebook'
+			});
+		}
+
+		case types.EditNotebookFulfilled: {
+			const notebook = action.notebook;
+
+			const newState = Object.assign({}, state, {
+				inProgress: false,
+				success: 'Edited notebook'
+			});
+
+			newState.notebooks = state.notebooks;
+			newState.notebooks.push(notebook);
+
+			newState.selectedNotebook = notebook;
+			return newState;
+		} */
+
+		// *** SELECT NOTEBOOKS
+		/* case types.SelectNotebookRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -140,8 +194,8 @@ export default function notebookReducer(state = {}, action) {
             newState.selectedNotebook = action.selectedNotebook;
             return newState;
         } */
-        
-        default: 
-            return state;
-    }
+
+		default:
+			return state;
+	}
 }

@@ -26,12 +26,18 @@ class NoteList extends Component {
     }
     
     filterByNotebook(e) {
-        let filterNotebook = e.target.value
+        let filterNotebook = e.target.value;
+        console.log(filterNotebook);
+        
+        // debugger
     }
 
     setFilterType(e) {
         let filterType = e.target.name;
         let updatedList = this.state.initialNotes;
+        console.log(filterType, updatedList);
+        
+        // debugger
         // TODO: set a daterange picker value somehow here
         //updatedList = updatedList.filter(function(note) { });
     }
@@ -112,7 +118,8 @@ function mapStateToProps(state) {
     const newState = {
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        selectedNote: state.noteData.selectedNote
+        selectedNote: state.noteData.selectedNote,
+        tags: state.tagData.tags
     };
     console.log('STATE: ', state, newState);
 

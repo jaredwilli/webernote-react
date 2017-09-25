@@ -100,15 +100,13 @@ export default function tagReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Added tag'
             });
-
-            newState.tags = tags;
-            console.log('newState.tags: @@@@@', newState.tags);
             
+            newState.tags = tags;
             return newState;
         }
         
-        // *** EDIT TAGS
-        case types.EditTagsRequested: {
+        // *** DELETE TAGS
+        case types.DeleteTagsRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -116,24 +114,22 @@ export default function tagReducer(state = {}, action) {
             });
         }
         
-        case types.EditTagsRejected: {
+        case types.DeleteTagsRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
-                error: 'Error editing tags'
+                error: 'Error deleting tags'
             });
         }
         
-        case types.EditTagsFulfilled: {
+        case types.DeleteTagsFulfilled: {
             const tags = action.tags;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Edited tags'
+                success: 'Deleted tags'
             });
 
             newState.tags = tags;
-            console.log('newState.tags: @@@@@', newState.tags);
-            
             return newState;
         }
         

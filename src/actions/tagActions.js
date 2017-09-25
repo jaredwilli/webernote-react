@@ -1,13 +1,15 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { uniq, createNewTag, getDeletedTags } from '../common/helpers.js';
+import { createNewTag, getTagCount } from '../common/noteHelpers';
+import { uniq } from '../common/helpers';
+import { DEFAULTS } from '../constants/noteConst';
 
 export function getTags() {
     return dispatch => {
         dispatch(getTagsRequestedAction());
 
-        return database.ref('/tags').once('value', snap => {
+        return database.ref('tags').once('value', snap => {
             const tags = snap.val();
 
             dispatch(getTagsFulfilledAction(tags));
@@ -19,14 +21,12 @@ export function getTags() {
     }
 }
 
-export function getTag(tag) {
+/* export function getTag(tag) {
     return dispatch => {
         dispatch(getTagRequestedAction());
-        
-        // debugger
         dispatch(getTagFulfilledAction(tag));
     }
-}
+} */
 
 export function addTag(tags, note) {
     return dispatch => {
@@ -42,9 +42,9 @@ export function addTag(tags, note) {
             
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
-                const tagRef = database.ref('/tags').push();
-                
-                tag = createNewTag(tagRef, tag, note)
+                const tagRef = tagsRef.push();
+                tag = createNewTag(tagRef.key, tag, note);
+
                 tagRef.set(tag);
             }
             
@@ -56,95 +56,32 @@ export function addTag(tags, note) {
     }
 }
 
-export function editTag(tag) {
-    return dispatch => {
-        dispatch(editTagsRequestedAction());
-
-        return database.ref('/tags/' + tag.id)
-            .set(tag.label)
-            .then((tag) => {
-                dispatch(editTagsFulfilledAction(tag));
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(editTagsRejectedAction());
-            });
-    }
-}
-
-export function editTags(tags, note) {
+export function removeTags(notes) {
 	return dispatch => {
-		dispatch(editTagsRequestedAction());
+		dispatch(deleteTagsRequestedAction());
 
-        // Refs to the selectedNote and tags
-        const noteRef = database.ref('/notes/' + note.id);
-        const tagsRef = database.ref('/tags/');
+        const tagsRef = database.ref('tags');
 
-        
-		// Remove all tags if none exist
-		if (!tags) {
-            noteRef.child('tags').remove();
-			dispatch(editTagsFulfilledAction(noteRef.key));
-        }
+        tagsRef.once('value', (snap) => {
+            const tags = snap.val();
+            let tagsList = [];
+            
+            Object.keys(tags).forEach((t) => {
+                let tag = tags[t];
+                let tagCount = getTagCount(tag, notes);
 
-        // Remove all tags removed from edit input
-        const removedTags = getDeletedTags(tags, note);
-
-        if (removedTags.length) {
-            removedTags.forEach((tag) => {
-                noteRef.child('tags/' + tag.id).remove();
+                // Remove empty tags
+                if (tagCount.count === 0 && tagCount.tag.name !== DEFAULTS.TAG) {
+                    let tagRef = tagsRef.child(tagCount.tag.id);
+                    // remove tag
+                    tagRef.remove();
+                } else {
+                    tagsList.push(tags[t]);
+                }
             });
-        }
-
-        // Get all existing tags to add new and use existing for notes
-        tagsRef.once('value')
-            .then((snap) => {
-                // get all children in tags
-                let tagsChildren = snap.val();
-                let tagList = [];
-
-                // Loop over the tags array added to selectedNote
-                tags.forEach((tag) => {
-                    if (tagsChildren && tagsChildren.hasOwnProperty(tag.label)) {
-                        return;
-                    }
-
-                    // Add new tags to tags and selectedNote
-                    if (tag.className && !tagsChildren.hasOwnProperty(tag.id)) {
-                        let refId = tagsRef.push();
-                        let newTag = createNewTag(refId.key, tag, note);
-
-                        // Set new tag
-                        refId.set(newTag);
-
-                        // Set note tags since new tag means note wont have it
-                        noteRef.child('tags/' + newTag.id).set(newTag);
-                    } else {
-                        let noteTagRef = noteRef.child('tags');
-
-                        // Checkout the value of the noteTagsRef for value at tag.id path
-                        noteTagRef.once('value')
-                            .then((snap) => {
-                                // If snap doesn't exist add set the noteTagRef value
-                                if (!snap.exists()) {
-                                    noteTagRef.set(tag);
-                                } else {
-                                    return;
-                                }
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                                dispatch(editTagsRejectedAction());
-                            });
-                    }
-                });
-
-                dispatch(editTagsFulfilledAction(tagsChildren));
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(editTagsRejectedAction());
-            });;
+            
+            dispatch(deleteTagsFulfilledAction(tagsList));
+        });
 	};
 }
 
@@ -175,7 +112,7 @@ function getTagsFulfilledAction(tags) {
 /**
  * Get tag
  */
-function getTagRequestedAction() {
+/* function getTagRequestedAction() {
     return { type: types.GetTagsRequested };
 }
 
@@ -185,7 +122,7 @@ function getTagRejectedAction() {
 
 function getTagFulfilledAction(tag) {
     return { type: types.GetTagFulfilled, tag };
-}
+} */
 
 /**
  * Add Tag
@@ -194,25 +131,25 @@ function addTagRequestedAction() {
     return { type: types.AddTagRequested };
 }
 
-function addTagRejectedAction() {
+/* function addTagRejectedAction() {
     return { type: types.AddTagRejected };
-}
+} */
 
 function addTagFulfilledAction(tags) {
     return { type: types.AddTagFulfilled, tags };
 }
 
 /**
- * Edit Tag
+ * Delete Tags
  */
-function editTagsRequestedAction() {
-    return { type: types.EditTagsRequested };
+function deleteTagsRequestedAction() {
+    return { type: types.DeleteTagsRequested };
 }
 
-function editTagsRejectedAction() {
-    return { type: types.EditTagsRejected };
-}
+/* function deleteTagsRejectedAction() {
+    return { type: types.DeleteTagsRejected };
+} */
 
-function editTagsFulfilledAction(tag) {
-    return { type: types.EditTagsFulfilled, tag };
+function deleteTagsFulfilledAction(tags) {
+    return { type: types.DeleteTagsFulfilled, tags };
 }
