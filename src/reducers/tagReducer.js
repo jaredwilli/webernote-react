@@ -101,9 +101,7 @@ export default function tagReducer(state = {}, action) {
                 success: 'Added tag'
             });
             
-            newState.tags = state.tags;
-
-
+            newState.tags = tags;
             return newState;
         }
         

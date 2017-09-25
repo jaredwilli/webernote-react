@@ -2,7 +2,7 @@ import { database } from '../data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
 import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
-import { uniq, guid } from '../common/helpers.js';
+import { uniq } from '../common/helpers.js';
 
 export function getState() {
     return (dispatch, getState) => {
@@ -221,9 +221,9 @@ function addNoteRequestedAction() {
     return { type: types.AddNoteRequested };
 }
 
-function addNoteRejectedAction() {
+/* function addNoteRejectedAction() {
     return { type: types.AddNoteRejected };
-}
+} */
 
 function addNoteFulfilledAction(note) {
     return { type: types.AddNoteFulfilled, note };

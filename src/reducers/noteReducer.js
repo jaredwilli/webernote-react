@@ -137,9 +137,7 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
-        case types.DeleteNoteFulfilled: {
-            const note = action.note;
-            
+        case types.DeleteNoteFulfilled: {            
             return Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'

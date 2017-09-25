@@ -26,13 +26,18 @@ class NoteList extends Component {
     }
     
     filterByNotebook(e) {
-        debugger
-        let filterNotebook = e.target.value
+        let filterNotebook = e.target.value;
+        console.log(filterNotebook);
+        
+        // debugger
     }
 
     setFilterType(e) {
         let filterType = e.target.name;
         let updatedList = this.state.initialNotes;
+        console.log(filterType, updatedList);
+        
+        // debugger
         // TODO: set a daterange picker value somehow here
         //updatedList = updatedList.filter(function(note) { });
     }

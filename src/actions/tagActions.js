@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { createNewTag, getTagCount, getDeletedTags } from '../common/noteHelpers';
+import { createNewTag, getTagCount } from '../common/noteHelpers';
 import { uniq } from '../common/helpers';
 import { DEFAULTS } from '../constants/noteConst';
 
@@ -42,7 +42,7 @@ export function addTag(tags, note) {
             
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
-                const tagRef = database.ref('/tags').push();
+                const tagRef = tagsRef.push();
                 tag = createNewTag(tagRef.key, tag, note);
 
                 tagRef.set(tag);
@@ -64,16 +64,16 @@ export function removeTags(notes) {
 
         tagsRef.once('value', (snap) => {
             const tags = snap.val();
-
             let tagsList = [];
             
-            Object.keys(tags).map((t) => {
+            Object.keys(tags).forEach((t) => {
                 let tag = tags[t];
                 let tagCount = getTagCount(tag, notes);
 
                 // Remove empty tags
                 if (tagCount.count === 0 && tagCount.tag.name !== DEFAULTS.TAG) {
                     let tagRef = tagsRef.child(tagCount.tag.id);
+                    // remove tag
                     tagRef.remove();
                 } else {
                     tagsList.push(tags[t]);
@@ -112,7 +112,7 @@ function getTagsFulfilledAction(tags) {
 /**
  * Get tag
  */
-function getTagRequestedAction() {
+/* function getTagRequestedAction() {
     return { type: types.GetTagsRequested };
 }
 
@@ -122,7 +122,7 @@ function getTagRejectedAction() {
 
 function getTagFulfilledAction(tag) {
     return { type: types.GetTagFulfilled, tag };
-}
+} */
 
 /**
  * Add Tag
@@ -131,9 +131,9 @@ function addTagRequestedAction() {
     return { type: types.AddTagRequested };
 }
 
-function addTagRejectedAction() {
+/* function addTagRejectedAction() {
     return { type: types.AddTagRejected };
-}
+} */
 
 function addTagFulfilledAction(tags) {
     return { type: types.AddTagFulfilled, tags };
@@ -146,9 +146,9 @@ function deleteTagsRequestedAction() {
     return { type: types.DeleteTagsRequested };
 }
 
-function deleteTagsRejectedAction() {
+/* function deleteTagsRejectedAction() {
     return { type: types.DeleteTagsRejected };
-}
+} */
 
 function deleteTagsFulfilledAction(tags) {
     return { type: types.DeleteTagsFulfilled, tags };

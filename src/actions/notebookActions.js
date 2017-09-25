@@ -2,7 +2,6 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
-import { guid } from '../common/helpers.js';
 import { DEFAULTS } from '../constants/noteConst';
 
 export function getNotebooks() {
@@ -53,13 +52,14 @@ export function removeNotebook(notes) {
             const notebooks = snap.val();
             let notebooksList = [];
 
-            Object.keys(notebooks).map((n) => {
+            Object.keys(notebooks).forEach((n) => {
                 let notebook = notebooks[n];
                 let notebookCount = getNotebookCount(notebook, notes);
 
                 // Remove empty notebooks
                 if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
                     let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+                    // remove notebook
                     notebookRef.remove();
                 } else {
                     notebooksList.push(notebook);
@@ -143,9 +143,9 @@ function addNotebookRequestedAction() {
     return { type: types.AddNotebookRequested };
 }
 
-function addNotebookRejectedAction() {
+/* function addNotebookRejectedAction() {
     return { type: types.AddNotebookRejected };
-}
+} */
 
 function addNotebookFulfilledAction(notebook) {
     return { type: types.AddNotebookFulfilled, notebook };
@@ -173,9 +173,9 @@ function deleteNotebookRequestedAction() {
     return { type: types.DeleteNotebookRequested };
 }
 
-function deleteNotebookRejectedAction() {
+/* function deleteNotebookRejectedAction() {
     return { type: types.DeleteNotebookRejected };
-}
+} */
 
 function deleteNotebookFulfilledAction(notebooks) {
     return { type: types.DeleteNotebookFulfilled, notebooks };
