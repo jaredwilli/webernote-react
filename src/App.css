@@ -550,6 +550,10 @@ small {
 
 /* SHOW NOTE */
 
+/* .show-note > form > div {
+    width: 99%;
+} */
+
 .note-list .filter,
 .note-list .viewing,
 .show-note .top,
@@ -756,6 +760,31 @@ small {
 }
 
 
+/* Quill */
+
+.quill {
+	border-color: rgb(190, 202, 213);
+	border-width: 0 1px;
+	border-style: solid;
+	display: inline-block;
+    width: 99%;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 0;
+	height: 515px;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+    background: #fff;
+    border-color: rgb(190, 202, 213);
+    border-width: 1px 0;
+}
+
+.ql-editor {
+    padding: 8px;
+}
 
 /* Helpers */
 

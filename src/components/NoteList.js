@@ -48,8 +48,7 @@ class NoteList extends Component {
         let updatedList = this.state.initialNotes;
         
         updatedList = updatedList.filter(function(note) {
-            return note.description
-                .toLowerCase()
+            return note.description.toLowerCase()
                 .search(e.target.value.toLowerCase()) !== -1;
         });
 

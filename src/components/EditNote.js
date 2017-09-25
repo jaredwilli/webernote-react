@@ -1,4 +1,8 @@
 import React from 'react';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,23 +15,25 @@ class EditNote extends React.Component {
     constructor(props) {
         super(props);
 
-        this.editNote = this.editNote.bind(this);
+        this.editDescription = this.editDescription.bind(this);
         this.editNotebook = this.editNotebook.bind(this);
         this.editTags = this.editTags.bind(this);
-
+        this.handleChange = this.handleChange.bind(this)
         this.state = {
-            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
+            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {},
+            text: this.props.selectedNote.description
         };
     }
 
-    editNote(e) {
+    editDescription(value) {
         let note = this.props.selectedNote;
 
-        note[e.target.name] = e.target.value;
+        note.description = value;
         note.modified_date = new Date().getTime();
 
         this.setState({
-            selectedNote: note
+            selectedNote: note,
+            text: value
         });
 
         this.props.actions.editNote(note);
@@ -52,6 +58,13 @@ class EditNote extends React.Component {
         });
         
         this.props.actions.editNote(note, { tags: tags });
+    }
+
+    handleChange(value) {
+        this.setState({ text: value });
+        
+        console.log(value);
+        this.editNote(value);
     }
 
     render() {
@@ -84,15 +97,19 @@ class EditNote extends React.Component {
                             editTags={(tags) => this.editTags(tags)} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description" 
-                            value={selectedNote.description} 
-                            onChange={(e) => this.editNote(e)}>
-                        </textarea>
+                        <ReactQuill value={selectedNote.description}
+                            onChange={(e) => this.editDescription(e)}
+                            theme="snow" />
+                            
                     </div>
                 </form>
             </div>
         );
     }
+                        // <textarea className="description" name="description" 
+                        //     value={selectedNote.description} 
+                        //     onChange={this.editNote}>
+                        // </textarea>
 }
 
 function mapStateToProps(state) {

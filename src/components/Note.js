@@ -18,6 +18,8 @@ function Note(props) {
         );
     }
 
+    // <span className="description" dangerouslySetInnerHTML={{__html: shorten(note.description, 250)}}></span>
+
     const note = sortNotes(notes).map((note) => 
         <li className={(note.isEditing) ? 'note selected' : 'note'} 
             key={note.id} id={note.id} 
