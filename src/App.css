@@ -736,8 +736,6 @@ small {
 .Select-control {
     border-radius: 0;
     border: 0;
-    height: 32px;
-    display: block;
 }
 
 .Select-placeholder, 
