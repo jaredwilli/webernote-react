@@ -1,7 +1,9 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
+
 import { guid } from './helpers';
+import { DEFAULTS } from '../constants/noteConst';
 
 /**
  * sortNotes
@@ -120,6 +122,35 @@ export function getDeletedTags(tags, note) {
         return noteTagsCopy;
     }
     return false;
+}
+
+/**
+ * getDeletedNotebooks
+ * 
+ * @param {Object} notebooksRef 
+ * @param {Array} notes 
+ */
+export function getDeletedNotebooks(notebooksRef, notes) {
+    notebooksRef.once('value', (snap) => {
+        const notebooks = snap.val();
+        let notebooksList = [];
+
+        Object.keys(notebooks).forEach((n) => {
+            let notebook = notebooks[n];
+            let notebookCount = getNotebookCount(notebook, notes);
+
+            // Remove empty notebooks
+            if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
+                let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+                // remove notebook
+                notebookRef.remove();
+            } else {
+                notebooksList.push(notebook);
+            }
+        });
+
+        return notebooksList;
+    });
 }
 
 /**

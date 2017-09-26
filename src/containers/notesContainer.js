@@ -37,7 +37,7 @@ class NotesContainer extends React.PureComponent {
             <div>
                 <header>
                     <div className="loginout">
-                        <a className="login" href="">Login</a>
+                        <a className="login" href="/login">Login</a>
                     </div>
                     
                     <h1><a href="/">Webernote<sup>TM</sup></a></h1>

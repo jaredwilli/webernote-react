@@ -16,17 +16,21 @@ function Note(props) {
         return (
             <div className="note">No notes yet.</div>
         );
-    }
+    } 
 
     const note = sortNotes(notes).map((note) => 
         <li className={(note.isEditing) ? 'note selected' : 'note'} 
             key={note.id} id={note.id} 
             onClick={(e) => props.selectNote(e, note)}>
-            <button className="delete" onClick={() => props.deleteNote(note.id)}>X</button>
+            <button className="delete" onClick={() => props.deleteNote(note)}>X</button>
             <h2 className="title">{shorten(note.title, 80)}</h2>
             <p>
                 <span className="date">
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
+                </span>
+                {}
+                <span className="url">
+                    <a href={note.url}>URL</a>
                 </span>
                 <span className="description">{shorten(note.description, 250)}</span>
                 {getTags(note.tags)}

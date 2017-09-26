@@ -147,16 +147,24 @@ export function editNote(note, obj = null) {
 export function deleteNote(id) {
     return dispatch => {
         dispatch(deleteNoteRequestedAction());
+        
+        const noteRef = database.ref('notes/' + id);
 
-        database.ref('/notes/' + id)
-            .remove()
-            .then(function() {
-                dispatch(deleteNoteFulfilledAction())
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(deleteNoteRejectedAction());
-            });
+        noteRef.child('tags').once('value', (snap) => {
+            let tags = snap.val();
+console.log(tags);
+
+            debugger
+        })
+
+            // .remove()
+            // .then(function() {
+            //     dispatch(deleteNoteFulfilledAction())
+            // })
+            // .catch((error) => {
+            //     console.error(error);
+            //     dispatch(deleteNoteRejectedAction());
+            // });
     }
 }
 

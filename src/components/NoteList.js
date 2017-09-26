@@ -64,9 +64,10 @@ class NoteList extends Component {
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }
-
-    deleteNote(id) {
-        this.props.actions.deleteNote(id);
+    
+    deleteNote(note) {
+        this.props.actions.resetSelectedNote();
+        this.props.actions.deleteNote(note);
         this.props.actions.getNotes();
     }
     
@@ -80,7 +81,7 @@ class NoteList extends Component {
         return (
             <div className="note-list">
                 <div className="filter">
-                    Search type: 
+                    Search type:&nbsp;
                     <select name="filterType" className="filter-type" 
                         value={this.props.filterType}
                         onChange={(e) => this.setFilterType(e)}>
@@ -100,14 +101,13 @@ class NoteList extends Component {
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
                     
-                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} 
-                        canAddNotebook={false} />
+                    
                 </div>
                 
                 <div className="notes">
                     <Note notes={this.props.notes} 
-                        selectNote={(e, id) => this.selectNote(e, id)}
-                        deleteNote={(id) => this.deleteNote(id)} />
+                        selectNote={(e, note) => this.selectNote(e, note)}
+                        deleteNote={(note) => this.deleteNote(note)} />
                 </div>
             </div>
         );
