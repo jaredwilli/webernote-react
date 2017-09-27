@@ -28,9 +28,14 @@ export function sortNotes(notes) {
  * @returns {Object} obj with notebook name and note count using it
  */
 export function getNotebookCount(notebook, notes) {
+    notes = notes;
     let count = 0;
     // iterate over notes
     notes.forEach(function(n) {
+        console.log(n.notebook);
+        
+        debugger
+        if (n === undefined) debugger;
         if (n.notebook.name === notebook.name) {
             count++;
         }
@@ -76,11 +81,14 @@ export function getTagCount(tag, notes) {
  */
 export function getNoteTags(noteTags) {
     let tags = '';
+
     if (noteTags) {
         tags = noteTags.map((t) => 
-            <span className="Select-value">
-                <span className="Select-value-label" id="react-select-2--value-">
-                    {t.label}
+            <span key={t.id} id={'react-select-2--value-' + t.id} className="Select-multi-value-wrapper">
+                <span className="Select-value">
+                    <span className="Select-value-label" id="react-select-2--value-">
+                        {t.label}
+                    </span>
                 </span>
             </span>
         );
@@ -88,9 +96,7 @@ export function getNoteTags(noteTags) {
 
     return (
         <div className="Select tags Select--multi has-value">
-            <span className="Select-multi-value-wrapper" id="react-select-2--value">
-                {tags}
-            </span>
+            {tags}
         </div>
 
     );    

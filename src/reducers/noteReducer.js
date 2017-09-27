@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import * as types from '../constants/actionTypes.js';
 
 export default function noteReducer(state = {}, action) {
@@ -147,27 +148,7 @@ export default function noteReducer(state = {}, action) {
                 success: 'Deleted note'
             });
             
-            newState.notes = notes.map((n) => {
-                let index = 0;
-                if (notes[n].id === note.id) {
-                    debugger
-
-                    selectedNote = '';
-                    delete notes[n];
-                    return;
-                }
-                
-                
-                debugger
-            });
-
-            newState.selectedNote = notes.map((n) => {
-                return notes[n].id === note.id;
-            });
-console.log(newState.selectedNote);
-
-            debugger
-        
+            newState.notes = notes.slice(note);
             return newState;
         }
         
@@ -189,7 +170,7 @@ console.log(newState.selectedNote);
 
         case types.SelectNoteFulfilled: {
             const note = action.note;
-            note.isEditing = true;
+            // note.isEditing = true;
             
             const newState = Object.assign({}, state, {
                 inProgress: false,

@@ -24,13 +24,13 @@ function Note(props) {
             onClick={(e) => props.selectNote(e, note)}>
             <button className="delete" onClick={() => props.deleteNote(note)}>X</button>
             <h2 className="title">{shorten(note.title, 80)}</h2>
-            <p>
+            <div>
                 <span className="date">
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
                 </span>
-                <span className="description">{shorten(note.description, 250)}</span>
+                <p className="description">{shorten(note.description, 250)}</p>
                 {getNoteTags(note.tags)}
-            </p>
+            </div>
         </li>
     );
 

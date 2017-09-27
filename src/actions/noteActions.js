@@ -39,7 +39,7 @@ export function getNotes(filters) {
                 });
 
                 console.log(filtersToApply);
-
+debugger
 
                 return false;
             }
@@ -205,33 +205,22 @@ export function deleteNote(note) {
 
         // Finally delete the note itself
         notesRef.child(note.id)
-            .remove()
-            .then(function() {
-                dispatch(deleteNoteFulfilledAction(note, notes));
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(deleteNoteRejectedAction());
-            });
+            .remove();
+
+        dispatch(deleteNoteFulfilledAction(note, notes));
     }
 }
 
 export function selectNote(note) {
-    return (dispatch, getState) => {
+    return dispatch => {
         dispatch(selectNoteRequestedAction());
-        const currentNotes = getState().noteData.notes;
 
-        note = currentNotes.filter(function(n) {
-            return n.id === note.id;
-        })[0];
+        const noteRef = database.ref('notes/' + note.id);
 
-        database.ref('/notes/' + note.id + '/isEditing/')
+        noteRef.child('isEditing')
             .set(true)
-            .then(dispatch(selectNoteFulfilledAction(note)))
-            .catch((error) => {
-                console.error(error);
-                dispatch(selectNoteRejectedAction());
-            });
+        
+        dispatch(selectNoteFulfilledAction(note));
     }
 }
 
@@ -239,18 +228,19 @@ export function resetSelectedNote() {
     return (dispatch, getState) => {
         dispatch(resetSelectedNoteRequestedAction());
         
+        const notesRef = database.ref('notes');
         const notes = getState().noteData.notes;
-
+        
         notes.forEach((n) => {
+            let noteRef = notesRef.child(n.id);
+            
             if (n.isEditing) {
-                database.ref('/notes/' + n.id + '/isEditing/')
+                noteRef.child('isEditing')
                     .set(false)
-                    .then(dispatch(resetSelectedNoteFulfilledAction(n)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(resetSelectedNoteRejectedAction());
-                    });
+                
+                dispatch(resetSelectedNoteFulfilledAction(n));
             }
+231
         });
     }
 }

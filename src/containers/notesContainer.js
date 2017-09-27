@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -37,8 +38,22 @@ class NotesContainer extends React.PureComponent {
     }
     
     deleteNote(note) {
+        const notes = this.props.notes;
+        let newSelectedNote = _.some(this.props.notes, (n, index) => {
+            if (n.id === note.id) {
+                if (index > 0) {
+                    return notes[index + 1];
+                } else if (index < notes.length) {
+                    return notes[index - 1];
+                } else {
+                    return notes[index - 1];
+                }
+            }
+        });
+
         this.props.actions.resetSelectedNote();
         this.props.actions.deleteNote(note);
+        this.props.actions.selectNote(newSelectedNote);
         this.props.actions.getNotes();
         this.props.actions.getNotebooks();
         this.props.actions.getTags();

@@ -78,10 +78,10 @@ class NotebooksContainer extends React.PureComponent {
 
     render() {
         const filterByNotebook = this.props.filterByNotebook;
-        let allNotebooks = '';
-        let addNotebookOption = '';
+        let allNotebooksOption = '',
+            addNotebookOption = '';
 
-        if (!this.props.selectedNote || !this.props.notebooks) {
+        if (this.props.canAddNotebook && !this.props.selectedNote || !this.props.notebooks) {
             return <div className="loading">Loading...</div>;
         }
 
@@ -94,14 +94,15 @@ class NotebooksContainer extends React.PureComponent {
         if (this.props.canAddNotebook) {
             addNotebookOption = <option>+Create notebook</option>;
         } else {
-            allNotebooks = (
-                <option key={0} id={0}>All</option>
+            allNotebooksOption = (
+                <option key={0} id={0}>All Notebooks</option>
             );
 
             return (
                 <select name="notebook" className="notebook" 
                     value={this.value}
                     onChange={(e) => this.props.filterByNotebook(e)}>
+                    {allNotebooksOption}
                     {notebookOptions}
                 </select>
             )

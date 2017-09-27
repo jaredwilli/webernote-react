@@ -17,7 +17,7 @@ class NoteNav extends React.Component {
 
     render() {
         const { notes, notebooks, tags } = this.props;
-        
+
         // NOTEBOOKS MENU
         let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
         let notebookItems = '';

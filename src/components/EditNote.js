@@ -53,7 +53,7 @@ class EditNote extends React.Component {
         
         this.props.actions.editNote(note, { tags: tags });
     }
-
+    
     render() {
         // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
