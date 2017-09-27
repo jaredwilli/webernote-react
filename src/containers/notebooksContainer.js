@@ -1,8 +1,10 @@
+import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as notebookActions from '../actions/notebookActions';
+
 import { getSelectedNotebook } from '../common/noteHelpers.js';
 
 class NotebooksContainer extends React.PureComponent {
@@ -29,6 +31,8 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     addNotebook(e) {
+        let val = e.target.value;
+
         if (e.target.value === '') {
             this.setState({
                 addNotebook: false
@@ -38,17 +42,25 @@ class NotebooksContainer extends React.PureComponent {
                 addNotebook: false
             });
             
+            let notebookExists = this.props.notebooks.filter((n) => {
+                return n.name === e.target.value; 
+            });
+            
+            // If notebook exists return 
+            if (notebookExists.length) return;
+
             let notebook = {
                 name: e.target.value
             };
 
+            // add the notebook
             this.props.actions.addNotebook(notebook);
-
             // edit notebook to update the state
             this.props.editNotebook(notebook);
-
-            // Check if need to remove a notebook
-            // this.props.actions.removeNotebook(this.props.notes);
+            // check if the one that was selected is empty
+            this.props.actions.removeNotebook(this.props.notes);    
+            // get notebooks again to update the state
+            this.props.actions.getNotebooks();
         }
     }
     
@@ -100,7 +112,7 @@ class NotebooksContainer extends React.PureComponent {
 
             return (
                 <select name="notebook" className="notebook" 
-                    value={this.value}
+                    value={this.props.filter}
                     onChange={(e) => this.props.filterByNotebook(e)}>
                     {notebookOptions}
                 </select>
@@ -117,7 +129,7 @@ class NotebooksContainer extends React.PureComponent {
                     <input type="text" name="notebook" className="new-notebook" 
                         placeholder="Notebook name"
                         autoFocus={true}
-                        onBlur={this.addNotebook}
+                        onBlur={(e) => this.addNotebook(e)}
                         onKeyDown={this.keyPress} />
                 </span>
             );

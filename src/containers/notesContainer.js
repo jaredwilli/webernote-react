@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,6 +28,14 @@ class NotesContainer extends React.PureComponent {
         this.filterList = this.filterList.bind(this);
         this.filterType = this.filterType.bind(this);
         this.filterByNotebook = this.filterByNotebook.bind(this);
+
+        this.state = {
+            filter: {
+                notebookFilter: 'All Notebooks',
+                filterList: '',
+                filterType: ''
+            }
+        }
     }
     
     addNote(e) {
@@ -37,8 +46,22 @@ class NotesContainer extends React.PureComponent {
     }
     
     deleteNote(note) {
+        const notes = this.props.notes;
+        let newSelectedNote = _.some(this.props.notes, (n, index) => {
+            if (n.id === note.id) {
+                if (index > 0) {
+                    return notes[index + 1];
+                } else if (index < notes.length) {
+                    return notes[index - 1];
+                } else {
+                    return notes[index - 1];
+                }
+            }
+        });
+
         this.props.actions.resetSelectedNote();
         this.props.actions.deleteNote(note);
+        this.props.actions.selectNote(newSelectedNote);
         this.props.actions.getNotes();
         this.props.actions.getNotebooks();
         this.props.actions.getTags();
@@ -47,10 +70,14 @@ class NotesContainer extends React.PureComponent {
     // Filters for the note list and the left nav result counts
     filterByNotebook(e) {
         const notebook = getSelectedNotebook(e, this.props.notebooks);
+        let filterValue = e.target.value
         
         this.setState({
             canAddNotebook: false,
-            notebook: notebook
+            notebook: notebook,
+            filter: {
+                notebookFilter: filterValue
+            }
         });
 
         // get notebooks again to update the state
@@ -58,9 +85,11 @@ class NotesContainer extends React.PureComponent {
     }
 
     filterType(e) {
-        let filterType = e.target.name;
+        let filterValue = e.target.name;
 
-        console.log(filterType);
+        this.setState({
+            filter: { notebookFilter: filterValue }
+        });
         
         // debugger
         // TODO: set a daterange picker value somehow here
@@ -131,7 +160,8 @@ class NotesContainer extends React.PureComponent {
                                     <NoteList deleteNote={(note) => this.deleteNote(note)}
                                         filterByNotebook={(notebook) => this.filterByNotebook(notebook)}
                                         filterType={(type) => this.filterType(type)}
-                                        filterList={(filter) => this.filterList(filter)} />
+                                        filterList={(filter) => this.filterList(filter)}
+                                        filter={this.state.filter} />
                                 </td>
                                 <td className="edit-note-col">
                                     <EditNote />

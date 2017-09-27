@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as noteActions from '../actions/noteActions';
-
 import NotebooksContainer from '../containers/notebooksContainer';
 import TagsContainer from '../containers/tagsContainer';
+
+import * as noteActions from '../actions/noteActions';
 
 class EditNote extends React.Component {
     constructor(props) {
@@ -23,6 +23,8 @@ class EditNote extends React.Component {
     editNote(e) {
         let note = this.props.selectedNote;
 
+        console.log(e.target.value);
+        
         note[e.target.name] = e.target.value;
         note.modified_date = new Date().getTime();
 

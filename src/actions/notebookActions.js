@@ -34,11 +34,16 @@ export function addNotebook(notebook) {
         dispatch(addNotebookRequestedAction());
 
         const notebooksRef = database.ref('/notebooks');
-        let notebookRef = notebooksRef.push();
-        notebook = createNewNotebook(notebookRef.key, notebook);
+        notebooksRef.once('value', (snap) => {
+            let notebooks = snap.val();
+            console.log(notebook);
+            let notebookRef = notebooksRef.push();
+            notebook = createNewNotebook(notebookRef.key, notebook);
+    
+            notebookRef.set(notebook);
+            dispatch(addNotebookFulfilledAction(notebook));
 
-        notebookRef.set(notebook);
-        dispatch(addNotebookFulfilledAction(notebook));
+        });
     }
 }
 

@@ -33,6 +33,11 @@ class NoteList extends Component {
     }
     
     render() {
+        let { filterNotebook, filterList, filterType } = this.props.filter;
+
+        if (filterNotebook) {
+            debugger
+        }
         if (!this.props.notes) {
             return (
                 <div className="loading">Loading...</div>
@@ -62,7 +67,8 @@ class NoteList extends Component {
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
                     
-                    <NotebookContainer filterByNotebook={(e) => this.props.filterByNotebook(e)} 
+                    <NotebookContainer
+                        filterByNotebook={(e) => this.props.filterByNotebook(e)} 
                         canAddNotebook={false} />
                 </div>
                 

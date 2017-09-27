@@ -1,4 +1,12 @@
 {
+    "filters": {
+        "filterByNotebook": {
+            "yT-Isye_Rb7Z6s04-tha": {
+                "id": "yT-Isye_Rb7Z6s04-tha",
+                
+            }
+        }
+    },
 	"notebooks": {
         "e_RyT-Isyb7Z6s04-tha": {
             "id": "e_RyT-Isyb7Z6s04-tha",
