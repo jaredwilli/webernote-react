@@ -137,11 +137,38 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
-        case types.DeleteNoteFulfilled: {            
-            return Object.assign({}, state, {
+        case types.DeleteNoteFulfilled: {
+            const notes = action.notes;
+            const note = action.note;
+            let selectedNote = '';
+            
+            const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+            
+            newState.notes = notes.map((n) => {
+                let index = 0;
+                if (notes[n].id === note.id) {
+                    debugger
+
+                    selectedNote = '';
+                    delete notes[n];
+                    return;
+                }
+                
+                
+                debugger
+            });
+
+            newState.selectedNote = notes.map((n) => {
+                return notes[n].id === note.id;
+            });
+console.log(newState.selectedNote);
+
+            debugger
+        
+            return newState;
         }
         
         // *** SELECT NOTE

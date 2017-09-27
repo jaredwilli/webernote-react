@@ -5,3 +5,13 @@ export const DEFAULTS = {
     NOTEBOOK: 'My Notebook'
 };
 
+export const FILTER_TYPES = {
+    TITLE: 'title',
+    DESCRIPTION: 'description',
+    NOTEBOOK: 'notebook',
+    TAGS: 'tag',
+    CREATED_DATE: 'created_date',
+    MODIFIED_DATE: 'modified_date',
+    DATE_RANGE: 'date_range',
+    USER: 'user'
+};

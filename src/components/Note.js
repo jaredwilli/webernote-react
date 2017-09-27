@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { formatDate, shorten } from '../common/helpers';
-import { sortNotes, getTags } from '../common/noteHelpers';
+import { sortNotes, getNoteTags } from '../common/noteHelpers';
 
 function Note(props) {
     const notes = props.notes;
@@ -28,12 +28,8 @@ function Note(props) {
                 <span className="date">
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
                 </span>
-                {}
-                <span className="url">
-                    <a href={note.url}>URL</a>
-                </span>
                 <span className="description">{shorten(note.description, 250)}</span>
-                {getTags(note.tags)}
+                {getNoteTags(note.tags)}
             </p>
         </li>
     );

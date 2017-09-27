@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes.js';
+import { DEFAULTS } from '../constants/noteConst';
 
 export default function notebookReducer(state = {}, action) {
 	switch (action.type) {
@@ -28,6 +29,9 @@ export default function notebookReducer(state = {}, action) {
 
 			if (notebooks) {
 				notebooks = Object.keys(notebooks).map(function(k) {
+                    if (notebooks[k].name === DEFAULTS.NOTEBOOK) {
+                        newState.notebookFilter = notebooks[k];
+                    }
 					return notebooks[k];
 				});
 			}
