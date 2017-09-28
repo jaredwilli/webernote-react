@@ -560,6 +560,10 @@ small {
     background: #d0d0d0;
 }
 
+.show-note form {
+    position: relative;
+}
+
 .note-list .filter,
 .note-list .viewing,
 .show-note .top,
