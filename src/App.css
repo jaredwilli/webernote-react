@@ -190,6 +190,7 @@ small {
 
 .toolbar .new-note {
 	background: rgba(255, 15, 15, 0.7);
+    border: 1px solid #d60c0e;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -205,9 +206,10 @@ small {
 
 .toolbar .new-note button {
     background: transparent;
-	border: 1px solid #7c0607;
+    border: 0;
 	color: #fff;
-	text-shadow: -1px -1px 0 hsla(0, 92%, 25%, 0.9), 1px 1px 0 hsla(12, 81%, 54%, 0.75);
+    text-shadow: -1px -1px 0 hsla(0, 92%, 25%, 0.9), 
+                  1px 1px 0 hsla(12, 81%, 54%, 0.75);
 	cursor: pointer;
 	padding: 4px 10px 4px 0;
 	vertical-align: middle;
