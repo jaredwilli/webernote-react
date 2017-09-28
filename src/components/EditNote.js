@@ -53,14 +53,14 @@ class EditNote extends React.Component {
         
         this.props.actions.editNote(note, { tags: tags });
     }
-
+    
     render() {
         // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
         
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="show-note"></div>
+                <div className="show-note">Select a note...</div>
             );
         }
 
@@ -70,7 +70,8 @@ class EditNote extends React.Component {
                     <div className="top">
                         <input type="text" className="title" name="title" placeholder="Enter title..."  
                             value={selectedNote.title} 
-                            onChange={(e) => this.editNote(e)} />
+                            onChange={(e) => this.editNote(e)}
+                            autoFocus={true} />
                         <NotebooksContainer 
                             canAddNotebook={true} 
                             editNotebook={(notebook) => this.editNotebook(notebook)} />

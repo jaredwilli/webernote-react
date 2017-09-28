@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import * as types from '../constants/actionTypes.js';
 
 export default function noteReducer(state = {}, action) {
@@ -137,11 +138,18 @@ export default function noteReducer(state = {}, action) {
             });
         }
         
-        case types.DeleteNoteFulfilled: {            
-            return Object.assign({}, state, {
+        case types.DeleteNoteFulfilled: {
+            const notes = action.notes;
+            const note = action.note;
+            let selectedNote = '';
+            
+            const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+            
+            newState.notes = notes.slice(note);
+            return newState;
         }
         
         // *** SELECT NOTE
@@ -162,7 +170,7 @@ export default function noteReducer(state = {}, action) {
 
         case types.SelectNoteFulfilled: {
             const note = action.note;
-            note.isEditing = true;
+            // note.isEditing = true;
             
             const newState = Object.assign({}, state, {
                 inProgress: false,

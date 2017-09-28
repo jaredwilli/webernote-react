@@ -20,8 +20,8 @@ export function formatDate(timeStamp) {
  * @param {Number} maxLength 
  */
 export function shorten(text, maxLength) {
-    var ret = text;
-    if (ret.length > maxLength) {
+    var ret = text || '';
+    if (ret && ret.length > maxLength) {
         ret = ret.substr(0, maxLength - 1) + '…';
     }
     return ret;

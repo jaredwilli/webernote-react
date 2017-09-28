@@ -82,14 +82,16 @@ function mapStateToProps(state) {
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = Object.assign(notebookActions, tagActions)
+
     return {
-        actions: bindActionCreators(notebookActions, tagActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 

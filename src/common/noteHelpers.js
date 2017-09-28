@@ -1,7 +1,9 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
+
 import { guid } from './helpers';
+import { DEFAULTS } from '../constants/noteConst';
 
 /**
  * sortNotes
@@ -26,9 +28,14 @@ export function sortNotes(notes) {
  * @returns {Object} obj with notebook name and note count using it
  */
 export function getNotebookCount(notebook, notes) {
+    notes = notes;
     let count = 0;
     // iterate over notes
     notes.forEach(function(n) {
+        console.log(n.notebook);
+        
+        debugger
+        if (n === undefined) debugger;
         if (n.notebook.name === notebook.name) {
             count++;
         }
@@ -68,17 +75,20 @@ export function getTagCount(tag, notes) {
 }
 
 /**
- * getTags
+ * getNoteTags
  * 
  * @param {Object} noteTags 
  */
-export function getTags(noteTags) {
+export function getNoteTags(noteTags) {
     let tags = '';
+
     if (noteTags) {
         tags = noteTags.map((t) => 
-            <span className="Select-value">
-                <span className="Select-value-label" id="react-select-2--value-">
-                    {t.label}
+            <span key={t.id} id={'react-select-2--value-' + t.id} className="Select-multi-value-wrapper">
+                <span className="Select-value">
+                    <span className="Select-value-label" id="react-select-2--value-">
+                        {t.label}
+                    </span>
                 </span>
             </span>
         );
@@ -86,22 +96,20 @@ export function getTags(noteTags) {
 
     return (
         <div className="Select tags Select--multi has-value">
-            <span className="Select-multi-value-wrapper" id="react-select-2--value">
-                {tags}
-            </span>
+            {tags}
         </div>
 
     );    
 }
 
 /**
- * getDeletedTags
+ * getDeletedNoteTags
  * 
- * @param {*} tags 
- * @param {*} note 
+ * @param {Object} tags list of tags the note has currently
+ * @param {Object} note the note object 
  */
 // TODO: refactor this
-export function getDeletedTags(tags, note) {
+export function getDeletedNoteTags(tags, note) {
     let noteTagsCopy = note.tags,
         tagsCopy = tags,
         tagSize = _.size(tagsCopy),
@@ -120,6 +128,55 @@ export function getDeletedTags(tags, note) {
         return noteTagsCopy;
     }
     return false;
+}
+
+/**
+ * getDeletedNotebooks
+ * 
+ * @param {Object} notebooksRef 
+ * @param {Array} notes 
+ */
+export function getDeletedNotebooks(notebooksRef, notes) {
+    notebooksRef.once('value', (snap) => {
+        const notebooks = snap.val();
+        let notebooksList = [];
+
+        Object.keys(notebooks).forEach((n) => {
+            let notebook = notebooks[n];
+            let notebookCount = getNotebookCount(notebook, notes);
+
+            // Remove empty notebooks
+            if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
+                let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+                // remove notebook
+                notebookRef.remove();
+            } else {
+                notebooksList.push(notebook);
+            }
+        });
+
+        return notebooksList;
+    });
+}
+
+/**
+ * deleteEmptyNotebook
+ * 
+ * @param {Object} notebooksRef 
+ * @param {Object} note
+ * @param {Array} notes 
+ */
+export function deleteEmptyNotebook(notebooksRef, note, notes) {
+    // Check if the note notebook needs to be removed from notebooks
+    let notebookCount = getNotebookCount(note.notebook, notes);
+    // Remove empty notebooks
+    if (notebookCount.count <= 1) {
+        let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+        // remove notebook
+        notebookRef.remove();
+    }
+
+    return Object.assign({}, note, notes);
 }
 
 /**
