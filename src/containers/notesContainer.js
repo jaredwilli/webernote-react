@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as noteActions from '../actions/noteActions';
+import { auth, fbProvider } from '../data/firebaseAuth.js';
 
 import NoteNav from '../components/NoteNav';
 import NoteTypes from '../components/NoteTypes';
@@ -10,6 +10,8 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 import AddNote from '../components/AddNote';
 
+import * as noteActions from '../actions/noteActions';
+
 import '../App.css';
 
 class NotesContainer extends React.PureComponent {
@@ -17,6 +19,15 @@ class NotesContainer extends React.PureComponent {
         super(props);
 
         this.addNote = this.addNote.bind(this);
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+        
+        this.state = {
+            selectedNote: '',
+            notes: [],
+            username: '',
+            user: null
+        }
     }
     
     addNote(e) {
@@ -24,6 +35,34 @@ class NotesContainer extends React.PureComponent {
 
         this.props.actions.resetSelectedNote();
         this.props.actions.addNote();
+    }
+
+    componentWillMount() {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({ user });
+            }
+        });
+    }
+
+    login() {
+        auth.signInWithPopup(fbProvider)
+            .then((res) => {
+                const user = res.user;
+
+                this.setState({
+                    user: user
+                });
+            });
+    }
+
+    logout() {
+        auth.signOut()
+            .then(() => {
+                this.setState({
+                    user: null
+                });
+            });
     }
 
     render() {
@@ -37,7 +76,16 @@ class NotesContainer extends React.PureComponent {
             <div>
                 <header>
                     <div className="loginout">
-                        <a className="login" href="">Login</a>
+                        {this.state.user ?
+                            <div>
+                                <span className="user-photo">
+                                    <img src={this.state.user.photoURL} />
+                                </span>
+                                <button className="logout" onClick={this.logout}>Logout</button>
+                            </div>
+                        :
+                            <button className="login" onClick={this.login}>Login</button>
+                        }
                     </div>
                     
                     <h1><a href="/">Webernote<sup>TM</sup></a></h1>

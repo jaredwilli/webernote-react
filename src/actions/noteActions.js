@@ -1,8 +1,12 @@
+// Facebook URI redirect for authentication
+// https://webernote-7f700.firebaseapp.com/__/auth/handler
+
 import { database } from '../data/firebase.js';
-import * as types from '../constants/actionTypes.js';
 
 import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
 import { uniq } from '../common/helpers.js';
+
+import * as types from '../constants/actionTypes.js';
 
 export function getState() {
     return (dispatch, getState) => {
