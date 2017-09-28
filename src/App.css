@@ -330,7 +330,11 @@ small {
 .left-nav {
 	padding: 0;
 	min-width: 70px;
-	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.left-nav nav {
+    margin: 5px 0 0 5px;
 }
 
 .left-nav ul {
@@ -349,10 +353,14 @@ small {
 	margin: 1px 0 0 5px;
 }
 
-.left-nav > ul > li > span {
+.left-nav > nav > ul > li > span {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
 	text-decoration: none;
 	padding: 0 0 0 14px;
+}
+
+.left-nav li > a {
+    font-weight: normal;
 }
 
 .left-nav li > a:hover {
