@@ -1,5 +1,32 @@
 # Webernote app
 
+To run this app you simply just clone the repo:
+
+`git clone git@github.com:jaredwilli/webernote-react.git && cd webernote-react`
+
+Then install the dependencies:
+
+`npm install`
+
+Then run the server:
+
+`npm start`
+
+The app will be served on `http://localhost:3000/`.
+
+To build the application for deployment run:
+
+`npm run build` 
+
+Finally to deploy it run:
+
+`surge -p /<PATH_TO_THE_APPS_BUILD_FOLDER>/PATH_TO_THE_APPS_BUILD_FOLDER>/webernote-react/build -d ≤SOME_DOMAIN_NAME>.surge.sh`
+
+Surge will awesomely deploy the built application code to the domain specified and you will be able to see it at the url http://SOME_DOMAIN_NAME.surge.sh/.
+
+
+# History and Details
+
 Webernote is a web app I built based on the Evernote desktop app. It is written with React, Redux, and ES6, and can be viewed here: http://webernote.surge.sh/.
 
 This is the third time building Webernote, the first 2 times were a few years ago.  The first version I made with jQuery back in the good 'ol days when things were simple and everyone was a jQuery expert. 

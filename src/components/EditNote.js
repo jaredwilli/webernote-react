@@ -57,7 +57,7 @@ class EditNote extends React.Component {
     render() {
         // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
-
+        
         if (!selectedNote || !selectedNote.id) {
             return (
                 <div className="show-note"></div>

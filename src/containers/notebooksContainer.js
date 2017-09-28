@@ -42,13 +42,19 @@ class NotebooksContainer extends React.PureComponent {
                 name: e.target.value
             };
 
-            this.props.actions.addNotebook(notebook);
+            // Add the notebook
+            let notebookExists = this.props.notebooks.filter((n) => {
+                return n.name === notebook.name;
+            });
 
-            // edit notebook to update the state
-            this.props.editNotebook(notebook);
+            // If not exists add it otherwise use existing
+            if (!notebookExists.length) {
+                this.props.actions.addNotebook(notebook);
+            } else {
+                notebook = notebookExists[0];
+            }
 
-            // Check if need to remove a notebook
-            // this.props.actions.removeNotebook(this.props.notes);
+            this.updateNotebook(notebook);
         }
     }
     
@@ -67,13 +73,17 @@ class NotebooksContainer extends React.PureComponent {
                 selectedNotebook: notebook
             });
 
-            // Check if need to remove a notebook
-            this.props.actions.removeNotebook(this.props.notes);
-            // Edit notebook selection
-            this.props.editNotebook(notebook);
-            // get notebooks again to update the state
-            this.props.actions.getNotebooks();
+            this.updateNotebook(notebook);
         }
+    }
+
+    updateNotebook(notebook) {
+        // Check if need to remove a notebook
+        this.props.actions.removeNotebook(this.props.notes);
+        // Edit notebook selection
+        this.props.editNotebook(notebook);
+        // get notebooks again to update the state
+        this.props.actions.getNotebooks();
     }
 
     render() {

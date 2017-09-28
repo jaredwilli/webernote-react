@@ -330,7 +330,11 @@ small {
 .left-nav {
 	padding: 0;
 	min-width: 70px;
-	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.left-nav nav {
+    margin: 5px 0 0 5px;
 }
 
 .left-nav ul {
@@ -349,10 +353,14 @@ small {
 	margin: 1px 0 0 5px;
 }
 
-.left-nav > ul > li > span {
+.left-nav > nav > ul > li > span {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
 	text-decoration: none;
 	padding: 0 0 0 14px;
+}
+
+.left-nav li > a {
+    font-weight: normal;
 }
 
 .left-nav li > a:hover {
@@ -400,22 +408,20 @@ small {
 
 .notes .delete,
 .show-note .cancel-new {
-    background: rgb(236, 0, 0);
-    border: 0;
-    -webkit-border-radius: 12px;
-            border-radius: 12px;
+    background: rgba(80, 80, 80, 0.75);
+	border: 1px ridge #666c6d;
+	border-radius: 12px;
 	color: #fff;
-	text-shadow: -1px -1px 0 rgba(213, 81, 81, 0.65);
+	text-shadow: -1px -1px 0 rgb(53, 53, 53);
 	font-size: 10px;
 	font-weight: bold;
-    font-family: 'Helvetica';
-    cursor: pointer;
-    padding: 3px 6px;
-
-    -webkit-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
-       -moz-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
-         -o-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
-            box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
+	font-family: 'Helvetica';
+	cursor: pointer;
+	padding: 3px 6px;
+	-webkit-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+    -moz-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
+	-o-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+	box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
 }
 
 .notes .delete {
@@ -464,8 +470,8 @@ small {
     background: rgba(235, 240, 246, 0.6);
 	border: 1px solid hsl(206, 90%, 61%);
     
-	/* background: rgb(235,241,246); */
-	/* background: -webkit-gradient(linear, left top, left bottom,
+	background: rgb(235,241,246);
+	background: -webkit-gradient(linear, left top, left bottom,
 		color-stop(0%, rgba(235,241,246,1)),
 		color-stop(36%,rgba(213,235,251,1)),
 		color-stop(98%,rgba(182,213,234,1))
@@ -494,7 +500,7 @@ small {
 		rgba(235, 241, 246, 1) 0%,
 		rgba(213, 235, 251, 1) 36%,
 		rgba(182, 213, 234, 1) 98%
-	); */
+	);
 	filter: progid:DXImageTransform.Microsoft.gradient(
 		startColorstr='#ebf1f6',
 		endColorstr='#b6d5ea',
@@ -549,6 +555,14 @@ small {
 
 
 /* SHOW NOTE */
+
+.show-note {
+    background: #d0d0d0;
+}
+
+.show-note form {
+    position: relative;
+}
 
 .note-list .filter,
 .note-list .viewing,
@@ -736,8 +750,6 @@ small {
 .Select-control {
     border-radius: 0;
     border: 0;
-    height: 32px;
-    display: block;
 }
 
 .Select-placeholder, 
