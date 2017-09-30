@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { auth, fbProvider } from '../data/firebaseAuth.js';
 
 import NoteNav from '../components/NoteNav';
 import NoteTypes from '../components/NoteTypes';
@@ -19,8 +18,6 @@ class NotesContainer extends React.PureComponent {
         super(props);
 
         this.addNote = this.addNote.bind(this);
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
         
         this.state = {
             selectedNote: '',
@@ -37,34 +34,6 @@ class NotesContainer extends React.PureComponent {
         this.props.actions.addNote();
     }
 
-    componentWillMount() {
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ user });
-            }
-        });
-    }
-
-    login() {
-        auth.signInWithPopup(fbProvider)
-            .then((res) => {
-                const user = res.user;
-
-                this.setState({
-                    user: user
-                });
-            });
-    }
-
-    logout() {
-        auth.signOut()
-            .then(() => {
-                this.setState({
-                    user: null
-                });
-            });
-    }
-
     render() {
         if (!this.props.notes) {
             return (
@@ -74,27 +43,6 @@ class NotesContainer extends React.PureComponent {
 
         return (
             <div>
-                <header>
-                    <div className="loginout">
-                        {this.state.user ?
-                            <div>
-                                <span className="user-photo">
-                                    <img src={this.state.user.photoURL} />
-                                </span>
-                                <button className="logout" onClick={this.logout}>Logout</button>
-                            </div>
-                        :
-                            <button className="login" onClick={this.login}>Login</button>
-                        }
-                    </div>
-                    
-                    <h1><a href="/">Webernote<sup>TM</sup></a></h1>
-                    <span>A TodoApp on steroids...</span>
-
-                    <span className="old-versions-nav">
-                        Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
-                    </span>
-                </header>
                 <div className="wrapper">
                     <nav className="toolbar">
                         <ul>
