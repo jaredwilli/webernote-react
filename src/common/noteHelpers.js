@@ -76,7 +76,7 @@ export function getTags(noteTags) {
     let tags = '';
     if (noteTags) {
         tags = noteTags.map((t) => 
-            <span className="Select-value">
+            <span key={t.id} className="Select-value">
                 <span className="Select-value-label" id="react-select-2--value-">
                     {t.label}
                 </span>
@@ -130,7 +130,6 @@ export function getDeletedTags(tags, note) {
 export function createNewNote(refId) {
     const newNote = {
         id: refId,
-        userId: 1,
         title: 'Untitled note...',
         notebook: {
             id: "e_RyT-Isyb7Z6s04-tha",
@@ -141,8 +140,7 @@ export function createNewNote(refId) {
         description: '',
         isEditing: true,
         created_date: new Date().getTime(),
-        modified_date: '',
-        uid: guid()
+        modified_date: ''
     };
     return newNote;
 }
@@ -160,8 +158,6 @@ export function createNewTag(refId, tag, note) {
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.userId = 1;
-    tag.uid = guid();
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -180,8 +176,6 @@ export function createNewNotebook(refId, notebook) {
     if (!notebook.name) return;
 
     // Add some extra data to notebook object
-    notebook.userId = 1;
-    notebook.uid = guid();
     notebook.id = refId;
     notebook.value = refId;
     notebook.name = notebook.name;

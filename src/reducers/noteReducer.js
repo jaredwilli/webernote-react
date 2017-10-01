@@ -46,6 +46,8 @@ export default function noteReducer(state = {}, action) {
                     }
                     return notes[n];
                 });
+            } else {
+                newState.notes = [];
             }
         
             newState.selectedNote = selectedNote;

@@ -335,19 +335,6 @@
 
     
     "users": {
-        "0": {
-            "id": "0",
-            "firstName": "Default",
-            "lastName": "User",
-            "username": "default",
-            "uid": null
-        },
-        "1": {
-            "id": "1",
-            "firstName": "Jared",
-            "lastName": "Williams",
-            "username": "jaredwilli",
-            "uid": "62e4b3-7ef3-4746-ed9f35-2183c1fcd8b1"
-        }
+        
     }
 }

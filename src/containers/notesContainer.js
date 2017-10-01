@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as noteActions from '../actions/noteActions';
 
 import NoteNav from '../components/NoteNav';
 import NoteTypes from '../components/NoteTypes';
@@ -10,6 +9,8 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 import AddNote from '../components/AddNote';
 
+import * as noteActions from '../actions/noteActions';
+
 import '../App.css';
 
 class NotesContainer extends React.PureComponent {
@@ -17,6 +18,14 @@ class NotesContainer extends React.PureComponent {
         super(props);
 
         this.addNote = this.addNote.bind(this);
+        this.getUserData = this.getUserData.bind(this);
+        
+        this.state = {
+            selectedNote: '',
+            notes: [],
+            username: '',
+            user: null
+        }
     }
     
     addNote(e) {
@@ -26,7 +35,19 @@ class NotesContainer extends React.PureComponent {
         this.props.actions.addNote();
     }
 
+    getUserData() {
+        let user = this.props.user;
+
+        this.props.actions.getNotes(user);
+        //this.props.actions.getNotebooks(user);
+        //this.props.actions.getTags(user);
+    }
+
     render() {
+        if (this.props.user) {
+            this.getUserData();
+        }
+        
         if (!this.props.notes) {
             return (
                 <div className="loading">Loading...</div>
@@ -35,18 +56,6 @@ class NotesContainer extends React.PureComponent {
 
         return (
             <div>
-                <header>
-                    <div className="loginout">
-                        <a className="login" href="">Login</a>
-                    </div>
-                    
-                    <h1><a href="/">Webernote<sup>TM</sup></a></h1>
-                    <span>A TodoApp on steroids...</span>
-
-                    <span className="old-versions-nav">
-                        Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
-                    </span>
-                </header>
                 <div className="wrapper">
                     <nav className="toolbar">
                         <ul>
@@ -87,6 +96,7 @@ class NotesContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
+        user: state.userData.user,
         notes: state.noteData.notes,
         selectedNote: state.noteData.selectedNote,
         notebooks: state.notebookData.notebooks,

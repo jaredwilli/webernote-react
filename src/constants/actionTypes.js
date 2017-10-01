@@ -1,3 +1,30 @@
+/* USERS */
+
+export const GetUsersRequested = 'GET_USERS_REQUESTED';
+export const GetUsersRejected = 'GET_USERS_REJECTED';
+export const GetUsersFulfilled = 'GET_USERS_FULFILLED';
+
+export const GetUserRequested = 'GET_USER_REQUESTED';
+export const GetUserRejected = 'GET_USER_REJECTED';
+export const GetUserFulfilled = 'GET_USER_FULFILLED';
+
+export const AddUserRequested = 'ADD_USER_REQUESTED';
+export const AddUserRejected = 'ADD_USER_REJECTED';
+export const AddUserFulfilled = 'ADD_USER_FULFILLED';
+
+export const EditUserRequested = 'EDIT_USER_REQUESTED';
+export const EditUserRejected = 'EDIT_USER_REJECTED';
+export const EditUserFulfilled = 'EDIT_USER_FULFILLED';
+
+export const DeleteUserRequested = 'DELETE_USER_REQUESTED';
+export const DeleteUserRejected = 'DELETE_USER_REJECTED';
+export const DeleteUserFulfilled = 'DELETE_USER_FULFILLED';
+
+export const SelectUserRequested = 'SELECT_USER_REQUESTED';
+export const SelectUserRejected = 'SELECT_USER_REJECTED';
+export const SelectUserFulfilled = 'SELECT_USER_FULFILLED';
+
+
 /* NOTES */
 
 export const GetNotesRequested = 'GET_NOTES_REQUESTED';

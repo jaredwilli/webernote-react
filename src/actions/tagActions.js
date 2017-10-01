@@ -5,11 +5,20 @@ import { createNewTag, getTagCount } from '../common/noteHelpers';
 import { uniq } from '../common/helpers';
 import { DEFAULTS } from '../constants/noteConst';
 
-export function getTags() {
+export function getTags(user) {
     return dispatch => {
         dispatch(getTagsRequestedAction());
 
-        return database.ref('tags').once('value', snap => {
+        let tagsRef;
+        
+        // Get user tags if user exists
+        if (user) {
+            tagsRef = database.ref('users/' + user.uid + '/tags');
+        } else {
+            tagsRef = database.ref('tags');
+        }
+        
+        tagsRef.once('value', snap => {
             const tags = snap.val();
 
             dispatch(getTagsFulfilledAction(tags));
