@@ -4,11 +4,17 @@ import * as types from '../constants/actionTypes';
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
 import { DEFAULTS } from '../constants/noteConst';
 
-export function getNotebooks() {
-    return dispatch => {
+export function getNotebooks(user) {
+    return (dispatch) => {
         dispatch(getNotebooksRequestedAction());
 
-        const notebooksRef = database.ref('/notebooks');
+        let notebooksRef;
+        
+        if (user) {
+            notebooksRef = database.ref('users/' + user.uid + '/notebooks');
+        } else {
+            notebooksRef = database.ref('notebooks');
+        }
         
         notebooksRef.once('value', (snap) => {
             const notebooks = snap.val();

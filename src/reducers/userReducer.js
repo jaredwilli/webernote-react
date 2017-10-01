@@ -32,6 +32,8 @@ export default function userReducer(state = {}, action) {
                 newState.users = Object.keys(users).map(function(u) {
                     return users[u];
                 });
+            } else {
+                newState.users = [];
             }
 
             return newState;
@@ -60,7 +62,7 @@ export default function userReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Got user'
             });
-            
+
             newState.user = user;
             return newState;
         }

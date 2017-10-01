@@ -25,10 +25,16 @@ class AppContainer extends React.PureComponent {
     }
 
     componentWillMount() {
+        let self = this;
+
         auth.onAuthStateChanged((user) => {
-            if (user && this.props.users) {
-                this.props.actions.getUser(user);
-                this.setState({ user: this.props.user });
+            if (user) {
+                debugger
+                self.props.actions.getUser(user);
+
+                self.setState({ 
+                    user: self.props.user 
+                });
             }
         });
     }
@@ -39,20 +45,16 @@ class AppContainer extends React.PureComponent {
         auth.signInWithPopup(fbProvider)
             .then((res) => {
                 let user = res.user;
-
-                if (self.props.users) {
-                    self.props.actions.getUser(user);
-                    
-                    if (!user) {
-                        self.props.actions.addUser(user);
-                    }
-                    
-                    self.setState({ user: self.props.user });
-                } else {
-                    console.log('no users');
-                    
+                self.props.actions.getUser(user);
+debugger
+                if (!user) {
+                    self.props.actions.addUser(user);
                 }
-
+                
+                self.setState({ 
+                    user: self.props.user 
+                });
+                
             });
     }
 
@@ -70,9 +72,9 @@ class AppContainer extends React.PureComponent {
     }
 
     render() {
-        if (!this.props.users) {
-            console.log('NO USERS');
-        }
+        // if (this.props.user) {
+            
+        // }
 
         return (
             <div>
@@ -83,10 +85,10 @@ class AppContainer extends React.PureComponent {
                                 <span className="user-photo">
                                     <img src={this.props.user.photo} />
                                 </span>
-                                <button className="logout" onClick={this.logout}>Logout</button>
+                                <a href className="logout" onClick={this.logout}>Logout</a>
                             </div>
                         :
-                            <button className="login" onClick={this.login}>Login</button>
+                            <a href className="login" onClick={this.login}>Login</a>
                         }
                     </div>
                     
@@ -106,7 +108,8 @@ class AppContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        users: state.userData.users
+        users: state.userData.users,
+        user: state.userData.user
     };
     console.log('STATE: ', state, newState);
 

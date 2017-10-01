@@ -19,15 +19,11 @@ export function getUsers() {
         dispatch(getUsersRequestedAction());
 
         const usersRef = database.ref('users')
-        
-        usersRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const users = snap.val();
 
-                dispatch(getUsersFulfilledAction(users));
-            } else {
-                dispatch(getUsersRejectedAction());
-            }
+        usersRef.once('value', (snap) => {
+            const users = snap.val();
+
+            dispatch(getUsersFulfilledAction(users));
         })
         .catch((error) => {
             console.error(error);
@@ -37,6 +33,28 @@ export function getUsers() {
 }
 
 export function getUser(user) {
+    return (dispatch) => {
+        dispatch(getUserRequestedAction());
+
+        const userRef = database.ref('users/' + user.uid)
+debugger
+        userRef.once('value', (snap) => {
+            if (snap.exists()) {
+                let u = snap.val();
+
+                dispatch(getUserFulfilledAction(u));
+            } else {
+                dispatch(getUserRejectedAction());
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            dispatch(getUserRejectedAction());
+        });
+    }
+}
+
+/* export function getUser(user) {
     return (dispatch, getState) => {
         dispatch(getUserRequestedAction());
 
@@ -52,14 +70,14 @@ export function getUser(user) {
             dispatch(getUserRejectedAction());
         }
     }
-}
+} */
 
 export function addUser(user) {
     return (dispatch) => {
         dispatch(addUserRequestedAction());
 
         const usersRef = database.ref('users');
-
+debugger
         let userRef = usersRef.child(user.uid);
         user = createNewUser(user);
 

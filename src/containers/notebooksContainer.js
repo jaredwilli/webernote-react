@@ -88,7 +88,7 @@ class NotebooksContainer extends React.PureComponent {
 
     render() {
         let addNoteBookOption = '';
-
+        
         if (!this.props.selectedNote || !this.props.notebooks) {
             return <div className="loading">Loading...</div>;
         }

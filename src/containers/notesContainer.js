@@ -18,6 +18,7 @@ class NotesContainer extends React.PureComponent {
         super(props);
 
         this.addNote = this.addNote.bind(this);
+        this.getUserData = this.getUserData.bind(this);
         
         this.state = {
             selectedNote: '',
@@ -34,7 +35,19 @@ class NotesContainer extends React.PureComponent {
         this.props.actions.addNote();
     }
 
+    getUserData() {
+        let user = this.props.user;
+
+        this.props.actions.getNotes(user);
+        //this.props.actions.getNotebooks(user);
+        //this.props.actions.getTags(user);
+    }
+
     render() {
+        if (this.props.user) {
+            this.getUserData();
+        }
+        
         if (!this.props.notes) {
             return (
                 <div className="loading">Loading...</div>
@@ -83,6 +96,7 @@ class NotesContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
+        user: state.userData.user,
         notes: state.noteData.notes,
         selectedNote: state.noteData.selectedNote,
         notebooks: state.notebookData.notebooks,

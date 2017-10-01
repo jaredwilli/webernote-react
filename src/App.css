@@ -508,7 +508,7 @@ small {
 	);
 }
 
-.notes li.delete {
+.notes .delete {
 	border-color: #ff1a00;
 
 	background: rgb(241, 111, 92);
@@ -548,7 +548,7 @@ small {
 	overflow: hidden;
 }
 
-.notes p {
+.notes .note-details {
 	max-height: 95px;
 	overflow: hidden;
 }
