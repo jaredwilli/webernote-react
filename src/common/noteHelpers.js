@@ -229,12 +229,16 @@ export function filterData(user, data, filters) {
     }
 
     if (filters) {
-    let filterKeys = Object.keys(filters);
+        let filterKeys = Object.keys(filters);
         // Loop over the filterKeys
         filterKeys.forEach((filterKey) => {
             // If user exists get filter just theirs
             if (user) {
                 data = data.filter((d) => {
+                    if (filters[filterKey].id === 'all_notebooks') {
+                        return d;
+                    }
+                    
                     return d[filterKey].uid === user.uid &&
                         d[filterKey].id === filters[filterKey].id;
                 });
