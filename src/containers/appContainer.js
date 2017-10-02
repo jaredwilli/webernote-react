@@ -43,7 +43,7 @@ class AppContainer extends React.PureComponent {
                             <div className="user-menu">
                                 <span className="user-meta">
                                     <img src={this.props.user.photo} alt={this.props.user.displayName} />
-                                    <span class="username">
+                                    <span className="username">
                                         {this.props.user.displayName}
                                     </span>
                                 </span>
