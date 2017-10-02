@@ -66,10 +66,7 @@ export function addUser(user) {
         user = createNewUser(user);
 
         userRef.set(user)
-            .then((snap) => {
-                user = snap.val();
-                dispatch(addUserFulfilledAction(user));
-            });
+            .then(dispatch(addUserFulfilledAction(user)));
     }
 }
 
