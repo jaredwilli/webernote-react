@@ -65,7 +65,7 @@ export function editNote(note, obj = null) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
 
-        const user = getState().userData.user;
+        // const user = getState().userData.user;
 
         // refs
         const noteRef = database.ref('notes/' + note.id);

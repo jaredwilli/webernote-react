@@ -161,9 +161,9 @@ function loginUserRequestedAction() {
     return { type: types.LoginUserRequested };
 }
 
-function loginUserFulfilledAction() {
-    return { type: types.LoginUserFulfilled };
-}
+// function loginUserFulfilledAction() {
+//     return { type: types.LoginUserFulfilled };
+// }
 
 /**
  * Logout User

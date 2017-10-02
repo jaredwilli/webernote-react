@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { auth, fbProvider } from '../data/firebase.js';
+// import { auth, fbProvider } from '../data/firebase.js';
 
 import NotesContainer from './notesContainer.js';
 
@@ -42,7 +42,7 @@ class AppContainer extends React.PureComponent {
                         {this.props.user ?
                             <div className="user-menu">
                                 <span className="user-meta">
-                                    <img src={this.props.user.photo} />
+                                    <img src={this.props.user.photo} alt={this.props.user.displayName} />
                                     <span class="username">
                                         {this.props.user.displayName}
                                     </span>

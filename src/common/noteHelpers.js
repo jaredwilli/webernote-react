@@ -159,7 +159,7 @@ export function createNewTag(refId, tag, note, user) {
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.uid = (user) ? user.uid : null,
+    tag.uid = (user) ? user.uid : null;
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -238,7 +238,7 @@ export function filterData(user, data, filters) {
                     if (filters[filterKey].id === 'all_notebooks') {
                         return d;
                     }
-                    
+
                     return d[filterKey].uid === user.uid &&
                         d[filterKey].id === filters[filterKey].id;
                 });
