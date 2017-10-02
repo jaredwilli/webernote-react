@@ -90,8 +90,8 @@ export default function userReducer(state = {}, action) {
                 success: 'Added user'
             });
 
-            newState.users = (state.users) ? state.users : [];
-            newState.users.push(user);
+            // newState.users = (state.users) ? state.users : [];
+            // newState.users.push(user);
 
             newState.user = user;
             return newState;
