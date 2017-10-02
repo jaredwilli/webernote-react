@@ -30,12 +30,13 @@ export function getNotebooks() {
 } */
 
 export function addNotebook(notebook) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(addNotebookRequestedAction());
-
-        const notebooksRef = database.ref('/notebooks');
+        
+        const user = getState().userData.user;
+        const notebooksRef = database.ref('notebooks');
         let notebookRef = notebooksRef.push();
-        notebook = createNewNotebook(notebookRef.key, notebook);
+        notebook = createNewNotebook(notebookRef.key, notebook, user);
 
         notebookRef.set(notebook);
         dispatch(addNotebookFulfilledAction(notebook));

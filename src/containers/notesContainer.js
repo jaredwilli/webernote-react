@@ -9,6 +9,7 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 import AddNote from '../components/AddNote';
 
+import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
@@ -19,27 +20,67 @@ class NotesContainer extends React.PureComponent {
 
         this.addNote = this.addNote.bind(this);
         
+        this.filterByNotebook = this.filterByNotebook.bind(this);
+        this.filterList = this.filterList.bind(this);
+        this.setFilterType = this.setFilterType.bind(this);
+        
         this.state = {
-            selectedNote: '',
-            notes: [],
-            username: '',
-            user: null
+            selectedNote: this.props.selectedNote,
+            notebookFilter: {
+                name: 'All notebooks',
+                id: 'all_notebooks'
+            },
+            notes: []   
         }
     }
     
-    addNote(e) {
-        e.preventDefault();
+    filterByNotebook(notebook) {
+        this.setState({
+            notebookFilter: notebook
+        });
+    }
 
+    setFilterType(e) {
+        debugger
+        let filterType = e.target.name;
+        let updatedList = this.state.initialNotes;
+        console.log(filterType, updatedList);
+    }
+
+    filterList(e) {
+        debugger
+        // TODO: Get the filterType for controlling what to filter based on
+
+        let updatedList = this.state.initialNotes;
+        
+        updatedList = updatedList.filter(function(note) {
+            return note.description
+                .toLowerCase()
+                .search(e.target.value.toLowerCase()) !== -1;
+        });
+
+        this.setState({
+            currentNotes: updatedList
+        });
+    }
+
+    addNote(e) {
         this.props.actions.resetSelectedNote();
         this.props.actions.addNote();
     }
 
     render() {
-        if (!this.props.notes) {
+        const user = this.props.user;
+        let notes = this.props.notes;
+
+        if (!notes) {
             return (
                 <div className="loading">Loading...</div>
             );
         }
+
+        // Filter notes for current user
+        notes = filterData(user, notes, { notebook: this.state.notebookFilter });
 
         return (
             <div>
@@ -67,10 +108,13 @@ class NotesContainer extends React.PureComponent {
                                     <NoteNav />
                                 </td>
                                 <td className="middle note-list-col">
-                                    <NoteList />
+                                    <NoteList notes={notes}
+                                        filterByNotebook={(notebook) => this.filterByNotebook(notebook)}
+                                        filterList={(filter) => this.filterList(filter)}
+                                        setFilterType={(type) => this.setFilterType(type)} />
                                 </td>
                                 <td className="edit-note-col">
-                                    <EditNote />
+                                    <EditNote notes={notes} />
                                 </td>
                             </tr>
                         </tbody>
@@ -83,12 +127,13 @@ class NotesContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
+        user: state.userData.user,
         notes: state.noteData.notes,
         selectedNote: state.noteData.selectedNote,
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes.js';
 
 export default function userReducer(state = {}, action) {
     switch(action.type) {
-
+        
         // *** GET USERS
         case types.GetUsersRequested: {
             return Object.assign({}, state, {
@@ -28,10 +28,11 @@ export default function userReducer(state = {}, action) {
             });
 
             if (users) {
-                // Get keys and set id for each user and set selectedUser
                 newState.users = Object.keys(users).map(function(u) {
                     return users[u];
                 });
+            } else {
+                newState.users = [];
             }
 
             return newState;
@@ -88,6 +89,9 @@ export default function userReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Added user'
             });
+
+            newState.users = state.users;
+            newState.users.push(user);
 
             newState.user = user;
             return newState;
@@ -180,6 +184,25 @@ export default function userReducer(state = {}, action) {
             });
             
             newState.selectedUser = user;
+            return newState;
+        }
+        
+        // *** LOGOUT USER
+        case types.LogoutUserRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+
+        case types.LogoutUserFulfilled: {
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'User logged out'
+            });
+            
+            newState.user = '';
             return newState;
         }
         

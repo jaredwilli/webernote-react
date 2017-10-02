@@ -99,7 +99,7 @@ function mapStateToProps(state) {
     const newState = {
         selectedNote: state.noteData.selectedNote
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

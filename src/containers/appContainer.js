@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { auth, fbProvider } from '../data/firebaseAuth.js';
+import { auth, fbProvider } from '../data/firebase.js';
 
 import NotesContainer from './notesContainer.js';
 
 import * as userActions from '../actions/userActions';
+import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
 
@@ -19,74 +20,39 @@ class AppContainer extends React.PureComponent {
         this.state = {
             selectedNote: '',
             notes: [],
-            username: '',
             user: null
         }
     }
 
-    componentWillMount() {
-        auth.onAuthStateChanged((user) => {
-            if (user && this.props.users) {
-                this.props.actions.getUser(user);
-                this.setState({ user: this.props.user });
-            }
-        });
-    }
-
     login() {
-        let self = this;
-
-        auth.signInWithPopup(fbProvider)
-            .then((res) => {
-                let user = res.user;
-
-                if (self.props.users) {
-                    self.props.actions.getUser(user);
-                    
-                    if (!user) {
-                        self.props.actions.addUser(user);
-                    }
-                    
-                    self.setState({ user: self.props.user });
-                } else {
-                    console.log('no users');
-                    
-                }
-
-            });
+        this.props.actions.resetSelectedNote();
+        this.props.actions.loginUser();
     }
 
     logout() {
-        let self = this;
-
-        auth.signOut()
-            .then(() => {
-                self.setState({
-                    user: null
-                });
-
-                self.props.actions.logoutUser();
-            });
+        this.props.actions.resetSelectedNote();
+        this.props.actions.logoutUser();
     }
 
     render() {
-        if (!this.props.users) {
-            console.log('NO USERS');
-        }
-
         return (
             <div>
                 <header>
                     <div className="loginout">
                         {this.props.user ?
                             <div className="user-menu">
-                                <span className="user-photo">
+                                <span className="user-meta">
                                     <img src={this.props.user.photo} />
+                                    <span class="username">
+                                        {this.props.user.displayName}
+                                    </span>
                                 </span>
                                 <button className="logout" onClick={this.logout}>Logout</button>
                             </div>
                         :
-                            <button className="login" onClick={this.login}>Login</button>
+                            <div className="user-menu">
+                                <button className="login" onClick={this.login}>Login</button>
+                            </div>
                         }
                     </div>
                     
@@ -106,16 +72,22 @@ class AppContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        users: state.userData.users
+        users: state.userData.users,
+        user: state.userData.user,
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = Object.assign(userActions, noteActions);
+    
     return {
-        actions: bindActionCreators(userActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 

@@ -40,13 +40,24 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { selectedNote, tags } = this.props;
+        const { user, selectedNote, tags } = this.props;
         let tagOptions;
 
         if (!tags) {
             return <div className="loading">Loading...</div>;
 		} else {
             tagOptions = tags;
+            
+            // Filter notebooks for the logged in user
+            if (user) {
+                tagOptions = tagOptions.filter((tag) => {
+                    return tag.uid === user.uid;
+                });
+            } else {
+                tagOptions = tagOptions.filter((tag) => {
+                    return tag.uid === undefined;
+                });
+            }
         }
 
 		return (
@@ -57,7 +68,7 @@ class TagsContainer extends React.PureComponent {
 				noResultsText="Click to add tag..."
 				value={selectedNote.tags}
 				options={tagOptions}
-				onChange={e => this.editTags(e)}
+				onChange={(e) => this.editTags(e)}
 			/>
 		);
 	}
@@ -65,6 +76,7 @@ class TagsContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
 	const newState = {
+        user: state.userData.user,
 		notes: state.noteData.notes,
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote

@@ -1,9 +1,6 @@
-// Facebook URI redirect for authentication
-// https://webernote-7f700.firebaseapp.com/__/auth/handler
-
 import { database } from '../data/firebase.js';
 
-import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
+import { createNewNote, getDeletedTags, filterData } from '../common/noteHelpers.js';
 import { uniq } from '../common/helpers.js';
 
 import * as types from '../constants/actionTypes.js';
@@ -14,11 +11,13 @@ export function getState() {
     }
 }
 
-export function getNotes() {
-    return dispatch => {
+export function getNotes(user) {
+    return (dispatch) => {
         dispatch(getNotesRequestedAction());
 
-        return database.ref('/notes').once('value', (snap) => {
+        let notesRef = database.ref('notes');
+
+        notesRef.once('value', (snap) => {
             const notes = snap.val();
             dispatch(getNotesFulfilledAction(notes));
         })
@@ -46,14 +45,16 @@ export function getNotes() {
     }
 }*/
 
-export function addNote(note) {
-    return (dispatch) => {
+export function addNote() {
+    return (dispatch, getState) => {
         dispatch(addNoteRequestedAction());
 
+        const user = getState().userData.user;
+        
         const notesRef = database.ref('notes');
 
         let noteRef = notesRef.push();
-        note = createNewNote(noteRef.key);
+        let note = createNewNote(noteRef.key, user);
 
         noteRef.set(note);
         dispatch(addNoteFulfilledAction(note));
@@ -63,6 +64,8 @@ export function addNote(note) {
 export function editNote(note, obj = null) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
+
+        const user = getState().userData.user;
 
         // refs
         const noteRef = database.ref('notes/' + note.id);
@@ -137,8 +140,7 @@ export function editNote(note, obj = null) {
             }
         } else {
             // Update the rest of the note data if not editing notebook
-            database.ref('/notes/' + note.id)
-                .update(note)
+            noteRef.update(note)
                 .then(dispatch(editNoteFulfilledAction(note, {})))
                 .catch((error) => {
                     console.error(error);
@@ -152,7 +154,7 @@ export function deleteNote(id) {
     return dispatch => {
         dispatch(deleteNoteRequestedAction());
 
-        database.ref('/notes/' + id)
+        database.ref('notes/' + id)
             .remove()
             .then(function() {
                 dispatch(deleteNoteFulfilledAction())
@@ -167,19 +169,20 @@ export function deleteNote(id) {
 export function selectNote(note) {
     return (dispatch, getState) => {
         dispatch(selectNoteRequestedAction());
+
         const currentNotes = getState().noteData.notes;
 
         note = currentNotes.filter(function(n) {
             return n.id === note.id;
         })[0];
 
-        database.ref('/notes/' + note.id + '/isEditing/')
+        database.ref('notes/' + note.id + '/isEditing')
             .set(true)
-            .then(dispatch(selectNoteFulfilledAction(note)))
-            .catch((error) => {
-                console.error(error);
-                dispatch(selectNoteRejectedAction());
-            });
+                .then(dispatch(selectNoteFulfilledAction(note)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(selectNoteRejectedAction());
+                });
     }
 }
 
@@ -187,11 +190,14 @@ export function resetSelectedNote() {
     return (dispatch, getState) => {
         dispatch(resetSelectedNoteRequestedAction());
         
-        const notes = getState().noteData.notes;
+        const user = getState().userData.user;        
+        let notes = getState().noteData.notes;
+
+        notes = filterData(user, notes);
 
         notes.forEach((n) => {
             if (n.isEditing) {
-                database.ref('/notes/' + n.id + '/isEditing/')
+                database.ref('notes/' + n.id + '/isEditing')
                     .set(false)
                     .then(dispatch(resetSelectedNoteFulfilledAction(n)))
                     .catch((error) => {
@@ -224,10 +230,6 @@ function getNotesFulfilledAction(notes) {
 function addNoteRequestedAction() {
     return { type: types.AddNoteRequested };
 }
-
-/* function addNoteRejectedAction() {
-    return { type: types.AddNoteRejected };
-} */
 
 function addNoteFulfilledAction(note) {
     return { type: types.AddNoteFulfilled, note };

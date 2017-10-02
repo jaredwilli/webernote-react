@@ -24,6 +24,12 @@ export const SelectUserRequested = 'SELECT_USER_REQUESTED';
 export const SelectUserRejected = 'SELECT_USER_REJECTED';
 export const SelectUserFulfilled = 'SELECT_USER_FULFILLED';
 
+export const LoginUserRequested = 'LOGIN_USER_REQUESTED';
+export const LoginUserFulfilled = 'LOGIN_USER_FULFILLED';
+
+export const LogoutUserRequested = 'LOGOUT_USER_REQUESTED';
+export const LogoutUserFulfilled = 'LOGOUT_USER_FULFILLED';
+
 
 /* NOTES */
 

@@ -2,7 +2,7 @@
 // https://weberuser-7f700.firebaseapp.com/__/auth/handler
 
 import { database } from '../data/firebase.js';
-
+import { auth, fbProvider } from '../data/firebase.js';
 import { createNewUser } from '../common/userHelpers.js';
 // import { uniq } from '../common/helpers.js';
 
@@ -18,7 +18,7 @@ export function getUsers() {
     return dispatch => {
         dispatch(getUsersRequestedAction());
 
-        const usersRef = database.ref('users')
+        const usersRef = database.ref('users');
         
         usersRef.once('value', (snap) => {
             if (snap.exists()) {
@@ -40,17 +40,20 @@ export function getUser(user) {
     return (dispatch, getState) => {
         dispatch(getUserRequestedAction());
 
-        const currentUsers = getState().userData.users;
-
-        user = currentUsers.filter(function(u) {
-            return u.uid === user.uid;
-        })[0];
-
-        if (user) {
-            dispatch(getUserFulfilledAction(user));
-        } else {
+        const userRef = database.ref('users/' + user.uid);
+        
+        userRef.once('value', (snap) => {
+            if (snap.exists()) {
+                user = snap.val();
+                dispatch(getUserFulfilledAction(user));
+            } else {
+                dispatch(addUser(user));
+            }
+        })
+        .catch((error) => {
+            console.error(error);
             dispatch(getUserRejectedAction());
-        }
+        });
     }
 }
 
@@ -59,71 +62,53 @@ export function addUser(user) {
         dispatch(addUserRequestedAction());
 
         const usersRef = database.ref('users');
-
         let userRef = usersRef.child(user.uid);
         user = createNewUser(user);
 
-        userRef.set(user);
-        dispatch(addUserFulfilledAction(user));
+        userRef.set(user)
+            .then((snap) => {
+                user = snap.val();
+                dispatch(addUserFulfilledAction(user));
+            });
     }
 }
 
-export function editUser(user) {
-    return (dispatch, getState) => {
-        dispatch(editUserRequestedAction());
+export function loginUser(user) {
+    return (dispatch) => {
+        dispatch(loginUserRequestedAction());
 
-        // refs
-        const userRef = database.ref('users/' + user.id);
-        
-        if (!user) {
-            dispatch(editUserRejectedAction());
-            return;
+        if (user) {
+            dispatch(getUser(user));
+        } else {
+            auth.signInWithPopup(fbProvider)
+                .then((res) => {
+                    user = res.user;                
+                    dispatch(getUser(user));
+                });
         }
+    }
+}
+
+export function logoutUser() {
+    return (dispatch) => {
+        dispatch(logoutUserRequestedAction());
         
-    debugger
-        // Update the rest of the user data if not editing userbook
-        database.ref('/users/' + user.id)
-            .update(user)
-            .then(dispatch(editUserFulfilledAction(user, {})))
-            .catch((error) => {
-                console.error(error);
-                dispatch(editUserRejectedAction());
+        auth.signOut()
+            .then(() => {
+                dispatch(logoutUserFulfilledAction());
             });
     }
 }
 
-export function deleteUser(id) {
-    return dispatch => {
-        dispatch(deleteUserRequestedAction());
-
-        database.ref('/users/' + id)
-            .remove()
-            .then(function() {
-                dispatch(deleteUserFulfilledAction())
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(deleteUserRejectedAction());
-            });
-    }
-}
-
-export function selectUser(user) {
-    return (dispatch, getState) => {
-        dispatch(selectUserRequestedAction());
-        const currentUsers = getState().userData.users;
-
-        user = currentUsers.filter(function(n) {
-            return n.id === user.id;
-        })[0];
-
-        database.ref('/users/' + user.id + '/isEditing/')
-            .set(true)
-            .then(dispatch(selectUserFulfilledAction(user)))
-            .catch((error) => {
-                console.error(error);
-                dispatch(selectUserRejectedAction());
-            });
+export function listenForAuth() {
+    return (dispatch) => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                dispatch(loginUser(user));
+            } else {
+                dispatch(logoutUser());
+            }
+        });
     }
 }
 
@@ -165,56 +150,28 @@ function addUserRequestedAction() {
     return { type: types.AddUserRequested };
 }
 
-/* function addUserRejectedAction() {
-    return { type: types.AddUserRejected };
-} */
-
 function addUserFulfilledAction(user) {
     return { type: types.AddUserFulfilled, user };
 }
 
 /**
- * Edit User
+ * Login User
  */
-function editUserRequestedAction() {
-    return { type: types.EditUserRequested };
+function loginUserRequestedAction() {
+    return { type: types.LoginUserRequested };
 }
 
-function editUserRejectedAction() {
-    return { type: types.EditUserRejected };
-}
-
-function editUserFulfilledAction(user, obj) {
-    return { type: types.EditUserFulfilled, user, obj };
+function loginUserFulfilledAction() {
+    return { type: types.LoginUserFulfilled };
 }
 
 /**
- * Delete User
+ * Logout User
  */
-function deleteUserRequestedAction() {
-    return { type: types.DeleteUserFulfilled };
+function logoutUserRequestedAction() {
+    return { type: types.LogoutUserRequested };
 }
 
-function deleteUserRejectedAction() {
-    return { type: types.DeleteUserRejected };
+function logoutUserFulfilledAction() {
+    return { type: types.LogoutUserFulfilled };
 }
-
-function deleteUserFulfilledAction() {
-    return { type: types.DeleteUserFulfilled };
-}
-
-/**
- * Select User
- */
-function selectUserRequestedAction() {
-    return { type: types.SelectUserRequested };
-}
-
-function selectUserRejectedAction() {
-    return { type: types.SelectUserRejected };
-}
-
-function selectUserFulfilledAction(user) {
-    return { type: types.SelectUserFulfilled, user };
-}
-
