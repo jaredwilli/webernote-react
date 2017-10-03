@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { getSelectedNotebook, filterData } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
-import { getSelectedNotebook } from '../common/noteHelpers.js';
 
 class NotebooksContainer extends React.PureComponent {
     constructor(props) {
@@ -15,7 +15,7 @@ class NotebooksContainer extends React.PureComponent {
 
         this.state = {
             addNotebook: false,
-            selectedNotebook: (this.props.selectedNotebook) ? this.props.selectedNotebook : this.props.selectedNote.notebook
+            filterByNotebook: ''
         };
     }
 
@@ -29,11 +29,14 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     addNotebook(e) {
-        if (e.target.value === '') {
-            this.setState({
-                addNotebook: false
-            });  
-        } else {
+        const notebooks = this.props.notebooks;
+        let notebookExists = [];
+        
+        this.setState({
+            addNotebook: false
+        });
+
+        if (e.target.value !== '') {
             this.setState({
                 addNotebook: false
             });
@@ -42,13 +45,15 @@ class NotebooksContainer extends React.PureComponent {
                 name: e.target.value
             };
 
-            // Add the notebook
-            let notebookExists = this.props.notebooks.filter((n) => {
-                return n.name === notebook.name;
-            });
+            if (notebooks) {
+                notebookExists = notebooks.filter((n) => {
+                    return n.name === notebook.name;
+                });
+            }
 
             // If not exists add it otherwise use existing
             if (!notebookExists.length) {
+                // Add the notebook
                 this.props.actions.addNotebook(notebook);
             } else {
                 notebook = notebookExists[0];
@@ -69,17 +74,30 @@ class NotebooksContainer extends React.PureComponent {
             const notebook = getSelectedNotebook(e, this.props.notebooks);
 
             this.setState({
-                canAddNotebook: false,
+                addNotebook: false,
                 selectedNotebook: notebook
             });
-
-            this.updateNotebook(notebook);
+            
+            if (this.props.canAddNotebook) {
+                this.updateNotebook(notebook);
+            } else {
+                this.filterNotebooks(notebook);
+            }
         }
     }
 
+    filterNotebooks(notebook) {
+        this.setState({
+            filterByNotebook: notebook
+        });
+        this.props.filterByNotebook(notebook);
+    }
+    
     updateNotebook(notebook) {
         // Check if need to remove a notebook
-        this.props.actions.removeNotebook(this.props.notes);
+        if (this.props.notebooks) {
+            this.props.actions.removeNotebook(this.props.notes);
+        }
         // Edit notebook selection
         this.props.editNotebook(notebook);
         // get notebooks again to update the state
@@ -87,43 +105,74 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     render() {
-        let addNoteBookOption = '';
-
-        if (!this.props.selectedNote || !this.props.notebooks) {
-            return <div className="loading">Loading...</div>;
-        }
+        const user = this.props.user;
+        const selectedNote = this.props.selectedNote;
+        let notebooks = this.props.notebooks;
 
         // Notebook menu options
-        const notebookOptions = this.props.notebooks.map((notebook) => 
-            <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
-        );
+        let notebookOptions;
+        // Create notebook option
+        let addNoteBookOption = '';
+        let allNotebooksOption = '';
+        let notebookSelection;
 
-        // Add the New Note book option if need to
-        if (this.props.canAddNotebook) {
-            addNoteBookOption = <option>+Create notebook</option>;
+        // Check for notebooks first
+        if (!notebooks) {
+            // return <div className="loading">Loading...</div>;
+        } else {
+            notebooks = filterData(user, notebooks);
+            
+            notebookOptions = notebooks.map((notebook) => 
+                <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
+            );
+            
+            // If can't add notebooks then render the filter notebook menu
+            if (this.props.canAddNotebook) {
+                // If can add notebooks check that selectedNote is set
+                if (!this.props.selectedNote) {
+                    return <div className="loading">Loading...</div>;
+                } else {
+                    notebookSelection = (selectedNote.notebook) ? selectedNote.notebook.name : null;
+                    addNoteBookOption = <option>+Create notebook</option>;
+                }
+            } else {
+                notebookSelection = this.props.selectedNotebook;
+                allNotebooksOption = <option>All Notebooks</option>
+            }
         }
 
         // Show add notebook input if selected add notebook
-        if (this.state.addNotebook) {
-            return (
-                <span>
-                    <button className="cancel-new" 
-                        onClick={() => this.setState({ addNotebook: false })}>
-                        x
-                    </button>
-                    <input type="text" name="notebook" className="new-notebook" 
-                        placeholder="Notebook name"
-                        autoFocus={true}
-                        onBlur={this.addNotebook}
-                        onKeyDown={this.keyPress} />
-                </span>
-            );
+        if (this.props.canAddNotebook) {
+            let showAddNote;
+            if (!notebookSelection) {
+                showAddNote = true;
+            } else if (!notebookOptions.length) {
+                showAddNote = true;
+            } else if (this.state.addNotebook) {
+                 showAddNote = true;
+            }
+            
+            if (showAddNote) {
+                return (
+                    <span>
+                        <button className="cancel-new" 
+                            onClick={() => this.setState({ addNotebook: false })}>x
+                        </button>
+                        <input type="text" name="notebook" className="new-notebook" 
+                            placeholder="Notebook name"
+                            autoFocus={true}
+                            onBlur={this.addNotebook}
+                            onKeyDown={this.keyPress} />
+                    </span>
+                );
+            }
         }
 
         return (
             <select name="notebook" className="notebook" 
-                value={this.props.selectedNote.notebook.name}
+                value={notebookSelection}
                 onChange={(e) => this.selectNotebook(e)}>
+                {allNotebooksOption}
                 {notebookOptions}
                 {addNoteBookOption}
             </select>
@@ -133,12 +182,13 @@ class NotebooksContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
+        user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
         selectedNote: state.noteData.selectedNote,
         selectedNotebook: state.notebookData.selectedNotebook
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

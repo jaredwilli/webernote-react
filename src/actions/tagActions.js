@@ -29,8 +29,10 @@ export function getTags() {
 } */
 
 export function addTag(tags, note) {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(addTagRequestedAction());
+
+        const user = getState().userData.user;
 
         // Make tag list unique
         tags = uniq(tags);
@@ -38,12 +40,12 @@ export function addTag(tags, note) {
         
         // Only add new tags but make full tagList
         tags.forEach((tag) => {
-            const tagsRef = database.ref('/tags');
+            const tagsRef = database.ref('tags');
             
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
                 const tagRef = tagsRef.push();
-                tag = createNewTag(tagRef.key, tag, note);
+                tag = createNewTag(tagRef.key, tag, note, user);
 
                 tagRef.set(tag);
             }

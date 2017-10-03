@@ -85,7 +85,7 @@ nav a {
 }
 
 header {
-    padding: 0;
+    padding: 0 0 3px 0;
     margin: 0;
 }
 
@@ -155,6 +155,29 @@ small {
 
 .loginout {
 	float: right;
+}
+
+.loginout button {
+    background: none;
+    border: 0;
+    color: hsl(199, 89%, 31%);
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.loginout button:hover {
+    text-decoration: underline;
+}
+
+.user-meta {
+    margin-right: 10px;
+}
+
+.user-meta img {
+    width: 22px;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 /* TOOLBAR NAV */
@@ -334,16 +357,23 @@ small {
 }
 
 .left-nav nav {
+    display: block;
     margin: 5px 0 0 5px;
 }
 
 .left-nav ul {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .left-nav ul ul {
-	margin: 4px 0 4px 15px;
+	/* margin: 4px 0 4px 15px; */
+    visibility: hidden
 }
+
+.left-nav ul .expanded ul {
+    visibility: visible;
+}
+    
 
 .left-nav ul li {
 	width: 100%;
@@ -353,26 +383,31 @@ small {
 	margin: 1px 0 0 5px;
 }
 
-.left-nav > nav > ul > li > span {
+.left-nav li > div {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
+    color: hsl(199, 89%, 31%);    
 	text-decoration: none;
-	padding: 0 0 0 14px;
+    padding: 0 0 0 14px;
+    line-height: 16px;
+    cursor: pointer;
 }
 
 .left-nav li > a {
     font-weight: normal;
 }
 
+.left-nav li > div:hover,
 .left-nav li > a:hover {
 	text-decoration: underline;
 }
 
-.left-nav li.tag-link > span {
+.left-nav li.tag-link > div {
 	background: none;
 }
 
-.left-nav li.expanded > span {
-	background-position: 1px -10px;
+.left-nav li.expanded > div {
+    background-position: 1px -10px;
+    line-height: 16px;
 }
 
 .left-nav li .count {
@@ -548,7 +583,7 @@ small {
 	overflow: hidden;
 }
 
-.notes p {
+.notes .note-details {
 	max-height: 95px;
 	overflow: hidden;
 }
@@ -607,6 +642,15 @@ small {
     padding-bottom: 2px;
 }
 
+.note-list .filter input {
+    padding: 4px 4px 3px;
+}
+
+.note-list input,
+.note-list select {
+    border: 1px solid #bdcad4;
+}
+
 .note-list .viewing {
 	background: hsla(17, 100%, 37%, 0.12);
 	border: solid hsla(26, 45%, 54%, 0.4);
@@ -618,7 +662,8 @@ small {
 	border: 1px solid hsla(17, 100%, 37%, 0.12);
 	color: #666;
 	font-size: 14px;
-	padding: 2px 4px;
+    padding: 2px 4px;
+    margin-left: 5px;
 }
 
 
@@ -668,7 +713,8 @@ small {
     margin: 0 0 0 2px;
 }
 
-.notes-list .filter-type,
+.note-list .filter-type,
+.note-list .viewing select,
 .show-note select.notebook {
     background-color: #fff;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
@@ -680,9 +726,20 @@ small {
     vertical-align: top;
     height: 29px;
     width: 36.7%;
-
+    
     -webkit-appearance: none;
-	   -moz-appearance: none;
+    -moz-appearance: none;
+}
+
+.note-list .filter-type,
+.note-list .viewing select {
+    height: 22px;
+	width: 150px;
+}
+
+.note-list .filter-type {
+    width: 100px;
+    margin: 0 5px;
 }
 
 .show-note .new-notebook {

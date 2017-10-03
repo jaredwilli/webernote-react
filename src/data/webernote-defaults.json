@@ -340,7 +340,8 @@
             "firstName": "Default",
             "lastName": "User",
             "username": "default",
-            "uid": null
+            "uid": null,
+            
         },
         "1": {
             "id": "1",

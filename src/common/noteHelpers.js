@@ -1,7 +1,6 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
-import { guid } from './helpers';
 
 /**
  * sortNotes
@@ -29,6 +28,7 @@ export function getNotebookCount(notebook, notes) {
     let count = 0;
     // iterate over notes
     notes.forEach(function(n) {
+        if (!n.notebook) return;
         if (n.notebook.name === notebook.name) {
             count++;
         }
@@ -76,7 +76,7 @@ export function getTags(noteTags) {
     let tags = '';
     if (noteTags) {
         tags = noteTags.map((t) => 
-            <span className="Select-value">
+            <span key={t.id} className="Select-value">
                 <span className="Select-value-label" id="react-select-2--value-">
                     {t.label}
                 </span>
@@ -127,22 +127,18 @@ export function getDeletedTags(tags, note) {
  * 
  * @param {String} refId 
  */
-export function createNewNote(refId) {
+export function createNewNote(refId, user) {
     const newNote = {
+        uid: (user) ? user.uid : null,
         id: refId,
-        userId: 1,
-        title: 'Untitled note...',
-        notebook: {
-            id: "e_RyT-Isyb7Z6s04-tha",
-            name: 'General'
-        },
-        url: '',
-        tags: [],
-        description: '',
         isEditing: true,
+        title: 'Untitled note...',
+        description: '',
+        url: '',
+        notebook: {},
+        tags: [],
         created_date: new Date().getTime(),
-        modified_date: '',
-        uid: guid()
+        modified_date: ''
     };
     return newNote;
 }
@@ -154,14 +150,13 @@ export function createNewNote(refId) {
  * @param {*} tag 
  * @param {*} note 
  */
-export function createNewTag(refId, tag, note) {
+export function createNewTag(refId, tag, note, user) {
     // no className - not new tag...
     if (!tag.className) return;
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.userId = 1;
-    tag.uid = guid();
+    tag.uid = (user) ? user.uid : null;
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -176,12 +171,11 @@ export function createNewTag(refId, tag, note) {
  * @param {*} notebook
  * @param {*} note 
  */
-export function createNewNotebook(refId, notebook) {
+export function createNewNotebook(refId, notebook, user) {
     if (!notebook.name) return;
 
     // Add some extra data to notebook object
-    notebook.userId = 1;
-    notebook.uid = guid();
+    notebook.uid = (user) ? user.uid : null;
     notebook.id = refId;
     notebook.value = refId;
     notebook.name = notebook.name;
@@ -197,6 +191,11 @@ export function createNewNotebook(refId, notebook) {
  */
 export function getSelectedNotebook(e, notebooks) {
     let notebookId = '';
+    
+    if (e.target.value === 'All Notebooks') {
+        return { name: e.target.value, id: 'all_notebooks' };
+    }
+
     // Find the value of the selected notebook from the select menu options
     for (let notebook of e.target.children) {
         if (notebook.value === e.target.value) {
@@ -206,4 +205,52 @@ export function getSelectedNotebook(e, notebooks) {
         }
     }
     return notebookId;
+}
+
+/**
+ * filterData
+ * 
+ * @param {Object} user 
+ * @param {Object} data 
+ * @param {Object} filter 
+ */
+export function filterData(user, data, filters) {
+    if (user) {
+        data = data.filter((d) => {
+            return d.uid === user.uid;
+        });
+    } else {
+        data = data.filter((d) => {
+            return d.uid === undefined || d.uid === null;
+        });
+    }
+
+    if (filters) {
+        let filterKeys = Object.keys(filters);
+        // Loop over the filterKeys
+        filterKeys.forEach((filterKey) => {
+            // If user exists get filter just theirs
+            if (user) {
+                data = data.filter((d) => {
+                    if (filters[filterKey].id === 'all_notebooks') {
+                        return d;
+                    }
+
+                    return d[filterKey].uid === user.uid &&
+                        d[filterKey].id === filters[filterKey].id;
+                });
+            } else {
+                data = data.filter((d) => {
+                    if (filters[filterKey].id === 'all_notebooks') {
+                        return d;
+                    }
+                    return d[filterKey].id === filters[filterKey].id;
+                });
+            }
+
+            return data;
+        });
+    }
+
+    return data;
 }
