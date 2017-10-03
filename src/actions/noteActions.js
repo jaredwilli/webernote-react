@@ -80,11 +80,11 @@ export function editNote(note, obj = null) {
         // refs
         const noteRef = database.ref('notes/' + note.id);
         
-        if (!note || note.uid !== user.uid) {
+        if (!note) {
             dispatch(editNoteRejectedAction());
             return;
         }
-        
+
         if (obj) {
             /* If notebook not null and value has changed update the notes notebook only */
             if (obj.notebook) {
@@ -151,6 +151,7 @@ export function editNote(note, obj = null) {
                 }
             }
         } else {
+
             // Update the rest of the note data if not editing notebook
             noteRef.update(note)
                 .then(dispatch(editNoteFulfilledAction(note, {})))
