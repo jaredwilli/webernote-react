@@ -1,7 +1,17 @@
+import _ from 'underscore';
 import { database } from '../data/firebase.js';
 
-import { createNewNote, getDeletedTags, filterData } from '../common/noteHelpers.js';
+import { 
+    createNewNote, 
+    getDeletedTags, 
+    getNotebookCount, 
+    getTagCount, 
+    filterData 
+} from '../common/noteHelpers.js';
+
 import { uniq } from '../common/helpers.js';
+import { deleteNotebook } from '../actions/notebookActions';
+import { deleteTag } from '../actions/tagActions';
 
 import * as types from '../constants/actionTypes.js';
 
@@ -65,28 +75,30 @@ export function editNote(note, obj = null) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
 
-        // const user = getState().userData.user;
+        const user = getState().userData.user;
 
         // refs
         const noteRef = database.ref('notes/' + note.id);
         
-        if (!note) {
+        if (!note || note.uid !== user.uid) {
             dispatch(editNoteRejectedAction());
             return;
         }
         
         if (obj) {
             /* If notebook not null and value has changed update the notes notebook only */
-            if (obj.notebook && obj.notebook.name !== note.notebook.name) {
-                const noteNotebookRef = noteRef.child('notebook');
+            if (obj.notebook) {
+                if (!note.notebook || note.notebook.name !== obj.notebook.name) {
+                    const noteNotebookRef = noteRef.child('notebook');
 
-                // If has uid and userId
-                noteNotebookRef.set(obj.notebook)
-                    .then(dispatch(editNoteFulfilledAction(note, obj)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(editNoteRejectedAction());
-                    });
+                    // If has uid and userId
+                    noteNotebookRef.set(obj.notebook)
+                        .then(dispatch(editNoteFulfilledAction(note, obj)))
+                        .catch((error) => {
+                            console.error(error);
+                            dispatch(editNoteRejectedAction());
+                        });
+                }
             }
             
             /* Handle when tags are defined */
@@ -150,19 +162,55 @@ export function editNote(note, obj = null) {
     }
 }
 
-export function deleteNote(id) {
-    return dispatch => {
+export function deleteNote(note) {
+    return (dispatch, getState) => {
         dispatch(deleteNoteRequestedAction());
 
-        database.ref('notes/' + id)
-            .remove()
-            .then(function() {
-                dispatch(deleteNoteFulfilledAction())
-            })
-            .catch((error) => {
-                console.error(error);
+        const user = getState().userData.user;
+        const notesRef = database.ref('notes');
+        
+        const tagsRef = database.ref('tags');
+
+        /**
+         * These things must be done only for user if user exists and otherwise for things 
+         * where uid does not exist...
+         * So, have to check how many notes there are, and if just one remove it and 
+         * all notebooks and tags since none will be assoicated with any notes.
+         * 
+         * Check the note for notebooks and tags,
+         * if they exist, check if they should be removed from their buckets
+         */
+        if (user) {
+            // cant delete notes that aren't yours
+            if (note.uid !== user.uid) {
                 dispatch(deleteNoteRejectedAction());
-            });
+            } else {
+                notesRef.child(note.id)
+                    .remove()
+                    .then(function() {
+                        dispatch(deleteNoteFulfilledAction())
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteNoteRejectedAction());
+                    });
+            }
+        } else {
+            // can't delete users notes
+            if (note.uid !== undefined) {
+                dispatch(deleteNoteRejectedAction());
+            } else {
+                notesRef.child(note.id)
+                    .remove()
+                    .then(function() {
+                        dispatch(deleteNoteFulfilledAction())
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteNoteRejectedAction());
+                    });
+            }
+        }
     }
 }
 

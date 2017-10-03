@@ -27,11 +27,13 @@ class AppContainer extends React.PureComponent {
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser();
+        
     }
 
     logout() {
         this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
+        this.props.actions.getNotes();
     }
 
     render() {

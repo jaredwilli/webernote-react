@@ -99,7 +99,7 @@ export default function notebookReducer(state = {}, action) {
 				success: 'Added notebook'
 			});
 
-			newState.notebooks = state.notebooks;
+			newState.notebooks = state.notebooks || [];
 			newState.notebooks.push(notebook);
 
 			newState.selectedNotebook = notebook;

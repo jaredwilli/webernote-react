@@ -28,6 +28,7 @@ export function getNotebookCount(notebook, notes) {
     let count = 0;
     // iterate over notes
     notes.forEach(function(n) {
+        if (!n.notebook) return;
         if (n.notebook.name === notebook.name) {
             count++;
         }
@@ -129,16 +130,12 @@ export function getDeletedTags(tags, note) {
 export function createNewNote(refId, user) {
     const newNote = {
         uid: (user) ? user.uid : null,
-        isEditing: true,
         id: refId,
+        isEditing: true,
         title: 'Untitled note...',
         description: '',
         url: '',
-        notebook: {
-            uid: (user) ? user.uid : null,
-            id: "e_RyT-Isyb7Z6s04-tha",
-            name: 'General'
-        },
+        notebook: {},
         tags: [],
         created_date: new Date().getTime(),
         modified_date: ''

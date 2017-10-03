@@ -79,7 +79,7 @@ export default function noteReducer(state = {}, action) {
                 success: 'Added note'
             });
 
-            newState.notes = state.notes;
+            newState.notes = state.notes || [];
             newState.notes.push(note);
             
             newState.selectedNote = note;

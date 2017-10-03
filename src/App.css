@@ -357,16 +357,23 @@ small {
 }
 
 .left-nav nav {
+    display: block;
     margin: 5px 0 0 5px;
 }
 
 .left-nav ul {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .left-nav ul ul {
-	margin: 4px 0 4px 15px;
+	/* margin: 4px 0 4px 15px; */
+    visibility: hidden
 }
+
+.left-nav ul .expanded ul {
+    visibility: visible;
+}
+    
 
 .left-nav ul li {
 	width: 100%;
@@ -381,7 +388,7 @@ small {
     color: hsl(199, 89%, 31%);    
 	text-decoration: none;
     padding: 0 0 0 14px;
-    line-height: normal;
+    line-height: 16px;
     cursor: pointer;
 }
 
@@ -399,7 +406,8 @@ small {
 }
 
 .left-nav li.expanded > div {
-	background-position: 1px -10px;
+    background-position: 1px -10px;
+    line-height: 16px;
 }
 
 .left-nav li .count {

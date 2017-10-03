@@ -44,7 +44,7 @@ class TagsContainer extends React.PureComponent {
         let tagOptions;
 
         if (!tags) {
-            return <div className="loading">Loading...</div>;
+            // return <div className="loading">Loading...</div>;
 		} else {
             tagOptions = tags;
             

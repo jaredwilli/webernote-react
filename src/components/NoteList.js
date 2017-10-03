@@ -29,8 +29,8 @@ class NoteList extends Component {
         this.props.actions.selectNote(note);
     }
 
-    deleteNote(id) {
-        this.props.actions.deleteNote(id);
+    deleteNote(note) {
+        this.props.actions.deleteNote(note);
         this.props.actions.getNotes();
     }
     
@@ -71,8 +71,8 @@ class NoteList extends Component {
                 
                 <div className="notes">
                     <Note notes={this.props.notes} 
-                        selectNote={(e, id) => this.selectNote(e, id)}
-                        deleteNote={(id) => this.deleteNote(id)} />
+                        selectNote={(e, note) => this.selectNote(e, note)}
+                        deleteNote={(note) => this.deleteNote(note)} />
                 </div>
             </div>
         );
