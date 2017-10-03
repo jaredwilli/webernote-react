@@ -35,39 +35,43 @@ class NoteList extends Component {
     }
     
     render() {
-        if (!this.props.notes) {
-            return (
-                <div className="loading">Loading...</div>
+        let filtersText = '';
+
+        if (this.props.notes.length) {
+            filtersText = (
+                <div className="filters">
+                    <div className="filter">
+                        Search type: 
+                        <select name="filterType" className="filter-type" 
+                            value={this.props.filterType || 'Description'}
+                            onChange={(e) => this.props.setFilterType(e)}>
+                            <option>Title</option>
+                            <option>Description</option>
+                            <option>Url</option>
+                            <option>Tags</option>
+                            <option>Created Date</option>
+                            <option>Modified Date</option>
+                        </select>
+    
+                        <input type="text" name="search" placeholder="Search"
+                            onChange={(e) => this.props.filterList(e)} />
+                    </div>
+                    <div className="viewing">
+                        <span className="viewtext">
+                            Viewing <span className="count">{this.props.notes.length}</span> notes from
+                        </span>
+                        <NotebookContainer 
+                            filterByNotebook={(e) => this.props.filterByNotebook(e)} 
+                            canAddNotebook={false} />
+                    </div>
+                </div>
             );
         }
 
+
         return (
             <div className="note-list">
-                <div className="filter">
-                    Search type: 
-                    <select name="filterType" className="filter-type" 
-                        value={this.props.filterType}
-                        onChange={(e) => this.props.setFilterType(e)}>
-                        <option>Description</option>
-                        <option>Title</option>
-                        <option>Url</option>
-                        <option>Tags</option>
-                        <option>Created Date</option>
-                        <option>Modified Date</option>
-                    </select>
-
-                    <input type="text" name="search" placeholder="Search"
-                        onChange={(e) => this.props.filterList(e)} />
-                </div>
-                <div className="viewing">
-                    <span className="viewtext">
-                        Viewing <span className="count">{this.props.notes.length}</span> notes from
-                    </span>
-                    
-                    <NotebookContainer 
-                        filterByNotebook={(e) => this.props.filterByNotebook(e)} 
-                        canAddNotebook={false} />
-                </div>
+                {filtersText}
                 
                 <div className="notes">
                     <Note notes={this.props.notes} 

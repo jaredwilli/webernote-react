@@ -35,13 +35,12 @@ class NoteNav extends React.Component {
         notes = filterData(user, notes);
         
         // NOTEBOOKS MENU
-        // let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
         let notebookItems = '';
 
         if (notebooks && notebooks.length) {
             // Filter user notebooks
             notebooks = filterData(user, notebooks);
-        
+            
             notebookItems = notebooks.map((notebook) => 
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
@@ -53,7 +52,6 @@ class NoteNav extends React.Component {
         }
         
         // TAGS MENU
-        // let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
         let tagItems = '';
 
         if (tags && tags.length) {
@@ -72,27 +70,31 @@ class NoteNav extends React.Component {
     
         return (
             <div id="note-nav" className="left-nav">
-                <nav className="notebooks-nav">
-                    <ul className="notebooks top-nav-item">
-                        <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                            <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                            <ul className="notebooks">
-                                {notebookItems}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                {(notebooks) ?
+                    <nav className="notebooks-nav">
+                        <ul className="notebooks top-nav-item">
+                            <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                <ul className="notebooks">
+                                    {notebookItems}
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                : ''}
 
-                <nav className="notebooks-nav">
-                    <ul className="tags top-nav-item">
-                        <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                            <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                            <ul className="tags">
-                                {tagItems}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                {(tags) ?
+                    <nav className="notebooks-nav">
+                        <ul className="tags top-nav-item">
+                            <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                <ul className="tags">
+                                    {tagItems}
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                : ''}
             </div>
         );
     }

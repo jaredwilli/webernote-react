@@ -47,7 +47,7 @@ export function removeNotebook(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
-        const user = getState().userData.user;
+        // const user = getState().userData.user;
         const notesRef = database.ref('notes');
         const notebooksRef = database.ref('notebooks');
 
