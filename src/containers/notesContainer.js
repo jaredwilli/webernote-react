@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactLoading from 'react-loading';
 
 import NoteNav from '../components/NoteNav';
 import NoteTypes from '../components/NoteTypes';
@@ -19,22 +20,24 @@ class NotesContainer extends React.PureComponent {
         super(props);
 
         this.addNote = this.addNote.bind(this);
-        
+        this.deleteNote = this.deleteNote.bind(this);
+
         this.filterByNotebook = this.filterByNotebook.bind(this);
         this.filterList = this.filterList.bind(this);
         this.setFilterType = this.setFilterType.bind(this);
-        
+
         this.state = {
             selectedNote: this.props.selectedNote,
             notebookFilter: {
                 name: 'All notebooks',
                 id: 'all_notebooks'
             },
-            notes: []   
+            notes: []
         }
     }
-    
+
     filterByNotebook(notebook) {
+        this.props.actions.resetSelectedNote();
         this.setState({
             notebookFilter: notebook
         });
@@ -52,7 +55,7 @@ class NotesContainer extends React.PureComponent {
         // TODO: Get the filterType for controlling what to filter based on
 
         let updatedList = this.state.initialNotes;
-        
+
         updatedList = updatedList.filter(function(note) {
             return note.description
                 .toLowerCase()
@@ -69,18 +72,27 @@ class NotesContainer extends React.PureComponent {
         this.props.actions.addNote();
     }
 
+    deleteNote(note) {
+        // this.props.actions.resetSelectedNote();
+        this.props.actions.deleteNote(note);
+    }
+
     render() {
         const user = this.props.user;
         let notes = this.props.notes;
 
         if (!notes) {
             return (
-                <div className="loading">Loading...</div>
+                <div className="big-loader">
+                    <ReactLoading className="loader" type="spinningBubbles" color="#ccc" height="500px" width="300px" />
+                </div>
             );
         }
 
         // Filter notes for current user
-        notes = filterData(user, notes, { notebook: this.state.notebookFilter });
+        notes = filterData(user, notes, {
+            notebook: this.state.notebookFilter
+        });
 
         return (
             <div>
@@ -109,6 +121,7 @@ class NotesContainer extends React.PureComponent {
                                 </td>
                                 <td className="middle note-list-col">
                                     <NoteList notes={notes}
+                                        deleteNote={(note) => this.deleteNote(note)}
                                         filterByNotebook={(notebook) => this.filterByNotebook(notebook)}
                                         filterList={(filter) => this.filterList(filter)}
                                         setFilterType={(type) => this.setFilterType(type)} />

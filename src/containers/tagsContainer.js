@@ -27,7 +27,7 @@ class TagsContainer extends React.PureComponent {
                 }
             });
         }
-        
+
         // Check for tags to be removed
         if (tags.length < selectedNote.tags.length) {
             this.props.actions.removeTags(this.props.notes);
@@ -43,11 +43,9 @@ class TagsContainer extends React.PureComponent {
         const { user, selectedNote, tags } = this.props;
         let tagOptions;
 
-        if (!tags) {
-            // return <div className="loading">Loading...</div>;
-		} else {
+        if (tags) {
             tagOptions = tags;
-            
+
             // Filter notebooks for the logged in user
             if (user) {
                 tagOptions = tagOptions.filter((tag) => {

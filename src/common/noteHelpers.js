@@ -4,8 +4,8 @@ import React from 'react';
 
 /**
  * sortNotes
- * 
- * @param {Array} notes 
+ *
+ * @param {Array} notes
  */
 export function sortNotes(notes) {
     notes.sort((a, b) => {
@@ -19,20 +19,24 @@ export function sortNotes(notes) {
 
 /**
  * getNotebookCount
- * 
- * @param {Object} notebook 
- * @param {Array} notes 
+ *
+ * @param {Object} notebook
+ * @param {Array} notes
  * @returns {Object} obj with notebook name and note count using it
  */
 export function getNotebookCount(notebook, notes) {
     let count = 0;
+
     // iterate over notes
-    notes.forEach(function(n) {
-        if (!n.notebook) return;
-        if (n.notebook.name === notebook.name) {
-            count++;
-        }
-    });
+    if (notes.length) {
+        notes.forEach(function(n) {
+            if (!n.notebook) return;
+            if (n.notebook.name === notebook.name) {
+                count++;
+            }
+        });
+    }
+
     return {
         notebook: notebook,
         count: count
@@ -41,26 +45,35 @@ export function getNotebookCount(notebook, notes) {
 
 /**
  * getTagCount
- * 
+ *
  * @description
  * Get the total count for notes that have each tag assigned to them. If a tag has zero notes it should remove the tag from the tags bucket, so need to trigger a removeTag event.
- * 
- * @param {Object} tag 
- * @param {Array} notes 
+ *
+ * @param {Object} tag
+ * @param {Array} notes
  * @returns {Object} obj with tag name and note count using it
  */
-export function getTagCount(tag, notes) {
+export function getTagCount(tag, notes, user) {
     let count = 0;
+
     // iterate over notes
-    notes.forEach((n) => {
-        if (!n.tags.length) return;
-        // iterate over note tags
-        n.tags.forEach((t) => {
-            if (tag.label === t.label) {
-                count++;
-            }
-        })
-    });
+    if (notes.length) {
+        notes.forEach((n) => {
+            // iterate over note tags
+            n.tags.forEach((t) => {
+                if (user && tag.uid === user.uid) {
+                    if (tag.label === t.label) {
+                        count++;
+                    }
+                } else if (!tag.uid && !user) {
+                    if (tag.label === t.label) {
+                        count++;
+                    }
+                }
+            });
+        });
+    }
+
     return {
         tag: tag,
         count: count
@@ -69,13 +82,13 @@ export function getTagCount(tag, notes) {
 
 /**
  * getTags
- * 
- * @param {Object} noteTags 
+ *
+ * @param {Object} noteTags
  */
 export function getTags(noteTags) {
     let tags = '';
     if (noteTags) {
-        tags = noteTags.map((t) => 
+        tags = noteTags.map((t) =>
             <span key={t.id} className="Select-value">
                 <span className="Select-value-label" id="react-select-2--value-">
                     {t.label}
@@ -91,14 +104,14 @@ export function getTags(noteTags) {
             </span>
         </div>
 
-    );    
+    );
 }
 
 /**
  * getDeletedTags
- * 
- * @param {*} tags 
- * @param {*} note 
+ *
+ * @param {*} tags
+ * @param {*} note
  */
 // TODO: refactor this
 export function getDeletedTags(tags, note) {
@@ -124,8 +137,8 @@ export function getDeletedTags(tags, note) {
 
 /**
  * createNewNote
- * 
- * @param {String} refId 
+ *
+ * @param {String} refId
  */
 export function createNewNote(refId, user) {
     const newNote = {
@@ -145,10 +158,10 @@ export function createNewNote(refId, user) {
 
 /**
  * Generate a new tag object
- * 
- * @param {*} refId 
- * @param {*} tag 
- * @param {*} note 
+ *
+ * @param {*} refId
+ * @param {*} tag
+ * @param {*} note
  */
 export function createNewTag(refId, tag, note, user) {
     // no className - not new tag...
@@ -166,10 +179,10 @@ export function createNewTag(refId, tag, note, user) {
 
 /**
  * Generate a new notebook object
- * 
- * @param {*} refId 
+ *
+ * @param {*} refId
  * @param {*} notebook
- * @param {*} note 
+ * @param {*} note
  */
 export function createNewNotebook(refId, notebook, user) {
     if (!notebook.name) return;
@@ -185,13 +198,13 @@ export function createNewNotebook(refId, notebook, user) {
 
 /**
  * getSelectedNotebook
- * 
+ *
  * @param {Object} e event object from the onChange event of notebook select menu
  * @param {Object} notebooks the current list of notebooks
  */
 export function getSelectedNotebook(e, notebooks) {
     let notebookId = '';
-    
+
     if (e.target.value === 'All Notebooks') {
         return { name: e.target.value, id: 'all_notebooks' };
     }
@@ -209,10 +222,10 @@ export function getSelectedNotebook(e, notebooks) {
 
 /**
  * filterData
- * 
- * @param {Object} user 
- * @param {Object} data 
- * @param {Object} filter 
+ *
+ * @param {Object} user
+ * @param {Object} data
+ * @param {Object} filter
  */
 export function filterData(user, data, filters) {
     if (user) {
@@ -243,8 +256,10 @@ export function filterData(user, data, filters) {
                 data = data.filter((d) => {
                     if (filters[filterKey].id === 'all_notebooks') {
                         return d;
+                    } else if (d[filterKey]) {
+                        // if data has the filter return those with same id
+                        return d[filterKey].id === filters[filterKey].id;
                     }
-                    return d[filterKey].id === filters[filterKey].id;
                 });
             }
 

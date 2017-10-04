@@ -9,7 +9,7 @@ export function getNotebooks() {
         dispatch(getNotebooksRequestedAction());
 
         const notebooksRef = database.ref('/notebooks');
-        
+
         notebooksRef.once('value', (snap) => {
             const notebooks = snap.val();
             dispatch(getNotebooksFulfilledAction(notebooks));
@@ -24,7 +24,7 @@ export function getNotebooks() {
 /* export function getNotebook(notebook) {
     return dispatch => {
         dispatch(getNotebookRequestedAction());
-        
+
         dispatch(getNotebookFulfilledAction(notebook));
     }
 } */
@@ -32,7 +32,7 @@ export function getNotebooks() {
 export function addNotebook(notebook) {
     return (dispatch, getState) => {
         dispatch(addNotebookRequestedAction());
-        
+
         const user = getState().userData.user;
         const notebooksRef = database.ref('notebooks');
         let notebookRef = notebooksRef.push();
@@ -47,34 +47,31 @@ export function removeNotebook(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
-        // const user = getState().userData.user;
+        const user = getState().userData.user;
         const notesRef = database.ref('notes');
         const notebooksRef = database.ref('notebooks');
 
-        notesRef.on('child_removed', (snap) => {
-            debugger
-            // deleteComment(postElement, data.key);
-        });
-
         notebooksRef.once('value', (snap) => {
-            const notebooks = snap.val();
-            let notebooksList = [];
+            if (snap.exists()) {
+                const notebooks = snap.val();
+                let notebooksList = [];
 
-            Object.keys(notebooks).forEach((n) => {
-                let notebook = notebooks[n];
-                let notebookCount = getNotebookCount(notebook, notes);
+                Object.keys(notebooks).forEach((n) => {
+                    let notebook = notebooks[n];
+                    let notebookCount = getNotebookCount(notebook, notes, user);
 
-                // Remove empty notebooks
-                if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
-                    let notebookRef = notebooksRef.child(notebookCount.notebook.id);
-                    // remove notebook
-                    notebookRef.remove();
-                } else {
-                    notebooksList.push(notebook);
-                }
-            });
+                    // Remove empty notebooks
+                    if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
+                        let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+                        // remove notebook
+                        notebookRef.remove();
+                    } else {
+                        notebooksList.push(notebook);
+                    }
+                });
 
-            dispatch(deleteNotebookFulfilledAction(notebooksList));
+                dispatch(deleteNotebookFulfilledAction(notebooksList));
+            }
         });
 	};
 }
@@ -86,7 +83,7 @@ export function removeNotebook(notes) {
         const noteRef = database.ref('/notes/' + note.id);
         const noteBookRef = noteRef.child('/notebook');
         const notebooksRef = database.ref('/notebooks');
-        
+
         noteBookRef.update(notebook.name)
             .then((notebook) => {
                 notebooksRef.once('value', (snap) => {
@@ -113,6 +110,24 @@ export function removeNotebook(notes) {
         dispatch(selectNotebookFulfilledAction(book, selectedNote));
     }
 } */
+
+export function listenForDeletedNotebook() {
+    return (dispatch, getState) => {
+        const notesRef = database.ref('notes');
+
+        notesRef.on('child_removed', (snap) => {
+            let notes = getState().noteData.notes;
+            const n = snap.val();
+
+            // Filter the deleted note out of current notes state
+            notes = notes.filter((note) => {
+                return note.id !== n.id;
+            });
+
+            dispatch(removeNotebook(notes));
+        });
+    }
+}
 
 /**
  * Get Notebooks

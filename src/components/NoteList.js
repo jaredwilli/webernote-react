@@ -20,7 +20,6 @@ class NoteList extends Component {
             filterType: ''
         };
     }
-    
 
     selectNote(e, note) {
         if (e.target.className === 'delete') return;
@@ -30,10 +29,9 @@ class NoteList extends Component {
     }
 
     deleteNote(note) {
-        this.props.actions.deleteNote(note);
-        this.props.actions.getNotes();
+        this.props.deleteNote(note);
     }
-    
+
     render() {
         let filtersText = '';
 
@@ -41,8 +39,8 @@ class NoteList extends Component {
             filtersText = (
                 <div className="filters">
                     <div className="filter">
-                        Search type: 
-                        <select name="filterType" className="filter-type" 
+                        Search type:
+                        <select name="filterType" className="filter-type"
                             value={this.props.filterType || 'Description'}
                             onChange={(e) => this.props.setFilterType(e)}>
                             <option>Title</option>
@@ -52,7 +50,7 @@ class NoteList extends Component {
                             <option>Created Date</option>
                             <option>Modified Date</option>
                         </select>
-    
+
                         <input type="text" name="search" placeholder="Search"
                             onChange={(e) => this.props.filterList(e)} />
                     </div>
@@ -60,21 +58,20 @@ class NoteList extends Component {
                         <span className="viewtext">
                             Viewing <span className="count">{this.props.notes.length}</span> notes from
                         </span>
-                        <NotebookContainer 
-                            filterByNotebook={(e) => this.props.filterByNotebook(e)} 
+                        <NotebookContainer
+                            filterByNotebook={(e) => this.props.filterByNotebook(e)}
                             canAddNotebook={false} />
                     </div>
                 </div>
             );
         }
 
-
         return (
             <div className="note-list">
                 {filtersText}
-                
+
                 <div className="notes">
-                    <Note notes={this.props.notes} 
+                    <Note notes={this.props.notes}
                         selectNote={(e, note) => this.selectNote(e, note)}
                         deleteNote={(note) => this.deleteNote(note)} />
                 </div>

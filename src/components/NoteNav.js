@@ -18,7 +18,7 @@ class NoteNav extends React.Component {
             expandTags: true
         }
     }
-    
+
     toggleExpanded(e) {
         let current = this.state;
 
@@ -30,18 +30,18 @@ class NoteNav extends React.Component {
     render() {
         const user = this.props.user;
         let { notes, notebooks, tags } = this.props;
-        
+
         // Filter notes for user or not
         notes = filterData(user, notes);
-        
+
         // NOTEBOOKS MENU
         let notebookItems = '';
 
         if (notebooks && notebooks.length) {
             // Filter user notebooks
             notebooks = filterData(user, notebooks);
-            
-            notebookItems = notebooks.map((notebook) => 
+
+            notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
                         <span className="name">{notebook.name}</span>
@@ -50,14 +50,14 @@ class NoteNav extends React.Component {
                 </li>
             );
         }
-        
+
         // TAGS MENU
         let tagItems = '';
 
         if (tags && tags.length) {
             // Filter user tags
             tags = filterData(user, tags);
-            
+
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
                     <a href={'#/' + tag.label}>
@@ -67,10 +67,10 @@ class NoteNav extends React.Component {
                 </li>
             );
         }
-    
+
         return (
             <div id="note-nav" className="left-nav">
-                {(notebooks) ?
+                {(notebooks && notebooks.length) ?
                     <nav className="notebooks-nav">
                         <ul className="notebooks top-nav-item">
                             <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
@@ -83,7 +83,7 @@ class NoteNav extends React.Component {
                     </nav>
                 : ''}
 
-                {(tags) ?
+                {(tags && tags.length) ?
                     <nav className="notebooks-nav">
                         <ul className="tags top-nav-item">
                             <li className={(this.state.expandTags) ? 'expanded' : ''}>
