@@ -30,12 +30,13 @@ export function getNotebooks() {
 } */
 
 export function addNotebook(notebook) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(addNotebookRequestedAction());
-
-        const notebooksRef = database.ref('/notebooks');
+        
+        const user = getState().userData.user;
+        const notebooksRef = database.ref('notebooks');
         let notebookRef = notebooksRef.push();
-        notebook = createNewNotebook(notebookRef.key, notebook);
+        notebook = createNewNotebook(notebookRef.key, notebook, user);
 
         notebookRef.set(notebook);
         dispatch(addNotebookFulfilledAction(notebook));
@@ -43,10 +44,17 @@ export function addNotebook(notebook) {
 }
 
 export function removeNotebook(notes) {
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
+        const user = getState().userData.user;
+        const notesRef = database.ref('notes');
         const notebooksRef = database.ref('notebooks');
+
+        notesRef.on('child_removed', (snap) => {
+            debugger
+            // deleteComment(postElement, data.key);
+        });
 
         notebooksRef.once('value', (snap) => {
             const notebooks = snap.val();

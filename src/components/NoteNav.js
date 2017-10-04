@@ -2,27 +2,46 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { getNotebookCount, getTagCount, filterData } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 
-import { getNotebookCount, getTagCount } from '../common/noteHelpers.js';
 
 class NoteNav extends React.Component {
-    /* function toggleExpanded(expanded) {
-        if (this.props.notebooks.length > 0) {
-            expanded = 'expanded';
+    constructor(props) {
+        super(props);
+
+        this.toggleExpanded = this.toggleExpanded.bind(this);
+
+        this.state = {
+            expandNotebooks: true,
+            expandTags: true
         }
-        return expanded;
-    } */
+    }
+    
+    toggleExpanded(e) {
+        let current = this.state;
+
+        this.setState({
+            [e.target.id]: !current[e.target.id]
+        });
+    }
 
     render() {
-        const { notes, notebooks, tags } = this.props;
-
+        const user = this.props.user;
+        let { notes, notebooks, tags } = this.props;
+        
+        // Filter notes for user or not
+        notes = filterData(user, notes);
+        
         // NOTEBOOKS MENU
-        let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
+        // let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
         let notebookItems = '';
 
         if (notebooks && notebooks.length) {
+            // Filter user notebooks
+            notebooks = filterData(user, notebooks);
+        
             notebookItems = notebooks.map((notebook) => 
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
@@ -34,16 +53,19 @@ class NoteNav extends React.Component {
         }
         
         // TAGS MENU
-        let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
+        // let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
         let tagItems = '';
 
         if (tags && tags.length) {
+            // Filter user tags
+            tags = filterData(user, tags);
+            
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
                     <a href={'#/' + tag.label}>
                         <span className="name">{tag.label}</span>
                     </a>&nbsp;
-                    <span className="count">{getTagCount(tag, this.props.notes).count}</span>
+                    <span className="count">{getTagCount(tag, notes).count}</span>
                 </li>
             );
         }
@@ -52,8 +74,8 @@ class NoteNav extends React.Component {
             <div id="note-nav" className="left-nav">
                 <nav className="notebooks-nav">
                     <ul className="notebooks top-nav-item">
-                        <li className={expandNotebookMenu}>
-                            <span>Notebooks</span>
+                        <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                            <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
                             <ul className="notebooks">
                                 {notebookItems}
                             </ul>
@@ -63,8 +85,8 @@ class NoteNav extends React.Component {
 
                 <nav className="notebooks-nav">
                     <ul className="tags top-nav-item">
-                        <li className={expandTagsMenu}>
-                            <span>Tags</span>
+                        <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                            <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
                             <ul className="tags">
                                 {tagItems}
                             </ul>
@@ -78,11 +100,12 @@ class NoteNav extends React.Component {
 
 function mapStateToProps(state) {
     const newState = {
+        user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }

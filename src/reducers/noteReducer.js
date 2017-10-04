@@ -46,8 +46,11 @@ export default function noteReducer(state = {}, action) {
                     }
                     return notes[n];
                 });
+            } else {
+                newState.notes = [];
+                selectedNote = '';
             }
-        
+
             newState.selectedNote = selectedNote;
             return newState;
         }
@@ -76,7 +79,7 @@ export default function noteReducer(state = {}, action) {
                 success: 'Added note'
             });
 
-            newState.notes = state.notes;
+            newState.notes = state.notes || [];
             newState.notes.push(note);
             
             newState.selectedNote = note;

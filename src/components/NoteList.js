@@ -15,48 +15,12 @@ class NoteList extends Component {
         this.selectNote = this.selectNote.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
 
-        this.filterList = this.filterList.bind(this);
-        this.setFilterType = this.setFilterType.bind(this);
-        this.filterByNotebook = this.filterByNotebook.bind(this);
-
         this.state = {
             searchTerm: '',
             filterType: ''
         };
     }
     
-    filterByNotebook(e) {
-        let filterNotebook = e.target.value;
-        console.log(filterNotebook);
-        
-        // debugger
-    }
-
-    setFilterType(e) {
-        let filterType = e.target.name;
-        let updatedList = this.state.initialNotes;
-        console.log(filterType, updatedList);
-        
-        // debugger
-        // TODO: set a daterange picker value somehow here
-        //updatedList = updatedList.filter(function(note) { });
-    }
-
-    filterList(e) {
-        // TODO: Get the filterType for controlling what to filter based on
-
-        let updatedList = this.state.initialNotes;
-        
-        updatedList = updatedList.filter(function(note) {
-            return note.description
-                .toLowerCase()
-                .search(e.target.value.toLowerCase()) !== -1;
-        });
-
-        this.setState({
-            currentNotes: updatedList
-        });
-    }
 
     selectNote(e, note) {
         if (e.target.className === 'delete') return;
@@ -65,8 +29,8 @@ class NoteList extends Component {
         this.props.actions.selectNote(note);
     }
 
-    deleteNote(id) {
-        this.props.actions.deleteNote(id);
+    deleteNote(note) {
+        this.props.actions.deleteNote(note);
         this.props.actions.getNotes();
     }
     
@@ -83,7 +47,7 @@ class NoteList extends Component {
                     Search type: 
                     <select name="filterType" className="filter-type" 
                         value={this.props.filterType}
-                        onChange={(e) => this.setFilterType(e)}>
+                        onChange={(e) => this.props.setFilterType(e)}>
                         <option>Description</option>
                         <option>Title</option>
                         <option>Url</option>
@@ -93,21 +57,22 @@ class NoteList extends Component {
                     </select>
 
                     <input type="text" name="search" placeholder="Search"
-                        onChange={(e) => this.filterList(e)} />
+                        onChange={(e) => this.props.filterList(e)} />
                 </div>
                 <div className="viewing">
                     <span className="viewtext">
                         Viewing <span className="count">{this.props.notes.length}</span> notes from
                     </span>
                     
-                    <NotebookContainer selectNotebook={(e) => this.filterByNotebook(e)} 
+                    <NotebookContainer 
+                        filterByNotebook={(e) => this.props.filterByNotebook(e)} 
                         canAddNotebook={false} />
                 </div>
                 
                 <div className="notes">
                     <Note notes={this.props.notes} 
-                        selectNote={(e, id) => this.selectNote(e, id)}
-                        deleteNote={(id) => this.deleteNote(id)} />
+                        selectNote={(e, note) => this.selectNote(e, note)}
+                        deleteNote={(note) => this.deleteNote(note)} />
                 </div>
             </div>
         );
@@ -116,12 +81,13 @@ class NoteList extends Component {
 
 function mapStateToProps(state) {
     const newState = {
-        notes: state.noteData.notes,
+        // user: state.userData.user,
+        // notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        selectedNote: state.noteData.selectedNote,
+        // // selectedNote: state.noteData.selectedNote,
         tags: state.tagData.tags
     };
-    console.log('STATE: ', state, newState);
+    // console.log('STATE: ', state, newState);
 
     return newState;
 }
