@@ -33,7 +33,7 @@ class EditNote extends React.Component {
         this.props.actions.editNote(note);
         this.props.actions.getNotes();
     }
-    
+
     editNotebook(notebook) {
         let note = this.props.selectedNote;
 
@@ -43,21 +43,21 @@ class EditNote extends React.Component {
 
         this.props.actions.editNote(note, { notebook: notebook });
     }
-    
+
     editTags(tags) {
         let note = this.props.selectedNote;
 
         this.setState({
             selectedNote: note
         });
-        
+
         this.props.actions.editNote(note, { tags: tags });
     }
 
     render() {
         // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
-        
+
         if (!selectedNote || !selectedNote.id) {
             return (
                 <div className="show-note"></div>
@@ -68,24 +68,25 @@ class EditNote extends React.Component {
             <div className="show-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."  
-                            value={selectedNote.title} 
+                        <input type="text" className="title" name="title" placeholder="Enter title..."
+                            value={selectedNote.title}
+                            autoFocus={true}
                             onChange={(e) => this.editNote(e)} />
-                        <NotebooksContainer 
-                            canAddNotebook={true} 
+                        <NotebooksContainer
+                            canAddNotebook={true}
                             editNotebook={(notebook) => this.editNotebook(notebook)} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://" 
-                            value={selectedNote.url} 
+                        <input type="url" className="url" name="url" placeholder="http://"
+                            value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
-                        <TagsContainer 
+                        <TagsContainer
                             noteTags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description" 
-                            value={selectedNote.description} 
+                        <textarea className="description" name="description"
+                            value={selectedNote.description}
                             onChange={(e) => this.editNote(e)}>
                         </textarea>
                     </div>

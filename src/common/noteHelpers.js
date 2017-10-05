@@ -142,7 +142,7 @@ export function createNewNote(refId, user) {
         uid: (user) ? user.uid : null,
         id: refId,
         isEditing: true,
-        title: 'Untitled note...',
+        title: '',
         description: '',
         url: '',
         notebook: {},

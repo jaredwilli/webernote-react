@@ -165,7 +165,6 @@ class NotebooksContainer extends React.PureComponent {
                         </button>
                         <input type="text" name="notebook" className="new-notebook"
                             placeholder="Notebook name"
-                            autoFocus={true}
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
                     </span>
