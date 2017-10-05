@@ -41,9 +41,9 @@ h2 {
     padding: 0;
 }
 
-p { 
-    margin: 0; 
-    padding: 0; 
+p {
+    margin: 0;
+    padding: 0;
 }
 
 :focus { outline: none; }
@@ -116,6 +116,15 @@ td:first-child {
 /************************************************************************************
 STRUCTURE
 *************************************************************************************/
+
+.big-loader {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.big-loader .loader {
+    display: inline-block;
+}
 
 .wrapper {
     border: 1px solid #B8CDE0;
@@ -211,7 +220,7 @@ small {
     width: auto;
 }
 
-.toolbar .new-note {
+/* .toolbar .new-note {
 	background: rgba(255, 15, 15, 0.7);
 	position: absolute;
 	right: 0;
@@ -236,15 +245,6 @@ small {
 	vertical-align: middle;
 	line-height: 20px;
     overflow: hidden;
-    
-    /* background: transparent;
-	border: 0;
-    color: #fff;
-    text-shadow: -1px -1px 0 hsla(0, 92%, 25%, 0.9), 1px 1px 0 hsla(12, 81%, 54%, 0.75);
-    cursor: pointer;
-	padding: 5px 10px 6px 0;
-	vertical-align: middle;
-	line-height: 18px; */
 }
 
 .toolbar .new-note button .plus {
@@ -262,7 +262,58 @@ small {
 
 .toolbar .new-note:hover button .plus {
 	border-right: 1px solid rgb(185, 74, 0, 0.5);
+} */
+
+/* NEW NOTE Styles */
+
+.toolbar .new-note {
+	background: rgb(214, 9, 141);
+	position: absolute;
+	right: 0;
+	top: 0;
 }
+
+.toolbar .new-note button {
+	background: none;
+	border: 0;
+	border-left: 1px solid #92cfe4;
+	color: #fff;
+	text-shadow: -1px -1px 0 hsla(0, 1%, 20%, 0.9), 1px 1px 0 hsla(335, 81%, 54%, 0.9);
+	cursor: pointer;
+	padding: 5px 50px 5px 15px;
+	vertical-align: middle;
+	line-height: 20px;
+	overflow: hidden;
+}
+
+.toolbar .new-note button .plus {
+	background: rgb(0, 5, 148);
+	border-left: 1px solid rgb(243, 158, 212);
+	font-size: 20px;
+	text-shadow: -1px -1px 0 hsl(0, 1%, 17%), 1px 1px 0 hsla(235, 81%, 54%, 0.9);
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 4px 10px 6px;
+	margin: 0 0 0 10px;
+	-webkit-box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.25);
+	        box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+.toolbar .new-note:hover {
+    background: hsla(22, 100%, 53%, 1);
+}
+
+.toolbar .new-note:hover button .plus {
+    background: #d63100;
+}
+
+.toolbar .new-note:hover button .plus {
+	border-left: 1px solid rgb(185, 74, 0, 0.5);
+}
+
+
+/* TOOLBAR LINKS */
 
 .toolbar a {
     color: hsl(85, 88%, 96%);
@@ -278,9 +329,9 @@ small {
 	background: rgba(14, 188, 255, 0.74);
 }
 
-.toolbar .new-note button:hover {
+/* .toolbar .new-note button:hover {
 	background: transparent;
-}
+} */
 
 /* NOTE TYPES */
 
@@ -334,7 +385,7 @@ small {
 }
 
 .note-list {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .left-nav,
@@ -353,7 +404,7 @@ small {
 .left-nav {
 	padding: 0;
 	min-width: 70px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .left-nav nav {
@@ -366,14 +417,13 @@ small {
 }
 
 .left-nav ul ul {
-	/* margin: 4px 0 4px 15px; */
-    visibility: hidden
+    visibility: hidden;
 }
 
 .left-nav ul .expanded ul {
     visibility: visible;
 }
-    
+
 
 .left-nav ul li {
 	width: 100%;
@@ -385,7 +435,7 @@ small {
 
 .left-nav li > div {
 	background: url("./img/arrow.png") no-repeat 1px 4px;
-    color: hsl(199, 89%, 31%);    
+    color: hsl(199, 89%, 31%);
 	text-decoration: none;
     padding: 0 0 0 14px;
     line-height: 16px;
@@ -504,7 +554,7 @@ small {
 .notes .selected {
     background: rgba(235, 240, 246, 0.6);
 	border: 1px solid hsl(206, 90%, 61%);
-    
+
 	background: rgb(235,241,246);
 	background: -webkit-gradient(linear, left top, left bottom,
 		color-stop(0%, rgba(235,241,246,1)),
@@ -690,7 +740,7 @@ small {
 .show-note input.url,
 .show-note .tags,
 .show-note .description {
-    border: 1px solid rgb(190, 202, 213); 
+    border: 1px solid rgb(190, 202, 213);
 
 }
 
@@ -726,7 +776,7 @@ small {
     vertical-align: top;
     height: 29px;
     width: 36.7%;
-    
+
     -webkit-appearance: none;
     -moz-appearance: none;
 }
@@ -809,7 +859,7 @@ small {
     border: 0;
 }
 
-.Select-placeholder, 
+.Select-placeholder,
 .Select--single > .Select-control .Select-value {
     line-height: 30px;
 }

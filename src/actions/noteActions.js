@@ -1,12 +1,12 @@
-import _ from 'underscore';
+
 import { database } from '../data/firebase.js';
 
-import { 
-    createNewNote, 
-    getDeletedTags, 
-    getNotebookCount, 
-    getTagCount, 
-    filterData 
+import {
+    createNewNote,
+    getDeletedTags,
+    getNotebookCount,
+    getTagCount,
+    filterData
 } from '../common/noteHelpers.js';
 
 import { uniq } from '../common/helpers.js';
@@ -41,16 +41,16 @@ export function getNotes(user) {
 /* export function getNote(id) {
     return (dispatch, getState) => {
         dispatch(getNoteRequestedAction());
-        
+
         // Filter notes by ID to get note
         const note = getState().noteData.notes.filter(function(n) {
             return n.id === id;
         })[0];
-        
+
         if (!note) {
             dispatch(getNoteRejectedAction());
         }
-        
+
         dispatch(getNoteFulfilledAction(note));
     }
 }*/
@@ -60,7 +60,7 @@ export function addNote() {
         dispatch(addNoteRequestedAction());
 
         const user = getState().userData.user;
-        
+
         const notesRef = database.ref('notes');
 
         let noteRef = notesRef.push();
@@ -79,7 +79,7 @@ export function editNote(note, obj = null) {
 
         // refs
         const noteRef = database.ref('notes/' + note.id);
-        
+
         if (!note) {
             dispatch(editNoteRejectedAction());
             return;
@@ -100,14 +100,14 @@ export function editNote(note, obj = null) {
                         });
                 }
             }
-            
+
             /* Handle when tags are defined */
             else if (obj.hasOwnProperty('tags')) {
                 const noteTagsRef = noteRef.child('tags');
-                
+
                 // Remove all tags removed from edit input
                 const removedTags = getDeletedTags(obj.tags, note);
-                
+
                 if (removedTags.length) {
                     removedTags.forEach((tag) => {
                         noteTagsRef.child(tag.id).remove();
@@ -117,18 +117,18 @@ export function editNote(note, obj = null) {
                 // If tags is empty then remove them from note
                 if (!obj.tags) {
                     noteTagsRef.remove();
-                    dispatch(editNoteFulfilledAction(note, { 
-                        tags: [] 
+                    dispatch(editNoteFulfilledAction(note, {
+                        tags: []
                     }));
-                } 
-                
+                }
+
                 // Note has tags
                 else {
 
                     // Make tag list unique
                     obj.tags = uniq(obj.tags);
                     obj.tagList = [];
-                    
+
                     // Update existing tags and add new ones
                     obj.tags.forEach((tag) => {
                         // if tag has an ID update that ref
@@ -139,7 +139,7 @@ export function editNote(note, obj = null) {
                         } else {
                             // if no ID push a new tag to the list
                             let tagsRef = noteRef.child('/tags/').push();
-                            
+
                             // Add extra things to the tag for the note
                             tag.id = tagsRef.key;
                             tag.value = tagsRef.key;
@@ -169,15 +169,15 @@ export function deleteNote(note) {
 
         const user = getState().userData.user;
         const notesRef = database.ref('notes');
-        
+        const notebooksRef = database.ref('notebooks');
         const tagsRef = database.ref('tags');
 
         /**
-         * These things must be done only for user if user exists and otherwise for things 
+         * These things must be done only for user if user exists and otherwise for things
          * where uid does not exist...
-         * So, have to check how many notes there are, and if just one remove it and 
+         * So, have to check how many notes there are, and if just one remove it and
          * all notebooks and tags since none will be assoicated with any notes.
-         * 
+         *
          * Check the note for notebooks and tags,
          * if they exist, check if they should be removed from their buckets
          */
@@ -188,9 +188,7 @@ export function deleteNote(note) {
             } else {
                 notesRef.child(note.id)
                     .remove()
-                    .then(function() {
-                        dispatch(deleteNoteFulfilledAction())
-                    })
+                    .then(dispatch(deleteNoteFulfilledAction(note)))
                     .catch((error) => {
                         console.error(error);
                         dispatch(deleteNoteRejectedAction());
@@ -198,14 +196,12 @@ export function deleteNote(note) {
             }
         } else {
             // can't delete users notes
-            if (note.uid !== undefined) {
+            if (note.uid) {
                 dispatch(deleteNoteRejectedAction());
             } else {
                 notesRef.child(note.id)
                     .remove()
-                    .then(function() {
-                        dispatch(deleteNoteFulfilledAction())
-                    })
+                    .then(dispatch(deleteNoteFulfilledAction(note)))
                     .catch((error) => {
                         console.error(error);
                         dispatch(deleteNoteRejectedAction());
@@ -238,8 +234,8 @@ export function selectNote(note) {
 export function resetSelectedNote() {
     return (dispatch, getState) => {
         dispatch(resetSelectedNoteRequestedAction());
-        
-        const user = getState().userData.user;        
+
+        const user = getState().userData.user;
         let notes = getState().noteData.notes;
 
         notes = filterData(user, notes);
@@ -303,15 +299,15 @@ function editNoteFulfilledAction(note, obj) {
  * Delete Note
  */
 function deleteNoteRequestedAction() {
-    return { type: types.DeleteNoteFulfilled };
+    return { type: types.DeleteNoteRequested };
 }
 
 function deleteNoteRejectedAction() {
     return { type: types.DeleteNoteRejected };
 }
 
-function deleteNoteFulfilledAction() {
-    return { type: types.DeleteNoteFulfilled };
+function deleteNoteFulfilledAction(note) {
+    return { type: types.DeleteNoteFulfilled, note };
 }
 
 /**

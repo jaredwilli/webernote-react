@@ -26,7 +26,7 @@ export default function noteReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Got notes'
             });
-            
+
             newState.notes = state.notes;
 
             if (notes) {
@@ -63,14 +63,14 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.AddNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error adding note'
             });
         }
-        
+
         case types.AddNoteFulfilled: {
             const note = action.note;
 
@@ -81,7 +81,7 @@ export default function noteReducer(state = {}, action) {
 
             newState.notes = state.notes || [];
             newState.notes.push(note);
-            
+
             newState.selectedNote = note;
             return newState;
         }
@@ -94,14 +94,14 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.EditNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error editing note'
             });
         }
-        
+
         case types.EditNoteFulfilled: {
             let note = action.note;
 
@@ -123,7 +123,7 @@ export default function noteReducer(state = {}, action) {
             newState.selectedNote = note;
             return newState;
         }
-        
+
         // *** DELETE NOTE
         case types.DeleteNoteRequested: {
             return Object.assign({}, state, {
@@ -132,21 +132,31 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.DeleteNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error delete note'
             });
         }
-        
-        case types.DeleteNoteFulfilled: {            
-            return Object.assign({}, state, {
+
+        case types.DeleteNoteFulfilled: {
+            const note = action.note;
+
+            const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+
+            newState.notes = state.notes;
+            newState.notes = newState.notes.filter((n) => {
+                return n.id !== note.id;
+            });
+
+            newState.selectedNote = '';
+            return newState;
         }
-        
+
         // *** SELECT NOTE
         case types.SelectNoteRequested: {
             return Object.assign({}, state, {
@@ -155,7 +165,7 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.SelectNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -166,16 +176,16 @@ export default function noteReducer(state = {}, action) {
         case types.SelectNoteFulfilled: {
             const note = action.note;
             note.isEditing = true;
-            
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Note selected: ' + note.title
             });
-            
+
             newState.selectedNote = note;
             return newState;
         }
-        
+
         // *** RESET SELECTED NOTE
         case types.ResetSelectedNoteRequested: {
             return Object.assign({}, state, {
@@ -184,14 +194,14 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.ResetSelectedNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error resetting selected note'
             });
         }
-        
+
         case types.ResetSelectedNoteFulfilled: {
             const note = action.note;
             note.isEditing = false;
@@ -205,7 +215,7 @@ export default function noteReducer(state = {}, action) {
             return newState;
         }
 
-        default: 
+        default:
             return state;
     }
 }

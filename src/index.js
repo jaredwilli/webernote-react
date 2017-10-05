@@ -7,8 +7,8 @@ import configureStore from './store/index';
 
 import { listenForAuth } from './actions/userActions';
 import { getNotes } from './actions/noteActions';
-import { getNotebooks } from './actions/notebookActions';
-import { getTags } from './actions/tagActions';
+import { getNotebooks, listenForDeletedNotebook } from './actions/notebookActions';
+import { getTags, listenForDeletedTags } from './actions/tagActions';
 
 // import NotesContainer from './containers/notesContainer';
 import AppContainer from './containers/appContainer';
@@ -27,6 +27,9 @@ export default class WebernoteApp extends React.PureComponent {
         this.store.dispatch(getNotes());
         this.store.dispatch(getNotebooks());
         this.store.dispatch(getTags());
+
+        this.store.dispatch(listenForDeletedNotebook());
+        this.store.dispatch(listenForDeletedTags());
     }
 
     render() {
@@ -37,7 +40,7 @@ export default class WebernoteApp extends React.PureComponent {
 ReactDOM.render(
     <Provider store={configureStore}>
         <WebernoteApp />
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 );
 

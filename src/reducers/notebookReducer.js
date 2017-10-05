@@ -44,7 +44,7 @@ export default function notebookReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.GetNotebookRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -68,10 +68,10 @@ export default function notebookReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Got note'
             });
-            
+
             newState.notebook = state.notebook;
             newState.selectedNotebook = notebook;
-            
+
             return newState;
         } */
 
@@ -102,7 +102,7 @@ export default function notebookReducer(state = {}, action) {
 			newState.notebooks = state.notebooks || [];
 			newState.notebooks.push(notebook);
 
-			newState.selectedNotebook = notebook;
+			// newState.selectedNotebook = notebook;
 			return newState;
 		}
 
@@ -114,14 +114,14 @@ export default function notebookReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.DeleteNotebookRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error deleting notebook'
             });
         }
-        
+
         case types.DeleteNotebookFulfilled: {
             const notebooks = action.notebooks;
 
@@ -173,14 +173,14 @@ export default function notebookReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.SelectNotebookRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error selecting notebook'
             });
         }
-        
+
         case types.SelectNotebookFulfilled: {
             const notebook = action.notebook[0];
 
