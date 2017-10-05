@@ -68,6 +68,7 @@ class NotesContainer extends React.PureComponent {
     }
 
     addNote(e) {
+        // this.props.actions.resetSelectedNotebook();
         this.props.actions.resetSelectedNote();
         this.props.actions.addNote();
     }
