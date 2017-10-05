@@ -24,13 +24,14 @@ export function sortNotes(notes) {
  * @param {Array} notes
  * @returns {Object} obj with notebook name and note count using it
  */
-export function getNotebookCount(notebook, notes) {
+export function getNotebookCount(notebook, notes, user) {
     let count = 0;
 
     // iterate over notes
     if (notes.length) {
         notes.forEach(function(n) {
             if (!n.notebook) return;
+
             if (n.notebook.name === notebook.name) {
                 count++;
             }
@@ -59,16 +60,12 @@ export function getTagCount(tag, notes, user) {
     // iterate over notes
     if (notes.length) {
         notes.forEach((n) => {
+            if (!n.tags) return;
+
             // iterate over note tags
             n.tags.forEach((t) => {
-                if (user && tag.uid === user.uid) {
-                    if (tag.label === t.label) {
-                        count++;
-                    }
-                } else if (!tag.uid && !user) {
-                    if (tag.label === t.label) {
-                        count++;
-                    }
+                if (tag.label === t.label) {
+                    count++;
                 }
             });
         });

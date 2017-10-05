@@ -2,7 +2,6 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
-import { DEFAULTS } from '../constants/noteConst';
 
 export function getNotebooks() {
     return dispatch => {
@@ -48,7 +47,6 @@ export function removeNotebook(notes) {
 		dispatch(deleteNotebookRequestedAction());
 
         const user = getState().userData.user;
-        const notesRef = database.ref('notes');
         const notebooksRef = database.ref('notebooks');
 
         notebooksRef.once('value', (snap) => {
@@ -61,7 +59,7 @@ export function removeNotebook(notes) {
                     let notebookCount = getNotebookCount(notebook, notes, user);
 
                     // Remove empty notebooks
-                    if (notebookCount.count === 0 && notebookCount.notebook.name !== DEFAULTS.NOTEBOOK) {
+                    if (notebookCount.count === 0) {
                         let notebookRef = notebooksRef.child(notebookCount.notebook.id);
                         // remove notebook
                         notebookRef.remove();

@@ -3,7 +3,6 @@ import * as types from '../constants/actionTypes';
 
 import { createNewTag, getTagCount } from '../common/noteHelpers';
 import { uniq } from '../common/helpers';
-import { DEFAULTS } from '../constants/noteConst';
 
 export function getTags() {
     return dispatch => {
@@ -75,7 +74,7 @@ export function removeTags(notes) {
                     let tagCount = getTagCount(tag, notes, user);
 
                     // Remove empty tags
-                    if (tagCount.count === 0 && tagCount.tag.name !== DEFAULTS.TAG) {
+                    if (tagCount.count === 0) {
                         let tagRef = tagsRef.child(tagCount.tag.id);
                         // remove tag
                         tagRef.remove();

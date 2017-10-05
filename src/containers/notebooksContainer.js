@@ -141,16 +141,18 @@ class NotebooksContainer extends React.PureComponent {
 
         // Show add notebook input if selected add notebook
         if (this.props.canAddNotebook) {
-            let showAddNote;
+            let showAddNotebook;
             if (!notebookSelection) {
-                showAddNote = true;
+                showAddNotebook = true;
             } else if (!notebookOptions.length) {
-                showAddNote = true;
+                showAddNotebook = true;
             } else if (this.state.addNotebook) {
-                showAddNote = true;
+                showAddNotebook = true;
+            } else if (!this.props.selectedNote.notebook) {
+                showAddNotebook = true;
             }
 
-            if (showAddNote) {
+            if (showAddNotebook) {
                 return (
                     <span>
                         <button className="cancel-new"
