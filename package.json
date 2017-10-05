@@ -21,7 +21,7 @@
 	},
 	"git": {
 		"scripts": {
-			"pre-push": "surge --project ./build --domain webernote.surge.sh"
+			"pre-push": "surge --project /Users/jaredw/Sites/_play/react/webernote/build --domain webernote.surge.sh"
 		}
 	},
 	"scripts": {
