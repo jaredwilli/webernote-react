@@ -52,7 +52,8 @@ class NoteList extends Component {
                             <option>Modified Date</option>
                         </select>
 
-                        <input type="text" name="search" placeholder="Search"
+                        <input type="text" name="search" placeholder="Search" className="search"
+                            value={this.props.search}
                             onChange={(e) => this.props.filterList(e)} />
                     </div>
                     <div className="viewing">

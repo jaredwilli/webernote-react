@@ -251,12 +251,12 @@ export function filterData(user, data, filters) {
                 });
             } else {
                 data = data.filter((d) => {
-                    if (filters[filterKey].id === 'all_notebooks') {
-                        return d;
-                    } else if (d[filterKey]) {
+                    if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
                         // if data has the filter return those with same id
                         return d[filterKey].id === filters[filterKey].id;
                     }
+
+                    return d;
                 });
             }
 

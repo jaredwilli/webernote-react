@@ -17,7 +17,8 @@ class NoteNav extends React.Component {
 
         this.state = {
             expandNotebooks: true,
-            expandTags: true
+            expandTags: true,
+            expandLabels: true
         }
     }
 

@@ -1,41 +1,43 @@
-/* SHOW NOTE */
+/* Edit Note */
 
-.show-note {
+.edit-note {
+    background: #f8f8f8;
     background: #d0d0d0;
+    border: 1px solid #B8CDE0;
     width: 100%;
+    height: 670px;
+    overflow: hidden;
 }
 
-.show-note form {
+.edit-note form {
     position: relative;
 }
 
-.note-list .filter,
-.note-list .viewing,
-.show-note .top,
-.show-note .mid {
+.edit-note .top,
+.edit-note .mid {
 	display: block;
-	padding: 5px;
+    padding: 5px;
+    padding-bottom: 2px;
 	width: 100%;
 }
 
-.show-note .top {
+.edit-note .top {
     position: relative;
     padding: 0;
 }
 
-.show-note .mid {
+.edit-note .mid {
     padding: 0;
 }
 
-.show-note .bottom {
+.edit-note .bottom {
     background: #fff;
 }
 
 /* TODO: fix this */
-.note-list .filter,
-.show-note .top,
-.show-note .mid,
-.show-note .bottom {
+.edit-note .top,
+.edit-note .mid,
+.edit-note .bottom {
 	background-color: rgb(216, 227, 228);
 	background-image: -webkit-gradient(linear, left top, left bottom,
     from( rgba(216, 227, 228, 0.9)),
@@ -47,43 +49,60 @@
 	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
 }
 
-.show-note .top,
-.show-note .mid {
-    padding-bottom: 2px;
-}
 
 /* NOTE Parts */
 
-.show-note h2 {
+.edit-note h2 {
 	display: inline-block;
 	min-width: 100px;
 	max-width: 200px;
 	padding: 0 5px;
 }
 
-.notes-list .filter-type,
-.show-note .title,
-.show-note .url,
-.show-note .notebook,
-.show-note .new-notebook,
-.show-note .tags,
-.show-note .description {
+.edit-note .title,
+.edit-note .url,
+.edit-note .notebook,
+.edit-note .new-notebook,
+.edit-note .tags,
+.edit-note .description {
     border: 1px solid rgb(190, 202, 213);
 }
 
-.show-note .title,
-.show-note .url,
-.show-note .new-notebook {
+.edit-note .title,
+.edit-note .url,
+.edit-note .new-notebook {
     padding: 5px;
 }
 
-.show-note .title {
+.edit-note .title {
 	position: relative;
 	width: 60%;
 	margin: 0;
 }
 
-.show-note .new-notebook {
+.edit-note .notebook,
+.edit-note .new-notebook {
+    font-size: 14px;
+    margin: 0 0 0 2px;
+}
+
+.edit-note .notebook {
+    background-color: #fff;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+	background-repeat: no-repeat;
+	background-position: right 50%;
+    border-radius: 0;
+    padding: 0 4px;
+	padding-right: 1.5em;
+    vertical-align: top;
+    height: 29px;
+    width: 36.7%;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.edit-note .new-notebook {
     display: inline-block;
 	position: absolute;
 	padding: 0 3px;
@@ -91,35 +110,84 @@
     width: 35.2%;
 }
 
-.show-note .cancel-new {
-	position: absolute;
-	right: 0;
-	z-index: 1;
-    vertical-align: top;
-    padding: 1px 5px 3px 5px;
+.edit-note .cancel-new {
+    background: rgba(80, 80, 80, 0.75);
+	border: 1px ridge #666c6d;
+	border-radius: 12px;
+	color: #fff;
+	text-shadow: -1px -1px 0 rgb(53, 53, 53);
+	font-size: 10px;
+	font-weight: bold;
+	font-family: 'Helvetica';
+	cursor: pointer;
+	padding: 3px 6px;
+	-webkit-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+    -moz-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
+	-o-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+	box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
 }
 
-.show-note .url,
-.show-note .tags {
+.edit-note .cancel-new {
+	position: absolute;
+	right: 0;
+    padding: 1px 5px 3px 5px;
+    vertical-align: top;
+	z-index: 1;
+}
+
+.edit-note .url,
+.edit-note .tags {
     display: inline-block;
     margin: 0;
 }
 
-.show-note .url {
+.edit-note .url {
     font-size: 14px;
     padding: 7px 5px;
     margin: 0;
-    width: 97%;
+    width: 83.8%;
 }
 
-.show-note .tags {
+.edit-note .label-picker {
+    background: #fff;
+	border: 1px solid #bdcad4;
+    display: inline-block;
+    position: relative;
+	padding: 5px 4px 4px 4px;
+	margin-left: 2px;
+}
+
+.edit-note .label-picker label {
+	display: inline-block;
+    color: #757575;
+    cursor: pointer;
+}
+
+.edit-note .label-background {
+    border: 1px solid #adb6bd;
+    border-radius: 24px;
+    display: inline-block;
+    padding: 9px;
+    vertical-align: top;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.edit-note .label-color-picker {
+    position: absolute;
+	left: -201px;
+	top: 36px;
+    z-index: 1;
+}
+
+.edit-note .tags {
     margin: 2px 0 0 0;
     width: 99.3%;
     vertical-align: top;
 }
 
-.show-note textarea,
-.show-note textarea:active {
+.edit-note textarea,
+.edit-note textarea:active {
     font-size: 14px;
     padding: 5px;
     width: 97.6%;
@@ -127,13 +195,13 @@
     resize: none;
 }
 
-.show-note .description {
+.edit-note .description {
 	padding: 4px;
 	width: 97.4%;
     min-height: 550px;
 }
 
-.placeholder {
+.edit-note .placeholder {
 	color: rgb(153, 153, 153);
 	position: absolute;
 	top: 5px;
@@ -143,21 +211,21 @@
 
 /* Select2 Styles */
 
-.Select-control {
+.edit-note .Select-control {
     border-radius: 0;
     border: 0;
 }
 
-.Select-placeholder,
-.Select--single > .Select-control .Select-value {
+.edit-note .Select-placeholder,
+.edit-note .Select--single > .Select-control .Select-value {
     line-height: 30px;
 }
 
-.Select-placeholder {
+.edit-note .Select-placeholder {
     padding: 0 0 0 5px;
 }
 
-.Select--multi .Select-value {
+.edit-note .Select--multi .Select-value {
     background: #edf5ff;
     border: 1px solid #b8d8ff;
     color: #086995;

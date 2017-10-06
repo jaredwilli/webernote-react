@@ -1,8 +1,12 @@
 /* LEFT NAV */
 
 .left-nav {
+    background: #f8f8f8;
+    border: 1px solid #B8CDE0;
 	padding: 0;
-	min-width: 70px;
+    height: 670px;
+	/* min-width: 70px; */
+    overflow: hidden;
 	overflow-y: auto;
 }
 
@@ -17,18 +21,15 @@
 
 .left-nav ul ul {
     visibility: hidden;
+    width: 100%;
 }
 
 .left-nav ul .expanded ul {
     visibility: visible;
 }
 
-
-.left-nav ul li {
-	width: 100%;
-}
-
 .left-nav ul ul li {
+    display: block;
 	margin: 1px 0 0 5px;
 }
 

@@ -16,6 +16,7 @@ import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
+import '../styles/note-types.css';
 
 class NotesContainer extends React.PureComponent {
 	constructor(props) {
@@ -41,20 +42,20 @@ class NotesContainer extends React.PureComponent {
 	/**
      * Add event listener
      */
-	componentDidMount() {
-		window.addEventListener('resize', e => {
-			// debugger
-		});
-	}
+	// componentDidMount() {
+	// 	window.addEventListener('resize', e => {
+	// 		// debugger
+	// 	});
+	// }
 
-	/**
-     * Remove event listener
-     */
-	componentWillUnmount() {
-		window.removeEventListener('resize', e => {
-			// debugger
-		});
-	}
+	// /**
+    //  * Remove event listener
+    //  */
+	// componentWillUnmount() {
+	// 	window.removeEventListener('resize', e => {
+	// 		// debugger
+	// 	});
+	// }
 
 	filterByNotebook(notebook) {
 		this.props.actions.resetSelectedNote();
@@ -106,7 +107,7 @@ class NotesContainer extends React.PureComponent {
 		// control the height of boxes
 		let windowHeight = window.innerHeight;
 		let boxes = document.querySelectorAll(
-			'.left-nav, .note-list, .show-note'
+			'.left-nav, .note-list, .edit-note'
 		);
 
 		if (boxes.length) {
