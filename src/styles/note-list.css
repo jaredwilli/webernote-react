@@ -1,7 +1,6 @@
 /* Notes List */
 
 .note-list {
-    background: #f8f8f8;
     background: #bdcad4;
     border: 1px solid #B8CDE0;
     height: 670px;
@@ -9,10 +8,13 @@
     overflow-y: auto;
 }
 
-
 .note-list input,
 .note-list select {
     border: 1px solid #bdcad4;
+}
+
+.note-list .filters {
+    background: #fff;
 }
 
 .note-list .filter,
@@ -23,7 +25,7 @@
 }
 
 .note-list .filter {
-	background-color: #b7eaef;
+	background-color: rgb(216, 227, 228);
 	background-image: -webkit-gradient(linear, left top, left bottom,
         from( rgba(216, 227, 228, 0.9)),
         to( rgba(216, 227, 228, 0.3))
@@ -35,8 +37,8 @@
 }
 
 .note-list .viewing {
-	background: #a2d5e6;
-	border: solid hsla(26, 45%, 54%, 0.4);
+	background: rgba(189, 53, 0, 0.15);
+	border: solid rgba(190, 131, 85, 0.4);
 	border-width: 1px 0;
 	font-size: 14px;
 }
@@ -75,7 +77,7 @@
 
 .note-list .viewing .notebook {
 	border: 1px solid hsla(17, 100%, 37%, 0.12);
-	color: #666;
+	color: #333;
 	font-size: 14px;
     padding: 2px 4px;
     margin-left: 5px;
@@ -87,21 +89,18 @@
 }
 
 
-
-
 /* Notes */
 
 .note-list .notes {
     min-width: 150px;
 }
 
-
 .note-list .notes ul {
     list-style: none;
 }
 
 .note-list .notes li {
-    background: #F6F6F6;
+    background: #FFF;
     border: 1px solid #abb1b3;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -116,11 +115,11 @@
 
 .note-list .notes li:hover,
 .note-list .notes .selected {
-    background: rgba(235, 240, 246, 0.6);
+    /* background: rgba(235, 240, 246, 0.6); */
 	border: 1px solid hsl(206, 90%, 61%);
 
 	background: rgb(235, 241, 246);
-	background: -webkit-gradient(linear, left top, left bottom,
+	/* background: -webkit-gradient(linear, left top, left bottom,
 		color-stop(0%, rgba(235, 241, 246, 1)),
 		color-stop(36%, rgba(213, 235, 251, 1)),
 		color-stop(98%, rgba(182, 213, 234, 1))
@@ -154,7 +153,7 @@
 		startColorstr='#ebf1f6',
 		endColorstr='#b6d5ea',
 		GradientType=0
-	);
+	); */
 }
 
 .note-list .notes .delete {
@@ -184,7 +183,6 @@
 .note-list .notes h2 {
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
 }
 
 .note-list .notes .note-details {
@@ -198,7 +196,7 @@
 	display: inline-block;
 	margin-right: 5px;
     padding: 10px;
-    vertical-align: text-bottom;
+    vertical-align: bottom;
 }
 
 .note-list .notes .date {

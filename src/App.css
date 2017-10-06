@@ -51,13 +51,14 @@
 .loginout button {
     background: none;
     border: 0;
-    color: hsl(199, 89%, 31%);
+    color: #E91E63;
     font-size: 13px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .loginout button:hover {
+    color: #03A9F4;
     text-decoration: underline;
 }
 

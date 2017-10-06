@@ -1,8 +1,7 @@
 /* Edit Note */
 
 .edit-note {
-    background: #f8f8f8;
-    background: #d0d0d0;
+    background: #bdcad4;
     border: 1px solid #B8CDE0;
     width: 100%;
     height: 670px;
@@ -39,14 +38,14 @@
 .edit-note .mid,
 .edit-note .bottom {
 	background-color: rgb(216, 227, 228);
-	background-image: -webkit-gradient(linear, left top, left bottom,
+	/* background-image: -webkit-gradient(linear, left top, left bottom,
     from( rgba(216, 227, 228, 0.9)),
     to( rgba(216, 227, 228, 0.3))
 	);
 	background-image: -webkit-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
 	background-image:    -moz-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
 	background-image:      -o-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
-	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3)); */
 }
 
 
@@ -189,9 +188,9 @@
 .edit-note textarea,
 .edit-note textarea:active {
     font-size: 14px;
-    padding: 5px;
-    width: 97.6%;
-    height: 520px;
+    /* padding: 5px; */
+    /* width: 97.6%; */
+    /* height: 520px; */
     resize: none;
 }
 

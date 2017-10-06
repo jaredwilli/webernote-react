@@ -164,6 +164,7 @@ class NotebooksContainer extends React.PureComponent {
                             onClick={(e) => this.setState({ addNotebook: false })}>x
                         </button>
                         <input type="text" name="notebook" className="new-notebook"
+                            autoFocus={true}
                             placeholder="Notebook name"
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />

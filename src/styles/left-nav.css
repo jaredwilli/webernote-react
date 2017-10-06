@@ -1,11 +1,10 @@
 /* LEFT NAV */
 
 .left-nav {
-    background: #f8f8f8;
+    background: #fff;
     border: 1px solid #B8CDE0;
 	padding: 0;
     height: 670px;
-	/* min-width: 70px; */
     overflow: hidden;
 	overflow-y: auto;
 }
@@ -35,7 +34,7 @@
 
 .left-nav li > div {
 	background: url('../img/arrow.png') no-repeat 1px 4px;
-    color: hsl(199, 89%, 31%);
+    color: #068dcc;
 	text-decoration: none;
     padding: 0 0 0 14px;
     line-height: 16px;
@@ -43,6 +42,7 @@
 }
 
 .left-nav li > a {
+    color: #068dcc;
     font-weight: normal;
 }
 

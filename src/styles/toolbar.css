@@ -1,19 +1,18 @@
 /* TOOLBAR NAV */
 
 .toolbar {
-	/*width: 50%;
-	float: left;*/
+    background: #03A9F4;
 	display: block;
 	width: 100%;
 
-	background: rgb(135,224,253);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(135,224,253,1)), color-stop(40%,rgba(83,203,241,1)), color-stop(100%,rgba(5,171,224,1)));
+	/* background: rgb(135,224,253); */
+	/* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(135,224,253,1)), color-stop(40%,rgba(83,203,241,1)), color-stop(100%,rgba(5,171,224,1)));
 	background: -webkit-linear-gradient(top, rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%);
 	background: -moz-linear-gradient(top, rgba(135,224,253,1) 0%, rgba(83,203,241,1) 40%, rgba(5,171,224,1) 100%);
 	background: -ms-linear-gradient(top, rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%);
 	background: -o-linear-gradient(top, rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%);
 	background: linear-gradient(to bottom, rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=0 ); */
 }
 
 .toolbar ul {
@@ -26,57 +25,14 @@
 
 .toolbar li {
     display: inline-block;
-    width: auto;
+
 }
 
-/* .toolbar .new-note {
-	background: rgba(255, 15, 15, 0.7);
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-.toolbar .new-note:hover {
-    background: hsla(22, 100%, 53%, 1);
-}
-
-.toolbar .new-note:hover button .plus {
-    background: #d63100;
-}
-
-.toolbar .new-note button {
-    background: transparent;
-	border: 1px solid #7c0607;
-	color: #fff;
-	text-shadow: -1px -1px 0 hsla(0, 92%, 25%, 0.9), 1px 1px 0 hsla(12, 81%, 54%, 0.75);
-	cursor: pointer;
-	padding: 4px 10px 4px 0;
-	vertical-align: middle;
-	line-height: 20px;
-    overflow: hidden;
-}
-
-.toolbar .new-note button .plus {
-    background: rgba(113, 4, 4, 0.85);
-	border-right: 1px solid rgba(39, 0, 0, 0.88);
-	font-size: 20px;
-	line-height: 18px;
-	vertical-align: top;
-	padding: 4px 10px;
-	position: relative;
-	margin: 0 10px 0 0;
-	-webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.25);
-	box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.25);
-}
-
-.toolbar .new-note:hover button .plus {
-	border-right: 1px solid rgb(185, 74, 0, 0.5);
-} */
 
 /* NEW NOTE Styles */
 
 .toolbar .new-note {
-	background: rgb(214, 9, 141);
+	background: #E91E63;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -85,28 +41,30 @@
 .toolbar .new-note button {
 	background: none;
 	border: 0;
-	border-left: 1px solid #92cfe4;
+	border-left: 1px solid #000;
 	color: #fff;
-	text-shadow: -1px -1px 0 hsla(0, 1%, 20%, 0.9), 1px 1px 0 hsla(335, 81%, 54%, 0.9);
+    font-size: 14px;
 	cursor: pointer;
 	padding: 5px 50px 5px 15px;
 	vertical-align: middle;
 	line-height: 20px;
-	overflow: hidden;
+    overflow: hidden;
+
+    -webkit-box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.52);
+            box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.52);
 }
 
 .toolbar .new-note button .plus {
-	background: rgb(0, 5, 148);
+	background: #03A9F4;
 	border-left: 1px solid rgb(243, 158, 212);
 	font-size: 20px;
-	text-shadow: -1px -1px 0 hsl(0, 1%, 17%), 1px 1px 0 hsla(235, 81%, 54%, 0.9);
 	position: absolute;
 	top: 0;
 	right: 0;
 	padding: 4px 10px 6px;
 	margin: 0 0 0 10px;
-	-webkit-box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.25);
-	        box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.25);
+	-webkit-box-shadow: -1px 0px 0 0 rgb(0, 0, 0);
+	        box-shadow: -1px 0px 0 0 rgb(0, 0, 0);
 }
 
 .toolbar .new-note:hover {
@@ -114,10 +72,7 @@
 }
 
 .toolbar .new-note:hover button .plus {
-    background: #d63100;
-}
-
-.toolbar .new-note:hover button .plus {
+    background: #0471a5;
 	border-left: 1px solid rgb(185, 74, 0, 0.5);
 }
 
@@ -125,19 +80,18 @@
 /* TOOLBAR LINKS */
 
 .toolbar a {
-    color: hsl(85, 88%, 96%);
-    text-shadow: -1px -1px 1px hsla(183, 41%, 40%, 0.7),
-    			  1px 1px 0 hsl(201, 100%, 44%);
+    border-right: 1px solid #000;
+    color: #fff;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     padding: 4px 10px;
+
+    -webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+            box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
 }
 
 .toolbar a:hover {
-	background: rgba(14, 188, 255, 0.74);
+	background: #E91E63;
+    color: #fff;
 }
-
-/* .toolbar .new-note button:hover {
-	background: transparent;
-} */

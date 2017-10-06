@@ -91,7 +91,6 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	addNote(e) {
-		// this.props.actions.resetSelectedNotebook();
 		this.props.actions.resetSelectedNote();
 		this.props.actions.addNote();
 	}
@@ -105,18 +104,18 @@ class NotesContainer extends React.PureComponent {
 		const user = this.props.user;
 		let notes = this.props.notes;
 		// control the height of boxes
-		let windowHeight = window.innerHeight;
-		let boxes = document.querySelectorAll(
-			'.left-nav, .note-list, .edit-note'
-		);
+		// let windowHeight = window.innerHeight;
+		// let boxes = document.querySelectorAll(
+		// 	'.left-nav, .note-list, .edit-note'
+		// );
 
-		if (boxes.length) {
-			if (windowHeight < boxes[0].clientHeight) {
-				boxes.forEach(box => {
-					box.style.height = windowHeight - 100 + 'px';
-				});
-			}
-		}
+		// if (boxes.length) {
+		// 	if (windowHeight < boxes[0].clientHeight) {
+		// 		boxes.forEach(box => {
+		// 			box.style.height = windowHeight - 100 + 'px';
+		// 		});
+		// 	}
+		// }
 
 		if (!notes) {
 			return (
@@ -137,14 +136,13 @@ class NotesContainer extends React.PureComponent {
 			notebook: this.state.notebookFilter
 		});
 
-		return (
-			<div>
-				<FloatingButton
+				{/* <FloatingButton
 					click={e => this.addNote(e)}
 					class="add-note"
 					mini={true}
-				/>
-
+				/> */}
+		return (
+			<div>
 				<div className="wrapper">
 					<nav className="toolbar">
 						<ul>
