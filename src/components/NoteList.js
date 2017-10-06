@@ -17,7 +17,7 @@ class NoteList extends Component {
         this.deleteNote = this.deleteNote.bind(this);
 
         this.state = {
-            searchTerm: '',
+            searchFilter: '',
             filterType: ''
         };
     }
@@ -43,7 +43,7 @@ class NoteList extends Component {
                         Search type:
                         <select name="filterType" className="filter-type"
                             value={this.props.filterType || 'Description'}
-                            onChange={(e) => this.props.setFilterType(e)}>
+                            onChange={(e) => this.props.filterType(e)}>
                             <option>Title</option>
                             <option>Description</option>
                             <option>Url</option>
@@ -53,8 +53,8 @@ class NoteList extends Component {
                         </select>
 
                         <input type="text" name="search" placeholder="Search" className="search"
-                            value={this.props.search}
-                            onChange={(e) => this.props.filterList(e)} />
+                            value={this.props.searchFilter}
+                            onChange={(e) => this.props.search(e)} />
                     </div>
                     <div className="viewing">
                         <span className="viewtext">

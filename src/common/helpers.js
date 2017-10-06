@@ -1,9 +1,37 @@
 // helper functions
 
 /**
+ * validateUid
+ *
+ * @param {Object} obj
+ * @param {Object} user
+ */
+export function validateUid(obj, user) {
+    console.log(user);
+    console.log(obj);
+
+    return user && user.uid === obj.uid;
+}
+
+/**
+ * refToArray
+ *
+ * @param {Object} snap
+ */
+export function refToArray(snap) {
+    let newSnap = '';
+    if (snap) {
+        newSnap = Object.keys(snap).map((s) => {
+            return snap[s];
+        });
+    }
+    return newSnap;
+}
+
+/**
  * formatDate
- * 
- * @param {Date} timeStamp 
+ *
+ * @param {Date} timeStamp
  */
 export function formatDate(timeStamp) {
     var date = new Date(timeStamp);
@@ -12,12 +40,12 @@ export function formatDate(timeStamp) {
 
 /**
  * shorten
- * 
+ *
  * @description
  * Truncate text and add an ellipsis to the end of it.
- * 
- * @param {String} text 
- * @param {Number} maxLength 
+ *
+ * @param {String} text
+ * @param {Number} maxLength
  */
 export function shorten(text, maxLength) {
     var ret = text;
@@ -29,7 +57,7 @@ export function shorten(text, maxLength) {
 
 /**
  * guid
- * 
+ *
  * @description
  * Generates a unique ID.
  */
@@ -39,31 +67,31 @@ export function guid() {
             .toString(16)
             .substring(1);
     }
-    
+
 	return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
 }
 
 /**
  * uniq
- * 
- * @description 
+ *
+ * @description
  * Remove duplicate objects from an array.
  * https://stackoverflow.com/a/36744732/297765
- * 
- * @param {Array} thing 
+ *
+ * @param {Array} thing
  * @returns {Array} thing a unique array of objects.
  */
 export function uniq(thing) {
     thing = thing.filter((thing, index, self) => self.findIndex((t) => {
-        return t.id === thing.id && t.label === thing.label; 
-    }) === index);    
+        return t.id === thing.id && t.label === thing.label;
+    }) === index);
     return thing;
 }
 
 /**
  * checkIfUserExists
- * 
- * @param {Object} authData 
+ *
+ * @param {Object} authData
  */
 export function checkIfUserExists(authData, userRef) {
 	return userRef

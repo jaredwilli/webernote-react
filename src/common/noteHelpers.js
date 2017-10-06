@@ -24,7 +24,7 @@ export function sortNotes(notes) {
  * @param {Array} notes
  * @returns {Object} obj with notebook name and note count using it
  */
-export function getNotebookCount(notebook, notes, user) {
+export function getNotebookCount(notebook, notes) {
     let count = 0;
 
     // iterate over notes
@@ -54,7 +54,7 @@ export function getNotebookCount(notebook, notes, user) {
  * @param {Array} notes
  * @returns {Object} obj with tag name and note count using it
  */
-export function getTagCount(tag, notes, user) {
+export function getTagCount(tag, notes) {
     let count = 0;
 
     // iterate over notes
@@ -84,6 +84,7 @@ export function getTagCount(tag, notes, user) {
  */
 export function getTags(noteTags) {
     let tags = '';
+
     if (noteTags) {
         tags = noteTags.map((t) =>
             <span key={t.id} className="Select-value">
@@ -96,11 +97,8 @@ export function getTags(noteTags) {
 
     return (
         <div className="Select tags Select--multi has-value">
-            <span className="Select-multi-value-wrapper" id="react-select-2--value">
-                {tags}
-            </span>
+            {tags}
         </div>
-
     );
 }
 
@@ -224,41 +222,17 @@ export function getSelectedNotebook(e, notebooks) {
  * @param {Object} data
  * @param {Object} filter
  */
-export function filterData(user, data, filters) {
-    if (user) {
-        data = data.filter((d) => {
-            return d.uid === user.uid;
-        });
-    } else {
-        data = data.filter((d) => {
-            return d.uid === undefined || d.uid === null;
-        });
-    }
-
-    if (filters) {
+export function filterData(data, filters) {
+    if (data && filters) {
         let filterKeys = Object.keys(filters);
         // Loop over the filterKeys
         filterKeys.forEach((filterKey) => {
-            // If user exists get filter just theirs
-            if (user) {
-                data = data.filter((d) => {
-                    if (filters[filterKey].id === 'all_notebooks') {
-                        return d;
-                    }
-
-                    return d[filterKey].uid === user.uid &&
-                        d[filterKey].id === filters[filterKey].id;
-                });
-            } else {
-                data = data.filter((d) => {
-                    if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
-                        // if data has the filter return those with same id
-                        return d[filterKey].id === filters[filterKey].id;
-                    }
-
-                    return d;
-                });
-            }
+            data = data.filter((d) => {
+                if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
+                    // if data has the filter return those with same id
+                    return d[filterKey].id === filters[filterKey].id;
+                }
+            });
 
             return data;
         });

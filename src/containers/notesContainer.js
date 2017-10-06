@@ -26,12 +26,16 @@ class NotesContainer extends React.PureComponent {
 		this.deleteNote = this.deleteNote.bind(this);
 
 		this.filterByNotebook = this.filterByNotebook.bind(this);
-		this.filterList = this.filterList.bind(this);
 		this.setFilterType = this.setFilterType.bind(this);
+		this.filterSearch = this.filterSearch.bind(this);
 
 		this.state = {
 			selectedNote: this.props.selectedNote,
-			notebookFilter: {
+			filterType: {
+
+            },
+
+            notebookFilter: {
 				name: 'All notebooks',
 				id: 'all_notebooks'
 			},
@@ -59,35 +63,39 @@ class NotesContainer extends React.PureComponent {
 
 	filterByNotebook(notebook) {
 		this.props.actions.resetSelectedNote();
-		this.setState({
+
+        this.setState({
 			notebookFilter: notebook
 		});
 	}
 
-	setFilterType(e) {
-		debugger;
-		let filterType = e.target.name;
-		let updatedList = this.state.initialNotes;
-		console.log(filterType, updatedList);
+	setFilterType(filterType) {
+        this.props.actions.resetSelectedNote();
+
+		this.setState({
+			filterType: filterType
+        });
+
+		console.log(filterType);
 	}
 
-	filterList(e) {
-		debugger;
+	filterSearch(searchFilter) {
+        let notes = this.props.notes;
+
+        // debugger;
 		// TODO: Get the filterType for controlling what to filter based on
 
-		let updatedList = this.state.initialNotes;
+		// let updatedList = this.state.initialNotes;
 
-		updatedList = updatedList.filter(function(note) {
-			return (
-				note.description
-					.toLowerCase()
-					.search(e.target.value.toLowerCase()) !== -1
-			);
+		let updatedList = notes.filter((note) => {
+			return note.description.toLowerCase().search(searchFilter.toLowerCase()) !== -1;
 		});
 
 		this.setState({
-			currentNotes: updatedList
-		});
+			notes: updatedList
+        });
+
+        console.log(searchFilter, updatedList);
 	}
 
 	addNote(e) {
@@ -136,11 +144,6 @@ class NotesContainer extends React.PureComponent {
 			notebook: this.state.notebookFilter
 		});
 
-				{/* <FloatingButton
-					click={e => this.addNote(e)}
-					class="add-note"
-					mini={true}
-				/> */}
 		return (
 			<div>
 				<div className="wrapper">
@@ -169,14 +172,10 @@ class NotesContainer extends React.PureComponent {
 								<td className="middle note-list-col">
 									<NoteList
 										notes={notes}
-										deleteNote={note =>
-											this.deleteNote(note)}
-										filterByNotebook={notebook =>
-											this.filterByNotebook(notebook)}
-										filterList={filter =>
-											this.filterList(filter)}
-										setFilterType={type =>
-											this.setFilterType(type)}
+										deleteNote={(note) => this.deleteNote(note)}
+										filterByNotebook={(notebook) => this.filterByNotebook(notebook)}
+                                        filterSearch={(searchFilter) => this.search(searchFilter)}
+										setFilterType={(type) => this.setFilterType(type)}
 									/>
 								</td>
 								<td className="edit-note-col">
