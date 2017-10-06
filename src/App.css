@@ -123,18 +123,14 @@
     height: 670px;
 }
 
-.note-list {
-    overflow-y: auto;
-}
-
 .left-nav,
 .note-list,
 .show-note {
     background: #f8f8f8;
 	border: 1px solid #B8CDE0;
 
-	-webkit-box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.4);
-			box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.4);
+	/* -webkit-box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.4);
+			box-shadow: 0 0 2px 0 rgba(100, 100, 100, 0.4); */
 }
 
 

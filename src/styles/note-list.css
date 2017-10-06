@@ -2,6 +2,7 @@
 
 .notes-list {
     background: #bdcad4;
+    overflow-y: auto;
 }
 
 .note-list .filter input {
