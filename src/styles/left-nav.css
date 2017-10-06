@@ -1,0 +1,72 @@
+/* LEFT NAV */
+
+.left-nav {
+	padding: 0;
+	min-width: 70px;
+	overflow-y: auto;
+}
+
+.left-nav nav {
+    display: block;
+    margin: 5px 0 0 5px;
+}
+
+.left-nav ul {
+	margin-bottom: 10px;
+}
+
+.left-nav ul ul {
+    visibility: hidden;
+}
+
+.left-nav ul .expanded ul {
+    visibility: visible;
+}
+
+
+.left-nav ul li {
+	width: 100%;
+}
+
+.left-nav ul ul li {
+	margin: 1px 0 0 5px;
+}
+
+.left-nav li > div {
+	background: url('../img/arrow.png') no-repeat 1px 4px;
+    color: hsl(199, 89%, 31%);
+	text-decoration: none;
+    padding: 0 0 0 14px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.left-nav li > a {
+    font-weight: normal;
+}
+
+.left-nav li > div:hover,
+.left-nav li > a:hover {
+	text-decoration: underline;
+}
+
+.left-nav li.tag-link > div {
+	background: none;
+}
+
+.left-nav li.expanded > div {
+    background-position: 1px -10px;
+    line-height: 16px;
+}
+
+.left-nav li .count {
+	color: #999;
+}
+
+.left-nav li .count:before {
+	content: '(';
+}
+
+.left-nav li .count:after {
+	content: ')';
+}

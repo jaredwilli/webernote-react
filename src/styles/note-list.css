@@ -1,0 +1,200 @@
+/* Notes List */
+
+.notes-list {
+    background: #bdcad4;
+}
+
+.note-list .filter input {
+    padding: 4px 4px 3px;
+}
+
+.note-list input,
+.note-list select {
+    border: 1px solid #bdcad4;
+}
+
+.note-list .viewing {
+	background: hsla(17, 100%, 37%, 0.12);
+	border: solid hsla(26, 45%, 54%, 0.4);
+	border-width: 1px 0;
+	font-size: 14px;
+}
+
+.note-list .viewing select {
+	border: 1px solid hsla(17, 100%, 37%, 0.12);
+	color: #666;
+	font-size: 14px;
+    padding: 2px 4px;
+    margin-left: 5px;
+}
+
+.note-list .filter-type,
+.note-list .viewing select {
+    height: 22px;
+	width: 150px;
+}
+
+.note-list .filter-type {
+    width: 100px;
+    margin: 0 5px;
+}
+
+
+/* Notes */
+
+.notes {
+    min-width: 150px;
+}
+
+.notes li {
+    background: #F6F6F6;
+	position: relative;
+}
+
+.notes .delete,
+.show-note .cancel-new {
+    background: rgba(80, 80, 80, 0.75);
+	border: 1px ridge #666c6d;
+	border-radius: 12px;
+	color: #fff;
+	text-shadow: -1px -1px 0 rgb(53, 53, 53);
+	font-size: 10px;
+	font-weight: bold;
+	font-family: 'Helvetica';
+	cursor: pointer;
+	padding: 3px 6px;
+	-webkit-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+    -moz-box-shadow: 0 0 2px 0 rgba(94, 0, 0, 0.4);
+	-o-box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+	box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.73);
+}
+
+.notes .delete {
+	position: absolute;
+	right: 5px;
+	display: none;
+}
+
+.notes li:hover {
+	cursor: pointer;
+}
+
+.notes li:hover .delete {
+	display: inline-block;
+}
+
+.notes .date {
+	color: rgb(190, 190, 190);
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.notes .tag-item {
+    color: #086995; /* color: rgb(157, 183, 252); */
+    margin-right: 5px;
+}
+
+.notes ul {
+    list-style: none;
+}
+
+.notes li {
+    border: 1px solid #d0d0d0;
+    -webkit-border-radius: 2px;
+			border-radius: 2px;
+	display: block;
+	width: 96.5%;
+	min-height: 50px;
+	margin: 4px 4px 2px;
+	padding: 5px;
+}
+
+.notes li:hover,
+.notes .selected {
+    background: rgba(235, 240, 246, 0.6);
+	border: 1px solid hsl(206, 90%, 61%);
+
+	background: rgb(235, 241, 246);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, rgba(235, 241, 246, 1)),
+		color-stop(36%, rgba(213, 235, 251, 1)),
+		color-stop(98%, rgba(182, 213, 234, 1))
+	);
+	background: -webkit-linear-gradient(top,
+		rgba(235, 241, 246, 1) 0%,
+		rgba(213, 235, 251, 1) 36%,
+		rgba(182, 213, 234, 1) 98%
+	);
+	background: -moz-linear-gradient(top,
+		rgba(235, 241, 246, 1) 0%,
+		rgba(213, 235, 251, 1) 36%,
+		rgba(182, 213, 234, 1) 98%
+	);
+	background: -ms-linear-gradient(top,
+		rgba(235, 241, 246, 1) 0%,
+		rgba(213, 235, 251, 1) 36%,
+		rgba(182, 213, 234, 1) 98%
+	);
+	background: -o-linear-gradient(top,
+		rgba(235, 241, 246, 1) 0%,
+		rgba(213, 235, 251, 1) 36%,
+		rgba(182, 213, 234, 1) 98%
+	);
+	background: linear-gradient(to bottom,
+		rgba(235, 241, 246, 1) 0%,
+		rgba(213, 235, 251, 1) 36%,
+		rgba(182, 213, 234, 1) 98%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient(
+		startColorstr='#ebf1f6',
+		endColorstr='#b6d5ea',
+		GradientType=0
+	);
+}
+
+.notes li.delete {
+	border-color: #ff1a00;
+
+	background: rgb(241, 111, 92);
+	background: -moz-linear-gradient(top,
+		rgba(241, 111, 92, 1) 0%,
+		rgba(248, 80, 50, 1) 100%
+	);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, rgba(241, 111, 92, 1)),
+		color-stop(100%, rgba(248, 80, 50, 1))
+	);
+	background: -webkit-linear-gradient(top,
+		rgba(241, 111, 92, 1) 0%,
+		rgba(248, 80, 50, 1) 100%
+	);
+	background: -o-linear-gradient(top,
+		rgba(241, 111, 92, 1) 0%,
+		rgba(248, 80, 50, 1) 100%
+	);
+	background: -ms-linear-gradient(top,
+		rgba(241, 111, 92, 1) 0%,
+		rgba(248, 80, 50, 1) 100%);
+	background: linear-gradient(to bottom,
+		rgba(241, 111, 92, 1) 0%,
+		rgba(248, 80, 50, 1) 100%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient(
+		startColorstr='#f16f5c',
+		endColorstr='#f85032',
+		GradientType=0
+	);
+}
+
+.notes h2 {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.notes .note-details {
+	max-height: 95px;
+	overflow: hidden;
+}
+
+

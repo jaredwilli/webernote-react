@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as noteActions from '../actions/noteActions';
-// import * as notebookActions from '../actions/notebookActions';
 
 import NotebookContainer from '../containers/notebooksContainer';
 import Note from './Note';
+
+import '../styles/note-list.css';
 
 class NoteList extends Component {
     constructor(props, context) {

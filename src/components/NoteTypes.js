@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import '../styles/toolbar.css';
+
 class NoteTypes extends Component {
     render() {
         return (

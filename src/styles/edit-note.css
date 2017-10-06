@@ -1,0 +1,164 @@
+/* SHOW NOTE */
+
+.show-note {
+    background: #d0d0d0;
+    width: 100%;
+}
+
+.show-note form {
+    position: relative;
+}
+
+.note-list .filter,
+.note-list .viewing,
+.show-note .top,
+.show-note .mid {
+	display: block;
+	padding: 5px;
+	width: 100%;
+}
+
+.show-note .top {
+    position: relative;
+    padding: 0;
+}
+
+.show-note .mid {
+    padding: 0;
+}
+
+.show-note .bottom {
+    background: #fff;
+}
+
+/* TODO: fix this */
+.note-list .filter,
+.show-note .top,
+.show-note .mid,
+.show-note .bottom {
+	background-color: rgb(216, 227, 228);
+	background-image: -webkit-gradient(linear, left top, left bottom,
+    from( rgba(216, 227, 228, 0.9)),
+    to( rgba(216, 227, 228, 0.3))
+	);
+	background-image: -webkit-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+	background-image:    -moz-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+	background-image:      -o-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+}
+
+.show-note .top,
+.show-note .mid {
+    padding-bottom: 2px;
+}
+
+/* NOTE Parts */
+
+.show-note h2 {
+	display: inline-block;
+	min-width: 100px;
+	max-width: 200px;
+	padding: 0 5px;
+}
+
+.notes-list .filter-type,
+.show-note .title,
+.show-note .url,
+.show-note .notebook,
+.show-note .new-notebook,
+.show-note .tags,
+.show-note .description {
+    border: 1px solid rgb(190, 202, 213);
+}
+
+.show-note .title,
+.show-note .url,
+.show-note .new-notebook {
+    padding: 5px;
+}
+
+.show-note .title {
+	position: relative;
+	width: 60%;
+	margin: 0;
+}
+
+.show-note .new-notebook {
+    display: inline-block;
+	position: absolute;
+	padding: 0 3px;
+    height: 27px;
+    width: 35.2%;
+}
+
+.show-note .cancel-new {
+	position: absolute;
+	right: 0;
+	z-index: 1;
+    vertical-align: top;
+    padding: 1px 5px 3px 5px;
+}
+
+.show-note .url,
+.show-note .tags {
+    display: inline-block;
+    margin: 0;
+}
+
+.show-note .url {
+    font-size: 14px;
+    padding: 7px 5px;
+    margin: 0;
+    width: 97%;
+}
+
+.show-note .tags {
+    margin: 2px 0 0 0;
+    width: 99.3%;
+    vertical-align: top;
+}
+
+.show-note textarea,
+.show-note textarea:active {
+    font-size: 14px;
+    padding: 5px;
+    width: 97.6%;
+    height: 520px;
+    resize: none;
+}
+
+.show-note .description {
+	padding: 4px;
+	width: 97.4%;
+    min-height: 550px;
+}
+
+.placeholder {
+	color: rgb(153, 153, 153);
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+
+/* Select2 Styles */
+
+.Select-control {
+    border-radius: 0;
+    border: 0;
+}
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+    line-height: 30px;
+}
+
+.Select-placeholder {
+    padding: 0 0 0 5px;
+}
+
+.Select--multi .Select-value {
+    background: #edf5ff;
+    border: 1px solid #b8d8ff;
+    color: #086995;
+}
