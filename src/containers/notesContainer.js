@@ -10,152 +10,205 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 import AddNote from '../components/AddNote';
 
+import FloatingButton from '../components/FloatingButton';
+
 import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
 
 class NotesContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.addNote = this.addNote.bind(this);
-        this.deleteNote = this.deleteNote.bind(this);
+		this.addNote = this.addNote.bind(this);
+		this.deleteNote = this.deleteNote.bind(this);
 
-        this.filterByNotebook = this.filterByNotebook.bind(this);
-        this.filterList = this.filterList.bind(this);
-        this.setFilterType = this.setFilterType.bind(this);
+		this.filterByNotebook = this.filterByNotebook.bind(this);
+		this.filterList = this.filterList.bind(this);
+		this.setFilterType = this.setFilterType.bind(this);
 
-        this.state = {
-            selectedNote: this.props.selectedNote,
-            notebookFilter: {
-                name: 'All notebooks',
-                id: 'all_notebooks'
-            },
-            notes: []
-        }
-    }
+		this.state = {
+			selectedNote: this.props.selectedNote,
+			notebookFilter: {
+				name: 'All notebooks',
+				id: 'all_notebooks'
+			},
+			notes: []
+		};
+	}
 
-    filterByNotebook(notebook) {
-        this.props.actions.resetSelectedNote();
-        this.setState({
-            notebookFilter: notebook
-        });
-    }
+	/**
+     * Add event listener
+     */
+	componentDidMount() {
+		window.addEventListener('resize', e => {
+			// debugger
+		});
+	}
 
-    setFilterType(e) {
-        debugger
-        let filterType = e.target.name;
-        let updatedList = this.state.initialNotes;
-        console.log(filterType, updatedList);
-    }
+	/**
+     * Remove event listener
+     */
+	componentWillUnmount() {
+		window.removeEventListener('resize', e => {
+			// debugger
+		});
+	}
 
-    filterList(e) {
-        debugger
-        // TODO: Get the filterType for controlling what to filter based on
+	filterByNotebook(notebook) {
+		this.props.actions.resetSelectedNote();
+		this.setState({
+			notebookFilter: notebook
+		});
+	}
 
-        let updatedList = this.state.initialNotes;
+	setFilterType(e) {
+		debugger;
+		let filterType = e.target.name;
+		let updatedList = this.state.initialNotes;
+		console.log(filterType, updatedList);
+	}
 
-        updatedList = updatedList.filter(function(note) {
-            return note.description
-                .toLowerCase()
-                .search(e.target.value.toLowerCase()) !== -1;
-        });
+	filterList(e) {
+		debugger;
+		// TODO: Get the filterType for controlling what to filter based on
 
-        this.setState({
-            currentNotes: updatedList
-        });
-    }
+		let updatedList = this.state.initialNotes;
 
-    addNote(e) {
-        // this.props.actions.resetSelectedNotebook();
-        this.props.actions.resetSelectedNote();
-        this.props.actions.addNote();
-    }
+		updatedList = updatedList.filter(function(note) {
+			return (
+				note.description
+					.toLowerCase()
+					.search(e.target.value.toLowerCase()) !== -1
+			);
+		});
 
-    deleteNote(note) {
-        // this.props.actions.resetSelectedNote();
-        this.props.actions.deleteNote(note);
-    }
+		this.setState({
+			currentNotes: updatedList
+		});
+	}
 
-    render() {
-        const user = this.props.user;
-        let notes = this.props.notes;
+	addNote(e) {
+		// this.props.actions.resetSelectedNotebook();
+		this.props.actions.resetSelectedNote();
+		this.props.actions.addNote();
+	}
 
-        if (!notes) {
-            return (
-                <div className="big-loader">
-                    <ReactLoading className="loader" type="spinningBubbles" color="#ccc" height="500px" width="300px" />
-                </div>
-            );
-        }
+	deleteNote(note) {
+		// this.props.actions.resetSelectedNote();
+		this.props.actions.deleteNote(note);
+	}
 
-        // Filter notes for current user
-        notes = filterData(user, notes, {
-            notebook: this.state.notebookFilter
-        });
+	render() {
+		const user = this.props.user;
+		let notes = this.props.notes;
+		// control the height of boxes
+		let windowHeight = window.innerHeight;
+		let boxes = document.querySelectorAll(
+			'.left-nav, .note-list, .show-note'
+		);
 
-        return (
-            <div>
-                <div className="wrapper">
-                    <nav className="toolbar">
-                        <ul>
-                            <li><a href="">File</a></li>
-                            <li><a href="">Edit</a></li>
-                            <li><a href="">View</a></li>
-                            <li><a href="">Note</a></li>
-                            <li><a href="">Tools</a></li>
-                            <li><a href="">Help</a></li>
-                            <li className="new-note">
-                                <AddNote addNote={(e) => this.addNote(e)} />
-                            </li>
-                        </ul>
-                    </nav>
-                    <nav className="note-types">
-                        <NoteTypes />
-                    </nav>
-                    <table id="resizable" className="resizable">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <NoteNav />
-                                </td>
-                                <td className="middle note-list-col">
-                                    <NoteList notes={notes}
-                                        deleteNote={(note) => this.deleteNote(note)}
-                                        filterByNotebook={(notebook) => this.filterByNotebook(notebook)}
-                                        filterList={(filter) => this.filterList(filter)}
-                                        setFilterType={(type) => this.setFilterType(type)} />
-                                </td>
-                                <td className="edit-note-col">
-                                    <EditNote notes={notes} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        );
-    }
+		if (boxes.length) {
+			if (windowHeight < boxes[0].clientHeight) {
+				boxes.forEach(box => {
+					box.style.height = windowHeight - 100 + 'px';
+				});
+			}
+		}
+
+		if (!notes) {
+			return (
+				<div className="big-loader">
+					<ReactLoading
+						className="loader"
+						type="spinningBubbles"
+						color="#ccc"
+						height="500px"
+						width="300px"
+					/>
+				</div>
+			);
+		}
+
+		// Filter notes for current user
+		notes = filterData(user, notes, {
+			notebook: this.state.notebookFilter
+		});
+
+		return (
+			<div>
+				<FloatingButton
+					click={e => this.addNote(e)}
+					class="add-note"
+					mini={true}
+				/>
+
+				<div className="wrapper">
+					<nav className="toolbar">
+						<ul>
+							<li><a href="">File</a></li>
+							<li><a href="">Edit</a></li>
+							<li><a href="">View</a></li>
+							<li><a href="">Note</a></li>
+							<li><a href="">Tools</a></li>
+							<li><a href="">Help</a></li>
+							<li className="new-note">
+								<AddNote addNote={e => this.addNote(e)} />
+							</li>
+						</ul>
+					</nav>
+					<nav className="note-types">
+						<NoteTypes />
+					</nav>
+					<table id="resizable" className="resizable">
+						<tbody>
+							<tr>
+								<td>
+									<NoteNav />
+								</td>
+								<td className="middle note-list-col">
+									<NoteList
+										notes={notes}
+										deleteNote={note =>
+											this.deleteNote(note)}
+										filterByNotebook={notebook =>
+											this.filterByNotebook(notebook)}
+										filterList={filter =>
+											this.filterList(filter)}
+										setFilterType={type =>
+											this.setFilterType(type)}
+									/>
+								</td>
+								<td className="edit-note-col">
+									<EditNote notes={notes} />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		);
+	}
 }
 
 function mapStateToProps(state) {
-    const newState = {
-        user: state.userData.user,
-        notes: state.noteData.notes,
-        selectedNote: state.noteData.selectedNote,
-        notebooks: state.notebookData.notebooks,
-        tags: state.tagData.tags
-    };
-    // console.log('STATE: ', state, newState);
+	const newState = {
+		user: state.userData.user,
+		notes: state.noteData.notes,
+		selectedNote: state.noteData.selectedNote,
+		notebooks: state.notebookData.notebooks,
+		tags: state.tagData.tags
+	};
+	// console.log('STATE: ', state, newState);
 
-    return newState;
+	return newState;
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(noteActions, dispatch)
-    };
+	return {
+		actions: bindActionCreators(noteActions, dispatch)
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);

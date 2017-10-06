@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { auth, fbProvider } from '../data/firebase.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import NotesContainer from './notesContainer.js';
+import UserImg from '../components/Avatar';
+import NotesContainer from './notesContainer';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -16,7 +17,7 @@ class AppContainer extends React.PureComponent {
 
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-        
+
         this.state = {
             selectedNote: '',
             notes: [],
@@ -27,7 +28,7 @@ class AppContainer extends React.PureComponent {
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser();
-        
+
     }
 
     logout() {
@@ -37,37 +38,47 @@ class AppContainer extends React.PureComponent {
     }
 
     render() {
-        return (
-            <div>
-                <header>
-                    <div className="loginout">
-                        {this.props.user ?
-                            <div className="user-menu">
-                                <span className="user-meta">
-                                    <img src={this.props.user.photo} alt={this.props.user.displayName} />
-                                    <span className="username">
-                                        {this.props.user.displayName}
-                                    </span>
-                                </span>
-                                <button className="logout" onClick={this.logout}>Logout</button>
-                            </div>
-                        :
-                            <div className="user-menu">
-                                <button className="login" onClick={this.login}>Login</button>
-                            </div>
-                        }
-                    </div>
-                    
-                    <h1><a href="/">Webernote<sup>TM</sup></a></h1>
-                    <span>A TodoApp on steroids...</span>
+        let loginOut = '';
 
-                    <span className="old-versions-nav">
-                        Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
+        if (this.props.user) {
+            loginOut = (
+                <div className="user-menu">
+                    <span className="user-meta">
+                        <UserImg imgSrc={this.props.user.photo} size={25} />
+                        <span className="username">
+                            {this.props.user.displayName}
+                        </span>
                     </span>
-                </header>
+                    <button className="logout" onClick={this.logout}>Logout</button>
+                </div>
+            );
+        } else {
+            loginOut = (
+                <div className="user-menu">
+                    <button className="login" onClick={this.login}>Login</button>
+                </div>
+            );
+        }
 
-                <NotesContainer />
-            </div>
+        return (
+            <MuiThemeProvider>
+                <div>
+                    <header>
+                        <div className="loginout">
+                            {loginOut}
+                        </div>
+
+                        <h1><a href="/">Webernote<sup>TM</sup></a></h1>
+                        <span>A TodoApp on steroids...</span>
+
+                        <span className="old-versions-nav">
+                            Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
+                        </span>
+                    </header>
+
+                    <NotesContainer />
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
@@ -87,7 +98,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     let actions = Object.assign(userActions, noteActions);
-    
+
     return {
         actions: bindActionCreators(actions, dispatch)
     };
