@@ -1,16 +1,21 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
+import { validateUid, refToArray } from '../common/helpers.js';
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
 
 export function getNotebooks() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(getNotebooksRequestedAction());
 
-        const notebooksRef = database.ref('/notebooks');
+        const user = getState().userData.user;
+        const notebooksRef = database.ref('notebooks');
 
         notebooksRef.once('value', (snap) => {
-            const notebooks = snap.val();
+            let notebooks = refToArray(snap.val()).filter((n) => {
+                return validateUid(n, user);
+            });
+
             dispatch(getNotebooksFulfilledAction(notebooks));
         })
         .catch((error) => {
@@ -34,6 +39,7 @@ export function addNotebook(notebook) {
 
         const user = getState().userData.user;
         const notebooksRef = database.ref('notebooks');
+
         let notebookRef = notebooksRef.push();
         notebook = createNewNotebook(notebookRef.key, notebook, user);
 
@@ -111,15 +117,18 @@ export function removeNotebook(notes) {
 
 export function listenForDeletedNotebook() {
     return (dispatch, getState) => {
+        const user = getState().userData.user;
         const notesRef = database.ref('notes');
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
-            const n = snap.val();
+            const note = refToArray(snap.val()).filter((n) => {
+                return validateUid(n, user);
+            });
 
             // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
+            notes = notes.filter((n) => {
+                return n.id !== note.id;
             });
 
             dispatch(removeNotebook(notes));

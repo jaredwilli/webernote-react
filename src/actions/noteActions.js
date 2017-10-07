@@ -9,7 +9,7 @@ import {
     filterData
 } from '../common/noteHelpers.js';
 
-import { uniq } from '../common/helpers.js';
+import { validateUid, refToArray, uniq } from '../common/helpers.js';
 import { deleteNotebook } from '../actions/notebookActions';
 import { deleteTag } from '../actions/tagActions';
 
@@ -22,13 +22,17 @@ export function getState() {
 }
 
 export function getNotes(user) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(getNotesRequestedAction());
 
-        let notesRef = database.ref('notes');
+        const user = getState().userData.user;
+        const notesRef = database.ref('notes');
 
         notesRef.once('value', (snap) => {
-            const notes = snap.val();
+            let notes = refToArray(snap.val()).filter((n) => {
+                return validateUid(n, user);
+            });
+
             dispatch(getNotesFulfilledAction(notes));
         })
         .catch((error) => {
@@ -60,7 +64,6 @@ export function addNote() {
         dispatch(addNoteRequestedAction());
 
         const user = getState().userData.user;
-
         const notesRef = database.ref('notes');
 
         let noteRef = notesRef.push();
@@ -76,8 +79,6 @@ export function editNote(note, obj = null) {
         dispatch(editNoteRequestedAction());
 
         const user = getState().userData.user;
-
-        // refs
         const noteRef = database.ref('notes/' + note.id);
 
         if (!note) {
