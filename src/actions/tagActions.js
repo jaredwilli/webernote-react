@@ -1,15 +1,18 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
+import { validateUid, refToArray, uniq } from '../common/helpers.js';
 import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { uniq } from '../common/helpers';
 
 export function getTags() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(getTagsRequestedAction());
 
         return database.ref('tags').once('value', snap => {
-            const tags = snap.val();
+            // Convert snap to array and filter only valid UID tags
+            let tags = refToArray(snap.val()).filter((t) => {
+                return validateUid(t, getState().userData.user);
+            });
 
             dispatch(getTagsFulfilledAction(tags));
         })
@@ -31,20 +34,16 @@ export function addTag(tags, note) {
     return (dispatch, getState) => {
         dispatch(addTagRequestedAction());
 
-        const user = getState().userData.user;
-
         // Make tag list unique
         tags = uniq(tags);
         let tagList = [];
 
         // Only add new tags but make full tagList
         tags.forEach((tag) => {
-            const tagsRef = database.ref('tags');
-
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
-                const tagRef = tagsRef.push();
-                tag = createNewTag(tagRef.key, tag, note, user);
+                const tagRef = database.ref('tags').push();
+                tag = createNewTag(tagRef.key, tag, note, getState().userData.user);
 
                 tagRef.set(tag);
             }
@@ -61,42 +60,40 @@ export function removeTags(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
-        const user = getState().userData.user;
         const tagsRef = database.ref('tags');
 
         tagsRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const tags = snap.val();
-                let tagsList = [];
+            const tags = refToArray(snap.val()).filter((t) => {
+                return validateUid(t, getState().userData.user);
+            });
+            let tagsList = [];
+debugger;
+            tags.forEach((t) => {
+                let tagCount = getTagCount(t, notes);
 
-                Object.keys(tags).forEach((t) => {
-                    let tag = tags[t];
-                    let tagCount = getTagCount(tag, notes, user);
+                // Remove empty tags
+                if (tagCount.count === 0) {
+                    let tagRef = tagsRef.child(tagCount.tag.id);
+                    // remove tag
+                    tagRef.remove();
+                } else {
+                    tagsList.push(t);
+                }
+            });
 
-                    // Remove empty tags
-                    if (tagCount.count === 0) {
-                        let tagRef = tagsRef.child(tagCount.tag.id);
-                        // remove tag
-                        tagRef.remove();
-                    } else {
-                        tagsList.push(tags[t]);
-                    }
-                });
-
-                dispatch(deleteTagsFulfilledAction(tagsList));
-            }
+            dispatch(deleteTagsFulfilledAction(tagsList));
         });
 	};
 }
 
-export function selectTag(tag) {
+/* export function selectTag(tag) {
     return (dispatch, getState) => {
 
         const tag = getState().tagData.tags.filter(function(n) {
             return n.id = tag.id;
         });
     }
-}
+} */
 
 export function listenForDeletedTags() {
     return (dispatch, getState) => {
@@ -104,11 +101,13 @@ export function listenForDeletedTags() {
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
-            const n = snap.val();
+            const note = refToArray(snap.val()).filter((n) => {
+                return validateUid(n, getState().userData.user);
+            });
 
             // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
+            notes = notes.filter((n) => {
+                return n.id !== note.id;
             });
 
             dispatch(removeTags(notes));

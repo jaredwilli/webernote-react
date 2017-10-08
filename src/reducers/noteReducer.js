@@ -27,28 +27,26 @@ export default function noteReducer(state = {}, action) {
                 success: 'Got notes'
             });
 
-            newState.notes = state.notes;
-
-            if (notes) {
+            if (notes.length) {
                 // Get keys and set id for each note and set selectedNote
-                newState.notes = Object.keys(notes).map(function(n) {
-                    if (notes[n].isEditing) {
-                        selectedNote = notes[n];
+                newState.notes = notes.map((n) => {
+                    if (n.isEditing) {
+                        selectedNote = n;
                     }
 
                     // Convert tag objects to arrays
-                    if (!notes[n].tags) {
-                        notes[n].tags = [];
+                    if (!n.tags) {
+                        n.tags = [];
                     } else {
-                        notes[n].tags = Object.keys(notes[n].tags).map((t) => {
-                            return notes[n].tags[t];
+                        n.tags = Object.keys(n.tags).map((t) => {
+                            return n.tags[t];
                         });
                     }
-                    return notes[n];
+                    return n;
                 });
             } else {
                 newState.notes = [];
-                selectedNote = '';
+                selectedNote = {};
             }
 
             newState.selectedNote = selectedNote;

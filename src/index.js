@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/index';
 
 import { listenForAuth } from './actions/userActions';
-import { getNotes } from './actions/noteActions';
+import { getNotes, listenForDeletedNoteNotebook, listenForDeletedNoteTags } from './actions/noteActions';
 import { getNotebooks, listenForDeletedNotebook } from './actions/notebookActions';
 import { getTags, listenForDeletedTags } from './actions/tagActions';
 
@@ -25,12 +25,15 @@ export default class WebernoteApp extends React.PureComponent {
         this.store = configureStore;
 
         this.store.dispatch(listenForAuth());
+
         this.store.dispatch(getNotes());
         this.store.dispatch(getNotebooks());
         this.store.dispatch(getTags());
 
         this.store.dispatch(listenForDeletedNotebook());
         this.store.dispatch(listenForDeletedTags());
+        // this.store.dispatch(listenForDeletedNoteNotebook());
+        // this.store.dispatch(listenForDeletedNoteTags());
     }
 
     render() {

@@ -8,6 +8,8 @@ import NotesContainer from './notesContainer';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
+import * as notebookActions from '../actions/notebookActions';
+import * as tagActions from '../actions/tagActions';
 
 import '../App.css';
 
@@ -97,7 +99,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = Object.assign(userActions, noteActions);
+    let actions = Object.assign(userActions, noteActions, notebookActions, tagActions);
 
     return {
         actions: bindActionCreators(actions, dispatch)

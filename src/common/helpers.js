@@ -3,23 +3,42 @@
 /**
  * validateUid
  *
+ * @description Validates the UID of an object (note, notebook, tag, etc.) with the user.uid if user exists.
+ *
  * @param {Object} obj
  * @param {Object} user
  */
 export function validateUid(obj, user) {
-    console.log(user);
-    console.log(obj);
+    // So don't have to worry about undefined for these
+    obj = obj || {};
+    user = user || {};
 
-    return user && user.uid === obj.uid;
+    console.log(user.uid);
+    console.log(obj.uid);
+
+    // if both obj.uid and user.uid aren't set or if they match then return true
+    if (obj.uid === undefined || obj.uid === null) {
+        if (user.uid === undefined || user.uid === null) {
+            return true;
+        }
+    } else {
+        if (obj.uid === user.uid) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**
  * refToArray
  *
+ * @description Converts a Firebase Objects of Object to Array of Objects.
+ *
  * @param {Object} snap
  */
 export function refToArray(snap) {
-    let newSnap = '';
+    let newSnap = [];
     if (snap) {
         newSnap = Object.keys(snap).map((s) => {
             return snap[s];

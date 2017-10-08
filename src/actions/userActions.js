@@ -3,6 +3,7 @@
 
 import { database } from '../data/firebase.js';
 import { auth, fbProvider } from '../data/firebase.js';
+
 import { createNewUser } from '../common/userHelpers.js';
 // import { uniq } from '../common/helpers.js';
 
@@ -19,7 +20,7 @@ export function getUsers() {
         dispatch(getUsersRequestedAction());
 
         const usersRef = database.ref('users');
-        
+
         usersRef.once('value', (snap) => {
             if (snap.exists()) {
                 const users = snap.val();
@@ -41,7 +42,7 @@ export function getUser(user) {
         dispatch(getUserRequestedAction());
 
         const userRef = database.ref('users/' + user.uid);
-        
+
         userRef.once('value', (snap) => {
             if (snap.exists()) {
                 user = snap.val();
@@ -61,12 +62,15 @@ export function addUser(user) {
     return (dispatch) => {
         dispatch(addUserRequestedAction());
 
-        const usersRef = database.ref('users');
-        let userRef = usersRef.child(user.uid);
+        let userRef = database.ref('users/' + user.uid);
         user = createNewUser(user);
 
         userRef.set(user)
-            .then(dispatch(addUserFulfilledAction(user)));
+            .then(dispatch(addUserFulfilledAction(user)))
+            .catch((error) => {
+                console.error(error);
+                // TODO: addUserRejected action
+            });
     }
 }
 
@@ -79,7 +83,7 @@ export function loginUser(user) {
         } else {
             auth.signInWithPopup(fbProvider)
                 .then((res) => {
-                    user = res.user;                
+                    user = res.user;
                     dispatch(getUser(user));
                 });
         }
@@ -89,7 +93,7 @@ export function loginUser(user) {
 export function logoutUser() {
     return (dispatch) => {
         dispatch(logoutUserRequestedAction());
-        
+
         auth.signOut()
             .then(() => {
                 dispatch(logoutUserFulfilledAction());

@@ -78,6 +78,33 @@ export function getTagCount(tag, notes, user) {
 }
 
 /**
+ * getLabelCount
+ *
+ * @param {Object} label
+ * @param {Array} notes
+ * @returns {Object} obj with label name and note count using it
+ */
+export function getLabelCount(label, notes, user) {
+    let count = 0;
+
+    // iterate over notes
+    if (notes.length) {
+        notes.forEach(function(l) {
+            if (!l.label) return;
+
+            if (l.label.name === label.name) {
+                count++;
+            }
+        });
+    }
+
+    return {
+        label: label,
+        count: count
+    };
+}
+
+/**
  * getTags
  *
  * @param {Object} noteTags
@@ -112,22 +139,25 @@ export function getTags(noteTags) {
  */
 // TODO: refactor this
 export function getDeletedTags(tags, note) {
-    let noteTagsCopy = note.tags,
-        tagsCopy = tags,
-        tagSize = _.size(tagsCopy),
-        noteTagSize = _.size(noteTagsCopy);
+    let noteTags = note.tags;
 
     // Need to remove tags if tagSize is smaller than note tags
-    if (tagSize < noteTagSize) {
-        for (let i = 0; i < tagsCopy.length; i++) {
-            for (let j = 0; j < noteTagsCopy.length; j++) {
-                // If they match splice it out. whats left needs to be removed.
-                if (tagsCopy[i].id === noteTagsCopy[j].id) {
-                    noteTagsCopy.splice(j, 1);
+    if ( _.size(tags) < _.size(noteTags)) {
+        tags.forEach((t) => {
+            noteTags.forEach((nt, i) => {
+                if (t.id === nt.id) {
+                    noteTags.splice(i, 1);
                 }
-            }
-        }
-        return noteTagsCopy;
+            });
+        });
+        //     for (let j = 0; j < noteTagsCopy.length; j++) {
+        //         // If they match splice it out. whats left needs to be removed.
+        //         if (tagsCopy[i].id === noteTagsCopy[j].id) {
+        //             noteTagsCopy.splice(j, 1);
+        //         }
+        //     }
+        // }
+        return noteTags;
     }
     return false;
 }
@@ -137,20 +167,18 @@ export function getDeletedTags(tags, note) {
  *
  * @param {String} refId
  */
-export function createNewNote(refId, user) {
-    const newNote = {
-        uid: (user) ? user.uid : null,
-        id: refId,
-        isEditing: true,
-        title: '',
-        description: '',
-        url: '',
-        notebook: {},
-        tags: [],
-        created_date: new Date().getTime(),
-        modified_date: ''
-    };
-    return newNote;
+export function createNewNote(refId, note, user) {
+    note.uid = (user) ? user.uid : null;
+    note.id = refId;
+    note.isEditing = true;
+    note.title = note.title || '';
+    note.description = note.description || '';
+    note.url = note.url || '';
+    note.notebook = note.notebook || {};
+    note.tags = note.tags || [];
+    note.created_date = new Date().getTime();
+    note.modified_date = null;
+    return note;
 }
 
 /**
@@ -191,6 +219,23 @@ export function createNewNotebook(refId, notebook, user) {
     notebook.name = notebook.name;
 
     return notebook;
+}
+
+/**
+ * Generate a new label object
+ *
+ * @param {*} refId
+ * @param {*} label
+ * @param {*} note
+ */
+export function createNewLabel(refId, label, user) {
+    if (!label.name) return;
+
+    // Add some extra data to label object
+    label.uid = (user) ? user.uid : null;
+    label.id = refId;
+
+    return label;
 }
 
 /**

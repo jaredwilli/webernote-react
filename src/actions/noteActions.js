@@ -1,16 +1,10 @@
 import { database } from '../data/firebase.js';
 
-import {
-	createNewNote,
-	getDeletedTags,
-	getNotebookCount,
-	getTagCount,
-	filterData
-} from '../common/noteHelpers.js';
+import { createNewNote, createNewTag, getDeletedTags } from '../common/noteHelpers.js';
 
 import { validateUid, refToArray, uniq } from '../common/helpers.js';
-import { deleteNotebook } from '../actions/notebookActions';
-import { deleteTag } from '../actions/tagActions';
+// import { deleteNotebook } from '../actions/notebookActions';
+// import { deleteTag } from '../actions/tagActions';
 
 import * as types from '../constants/actionTypes.js';
 
@@ -20,16 +14,16 @@ export function getState() {
 	};
 }
 
-export function getNotes(user) {
+export function getNotes() {
     return (dispatch, getState) => {
         dispatch(getNotesRequestedAction());
 
-        const user = getState().userData.user;
         const notesRef = database.ref('notes');
 
         notesRef.once('value', (snap) => {
+            // Convert snap to array and filter only valid UID notes
             let notes = refToArray(snap.val()).filter((n) => {
-                return validateUid(n, user);
+                return validateUid(n, getState().userData.user);
             });
 
             dispatch(getNotesFulfilledAction(notes));
@@ -58,22 +52,74 @@ export function getNotes(user) {
     }
 }*/
 
-export function addNote() {
+export function addNote(note = {}) {
 	return (dispatch, getState) => {
-		dispatch(addNoteRequestedAction());
+        dispatch(addNoteRequestedAction());
 
-        const user = getState().userData.user;
-        const notesRef = database.ref('notes');
-
-		let noteRef = notesRef.push();
-		let note = createNewNote(noteRef.key, user);
+		let noteRef = database.ref('notes').push();
+		note = createNewNote(noteRef.key, note, getState().userData.user);
 
 		noteRef.set(note);
 		dispatch(addNoteFulfilledAction(note));
 	};
 }
 
-export function editNote(note, obj = null) {
+export function editNoteNotebook(obj, note) {
+    return (dispatch) => {
+
+        const noteNotebookRef = database.ref('notes/' + note.id + '/notebook');
+
+        if (!note.notebook || note.notebook.name !== obj.notebook.name) {
+            noteNotebookRef.set(obj.notebook)
+                .then(dispatch(editNoteFulfilledAction(note, obj)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
+        } else {
+            dispatch(editNoteRejectedAction())
+        }
+    };
+}
+
+export function editNoteTags(obj, note) {
+    return (dispatch, getState) => {
+
+        const noteTagsRef = database.ref('notes/' + note.id + '/tags');
+        const removedTags = getDeletedTags(obj.tags, note);
+        // If tags is empty then remove them from note
+        if (removedTags) {
+            debugger;
+            noteTagsRef.child(removedTags[0].id).remove();
+
+            dispatch(editNoteFulfilledAction(note, { tags: [] }));
+        } else {
+            // Make tag list unique
+            obj.tags = uniq(obj.tags);
+            obj.tagList = [];
+
+            // Update existing tags and add new ones
+            obj.tags.forEach((tag) => {
+                // Update the tag by ID
+                if (tag.id) {
+                    noteTagsRef.child(tag.id)
+                        .update(tag);
+                } else {
+                    // if no ID push a new tag to the list
+                    let tagsRef = noteTagsRef.push();
+                    // create new tag
+                    tag = createNewTag(tagsRef, tag, note, getState().userData.user);
+
+                    tagsRef.set(tag);
+                }
+            });
+
+            dispatch(editNoteFulfilledAction(note, obj));
+        }
+    };
+}
+
+export function editNote(note, obj = {}) {
     return (dispatch, getState) => {
         dispatch(editNoteRequestedAction());
 
@@ -85,81 +131,26 @@ export function editNote(note, obj = null) {
             return;
         }
 
-        if (obj) {
-            /* If notebook not null and value has changed update the notes notebook only */
-            if (obj.notebook) {
-                if (!note.notebook || note.notebook.name !== obj.notebook.name) {
-                    const noteNotebookRef = noteRef.child('notebook');
-
-                    // If has uid and userId
-                    noteNotebookRef.set(obj.notebook)
-                        .then(dispatch(editNoteFulfilledAction(note, obj)))
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });
+        // Validate UID
+        if (validateUid(note, user)) {
+            // Handle notebooks and tags
+            if (obj.notebook || obj.tags) {
+                if (obj.notebook) {
+                    dispatch(editNoteNotebook(obj, note));
+                } else if (obj.tags) {
+                    dispatch(editNoteTags(obj, note));
                 }
-            }
-
-            /* Handle when tags are defined */
-            else if (obj.hasOwnProperty('tags')) {
-                const noteTagsRef = noteRef.child('tags');
-
-                // Remove all tags removed from edit input
-                const removedTags = getDeletedTags(obj.tags, note);
-
-                if (removedTags.length) {
-                    removedTags.forEach((tag) => {
-                        noteTagsRef.child(tag.id).remove();
+            } else {
+                // Update the rest of the note data if not editing notebook
+                noteRef.update(note)
+                    .then(dispatch(editNoteFulfilledAction(note, obj)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(editNoteRejectedAction());
                     });
-                }
-
-                // If tags is empty then remove them from note
-                if (!obj.tags) {
-                    noteTagsRef.remove();
-                    dispatch(editNoteFulfilledAction(note, {
-                        tags: []
-                    }));
-                }
-
-                // Note has tags
-                else {
-
-                    // Make tag list unique
-                    obj.tags = uniq(obj.tags);
-                    obj.tagList = [];
-
-                    // Update existing tags and add new ones
-                    obj.tags.forEach((tag) => {
-                        // if tag has an ID update that ref
-                        if (tag.id) {
-                            let noteTagRef = noteRef.child('/tags/' + tag.id)
-                            // Update the tag by ID
-                            noteTagRef.update(tag);
-                        } else {
-                            // if no ID push a new tag to the list
-                            let tagsRef = noteRef.child('/tags/').push();
-
-                            // Add extra things to the tag for the note
-                            tag.id = tagsRef.key;
-                            tag.value = tagsRef.key;
-                            tagsRef.set(tag);
-                        }
-                    });
-
-                    dispatch(editNoteFulfilledAction(note, obj));
-                }
             }
-        } else {
-
-            // Update the rest of the note data if not editing notebook
-            noteRef.update(note)
-                .then(dispatch(editNoteFulfilledAction(note, {})))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(editNoteRejectedAction());
-                });
         }
+
     }
 }
 
@@ -167,48 +158,19 @@ export function deleteNote(note) {
 	return (dispatch, getState) => {
 		dispatch(deleteNoteRequestedAction());
 
-		const user = getState().userData.user;
 		const notesRef = database.ref('notes');
-		const notebooksRef = database.ref('notebooks');
-		const tagsRef = database.ref('tags');
 
-		/**
-         * These things must be done only for user if user exists and otherwise for things
-         * where uid does not exist...
-         * So, have to check how many notes there are, and if just one remove it and
-         * all notebooks and tags since none will be assoicated with any notes.
-         *
-         * Check the note for notebooks and tags,
-         * if they exist, check if they should be removed from their buckets
-         */
-		if (user) {
-			// cant delete notes that aren't yours
-			if (note.uid !== user.uid) {
-				dispatch(deleteNoteRejectedAction());
-			} else {
-				notesRef
-					.child(note.id)
-					.remove()
-					.then(dispatch(deleteNoteFulfilledAction(note)))
-					.catch(error => {
-						console.error(error);
-						dispatch(deleteNoteRejectedAction());
-					});
-			}
+        // If valid UID
+		if (validateUid(note, getState().userData.user)) {
+            notesRef.child(note.id)
+                .remove()
+                .then(dispatch(deleteNoteFulfilledAction(note)))
+                .catch(error => {
+                    console.error(error);
+                    dispatch(deleteNoteRejectedAction());
+                });
 		} else {
-			// can't delete users notes
-			if (note.uid) {
-				dispatch(deleteNoteRejectedAction());
-			} else {
-				notesRef
-					.child(note.id)
-					.remove()
-					.then(dispatch(deleteNoteFulfilledAction(note)))
-					.catch(error => {
-						console.error(error);
-						dispatch(deleteNoteRejectedAction());
-					});
-			}
+            dispatch(deleteNoteRejectedAction());
 		}
 	};
 }
@@ -217,14 +179,16 @@ export function selectNote(note) {
 	return (dispatch, getState) => {
 		dispatch(selectNoteRequestedAction());
 
-		const currentNotes = getState().noteData.notes;
+        const notesRef = database.ref('notes');
+		const notes = getState().noteData.notes.filter((nb) => {
+            return validateUid(nb, getState().userData.user);
+        });
 
-		note = currentNotes.filter(function(n) {
+		note = notes.filter(function(n) {
 			return n.id === note.id;
 		})[0];
 
-		database
-			.ref('notes/' + note.id + '/isEditing')
+		notesRef.child(note.id + '/isEditing')
 			.set(true)
 			.then(dispatch(selectNoteFulfilledAction(note)))
 			.catch(error => {
@@ -238,15 +202,14 @@ export function resetSelectedNote() {
 	return (dispatch, getState) => {
 		dispatch(resetSelectedNoteRequestedAction());
 
-		const user = getState().userData.user;
-		let notes = getState().noteData.notes;
+        const notesRef = database.ref('notes');
+		let notes = getState().noteData.notes.filter((nb) => {
+            return validateUid(nb, getState().userData.user);
+        });
 
-		notes = filterData(user, notes);
-
-		notes.forEach(n => {
+		notes.forEach((n) => {
 			if (n.isEditing) {
-				database
-					.ref('notes/' + n.id + '/isEditing')
+				notesRef.child(n.id + '/isEditing')
 					.set(false)
 					.then(dispatch(resetSelectedNoteFulfilledAction(n)))
 					.catch(error => {
@@ -256,6 +219,48 @@ export function resetSelectedNote() {
 			}
 		});
 	};
+}
+
+export function listenForDeletedNoteNotebook() {
+    return (dispatch, getState) => {
+        const notebooksRef = database.ref('notebooks');
+
+        notebooksRef.on('child_removed', (snap) => {
+            let notebook = getState().notebookData.notebooks;
+
+            // Convert snap to array of objects that include matching UID to user
+            const snapNotebooks = refToArray(snap.val()).filter((nb) => {
+                return validateUid(nb, getState().userData.user);
+            });
+
+            // Filter the deleted notebook out of current notebooks state
+            notebook = notebook.filter((n) => {
+                return n.id !== snapNotebooks.id;
+            });
+
+            dispatch(editNoteNotebook(notebook, getState().noteData.notes));
+        });
+    }
+}
+export function listenForDeletedNoteTags() {
+    return (dispatch, getState) => {
+        const tagsRef = database.ref('tags');
+
+        tagsRef.on('child_removed', (snap) => {
+            let tags = getState().tagData.tags;
+            // Convert snap to array of objects that include matching UID to user
+            const snapTags = refToArray(snap.val()).filter((t) => {
+                return validateUid(t, getState().userData.user);
+            });
+
+            // Filter the deleted tag out of current tags state
+            tags = tags.filter((tag) => {
+                return tag.id !== snapTags.id;
+            });
+
+            dispatch(editNoteTags(tags, getState().noteData.notes));
+        });
+    }
 }
 
 /**
