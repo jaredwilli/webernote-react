@@ -1,14 +1,8 @@
 import { database } from '../data/firebase.js';
 
-import {
-	createNewNote,
-	getDeletedTags,
-	getNotebookCount,
-	getTagCount,
-	filterData
-} from '../common/noteHelpers.js';
+import { createNewNote, getDeletedTags, getNotebookCount, getTagCount, filterData} from '../common/noteHelpers.js';
 
-import { uniq } from '../common/helpers.js';
+import { validateUid, uniq } from '../common/helpers';
 import { deleteNotebook } from '../actions/notebookActions';
 import { deleteTag } from '../actions/tagActions';
 
@@ -76,14 +70,15 @@ export function editNote(note, obj = null) {
 		dispatch(editNoteRequestedAction());
 
 		const user = getState().userData.user;
-
-		// refs
 		const noteRef = database.ref('notes/' + note.id);
 
 		if (!note) {
 			dispatch(editNoteRejectedAction());
 			return;
 		}
+
+        console.log(validateUid(note, user));
+        debugger
 
 		if (obj) {
 			/* If notebook not null and value has changed update the notes notebook only */
@@ -105,6 +100,12 @@ export function editNote(note, obj = null) {
 				}
 			} else if (obj.hasOwnProperty('tags')) {
 				/* Handle when tags are defined */
+                const tagsRef = database.ref('tags');
+
+                tagsRef.once('value', (snap) => {
+
+                });
+
 				const noteTagsRef = noteRef.child('tags');
 
 				// Remove all tags removed from edit input
@@ -118,12 +119,9 @@ export function editNote(note, obj = null) {
 
 				// If tags is empty then remove them from note
 				if (!obj.tags) {
-					noteTagsRef.remove();
-					dispatch(
-						editNoteFulfilledAction(note, {
-							tags: []
-						})
-					);
+                    noteTagsRef.remove();
+
+					dispatch(editNoteFulfilledAction(note, { tags: [] }));
 				} else {
 					// Note has tags
 					// Make tag list unique

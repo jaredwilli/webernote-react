@@ -2,16 +2,19 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { uniq } from '../common/helpers';
+import { validateUid, uniq } from '../common/helpers';
 
 export function getTags() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(getTagsRequestedAction());
 
-        return database.ref('tags').once('value', snap => {
+        const user = getState().userData.user;
+        const tagsRef = database.ref('tags');
+
+        tagsRef.once('value', (snap) => {
             const tags = snap.val();
 
-            dispatch(getTagsFulfilledAction(tags));
+            dispatch(getTagsFulfilledAction(tags, user));
         })
         .catch((error) => {
             console.error(error);
@@ -32,6 +35,7 @@ export function addTag(tags, note) {
         dispatch(addTagRequestedAction());
 
         const user = getState().userData.user;
+        const tagsRef = database.ref('tags');
 
         // Make tag list unique
         tags = uniq(tags);
@@ -39,8 +43,6 @@ export function addTag(tags, note) {
 
         // Only add new tags but make full tagList
         tags.forEach((tag) => {
-            const tagsRef = database.ref('tags');
-
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
                 const tagRef = tagsRef.push();
@@ -53,7 +55,7 @@ export function addTag(tags, note) {
             tagList.push(tag);
         });
 
-        dispatch(addTagFulfilledAction(tagList));
+        dispatch(addTagFulfilledAction(tagList, user));
     }
 }
 
@@ -83,23 +85,23 @@ export function removeTags(notes) {
                     }
                 });
 
-                dispatch(deleteTagsFulfilledAction(tagsList));
+                dispatch(deleteTagsFulfilledAction(tagsList, user));
             }
         });
 	};
 }
 
-export function selectTag(tag) {
+/* export function selectTag(tag) {
     return (dispatch, getState) => {
-
         const tag = getState().tagData.tags.filter(function(n) {
             return n.id = tag.id;
         });
     }
-}
+} */
 
 export function listenForDeletedTags() {
     return (dispatch, getState) => {
+        const user = getState().userData.user;
         const notesRef = database.ref('notes');
 
         notesRef.on('child_removed', (snap) => {
@@ -108,7 +110,12 @@ export function listenForDeletedTags() {
 
             // Filter the deleted note out of current notes state
             notes = notes.filter((note) => {
-                return note.id !== n.id;
+                console.log(validateUid(note, user));
+                debugger;
+
+                if ((!user || user.uid !== note.uid) || (user && user.uid === note.uid)) {
+                    return note.id !== n.id;
+                }
             });
 
             dispatch(removeTags(notes));
@@ -127,8 +134,8 @@ function getTagsRejectedAction() {
     return { type: types.GetTagsRejected };
 }
 
-function getTagsFulfilledAction(tags) {
-    return { type: types.GetTagsFulfilled, tags };
+function getTagsFulfilledAction(tags, user) {
+    return { type: types.GetTagsFulfilled, tags, user };
 }
 
 /**
@@ -157,8 +164,8 @@ function addTagRequestedAction() {
     return { type: types.AddTagRejected };
 } */
 
-function addTagFulfilledAction(tags) {
-    return { type: types.AddTagFulfilled, tags };
+function addTagFulfilledAction(tags, user) {
+    return { type: types.AddTagFulfilled, tags, user };
 }
 
 /**
@@ -172,6 +179,6 @@ function deleteTagsRequestedAction() {
     return { type: types.DeleteTagsRejected };
 } */
 
-function deleteTagsFulfilledAction(tags) {
-    return { type: types.DeleteTagsFulfilled, tags };
+function deleteTagsFulfilledAction(tags, user) {
+    return { type: types.DeleteTagsFulfilled, tags, user };
 }

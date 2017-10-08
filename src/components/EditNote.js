@@ -80,6 +80,7 @@ class EditNote extends React.Component {
             selectedNote: note
         });
 
+
         this.props.actions.editNote(note, { tags: tags });
     }
 

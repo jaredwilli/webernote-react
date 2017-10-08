@@ -1,17 +1,24 @@
 import { database } from '../data/firebase';
-import * as types from '../constants/actionTypes';
 
+import { validateUid, refToArray } from '../common/helpers.js';
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
 
+import * as types from '../constants/actionTypes';
+
 export function getNotebooks() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(getNotebooksRequestedAction());
 
-        const notebooksRef = database.ref('/notebooks');
+        const user = getState().userData.user;
+        const notebooksRef = database.ref('notebooks');
 
         notebooksRef.once('value', (snap) => {
-            const notebooks = snap.val();
-            dispatch(getNotebooksFulfilledAction(notebooks));
+            let notebooks = refToArray(snap.val()).filter((n) => {
+                return validateUid(n, user);
+            });
+debugger
+
+            dispatch(getNotebooksFulfilledAction(notebooks, user));
         })
         .catch((error) => {
             console.error(error);
@@ -35,10 +42,11 @@ export function addNotebook(notebook) {
         const user = getState().userData.user;
         const notebooksRef = database.ref('notebooks');
         let notebookRef = notebooksRef.push();
+
         notebook = createNewNotebook(notebookRef.key, notebook, user);
 
         notebookRef.set(notebook);
-        dispatch(addNotebookFulfilledAction(notebook));
+        dispatch(addNotebookFulfilledAction(notebook, user));
     }
 }
 
@@ -51,20 +59,22 @@ export function removeNotebook(notes) {
 
         notebooksRef.once('value', (snap) => {
             if (snap.exists()) {
-                const notebooks = snap.val();
+                let notebooks = refToArray(snap.val());
                 let notebooksList = [];
 
-                Object.keys(notebooks).forEach((n) => {
-                    let notebook = notebooks[n];
-                    let notebookCount = getNotebookCount(notebook, notes, user);
+                notebooks.forEach((n) => {
+                    if (validateUid(n, user)) {
+                        let notebook = notebooks[n];
+                        let notebookCount = getNotebookCount(notebook, notes);
 
-                    // Remove empty notebooks
-                    if (notebookCount.count === 0) {
-                        let notebookRef = notebooksRef.child(notebookCount.notebook.id);
-                        // remove notebook
-                        notebookRef.remove();
-                    } else {
-                        notebooksList.push(notebook);
+                        // Remove empty notebooks
+                        if (notebookCount.count === 0) {
+                            let notebookRef = notebooksRef.child(notebookCount.notebook.id);
+                            // remove notebook
+                            notebookRef.remove();
+                        } else {
+                            notebooksList.push(notebook);
+                        }
                     }
                 });
 
@@ -111,15 +121,21 @@ export function removeNotebook(notes) {
 
 export function listenForDeletedNotebook() {
     return (dispatch, getState) => {
+        var user = getState().userData.user;
         const notesRef = database.ref('notes');
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
             const n = snap.val();
 
+            notes = refToArray(notes);
+
             // Filter the deleted note out of current notes state
             notes = notes.filter((note) => {
-                return note.id !== n.id;
+                if (
+                    (note, user)) {
+                    return note.id !== n.id;
+                }
             });
 
             dispatch(removeNotebook(notes));

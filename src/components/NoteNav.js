@@ -42,7 +42,7 @@ class NoteNav extends React.Component {
 
         if (notebooks && notebooks.length) {
             // Filter user notebooks
-            notebooks = filterData(user, notebooks);
+            // notebooks = filterData(user, notebooks);
 
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
@@ -59,7 +59,7 @@ class NoteNav extends React.Component {
 
         if (tags && tags.length) {
             // Filter user tags
-            tags = filterData(user, tags);
+            // tags = filterData(user, tags);
 
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
