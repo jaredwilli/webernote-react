@@ -1,0 +1,35 @@
+/* NOTE TYPES */
+
+.note-types {
+	background: rgb(232, 238, 242);
+	border: solid #B8CDE0;
+	border-width: 1px 0;
+	display: block;
+	padding: 2px;
+}
+
+.note-types ul {
+    list-style: none;
+}
+
+.note-types li {}
+
+.note-types li a {
+    padding: 0 5px;
+    margin: 1px;
+}
+
+.note-types li a:hover,
+.note-types li a.active {
+	background: #068dcc;
+	border: 1px solid rgb(118, 158, 218);
+	-webkit-border-radius: 4px;
+			border-radius: 4px;
+	color: #fff;
+	margin: 0;
+}
+
+.note-types .quick-access {
+    display: inline-block;
+	margin-left: 5px;
+}

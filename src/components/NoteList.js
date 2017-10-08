@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as noteActions from '../actions/noteActions';
-// import * as notebookActions from '../actions/notebookActions';
 
 import NotebookContainer from '../containers/notebooksContainer';
 import Note from './Note';
+
+import '../styles/note-list.css';
 
 class NoteList extends Component {
     constructor(props, context) {
@@ -51,7 +52,8 @@ class NoteList extends Component {
                             <option>Modified Date</option>
                         </select>
 
-                        <input type="text" name="search" placeholder="Search"
+                        <input type="text" name="search" placeholder="Search" className="search"
+                            value={this.props.search}
                             onChange={(e) => this.props.filterList(e)} />
                     </div>
                     <div className="viewing">

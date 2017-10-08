@@ -14,6 +14,7 @@ import { getTags, listenForDeletedTags } from './actions/tagActions';
 import AppContainer from './containers/appContainer';
 
 import './index.css';
+import './styles/base.css';
 
 import registerServiceWorker from './registerServiceWorker';
 

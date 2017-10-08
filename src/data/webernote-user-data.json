@@ -37,7 +37,7 @@
 			"value": "default"
 		}
     },
-    
+
 	"notes": {
 		"-IsybGXJ-Cu9VebnSJ6h": {
 			"created_date": 1366850082964,
@@ -620,7 +620,7 @@
 			"url": ""
 		}
     },
-    
+
 	"tags": {
 		"-Kv2CVBDwVYkWc0Fo_2V": {
 			"id": "-Kv2CVBDwVYkWc0Fo_2V",
@@ -686,15 +686,10 @@
 			"id": "-Kv3ATDzcwZ1CLB44cki",
 			"label": "ux",
 			"value": "-Kv3ATDzcwZ1CLB44cki"
-		},
-		"default": {
-			"id": "default",
-			"label": "general",
-			"value": "default"
 		}
     },
 
-    
+
 	"users": {
 		"uq6IdM7x8UVZEX1YIqeiBl7IYYP2": {
 			"uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2",

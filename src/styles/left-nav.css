@@ -1,0 +1,73 @@
+/* LEFT NAV */
+
+.left-nav {
+    background: #fff;
+    border: 1px solid #B8CDE0;
+	padding: 0;
+    height: 670px;
+    overflow: hidden;
+	overflow-y: auto;
+}
+
+.left-nav nav {
+    display: block;
+    margin: 5px 0 0 5px;
+}
+
+.left-nav ul {
+	margin-bottom: 10px;
+}
+
+.left-nav ul ul {
+    visibility: hidden;
+    width: 100%;
+}
+
+.left-nav ul .expanded ul {
+    visibility: visible;
+}
+
+.left-nav ul ul li {
+    display: block;
+	margin: 1px 0 0 5px;
+}
+
+.left-nav li > div {
+	background: url('../img/arrow.png') no-repeat 1px 4px;
+    color: #068dcc;
+	text-decoration: none;
+    padding: 0 0 0 14px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.left-nav li > a {
+    color: #068dcc;
+    font-weight: normal;
+}
+
+.left-nav li > div:hover,
+.left-nav li > a:hover {
+	text-decoration: underline;
+}
+
+.left-nav li.tag-link > div {
+	background: none;
+}
+
+.left-nav li.expanded > div {
+    background-position: 1px -10px;
+    line-height: 16px;
+}
+
+.left-nav li .count {
+	color: #999;
+}
+
+.left-nav li .count:before {
+	content: '(';
+}
+
+.left-nav li .count:after {
+	content: ')';
+}

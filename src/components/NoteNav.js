@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getNotebookCount, getTagCount, filterData } from '../common/noteHelpers.js';
+
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 
+import '../styles/left-nav.css';
 
 class NoteNav extends React.Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class NoteNav extends React.Component {
 
         this.state = {
             expandNotebooks: true,
-            expandTags: true
+            expandTags: true,
+            expandLabels: true
         }
     }
 
