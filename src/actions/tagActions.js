@@ -2,7 +2,7 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { refToArray, uniq } from '../common/helpers';
+import { uniq } from '../common/helpers';
 
 export function getTags(user = null) {
     return (dispatch, getState) => {

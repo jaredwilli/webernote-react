@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getSelectedNotebook, filterData } from '../common/noteHelpers.js';
+import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 
 class NotebooksContainer extends React.PureComponent {
@@ -111,7 +111,6 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     render() {
-        const user = this.props.user;
         const selectedNote = this.props.selectedNote;
         let notebooks = this.props.notebooks;
 

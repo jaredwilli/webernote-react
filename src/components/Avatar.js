@@ -1,7 +1,6 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
-import { blue300, indigo900 } from 'material-ui/styles/colors';
 
 function UserImg(props) {
     let imgSrc = props.imgSrc || '';

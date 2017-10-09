@@ -39,7 +39,7 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { user, selectedNote, tags } = this.props;
+        const { selectedNote, tags } = this.props;
         let tagOptions;
 
         if (tags) {

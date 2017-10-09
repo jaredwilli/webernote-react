@@ -37,9 +37,6 @@ class NoteNav extends React.Component {
         // NOTEBOOKS MENU
         let notebookItems = '';
         if (notebooks && notebooks.length) {
-            // Filter user notebooks
-            // notebooks = filterData(user, notebooks);
-
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
@@ -123,7 +120,6 @@ class NoteNav extends React.Component {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
         tags: state.tagData.tags,
@@ -135,8 +131,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = Object.assign({}, notebookActions, tagActions, labelActions);
+
     return {
-        actions: bindActionCreators(notebookActions, tagActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 

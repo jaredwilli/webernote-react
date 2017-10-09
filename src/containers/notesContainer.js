@@ -12,7 +12,6 @@ import AddNote from '../components/AddNote';
 
 // import FloatingButton from '../components/FloatingButton';
 
-import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
@@ -101,7 +100,6 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-		const user = this.props.user;
 		let notes = this.props.notes;
 		// control the height of boxes
 		// let windowHeight = window.innerHeight;
