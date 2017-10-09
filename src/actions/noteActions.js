@@ -10,7 +10,7 @@ export function getState() {
 	};
 }
 
-export function getNotes(user = null) {
+export function getNotes(user) {
 	return (dispatch, getState) => {
 		dispatch(getNotesRequestedAction());
 
@@ -229,10 +229,14 @@ export function selectNote(note, user = null) {
         const currentNotes = getState().noteData.notes;
 
 		note = currentNotes.filter((n) => {
-			return n.id === note.id;
-		})[0];
+            return n.id === note.id;
+        })[0];
 
-		notesRef.child(note.id + '/isEditing')
+        if (!note) {
+            note = currentNotes[0];
+        }
+
+        notesRef.child(note.id + '/isEditing')
 			.set(true)
 			.then(dispatch(selectNoteFulfilledAction(note)))
 			.catch(error => {

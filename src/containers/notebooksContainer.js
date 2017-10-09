@@ -30,8 +30,8 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     cancelNew(e) {
-        this.setState({ addNotebook: false });
         e.preventDefault();
+        this.setState({ addNotebook: false });
     }
 
     addNotebook(e) {
@@ -156,15 +156,16 @@ class NotebooksContainer extends React.PureComponent {
 
             if (showAddNotebook) {
                 return (
-                    <span>
-                        <button className="cancel-new"
-                            onClick={(e) => this.setState({ addNotebook: false })}>x
-                        </button>
+                    <span className="add-notebook">
                         <input type="text" name="notebook" className="new-notebook"
                             autoFocus={true}
                             placeholder="Notebook name"
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
+
+                        <span className="remove Select-clear"
+                            onClick={(e) => this.setState({ addNotebook: false })}>×
+                        </span>
                     </span>
                 );
             }

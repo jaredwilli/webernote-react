@@ -71,3 +71,18 @@
     vertical-align: middle;
     margin-right: 5px;
 }
+
+.remove {
+	background: none;
+	border: 0;
+	color: #999;
+	font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
+	line-height: 1;
+	cursor: pointer;
+    padding: 0 3px;
+    margin-left: 1px;
+}
+
+.remove:hover {
+    color: #D0021B;
+}

@@ -19,7 +19,7 @@ export function getUsers() {
         dispatch(getUsersRequestedAction());
 
         const usersRef = database.ref('users');
-        
+
         usersRef.once('value', (snap) => {
             if (snap.exists()) {
                 const users = snap.val();
@@ -41,7 +41,7 @@ export function getUser(user) {
         dispatch(getUserRequestedAction());
 
         const userRef = database.ref('users/' + user.uid);
-        
+
         userRef.once('value', (snap) => {
             if (snap.exists()) {
                 user = snap.val();
@@ -79,20 +79,43 @@ export function loginUser(user) {
         } else {
             auth.signInWithPopup(fbProvider)
                 .then((res) => {
-                    user = res.user;                
+                    user = res.user;
                     dispatch(getUser(user));
+                })
+                .catch((error) => {
+                    console.log(error.code, error.message);
+                    dispatch(getUsersRejectedAction());
                 });
         }
+    }
+}
+
+export function loginAnonymously() {
+    return (dispatch) => {
+        dispatch(loginUserRequestedAction());
+
+        auth.signInAnonymously()
+            .then((user) => {
+                dispatch(getUser(user));
+            })
+            .catch((error) => {
+                console.log(error.code, error.message);
+                dispatch(getUsersRejectedAction());
+            });
     }
 }
 
 export function logoutUser() {
     return (dispatch) => {
         dispatch(logoutUserRequestedAction());
-        
+
         auth.signOut()
             .then(() => {
                 dispatch(logoutUserFulfilledAction());
+            })
+            .catch((error) => {
+                console.log(error.code, error.message);
+                dispatch(getUsersRejectedAction());
             });
     }
 }
@@ -103,12 +126,12 @@ export function listenForAuth() {
             if (user) {
                 dispatch(loginUser(user));
             } else {
-                dispatch(logoutUser());
+                dispatch(loginAnonymously());
+                // dispatch(logoutUser());
             }
         });
     }
 }
-
 
 /**
  * Get Users

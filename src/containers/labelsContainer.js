@@ -12,6 +12,7 @@ class LabelsContainer extends React.PureComponent {
 
         this.showColorPicker = this.showColorPicker.bind(this);
         this.editLabel = this.editLabel.bind(this);
+        this.removeLabel = this.removeLabel.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
@@ -30,6 +31,12 @@ class LabelsContainer extends React.PureComponent {
         this.setState({
             displayColorPicker: !this.state.displayColorPicker
         });
+    }
+
+    removeLabel(e) {
+        e.preventDefault();
+
+        this.props.editLabel();
     }
 
     editLabel(color) {
@@ -93,10 +100,13 @@ class LabelsContainer extends React.PureComponent {
 
         return (
             <div className="label-picker">
-                <label onClick={this.showColorPicker}>Label</label>
                 <button className="label-background"
                     style={{ background: backgroundColor }}
                     onClick={this.showColorPicker} />
+
+                <span className="remove Select-clear"
+                    onClick={this.removeLabel}>×
+                </span>
 
                 {colorPicker}
             </div>

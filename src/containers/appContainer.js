@@ -21,6 +21,18 @@ class AppContainer extends React.PureComponent {
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
 
+        // this.actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions);
+        console.log(this.props.user);
+
+        this.props.actions.getNotes();
+        this.props.actions.getNotebooks();
+        this.props.actions.getTags();
+        this.props.actions.getLabels();
+
+        this.props.actions.listenForDeletedNotebook();
+        this.props.actions.listenForDeletedTags();
+        this.props.actions.listenForDeletedLabels();
+
         this.state = {
             selectedNote: '',
             notes: this.props.actions.getNotes(this.props.user),
@@ -28,12 +40,13 @@ class AppContainer extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
-        this.props.actions.getNotes(this.props.user);
-        this.props.actions.getNotebooks(this.props.user);
-        this.props.actions.getTags(this.props.user);
-        this.props.actions.getLabels(this.props.user);
-    }
+    // componentDidMount() {
+    //     debugger;
+    //     this.props.actions.getNotes(this.props.user);
+    //     this.props.actions.getNotebooks(this.props.user);
+    //     this.props.actions.getTags(this.props.user);
+    //     this.props.actions.getLabels(this.props.user);
+    // }
 
     login() {
         this.props.actions.resetSelectedNote();
