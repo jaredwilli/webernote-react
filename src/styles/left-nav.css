@@ -71,3 +71,12 @@
 .left-nav li .count:after {
 	content: ')';
 }
+
+.left-nav .note-label {
+	border: 1px solid #d0d0d0;
+	border-radius: 24px;
+	display: inline-block;
+	margin-right: 5px;
+    padding: 10px;
+    vertical-align: middle;
+}

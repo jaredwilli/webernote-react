@@ -1,0 +1,55 @@
+{
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.inlineValues": true,
+
+    "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+
+    "editor.cursorStyle": "line-thin",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 80,
+    "editor.wrappingIndent": "indent",
+    "editor.minimap.enabled": true,
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": true,
+
+    "editor.fontSize": 14,
+    "window.zoomLevel": 0,
+    "workbench.commandPalette.history": 0,
+    "css.lint.duplicateProperties": "warning",
+    "html.format.endWithNewline": true,
+    // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true
+    },
+
+    "window.restoreWindows": "all",
+    "workbench.fontAliasing": "default",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.settings.openDefaultSettings": false,
+    "workbench.iconTheme": "material-icon-theme",
+
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.useTabs": true,
+    "prettier.jsxBracketSameLine": false,
+    "prettier.jsonEnable": [
+        "json",
+        "javascript",
+        "sass",
+        "css",
+        "html"
+    ],
+    "workbench.colorTheme": "Blackboard",
+    "workbench.statusBar.visible": true,
+    "[javascriptreact]": {
+
+    },
+    "javascript.validate.enable": false,
+    "eslint.enable": true,
+    "typescript.check.npmIsInstalled": false,
+    "emmet.showExpandedAbbreviation": "never"
+}

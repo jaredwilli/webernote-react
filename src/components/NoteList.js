@@ -42,11 +42,12 @@ class NoteList extends Component {
                     <div className="filter">
                         Search type:
                         <select name="filterType" className="filter-type"
-                            value={this.props.filterType || 'Description'}
+                            value={this.props.filterType || 'Title'}
                             onChange={(e) => this.props.setFilterType(e)}>
                             <option>Title</option>
                             <option>Description</option>
                             <option>Url</option>
+                            <option>Label</option>
                             <option>Tags</option>
                             <option>Created Date</option>
                             <option>Modified Date</option>

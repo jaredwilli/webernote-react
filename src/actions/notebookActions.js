@@ -3,14 +3,21 @@ import * as types from '../constants/actionTypes';
 
 import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
 
-export function getNotebooks() {
-    return dispatch => {
+export function getNotebooks(user = null) {
+    return (dispatch, getState) => {
         dispatch(getNotebooksRequestedAction());
 
-        const notebooksRef = database.ref('/notebooks');
+        user = user || getState().userData.user;
+        const usersRef = database.ref('users');
+        let notebooksRef = usersRef.child('guest/notebooks');
 
-        notebooksRef.once('value', (snap) => {
+        if (user) {
+            notebooksRef = usersRef.child(user.uid + '/notebooks');
+        }
+
+		notebooksRef.once('value', (snap) => {
             const notebooks = snap.val();
+
             dispatch(getNotebooksFulfilledAction(notebooks));
         })
         .catch((error) => {
@@ -20,20 +27,18 @@ export function getNotebooks() {
     }
 }
 
-/* export function getNotebook(notebook) {
-    return dispatch => {
-        dispatch(getNotebookRequestedAction());
-
-        dispatch(getNotebookFulfilledAction(notebook));
-    }
-} */
-
-export function addNotebook(notebook) {
+export function addNotebook(notebook, user = null) {
     return (dispatch, getState) => {
         dispatch(addNotebookRequestedAction());
 
-        const user = getState().userData.user;
-        const notebooksRef = database.ref('notebooks');
+        user = user || getState().userData.user;
+        const usersRef = database.ref('users');
+        let notebooksRef = usersRef.child('guest/notebooks');
+
+        if (user) {
+            notebooksRef = usersRef.child(user.uid + '/notebooks');
+        }
+
         let notebookRef = notebooksRef.push();
         notebook = createNewNotebook(notebookRef.key, notebook, user);
 
@@ -42,12 +47,17 @@ export function addNotebook(notebook) {
     }
 }
 
-export function removeNotebook(notes) {
+export function removeNotebook(notes, user = null) {
 	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
-        const user = getState().userData.user;
-        const notebooksRef = database.ref('notebooks');
+        user = user || getState().userData.user;
+        const usersRef = database.ref('users');
+        let notebooksRef = usersRef.child('guest/notebooks');
+
+        if (user) {
+            notebooksRef = usersRef.child(user.uid + '/notebooks');
+        }
 
         notebooksRef.once('value', (snap) => {
             if (snap.exists()) {
@@ -74,44 +84,16 @@ export function removeNotebook(notes) {
 	};
 }
 
-/* export function editNotebook(notebook, note) {
-    return dispatch => {
-        dispatch(editNotebookRequestedAction());
-
-        const noteRef = database.ref('/notes/' + note.id);
-        const noteBookRef = noteRef.child('/notebook');
-        const notebooksRef = database.ref('/notebooks');
-
-        noteBookRef.update(notebook.name)
-            .then((notebook) => {
-                notebooksRef.once('value', (snap) => {
-                    let notebooks = snap.val();
-
-                    dispatch(editNotebookFulfilledAction(notebook, notebooks));
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(editNotebookRejectedAction());
-            });
-    }
-} */
-
-/* export function selectNotebook(notebook, selectedNote) {
+export function listenForDeletedNotebook(user = null) {
     return (dispatch, getState) => {
-        dispatch(selectNotebookRequestedAction());
 
-        const book = getState().notebookData.notebooks.filter(function(n) {
-            return n.id === notebook.id;
-        });
+        user = user || getState().userData.user;
+        const usersRef = database.ref('users');
+        let notesRef = usersRef.child('guest/notes');
 
-        dispatch(selectNotebookFulfilledAction(book, selectedNote));
-    }
-} */
-
-export function listenForDeletedNotebook() {
-    return (dispatch, getState) => {
-        const notesRef = database.ref('notes');
+        if (user) {
+            notesRef = usersRef.child(user.uid + '/notes');
+        }
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
@@ -122,7 +104,7 @@ export function listenForDeletedNotebook() {
                 return note.id !== n.id;
             });
 
-            dispatch(removeNotebook(notes));
+            dispatch(removeNotebook(notes, user));
         });
     }
 }
@@ -143,49 +125,15 @@ function getNotebooksFulfilledAction(notebooks) {
 }
 
 /**
- * Get notebook
- */
-/* function getNotebookRequestedAction() {
-    return { type: types.GetNotebooksRequested };
-}
-
-function getNotebookRejectedAction() {
-    return { type: types.GetNotebooksRejected };
-}
-
-function getNotebookFulfilledAction(notebook) {
-    return { type: types.GetNotebookFulfilled, notebook };
-} */
-
-/**
  * Add Notebook
  */
 function addNotebookRequestedAction() {
     return { type: types.AddNotebookRequested };
 }
 
-/* function addNotebookRejectedAction() {
-    return { type: types.AddNotebookRejected };
-} */
-
 function addNotebookFulfilledAction(notebook) {
     return { type: types.AddNotebookFulfilled, notebook };
 }
-
-/**
- * Edit Notebook
- */
-/* function editNotebookRequestedAction() {
-    return { type: types.EditNotebookRequested };
-}
-
-function editNotebookRejectedAction() {
-    return { type: types.EditNotebookRejected };
-}
-
-function editNotebookFulfilledAction(notebooks) {
-    return { type: types.EditNotebookFulfilled, notebooks };
-} */
 
 /**
  * Delete Notebook
@@ -201,18 +149,3 @@ function deleteNotebookRequestedAction() {
 function deleteNotebookFulfilledAction(notebooks) {
     return { type: types.DeleteNotebookFulfilled, notebooks };
 }
-
-/**
- * Select Notebook
- */
-/* function selectNotebookRequestedAction() {
-    return { type: types.SelectNotebookRequested };
-}
-
-function selectNotebookRejectedAction() {
-    return { type: types.SelectNotebookRejected };
-}
-
-function selectNotebookFulfilledAction(notebook, selectedNote) {
-    return { type: types.SelectNotebookFulfilled, notebook, selectedNote };
-} */

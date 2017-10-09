@@ -12,7 +12,6 @@ class TagsContainer extends React.PureComponent {
 		super(props);
 
 		this.editTags = this.editTags.bind(this);
-		// this.removeEmptyTags = this.removeEmptyTags.bind(this);
 	}
 
     // TODO: add a minimum character limit for new tags
@@ -45,17 +44,6 @@ class TagsContainer extends React.PureComponent {
 
         if (tags) {
             tagOptions = tags;
-
-            // Filter notebooks for the logged in user
-            if (user) {
-                tagOptions = tagOptions.filter((tag) => {
-                    return tag.uid === user.uid;
-                });
-            } else {
-                tagOptions = tagOptions.filter((tag) => {
-                    return tag.uid === undefined;
-                });
-            }
         }
 
 		return (

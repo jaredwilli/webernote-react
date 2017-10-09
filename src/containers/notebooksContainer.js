@@ -125,8 +125,6 @@ class NotebooksContainer extends React.PureComponent {
 
         // Check for notebooks first
         if (notebooks) {
-            notebooks = filterData(user, notebooks);
-
             notebookOptions = notebooks.map((notebook) =>
                 <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
             );

@@ -20,7 +20,7 @@
 		"redux-thunk": "^2.2.0",
 		"underscore": "^1.8.3"
 	},
-	"homepage": "http://jaredwilli.github.io/webernote",
+
 	"git": {
 		"scripts": {
 			"pre-push": "surge --project ./build --domain webernote.surge.sh"

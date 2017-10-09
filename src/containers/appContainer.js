@@ -8,6 +8,9 @@ import NotesContainer from './notesContainer';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
+import * as notebookActions from '../actions/notebookActions';
+import * as tagActions from '../actions/tagActions';
+import * as labelActions from '../actions/labelActions';
 
 import '../App.css';
 
@@ -20,15 +23,21 @@ class AppContainer extends React.PureComponent {
 
         this.state = {
             selectedNote: '',
-            notes: [],
-            user: null
+            notes: this.props.actions.getNotes(this.props.user),
+            user: this.props.user
         }
+    }
+
+    componentWillMount() {
+        this.props.actions.getNotes(this.props.user);
+        this.props.actions.getNotebooks(this.props.user);
+        this.props.actions.getTags(this.props.user);
+        this.props.actions.getLabels(this.props.user);
     }
 
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser();
-
     }
 
     logout() {
@@ -89,7 +98,8 @@ function mapStateToProps(state) {
         user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        tags: state.tagData.tags
+        tags: state.tagData.tags,
+        labels: state.labelData.labels
     };
     // console.log('STATE: ', state, newState);
 
@@ -97,7 +107,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = Object.assign(userActions, noteActions);
+    let actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions);
 
     return {
         actions: bindActionCreators(actions, dispatch)

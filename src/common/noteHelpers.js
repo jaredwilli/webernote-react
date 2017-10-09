@@ -24,12 +24,12 @@ export function sortNotes(notes) {
  * @param {Array} notes
  * @returns {Object} obj with notebook name and note count using it
  */
-export function getNotebookCount(notebook, notes, user) {
+export function getNotebookCount(notebook, notes) {
     let count = 0;
 
     // iterate over notes
     if (notes.length) {
-        notes.forEach(function(n) {
+        notes.forEach((n) => {
             if (!n.notebook) return;
 
             if (n.notebook.name === notebook.name) {
@@ -54,7 +54,7 @@ export function getNotebookCount(notebook, notes, user) {
  * @param {Array} notes
  * @returns {Object} obj with tag name and note count using it
  */
-export function getTagCount(tag, notes, user) {
+export function getTagCount(tag, notes) {
     let count = 0;
 
     // iterate over notes
@@ -73,6 +73,33 @@ export function getTagCount(tag, notes, user) {
 
     return {
         tag: tag,
+        count: count
+    };
+}
+
+/**
+ * getLabelCount
+ *
+ * @param {Object} label
+ * @param {Array} notes
+ * @returns {Object} obj with label name and note count using it
+ */
+export function getLabelCount(label, notes) {
+    let count = 0;
+
+    // iterate over notes
+    if (notes.length) {
+        notes.forEach((n) => {
+            if (!n.label) return;
+
+            if (n.label.hex === label.hex) {
+                count++;
+            }
+        });
+    }
+
+    return {
+        label: label,
         count: count
     };
 }
@@ -139,7 +166,7 @@ export function getDeletedTags(tags, note) {
  */
 export function createNewNote(refId, user) {
     const newNote = {
-        uid: (user) ? user.uid : null,
+        uid: (user) ? user.uid : 'guest',
         id: refId,
         isEditing: true,
         title: '',
@@ -166,7 +193,7 @@ export function createNewTag(refId, tag, note, user) {
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.uid = (user) ? user.uid : null;
+    tag.uid = (user) ? user.uid : 'guest';
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -185,12 +212,29 @@ export function createNewNotebook(refId, notebook, user) {
     if (!notebook.name) return;
 
     // Add some extra data to notebook object
-    notebook.uid = (user) ? user.uid : null;
+    notebook.uid = (user) ? user.uid : 'guest';
     notebook.id = refId;
     notebook.value = refId;
     notebook.name = notebook.name;
 
     return notebook;
+}
+
+/**
+ * Generate a new label object
+ *
+ * @param {*} refId
+ * @param {*} label
+ * @param {*} note
+ */
+export function createNewLabel(refId, label, user) {
+    if (!label.name) return;
+
+    // Add some extra data to label object
+    label.uid = (user) ? user.uid : 'guest';
+    label.id = refId;
+
+    return label;
 }
 
 /**
@@ -224,45 +268,22 @@ export function getSelectedNotebook(e, notebooks) {
  * @param {Object} data
  * @param {Object} filter
  */
-export function filterData(user, data, filters) {
-    if (user) {
-        data = data.filter((d) => {
-            return d.uid === user.uid;
-        });
-    } else {
-        data = data.filter((d) => {
-            return d.uid === undefined || d.uid === null;
-        });
-    }
+// export function filterData(data, filters) {
+//     if (filters) {
+//         let filterKeys = Object.keys(filters);
+//         // Loop over the filterKeys
+//         filterKeys.forEach((filterKey) => {
+//             data = data.filter((d) => {
+//                 if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
+//                     // if data has the filter return those with same id
+//                     return d[filterKey].id === filters[filterKey].id;
+//                 }
+//                 return d;
+//             });
 
-    if (filters) {
-        let filterKeys = Object.keys(filters);
-        // Loop over the filterKeys
-        filterKeys.forEach((filterKey) => {
-            // If user exists get filter just theirs
-            if (user) {
-                data = data.filter((d) => {
-                    if (filters[filterKey].id === 'all_notebooks') {
-                        return d;
-                    }
+//             return data;
+//         });
+//     }
 
-                    return d[filterKey].uid === user.uid &&
-                        d[filterKey].id === filters[filterKey].id;
-                });
-            } else {
-                data = data.filter((d) => {
-                    if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
-                        // if data has the filter return those with same id
-                        return d[filterKey].id === filters[filterKey].id;
-                    }
-
-                    return d;
-                });
-            }
-
-            return data;
-        });
-    }
-
-    return data;
-}
+//     return data;
+// }

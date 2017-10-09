@@ -10,7 +10,7 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 import AddNote from '../components/AddNote';
 
-import FloatingButton from '../components/FloatingButton';
+// import FloatingButton from '../components/FloatingButton';
 
 import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
@@ -131,17 +131,7 @@ class NotesContainer extends React.PureComponent {
 			);
 		}
 
-		// Filter notes for current user
-		notes = filterData(user, notes, {
-			notebook: this.state.notebookFilter
-		});
-
-				{/* <FloatingButton
-					click={e => this.addNote(e)}
-					class="add-note"
-					mini={true}
-				/> */}
-		return (
+        return (
 			<div>
 				<div className="wrapper">
 					<nav className="toolbar">
@@ -195,9 +185,7 @@ function mapStateToProps(state) {
 	const newState = {
 		user: state.userData.user,
 		notes: state.noteData.notes,
-		selectedNote: state.noteData.selectedNote,
-		notebooks: state.notebookData.notebooks,
-		tags: state.tagData.tags
+		selectedNote: state.noteData.selectedNote
 	};
 	// console.log('STATE: ', state, newState);
 

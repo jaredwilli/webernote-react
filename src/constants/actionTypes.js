@@ -106,3 +106,29 @@ export const DeleteTagsFulfilled = 'DELETE_TAGS_FULFILLED';
 export const SelectTagRequested = 'SELECT_TAG_REQUESTED';
 export const SelectTagRejected = 'SELECT_TAG_REJECTED';
 export const SelectTagFulfilled = 'SELECT_TAG_FULFILLED';
+
+/* LABELS */
+
+export const GetLabelsRequested = 'GET_LABELS_REQUESTED';
+export const GetLabelsRejected = 'GET_LABELS_REJECTED';
+export const GetLabelsFulfilled = 'GET_LABELS_FULFILLED';
+
+export const GetLabelRequested = 'GET_LABEL_REQUESTED';
+export const GetLabelRejected = 'GET_LABEL_REJECTED';
+export const GetLabelFulfilled = 'GET_LABEL_FULFILLED';
+
+export const AddLabelRequested = 'ADD_LABEL_REQUESTED';
+export const AddLabelRejected = 'ADD_LABEL_REJECTED';
+export const AddLabelFulfilled = 'ADD_LABEL_FULFILLED';
+
+export const EditLabelRequested = 'EDIT_LABEL_REQUESTED';
+export const EditLabelRejected = 'EDIT_LABEL_REJECTED';
+export const EditLabelFulfilled = 'EDIT_LABEL_FULFILLED';
+
+export const DeleteLabelRequested = 'DELETE_LABEL_REQUESTED';
+export const DeleteLabelRejected = 'DELETE_LABEL_REJECTED';
+export const DeleteLabelFulfilled = 'DELETE_LABEL_FULFILLED';
+
+export const SelectLabelRequested = 'SELECT_LABEL_REQUESTED';
+export const SelectLabelRejected = 'SELECT_LABEL_REJECTED';
+export const SelectLabelFulfilled = 'SELECT_LABEL_FULFILLED';

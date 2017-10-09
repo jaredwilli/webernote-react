@@ -27,8 +27,6 @@ export default function noteReducer(state = {}, action) {
                 success: 'Got notes'
             });
 
-            newState.notes = state.notes;
-
             if (notes) {
                 // Get keys and set id for each note and set selectedNote
                 newState.notes = Object.keys(notes).map(function(n) {
@@ -110,6 +108,8 @@ export default function noteReducer(state = {}, action) {
                 success: 'Edited note'
             });
 
+            newState.notes = state.notes;
+
             if (action.obj.notebook) {
                 note.notebook = action.obj.notebook
             }
@@ -118,6 +118,10 @@ export default function noteReducer(state = {}, action) {
                 note.tags = action.obj.tags;
             } else {
                 note.tags = (note.tags) ? note.tags.slice() : [];
+            }
+
+            if (action.obj.label) {
+                note.label = action.obj.label
             }
 
             newState.selectedNote = note;

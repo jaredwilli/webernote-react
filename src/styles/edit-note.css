@@ -156,6 +156,14 @@
 	margin-left: 2px;
 }
 
+.cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 .edit-note .label-picker label {
 	display: inline-block;
     color: #757575;

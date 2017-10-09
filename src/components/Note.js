@@ -23,7 +23,7 @@ function Note(props) {
             key={note.id} id={note.id}
             onClick={(e) => props.selectNote(e, note)}>
             <button className="delete" onClick={() => props.deleteNote(note)}>X</button>
-            {note.label ? <div className="note-label" style={{backgroundColor: note.label}}></div> : ''}
+            {note.label ? <div className="note-label" style={{backgroundColor: note.label.hex}}></div> : ''}
             {note.title ? <h2 className="title">{shorten(note.title, 80)}</h2> : ''}
             <div className="note-details">
                 <span className="date">
