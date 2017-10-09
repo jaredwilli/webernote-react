@@ -63,7 +63,6 @@ export default function labelReducer(state = {}, action) {
 			newState.labels = state.labels || [];
 			newState.labels.push(label);
 
-			// newState.selectedLabel = label;
 			return newState;
 		}
 

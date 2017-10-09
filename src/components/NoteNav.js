@@ -69,7 +69,7 @@ class NoteNav extends React.Component {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
                     <a href={'#/' + label.hex}>
-                        <div className="note-label" style={{backgroundColor: label.hex}}></div>
+                        <div className="note-label" style={{background: label.hex}}></div>
                     </a>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
                 </li>

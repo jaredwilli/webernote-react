@@ -35,7 +35,7 @@
     "prettier.tabWidth": 4,
     "prettier.singleQuote": true,
     "prettier.useTabs": true,
-    "prettier.jsxBracketSameLine": false,
+    "prettier.jsxBracketSameLine": true,
     "prettier.jsonEnable": [
         "json",
         "javascript",
@@ -43,6 +43,7 @@
         "css",
         "html"
     ],
+
     "workbench.colorTheme": "Blackboard",
     "workbench.statusBar.visible": true,
     "[javascriptreact]": {

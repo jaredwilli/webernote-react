@@ -95,9 +95,9 @@ class LabelsContainer extends React.PureComponent {
             <div className="label-picker">
                 <label onClick={this.showColorPicker}>Label</label>
                 <button className="label-background"
-                    style={{background: backgroundColor}}
-                    onClick={this.showColorPicker}>
-                </button>
+                    style={{ background: backgroundColor }}
+                    onClick={this.showColorPicker} />
+
                 {colorPicker}
             </div>
         );

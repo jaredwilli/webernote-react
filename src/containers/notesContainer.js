@@ -120,13 +120,7 @@ class NotesContainer extends React.PureComponent {
 		if (!notes) {
 			return (
 				<div className="big-loader">
-					<ReactLoading
-						className="loader"
-						type="spinningBubbles"
-						color="#ccc"
-						height="500px"
-						width="300px"
-					/>
+					<ReactLoading className="loader" type="spinningBubbles" color="#ccc" height="500px" width="300px" />
 				</div>
 			);
 		}
@@ -157,17 +151,11 @@ class NotesContainer extends React.PureComponent {
 									<NoteNav />
 								</td>
 								<td className="middle note-list-col">
-									<NoteList
-										notes={notes}
-										deleteNote={note =>
-											this.deleteNote(note)}
-										filterByNotebook={notebook =>
-											this.filterByNotebook(notebook)}
-										filterList={filter =>
-											this.filterList(filter)}
-										setFilterType={type =>
-											this.setFilterType(type)}
-									/>
+									<NoteList notes={notes}
+										deleteNote={note => this.deleteNote(note)}
+										filterByNotebook={notebook => this.filterByNotebook(notebook)}
+										filterList={filter => this.filterList(filter)}
+										setFilterType={type => this.setFilterType(type)} />
 								</td>
 								<td className="edit-note-col">
 									<EditNote notes={notes} />

@@ -23,7 +23,7 @@
 
 	"git": {
 		"scripts": {
-			"pre-push": "surge --project ./build --domain webernote.surge.sh"
+			"pre-push": "npm run build && surge --project ./build --domain webernote.surge.sh"
 		}
 	},
 	"scripts": {
