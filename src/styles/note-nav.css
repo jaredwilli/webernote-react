@@ -1,6 +1,6 @@
-/* LEFT NAV */
+/* NOTE NAV */
 
-.left-nav {
+.note-nav {
     background: #fff;
     border: 1px solid #B8CDE0;
 	padding: 0;
@@ -9,30 +9,34 @@
 	overflow-y: auto;
 }
 
-.left-nav nav {
+.note-nav nav {
     display: block;
     margin: 5px 0 0 5px;
 }
 
-.left-nav ul {
+.note-nav nav a {
+    text-align: left;
+}
+
+.note-nav ul {
 	margin-bottom: 10px;
 }
 
-.left-nav ul ul {
+.note-nav ul ul {
     visibility: hidden;
     width: 100%;
 }
 
-.left-nav ul .expanded ul {
+.note-nav ul .expanded ul {
     visibility: visible;
 }
 
-.left-nav ul ul li {
+.note-nav ul ul li {
     display: block;
 	margin: 1px 0 0 5px;
 }
 
-.left-nav li > div {
+.note-nav li > div {
 	background: url('../img/arrow.png') no-repeat 1px 4px;
     color: #068dcc;
 	text-decoration: none;
@@ -41,38 +45,38 @@
     cursor: pointer;
 }
 
-.left-nav li > a {
+.note-nav li > a {
     color: #068dcc;
     font-weight: normal;
 }
 
-.left-nav li > div:hover,
-.left-nav li > a:hover {
+.note-nav li > div:hover,
+.note-nav li > a:hover {
 	text-decoration: underline;
 }
 
-.left-nav li.tag-link > div {
+.note-nav li.tag-link > div {
 	background: none;
 }
 
-.left-nav li.expanded > div {
+.note-nav li.expanded > div {
     background-position: 1px -10px;
     line-height: 16px;
 }
 
-.left-nav li .count {
+.note-nav li .count {
 	color: #999;
 }
 
-.left-nav li .count:before {
+.note-nav li .count:before {
 	content: '(';
 }
 
-.left-nav li .count:after {
+.note-nav li .count:after {
 	content: ')';
 }
 
-.left-nav .note-label {
+.note-nav .note-label {
 	border: 1px solid #d0d0d0;
 	border-radius: 24px;
 	display: inline-block;

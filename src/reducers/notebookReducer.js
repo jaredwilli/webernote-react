@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function notebookReducer(state = {}, action) {
 	switch (action.type) {
@@ -19,18 +20,12 @@ export default function notebookReducer(state = {}, action) {
 		}
 
 		case types.GetNotebooksFulfilled: {
-			let notebooks = action.notebooks;
+			let notebooks = refToArray(action.notebooks);
 
 			const newState = Object.assign({}, state, {
 				inProgress: false,
 				success: 'Got notebooks'
 			});
-
-			if (notebooks) {
-				notebooks = Object.keys(notebooks).map(function(k) {
-					return notebooks[k];
-				});
-			}
 
 			newState.notebooks = notebooks;
 			return newState;

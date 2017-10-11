@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getNotebookCount, getTagCount, getLabelCount } from '../common/noteHelpers.js';
+import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
-import '../styles/left-nav.css';
+import '../styles/note-nav.css';
 
 class NoteNav extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class NoteNav extends React.Component {
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
-                        <span className="name">{notebook.name}</span>
+                        <span className="name">{shorten(notebook.name)}</span>
                     </a>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
                 </li>
@@ -53,7 +54,7 @@ class NoteNav extends React.Component {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
                     <a href={'#/' + tag.label}>
-                        <span className="name">{tag.label}</span>
+                        <span className="name">{shorten(tag.label, 80)}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
                 </li>
@@ -74,7 +75,7 @@ class NoteNav extends React.Component {
         }
 
         return (
-            <div id="note-nav" className="left-nav">
+            <div className="note-nav">
                 {(notebooks && notebooks.length) ?
                     <nav className="notebooks-nav">
                         <ul className="notebooks top-nav-item">

@@ -1,8 +1,9 @@
 import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function userReducer(state = {}, action) {
     switch(action.type) {
-        
+
         // *** GET USERS
         case types.GetUsersRequested: {
             return Object.assign({}, state, {
@@ -20,24 +21,17 @@ export default function userReducer(state = {}, action) {
         }
 
         case types.GetUsersFulfilled: {
-            const users = action.users;
+            const users = refToArray(action.users);
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got users'
             });
 
-            if (users) {
-                newState.users = Object.keys(users).map(function(u) {
-                    return users[u];
-                });
-            } else {
-                newState.users = [];
-            }
-
+            newState.users = users;
             return newState;
         }
-        
+
         // *** GET USER
         case types.GetUserRequested: {
             return Object.assign({}, state, {
@@ -61,7 +55,7 @@ export default function userReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Got user'
             });
-            
+
             newState.user = user;
             return newState;
         }
@@ -74,14 +68,14 @@ export default function userReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.AddUserRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error adding user'
             });
         }
-        
+
         case types.AddUserFulfilled: {
             const user = action.user;
 
@@ -90,7 +84,7 @@ export default function userReducer(state = {}, action) {
                 success: 'Added user'
             });
 
-            newState.users = (state.users) ? state.users : [];
+            newState.users = state.users || [];
             newState.users.push(user);
 
             newState.user = user;
@@ -105,14 +99,14 @@ export default function userReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.EditUserRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error editing user'
             });
         }
-        
+
         case types.EditUserFulfilled: {
             let user = action.user;
 
@@ -134,7 +128,7 @@ export default function userReducer(state = {}, action) {
             newState.selectedUser = user;
             return newState;
         }
-        
+
         // *** DELETE USER
         case types.DeleteUserRequested: {
             return Object.assign({}, state, {
@@ -143,21 +137,21 @@ export default function userReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.DeleteUserRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error delete user'
             });
         }
-        
-        case types.DeleteUserFulfilled: {            
+
+        case types.DeleteUserFulfilled: {
             return Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted user'
             });
         }
-        
+
         // *** SELECT USER
         case types.SelectUserRequested: {
             return Object.assign({}, state, {
@@ -166,7 +160,7 @@ export default function userReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.SelectUserRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -177,16 +171,16 @@ export default function userReducer(state = {}, action) {
         case types.SelectUserFulfilled: {
             const user = action.user;
             user.isEditing = true;
-            
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'User selected: ' + user.title
             });
-            
+
             newState.selectedUser = user;
             return newState;
         }
-        
+
         // *** LOGOUT USER
         case types.LogoutUserRequested: {
             return Object.assign({}, state, {
@@ -201,12 +195,12 @@ export default function userReducer(state = {}, action) {
                 inProgress: false,
                 success: 'User logged out'
             });
-            
+
             newState.user = '';
             return newState;
         }
-        
-        default: 
+
+        default:
             return state;
     }
 }

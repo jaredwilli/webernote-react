@@ -25,9 +25,15 @@ export const SelectUserRejected = 'SELECT_USER_REJECTED';
 export const SelectUserFulfilled = 'SELECT_USER_FULFILLED';
 
 export const LoginUserRequested = 'LOGIN_USER_REQUESTED';
+export const LoginUserRejected = 'LOGIN_USER_REJECTED';
 export const LoginUserFulfilled = 'LOGIN_USER_FULFILLED';
 
+export const LoginAnonymousRequested = 'LOGIN_ANONYMOUS_REQUESTED';
+export const LoginAnonymousRejected = 'LOGIN_ANONYMOUS_REJECTED';
+export const LoginAnonymousFulfilled = 'LOGIN_ANONYMOUS_FULFILLED';
+
 export const LogoutUserRequested = 'LOGOUT_USER_REQUESTED';
+export const LogoutUserRejected = 'LOGOUT_USER_REJECTED';
 export const LogoutUserFulfilled = 'LOGOUT_USER_FULFILLED';
 
 

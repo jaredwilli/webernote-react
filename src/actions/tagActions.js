@@ -2,23 +2,17 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { uniq } from '../common/helpers';
+import { refToArray, uniq } from '../common/helpers';
 
-export function getTags(user = null) {
+export function getTags() {
     return (dispatch, getState) => {
         dispatch(getTagsRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let tagsRef = usersRef.child('guest/tags');
-
-        if (user) {
-            tagsRef = usersRef.child(user.uid + '/tags');
-        }
+        const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
         tagsRef.once('value', (snap) => {
             const tags = snap.val();
-
             dispatch(getTagsFulfilledAction(tags));
         })
         .catch((error) => {
@@ -28,17 +22,12 @@ export function getTags(user = null) {
     }
 }
 
-export function addTag(tags, note, user = null) {
+export function addTag(tags, note) {
     return (dispatch, getState) => {
         dispatch(addTagRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let tagsRef = usersRef.child('guest/tags');
-
-        if (user) {
-            tagsRef = usersRef.child(user.uid + '/tags');
-        }
+        const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
         // Make tag list unique
         tags = uniq(tags);
@@ -49,9 +38,15 @@ export function addTag(tags, note, user = null) {
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
                 const tagRef = tagsRef.push();
+
                 tag = createNewTag(tagRef.key, tag, note, user);
 
-                tagRef.set(tag);
+                tagRef.set(tag)
+                    .then(dispatch(addTagFulfilledAction(tag)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(addTagRejectedAction());
+                    });
             }
 
             // push to tagList
@@ -62,34 +57,31 @@ export function addTag(tags, note, user = null) {
     }
 }
 
-export function removeTags(notes, user = null) {
+export function removeTags(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let tagsRef = usersRef.child('guest/tags');
-
-        if (user) {
-            tagsRef = usersRef.child(user.uid + '/tags');
-        }
+        const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
         tagsRef.once('value', (snap) => {
             if (snap.exists()) {
-                const tags = snap.val();
+                const tags = refToArray(snap.val());
                 let tagsList = [];
 
-                Object.keys(tags).forEach((t) => {
-                    let tag = tags[t];
-                    let tagCount = getTagCount(tag, notes, user);
-
+                tags.forEach((tag) => {
+                    let tagCount = getTagCount(tag, notes);
                     // Remove empty tags
                     if (tagCount.count === 0) {
-                        let tagRef = tagsRef.child(tagCount.tag.id);
-                        // remove tag
-                        tagRef.remove();
+                        tagsRef.child(tagCount.tag.id)
+                            .remove()
+                            .then(dispatch(deleteTagsRejectedAction(tag)))
+                            .catch((error) => {
+                                console.error(error);
+                                dispatch(deleteTagsRejectedAction());
+                            });;
                     } else {
-                        tagsList.push(tags[t]);
+                        tagsList.push(tag);
                     }
                 });
 
@@ -99,16 +91,12 @@ export function removeTags(notes, user = null) {
 	};
 }
 
-export function listenForDeletedTags(user = null) {
+export function listenForDeletedTags() {
     return (dispatch, getState) => {
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let notesRef = usersRef.child('guest/notes');
-
-        if (user) {
-            notesRef = usersRef.child(user.uid + '/notes');
-        }
+        const user = getState().userData.user;
+        if (!user) return;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
@@ -119,7 +107,7 @@ export function listenForDeletedTags(user = null) {
                 return note.id !== n.id;
             });
 
-            dispatch(removeTags(notes, user));
+            dispatch(removeTags(notes));
         });
     }
 }
@@ -146,6 +134,10 @@ function addTagRequestedAction() {
     return { type: types.AddTagRequested };
 }
 
+function addTagRejectedAction() {
+    return { type: types.AddTagRejected };
+}
+
 function addTagFulfilledAction(tags) {
     return { type: types.AddTagFulfilled, tags };
 }
@@ -155,6 +147,10 @@ function addTagFulfilledAction(tags) {
  */
 function deleteTagsRequestedAction() {
     return { type: types.DeleteTagsRequested };
+}
+
+function deleteTagsRejectedAction() {
+    return { type: types.DeleteTagsRejected };
 }
 
 function deleteTagsFulfilledAction(tags) {

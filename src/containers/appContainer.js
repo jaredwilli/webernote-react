@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import UserImg from '../components/Avatar';
+import UserPhoto from '../components/UserPhoto';
+import IconBtn from '../components/IconBtn';
 import NotesContainer from './notesContainer';
 
 import * as userActions from '../actions/userActions';
@@ -20,37 +21,47 @@ class AppContainer extends React.PureComponent {
 
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-
-        // this.actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions);
-        console.log(this.props.user);
-
-        this.props.actions.getNotes();
-        this.props.actions.getNotebooks();
-        this.props.actions.getTags();
-        this.props.actions.getLabels();
-
-        this.props.actions.listenForDeletedNotebook();
-        this.props.actions.listenForDeletedTags();
-        this.props.actions.listenForDeletedLabels();
+        this.goToGithub = this.goToGithub.bind(this);
 
         this.state = {
             selectedNote: '',
-            notes: this.props.actions.getNotes(this.props.user),
+            notes: [],
             user: this.props.user
         }
     }
 
-    // componentDidMount() {
-    //     debugger;
-    //     this.props.actions.getNotes(this.props.user);
-    //     this.props.actions.getNotebooks(this.props.user);
-    //     this.props.actions.getTags(this.props.user);
-    //     this.props.actions.getLabels(this.props.user);
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.user && nextState.user) {
+            return nextState.user.uid !== nextProps.user.uid;
+        }
+        return true;
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        this.setState({
+            user: nextProps.user
+        }, this.updateData);
+    }
+
+    goToGithub(e) {
+        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
+        window.open(projectUrl);
+    }
+
+    updateData() {
+        this.props.actions.getNotes(this.state.user);
+        this.props.actions.getNotebooks(this.state.user);
+        this.props.actions.getTags(this.state.user);
+        this.props.actions.getLabels(this.state.user);
+
+        this.props.actions.listenForDeletedNotebook();
+        this.props.actions.listenForDeletedTags();
+        this.props.actions.listenForDeletedLabels();
+    }
 
     login() {
         this.props.actions.resetSelectedNote();
-        this.props.actions.loginUser();
+        this.props.actions.loginUser(this.props.user);
     }
 
     logout() {
@@ -62,11 +73,15 @@ class AppContainer extends React.PureComponent {
     render() {
         let loginOut = '';
 
-        if (this.props.user) {
+        if (this.props.user && !this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
+                    <IconBtn onclick={this.goToGithub} />
+
                     <span className="user-meta">
-                        <UserImg imgSrc={this.props.user.photo} size={25} />
+                        <UserPhoto imgSrc={this.props.user.photo}
+                            size={20}
+                            style={{border: '1px solid rgba(51, 51, 51, 0.50)'}} />
                         <span className="username">
                             {this.props.user.displayName}
                         </span>
@@ -74,10 +89,10 @@ class AppContainer extends React.PureComponent {
                     <button className="logout" onClick={this.logout}>Logout</button>
                 </div>
             );
-        } else {
+        } else if (this.props.user && this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <button className="login" onClick={this.login}>Login</button>
+                    <button className="login" onClick={this.login}>Login/Register</button>
                 </div>
             );
         }
@@ -107,12 +122,7 @@ class AppContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        users: state.userData.users,
-        user: state.userData.user,
-        notes: state.noteData.notes,
-        notebooks: state.notebookData.notebooks,
-        tags: state.tagData.tags,
-        labels: state.labelData.labels
+        user: state.userData.user
     };
     // console.log('STATE: ', state, newState);
 

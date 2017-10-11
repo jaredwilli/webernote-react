@@ -29,18 +29,12 @@ const authConfig = {
     messagingSenderId: "567445181045"
 };
 
-// export const gProvider = new firebase.auth.GoogleAuthProvider();
+export const gProvider = new firebase.auth.GoogleAuthProvider();
 export const fbProvider = new firebase.auth.FacebookAuthProvider();
+export const twProvider = new firebase.auth.TwitterAuthProvider();
 export const auth = firebase.auth();
 
 let userDatabase = firebase.initializeApp(authConfig, 'AUTH');
-
 export const authDatabase = userDatabase.database();
-
-export const storageKey = 'KEY_FOR_LOCAL_STORAGE';
-
-export const isAuthenticated = () => {
-    return !!auth.currentUser || !!localStorage.getItem(storageKey);
-}
 
 export default firebase;

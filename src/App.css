@@ -51,18 +51,21 @@
 .loginout button {
     background: none;
     border: 0;
-    color: #E91E63;
+    color: #03A9F4;
     font-size: 13px;
     text-decoration: none;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .loginout button:hover {
-    color: #03A9F4;
+    color: #E91E63;
     text-decoration: underline;
 }
 
 .user-meta {
+    text-transform: capitalize;
+    display: inline-block;
     margin-right: 10px;
 }
 
@@ -70,6 +73,11 @@
     width: 22px;
     vertical-align: middle;
     margin-right: 5px;
+}
+
+.user-meta span {
+	padding: 5px 0;
+	vertical-align: middle;
 }
 
 .remove {

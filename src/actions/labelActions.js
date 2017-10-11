@@ -4,21 +4,15 @@ import * as types from '../constants/actionTypes';
 import { getLabelCount, createNewLabel } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
-export function getLabels(user = null) {
+export function getLabels() {
     return (dispatch, getState) => {
         dispatch(getLabelsRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let labelsRef = usersRef.child('guest/labels');
-
-        if (user) {
-            labelsRef = usersRef.child(user.uid + '/labels');
-        }
+        const user = getState().userData.user;
+        const labelsRef = database.ref('users/' + user.uid + '/labels');
 
 		labelsRef.once('value', (snap) => {
             const labels = snap.val();
-
             dispatch(getLabelsFulfilledAction(labels));
         })
         .catch((error) => {
@@ -28,52 +22,50 @@ export function getLabels(user = null) {
     }
 }
 
-export function addLabel(label, user = null) {
+export function addLabel(label) {
     return (dispatch, getState) => {
         dispatch(addLabelRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let labelsRef = usersRef.child('guest/labels');
+        const user = getState().userData.user;
+        const labelsRef = database.ref('users/' + user.uid + '/labels');
+        const labelRef = labelsRef.push();
 
-        if (user) {
-            labelsRef = usersRef.child(user.uid + '/labels');
-        }
+        label.id = labelRef.key;
 
-        let labelRef = labelsRef.push();
-        label = createNewLabel(labelRef.key, label, user);
-
-        labelRef.set(label);
-        dispatch(addLabelFulfilledAction(label));
+        labelRef.set(label)
+            .then(dispatch(addLabelFulfilledAction(label)))
+            .catch((error) => {
+                console.error(error);
+                dispatch(addLabelRejectedAction());
+            });
     }
 }
 
-export function removeLabel(notes, user = null) {
+export function removeLabel(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteLabelRequestedAction());
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let labelsRef = usersRef.child('guest/labels');
-
-        if (user) {
-            labelsRef = usersRef.child(user.uid + '/labels');
-        }
+        const user = getState().userData.user;
+        const labelsRef = database.ref('users/' + user.uid + '/labels');
 
         labelsRef.once('value', (snap) => {
             if (snap.exists()) {
                 const labels = refToArray(snap.val());
                 let labelsList = [];
 
-                labels.forEach((l) => {
-                    let labelCount = getLabelCount(l, notes);
+                labels.forEach((label) => {
+                    let labelCount = getLabelCount(label, notes);
                     // Remove empty labels
                     if (labelCount.count === 0) {
-                        let labelRef = labelsRef.child(l.id);
-                        // remove label
-                        labelRef.remove();
+                        labelsRef.child(labelCount.label.id)
+                            .remove()
+                            .then(dispatch(deleteLabelFulfilledAction(label)))
+                            .catch((error) => {
+                                console.error(error);
+                                dispatch(deleteLabelRejectedAction());
+                            });
                     } else {
-                        labelsList.push(l);
+                        labelsList.push(label);
                     }
                 });
 
@@ -83,16 +75,12 @@ export function removeLabel(notes, user = null) {
 	};
 }
 
-export function listenForDeletedLabels(user = null) {
+export function listenForDeletedLabels() {
     return (dispatch, getState) => {
 
-        user = user || getState().userData.user;
-        const usersRef = database.ref('users');
-        let notesRef = usersRef.child('guest/notes');
-
-        if (user) {
-            notesRef = usersRef.child(user.uid + '/notes');
-        }
+        const user = getState().userData.user;
+        if (!user) return;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
@@ -103,7 +91,7 @@ export function listenForDeletedLabels(user = null) {
                 return note.id !== n.id;
             });
 
-            dispatch(removeLabel(notes, user));
+            dispatch(removeLabel(notes));
         });
     }
 }
@@ -130,6 +118,10 @@ function addLabelRequestedAction() {
     return { type: types.AddLabelRequested };
 }
 
+function addLabelRejectedAction() {
+    return { type: types.AddLabelRejected };
+}
+
 function addLabelFulfilledAction(label) {
     return { type: types.AddLabelFulfilled, label };
 }
@@ -139,6 +131,10 @@ function addLabelFulfilledAction(label) {
  */
 function deleteLabelRequestedAction() {
     return { type: types.DeleteLabelRequested };
+}
+
+function deleteLabelRejectedAction() {
+    return { type: types.DeleteLabelRejected };
 }
 
 function deleteLabelFulfilledAction(labels) {

@@ -23,8 +23,6 @@ class NoteList extends Component {
     }
 
     selectNote(e, note) {
-        // if (e.target.className === 'delete-note') return;
-
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }

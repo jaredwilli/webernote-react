@@ -166,7 +166,6 @@ export function getDeletedTags(tags, note) {
  */
 export function createNewNote(refId, user) {
     const newNote = {
-        uid: (user) ? user.uid : 'guest',
         id: refId,
         isEditing: true,
         title: '',
@@ -187,13 +186,12 @@ export function createNewNote(refId, user) {
  * @param {*} tag
  * @param {*} note
  */
-export function createNewTag(refId, tag, note, user) {
+export function createNewTag(refId, tag, note) {
     // no className - not new tag...
     if (!tag.className) return;
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.uid = (user) ? user.uid : 'guest';
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -208,33 +206,15 @@ export function createNewTag(refId, tag, note, user) {
  * @param {*} notebook
  * @param {*} note
  */
-export function createNewNotebook(refId, notebook, user) {
+export function createNewNotebook(refId, notebook) {
     if (!notebook.name) return;
 
     // Add some extra data to notebook object
-    notebook.uid = (user) ? user.uid : 'guest';
     notebook.id = refId;
     notebook.value = refId;
     notebook.name = notebook.name;
 
     return notebook;
-}
-
-/**
- * Generate a new label object
- *
- * @param {*} refId
- * @param {*} label
- * @param {*} note
- */
-export function createNewLabel(refId, label, user) {
-    if (!label.name) return;
-
-    // Add some extra data to label object
-    label.uid = (user) ? user.uid : 'guest';
-    label.id = refId;
-
-    return label;
 }
 
 /**
@@ -268,22 +248,22 @@ export function getSelectedNotebook(e, notebooks) {
  * @param {Object} data
  * @param {Object} filter
  */
-// export function filterData(data, filters) {
-//     if (filters) {
-//         let filterKeys = Object.keys(filters);
-//         // Loop over the filterKeys
-//         filterKeys.forEach((filterKey) => {
-//             data = data.filter((d) => {
-//                 if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
-//                     // if data has the filter return those with same id
-//                     return d[filterKey].id === filters[filterKey].id;
-//                 }
-//                 return d;
-//             });
+export function filterData(data, filters) {
+    if (filters) {
+        let filterKeys = Object.keys(filters);
+        // Loop over the filterKeys
+        filterKeys.forEach((filterKey) => {
+            data = data.filter((d) => {
+                if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
+                    // if data has the filter return those with same id
+                    return d[filterKey].id === filters[filterKey].id;
+                }
+                return d;
+            });
 
-//             return data;
-//         });
-//     }
+            return data;
+        });
+    }
 
-//     return data;
-// }
+    return data;
+}

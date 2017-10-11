@@ -11,6 +11,7 @@ class NoteTypes extends Component {
                     <li><a href="/notebooks">Notebooks</a></li>
                     <li><a href="/tags">Tags</a></li>
                 </ul>
+
                 <div className="quick-access dropzone">
                     <em>For quick access, drag notes, notebooks and tags here</em>
                 </div>

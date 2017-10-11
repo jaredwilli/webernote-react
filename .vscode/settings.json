@@ -13,16 +13,17 @@
     "editor.minimap.enabled": true,
     "editor.snippetSuggestions": "top",
     "editor.tabCompletion": true,
+    "editor.multiCursorModifier": "ctrlCmd",
 
     "editor.fontSize": 14,
     "window.zoomLevel": 0,
-    "workbench.commandPalette.history": 0,
+    "workbench.commandPalette.history": 250,
     "css.lint.duplicateProperties": "warning",
     "html.format.endWithNewline": true,
+
     // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
     "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true
+
     },
 
     "window.restoreWindows": "all",
