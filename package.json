@@ -19,17 +19,19 @@
 		"redux-logger": "^2.10.2",
 		"redux-thunk": "^2.2.0",
 		"underscore": "^1.8.3"
-	},
+    },
+    "homepage": "https://jaredwilli.github.io/webernote-react/",
 	"git": {
 		"scripts": {
-			"pre-push": "npm run build && surge --project ./build --domain webernote.surge.sh"
+            "pre-push": "npm run build && gh-pages -d build"
 		}
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
-		"eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "deploy": "npm run build && gh-pages -d build"
 	},
 	"devDependencies": {
 		"git-scripts": "^0.2.1",
