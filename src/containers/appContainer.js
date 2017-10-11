@@ -72,16 +72,20 @@ class AppContainer extends React.PureComponent {
 
     render() {
         let loginOut = '';
+        let avatarStyle = {
+            border: '1px solid rgba(51, 51, 51, 0.50)'
+        };
+        let iconBtnStyle = {
+	        verticalAlign: 'bottom'
+        };
 
         if (this.props.user && !this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} />
-
                     <span className="user-meta">
                         <UserPhoto imgSrc={this.props.user.photo}
                             size={20}
-                            style={{border: '1px solid rgba(51, 51, 51, 0.50)'}} />
+                            style={avatarStyle} />
                         <span className="username">
                             {this.props.user.displayName}
                         </span>
@@ -106,11 +110,9 @@ class AppContainer extends React.PureComponent {
                         </div>
 
                         <h1><a href="/">Webernote<sup>TM</sup></a></h1>
-                        <span>A TodoApp on steroids...</span>
+                        <span>Real-time note taking. Increase your productivity!</span>
 
-                        <span className="old-versions-nav">
-                            Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
-                        </span>
+                        <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     </header>
 
                     <NotesContainer />

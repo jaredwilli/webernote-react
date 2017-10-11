@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import * as noteActions from '../actions/noteActions';
 
@@ -33,6 +34,25 @@ class NoteList extends Component {
 
     render() {
         let filtersText = '';
+
+        if (!this.props.notes.length) {
+            return (
+                <div className="zero-notes">
+                    <div className="welcome-msg">
+                        <h2>Welcome to Webernote!</h2>
+                        <p>An app where you can keep the things you don't want to forget about. With Webernote you can create and manage notes, and organize them by creating notebooks, tags, and labeling them by different colors.</p>
+
+                        <p>All data is instantly saved as you type and make changes. A real Real-Time application.</p>
+
+                        <div className="get-started">
+                            <button onClick={this.props.addNote} className="get-started-btn">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
 
         if (this.props.notes.length) {
             filtersText = (

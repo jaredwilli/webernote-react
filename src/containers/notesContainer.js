@@ -100,7 +100,7 @@ class NotesContainer extends React.PureComponent {
         }
 
 
-        // Filter notes bu notebookFilter
+        // Filter notes by notebookFilter
         // notes = notes.filter((n) => {
         //     if (n.notebook && this.state.notebookFilter.name !== 'All notebooks') {
         //         return n.notebook.id === this.state.notebookFilter.id;
@@ -127,6 +127,7 @@ class NotesContainer extends React.PureComponent {
 
 								<td className="middle note-list-col">
 									<NoteList notes={notes}
+                                        addNote={this.addNote}
 										deleteNote={note => this.deleteNote(note)}
 										filterByNotebook={notebook => this.filterByNotebook(notebook)}
 										filterList={filter => this.filterList(filter)}

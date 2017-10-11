@@ -60,7 +60,11 @@ export function addUser(user, anonUser) {
                     user = createNewUser(user, snap.val());
 
                     userRef.set(user)
-                        .then(dispatch(addUserFulfilledAction(user)))
+                        .then(() => {
+                            // No longer accessible account so remove
+                            anonUserRef.remove();
+                            dispatch(addUserFulfilledAction(user))
+                        })
                         .catch((error) => {
                             console.error(error);
                             dispatch(addUserRejectedAction());
