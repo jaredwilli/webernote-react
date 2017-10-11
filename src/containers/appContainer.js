@@ -92,7 +92,7 @@ class AppContainer extends React.PureComponent {
         } else if (this.props.user && this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <button className="login" onClick={this.login}>Login/Register</button>
+                    <button className="login" onClick={this.login}>Login</button>
                 </div>
             );
         }
