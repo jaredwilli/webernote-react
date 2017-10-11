@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNotebookCount, getTagCount, filterData } from '../common/noteHelpers.js';
+import { getNotebookCount, getTagCount, getLabelCount } from '../common/noteHelpers.js';
+import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
+import * as labelActions from '../actions/labelActions';
 
-import '../styles/left-nav.css';
+import '../styles/note-nav.css';
 
 class NoteNav extends React.Component {
     constructor(props) {
@@ -31,23 +33,15 @@ class NoteNav extends React.Component {
     }
 
     render() {
-        const user = this.props.user;
-        let { notes, notebooks, tags } = this.props;
-
-        // Filter notes for user or not
-        notes = filterData(user, notes);
+        let { notes, notebooks, tags, labels } = this.props;
 
         // NOTEBOOKS MENU
         let notebookItems = '';
-
         if (notebooks && notebooks.length) {
-            // Filter user notebooks
-            notebooks = filterData(user, notebooks);
-
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
                     <a href={'#/' + notebook.name}>
-                        <span className="name">{notebook.name}</span>
+                        <span className="name">{shorten(notebook.name)}</span>
                     </a>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
                 </li>
@@ -56,23 +50,32 @@ class NoteNav extends React.Component {
 
         // TAGS MENU
         let tagItems = '';
-
         if (tags && tags.length) {
-            // Filter user tags
-            tags = filterData(user, tags);
-
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
                     <a href={'#/' + tag.label}>
-                        <span className="name">{tag.label}</span>
+                        <span className="name">{shorten(tag.label, 80)}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
                 </li>
             );
         }
 
+        // LABELS MENU
+        let labelItems = '';
+        if (labels && labels.length) {
+            labelItems = labels.map((label) =>
+                <li key={label.id} id={label.id}>
+                    <a href={'#/' + label.hex}>
+                        <div className="note-label" style={{background: label.hex}}></div>
+                    </a>&nbsp;
+                    <span className="count">{getLabelCount(label, notes).count}</span>
+                </li>
+            );
+        }
+
         return (
-            <div id="note-nav" className="left-nav">
+            <div className="note-nav">
                 {(notebooks && notebooks.length) ?
                     <nav className="notebooks-nav">
                         <ul className="notebooks top-nav-item">
@@ -98,6 +101,19 @@ class NoteNav extends React.Component {
                         </ul>
                     </nav>
                 : ''}
+
+                {(labels && labels.length) ?
+                    <nav className="labels-nav">
+                        <ul className="labels top-nav-item">
+                            <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                <ul className="labels">
+                                    {labelItems}
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                : ''}
             </div>
         );
     }
@@ -105,10 +121,10 @@ class NoteNav extends React.Component {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        tags: state.tagData.tags
+        tags: state.tagData.tags,
+        labels: state.labelData.labels
     };
     // console.log('STATE: ', state, newState);
 
@@ -116,8 +132,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = Object.assign({}, notebookActions, tagActions, labelActions);
+
     return {
-        actions: bindActionCreators(notebookActions, tagActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 

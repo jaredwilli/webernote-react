@@ -6,8 +6,7 @@ import * as noteActions from '../actions/noteActions';
 
 import NotebooksContainer from '../containers/notebooksContainer';
 import TagsContainer from '../containers/tagsContainer';
-
-import { TwitterPicker } from 'react-color';
+import LabelsContainer from '../containers/labelsContainer';
 
 import '../styles/edit-note.css';
 
@@ -16,22 +15,13 @@ class EditNote extends React.Component {
         super(props);
 
         this.editNote = this.editNote.bind(this);
-        this.editLabel = this.editLabel.bind(this);
         this.editNotebook = this.editNotebook.bind(this);
         this.editTags = this.editTags.bind(this);
-        this.showColorPicker = this.showColorPicker.bind(this);
+        this.editLabel = this.editLabel.bind(this);
 
         this.state = {
-            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {},
-            showColorPicker: false
+            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
         };
-    }
-
-    showColorPicker(e) {
-        e.preventDefault();
-        this.setState({
-            showColorPicker: true
-        });
     }
 
     editNote(e) {
@@ -48,18 +38,14 @@ class EditNote extends React.Component {
         this.props.actions.getNotes();
     }
 
-    editLabel(color) {
+    editLabel(label) {
         let note = this.props.selectedNote;
 
-        note.label = color.hex;
-        note.modified_date = new Date().getTime();
-
         this.setState({
-            selectedNote: note,
-            showColorPicker: false
+            selectedNote: note
         });
 
-        this.props.actions.editNote(note);
+        this.props.actions.editNote(note, { label: label });
         this.props.actions.getNotes();
     }
 
@@ -84,32 +70,11 @@ class EditNote extends React.Component {
     }
 
     render() {
-        // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
-        const colors = [
-            '#FF6900', '#FF9800', '#FCB900',
-            '#009688', '#00D084', '#7BDCB5',
-            '#03A9F4', '#00BCD4', '#8ED1FC',
-            '#880E4F', '#E91E63', '#F78DA7',
-            '#673AB7', '#9900EF', '#9C27B0',
-            '#ABB8C3'
-        ];
-        let colorPicker = '';
 
         if (!selectedNote || !selectedNote.id) {
             return (
                 <div className="show-note"></div>
-            );
-        }
-
-        if (this.state.showColorPicker) {
-            colorPicker = (
-                <div className="label-color-picker">
-                    <TwitterPicker color={this.state.background}
-                        onChangeComplete={this.editLabel}
-                        colors={colors}
-                        triangle="top-right" />
-                </div>
             );
         }
 
@@ -130,14 +95,7 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
-                        <div className="label-picker">
-                            <label onClick={this.showColorPicker}>Label</label>
-                            <button className="label-background"
-                                style={{backgroundColor: selectedNote.label}}
-                                onClick={this.showColorPicker}>
-                            </button>
-                            {colorPicker}
-                        </div>
+                        <LabelsContainer editLabel={(color) => this.editLabel(color)} />
 
                         <TagsContainer
                             noteTags={selectedNote.tags}

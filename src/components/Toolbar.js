@@ -1,0 +1,24 @@
+import React, { Component } from 'react';
+import AddNote from './AddNote';
+
+class Toolbar extends Component {
+    render() {
+        return (
+            <nav className="toolbar">
+                <ul>
+                    <li><a href="">File</a></li>
+                    <li><a href="">Edit</a></li>
+                    <li><a href="">View</a></li>
+                    <li><a href="">Note</a></li>
+                    <li><a href="">Tools</a></li>
+                    <li><a href="">Help</a></li>
+                    <li className="new-note">
+                        <AddNote addNote={this.props.addNote} />
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
+}
+
+export default Toolbar;

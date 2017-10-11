@@ -3,17 +3,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactLoading from 'react-loading';
 
+import Toolbar from '../components/Toolbar';
 import NoteNav from '../components/NoteNav';
 import NoteTypes from '../components/NoteTypes';
 
 import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
-import AddNote from '../components/AddNote';
 
-import FloatingButton from '../components/FloatingButton';
-
-import { filterData } from '../common/noteHelpers';
 import * as noteActions from '../actions/noteActions';
+import { filterData } from '../common/noteHelpers';
 
 import '../App.css';
 import '../styles/note-types.css';
@@ -25,44 +23,20 @@ class NotesContainer extends React.PureComponent {
 		this.addNote = this.addNote.bind(this);
 		this.deleteNote = this.deleteNote.bind(this);
 
-		this.filterByNotebook = this.filterByNotebook.bind(this);
 		this.filterList = this.filterList.bind(this);
 		this.setFilterType = this.setFilterType.bind(this);
+		this.filterByNotebook = this.filterByNotebook.bind(this);
 
 		this.state = {
+            user: this.props.user,
+            notes: this.props.notes,
 			selectedNote: this.props.selectedNote,
 			notebookFilter: {
 				name: 'All notebooks',
 				id: 'all_notebooks'
-			},
-			notes: []
+			}
 		};
-	}
-
-	/**
-     * Add event listener
-     */
-	// componentDidMount() {
-	// 	window.addEventListener('resize', e => {
-	// 		// debugger
-	// 	});
-	// }
-
-	// /**
-    //  * Remove event listener
-    //  */
-	// componentWillUnmount() {
-	// 	window.removeEventListener('resize', e => {
-	// 		// debugger
-	// 	});
-	// }
-
-	filterByNotebook(notebook) {
-		this.props.actions.resetSelectedNote();
-		this.setState({
-			notebookFilter: notebook
-		});
-	}
+    }
 
 	setFilterType(e) {
 		debugger;
@@ -88,7 +62,16 @@ class NotesContainer extends React.PureComponent {
 		this.setState({
 			currentNotes: updatedList
 		});
-	}
+    }
+
+    filterByNotebook(notebook) {
+		this.props.actions.resetSelectedNote();
+		this.setState({
+			notebookFilter: notebook
+		}, () => {
+
+        });
+    }
 
 	addNote(e) {
 		this.props.actions.resetSelectedNote();
@@ -101,84 +84,55 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-		const user = this.props.user;
-		let notes = this.props.notes;
-		// control the height of boxes
-		// let windowHeight = window.innerHeight;
-		// let boxes = document.querySelectorAll(
-		// 	'.left-nav, .note-list, .edit-note'
-		// );
+        let notes = this.props.notes;
 
-		// if (boxes.length) {
-		// 	if (windowHeight < boxes[0].clientHeight) {
-		// 		boxes.forEach(box => {
-		// 			box.style.height = windowHeight - 100 + 'px';
-		// 		});
-		// 	}
-		// }
-
-		if (!notes) {
+        if (!notes) {
 			return (
 				<div className="big-loader">
 					<ReactLoading
-						className="loader"
-						type="spinningBubbles"
-						color="#ccc"
-						height="500px"
-						width="300px"
-					/>
+                        className="loader"
+                        type="spinningBubbles"
+                        color="#2196f3"
+                        height="400px"
+                        width="200px" />
 				</div>
 			);
-		}
+        }
 
-		// Filter notes for current user
-		notes = filterData(user, notes, {
-			notebook: this.state.notebookFilter
-		});
 
-				{/* <FloatingButton
-					click={e => this.addNote(e)}
-					class="add-note"
-					mini={true}
-				/> */}
-		return (
+        // Filter notes bu notebookFilter
+        // notes = notes.filter((n) => {
+        //     if (n.notebook && this.state.notebookFilter.name !== 'All notebooks') {
+        //         return n.notebook.id === this.state.notebookFilter.id;
+        //     }
+        // });
+
+        // debugger;x
+
+        return (
 			<div>
 				<div className="wrapper">
-					<nav className="toolbar">
-						<ul>
-							<li><a href="">File</a></li>
-							<li><a href="">Edit</a></li>
-							<li><a href="">View</a></li>
-							<li><a href="">Note</a></li>
-							<li><a href="">Tools</a></li>
-							<li><a href="">Help</a></li>
-							<li className="new-note">
-								<AddNote addNote={e => this.addNote(e)} />
-							</li>
-						</ul>
-					</nav>
+					<Toolbar addNote={this.addNote} />
+
 					<nav className="note-types">
 						<NoteTypes />
 					</nav>
+
 					<table id="resizable" className="resizable">
 						<tbody>
 							<tr>
 								<td>
 									<NoteNav />
 								</td>
+
 								<td className="middle note-list-col">
-									<NoteList
-										notes={notes}
-										deleteNote={note =>
-											this.deleteNote(note)}
-										filterByNotebook={notebook =>
-											this.filterByNotebook(notebook)}
-										filterList={filter =>
-											this.filterList(filter)}
-										setFilterType={type =>
-											this.setFilterType(type)}
-									/>
+									<NoteList notes={notes}
+										deleteNote={note => this.deleteNote(note)}
+										filterByNotebook={notebook => this.filterByNotebook(notebook)}
+										filterList={filter => this.filterList(filter)}
+										setFilterType={type => this.setFilterType(type)} />
 								</td>
+
 								<td className="edit-note-col">
 									<EditNote notes={notes} />
 								</td>
@@ -195,9 +149,7 @@ function mapStateToProps(state) {
 	const newState = {
 		user: state.userData.user,
 		notes: state.noteData.notes,
-		selectedNote: state.noteData.selectedNote,
-		notebooks: state.notebookData.notebooks,
-		tags: state.tagData.tags
+		selectedNote: state.noteData.selectedNote
 	};
 	// console.log('STATE: ', state, newState);
 

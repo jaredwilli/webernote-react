@@ -1,10 +1,10 @@
 import * as types from '../constants/actionTypes.js';
 import { refToArray } from '../common/helpers.js';
 
-export default function notebookReducer(state = {}, action) {
+export default function labelReducer(state = {}, action) {
 	switch (action.type) {
-		// *** GET NOTEBOOKS
-		case types.GetNotebooksRequested: {
+		// *** GET LABELS
+		case types.GetLabelsRequested: {
 			return Object.assign({}, state, {
 				inProgress: true,
 				error: '',
@@ -12,27 +12,27 @@ export default function notebookReducer(state = {}, action) {
 			});
 		}
 
-		case types.GetNotebooksRejected: {
+		case types.GetLabelsRejected: {
 			return Object.assign({}, state, {
 				inProgress: false,
-				error: 'Error getting notebooks'
+				error: 'Error getting labels'
 			});
 		}
 
-		case types.GetNotebooksFulfilled: {
-			let notebooks = refToArray(action.notebooks);
+		case types.GetLabelsFulfilled: {
+			let labels = refToArray(action.labels);
 
 			const newState = Object.assign({}, state, {
 				inProgress: false,
-				success: 'Got notebooks'
+				success: 'Got labels'
 			});
 
-			newState.notebooks = notebooks;
+			newState.labels = labels;
 			return newState;
 		}
 
-		// *** ADD NOTEBOOKS
-		case types.AddNotebookRequested: {
+		// *** ADD LABELS
+		case types.AddLabelRequested: {
 			return Object.assign({}, state, {
 				inProgress: true,
 				error: '',
@@ -40,29 +40,28 @@ export default function notebookReducer(state = {}, action) {
 			});
 		}
 
-		case types.AddNotebookRejected: {
+		case types.AddLabelRejected: {
 			return Object.assign({}, state, {
 				inProgress: false,
-				error: 'Error adding notebook'
+				error: 'Error adding label'
 			});
 		}
 
-		case types.AddNotebookFulfilled: {
-			const notebook = action.notebook;
+		case types.AddLabelFulfilled: {
+			const label = action.label;
 
 			const newState = Object.assign({}, state, {
 				inProgress: false,
-				success: 'Added notebook'
+				success: 'Added label'
 			});
 
-			newState.notebooks = state.notebooks || [];
-			newState.notebooks.push(notebook);
-
+			newState.labels = state.labels || [];
+			newState.labels.push(label);
 			return newState;
 		}
 
-        // *** DELETE NOTEBOOK
-        case types.DeleteNotebookRequested: {
+        // *** DELETE LABEL
+        case types.DeleteLabelRequested: {
             return Object.assign({}, state, {
                 inProgress: true,
                 error: '',
@@ -70,22 +69,22 @@ export default function notebookReducer(state = {}, action) {
             });
         }
 
-        case types.DeleteNotebookRejected: {
+        case types.DeleteLabelRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
-                error: 'Error deleting notebook'
+                error: 'Error deleting label'
             });
         }
 
-        case types.DeleteNotebookFulfilled: {
-            const notebooks = action.notebooks;
+        case types.DeleteLabelFulfilled: {
+            const labels = action.labels;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Deleted notebook'
+                success: 'Deleted label'
             });
 
-            newState.notebooks = notebooks;
+            newState.labels = labels;
             return newState;
         }
 
