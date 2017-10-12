@@ -195,12 +195,16 @@ export function selectNote(note) {
         const notesRef = database.ref('users').child(user.uid + '/notes');
         const notes = getState().noteData.notes;
 
+        if (!notes || !notes.length) {
+            return dispatch(selectNoteRejectedAction());
+        }
+
 		note = notes.filter((n) => {
             return n.id === note.id;
         })[0];
 
         if (!note) {
-            note = notes[0];
+            // note = notes[0];
         }
 
         notesRef.child(note.id + '/isEditing')

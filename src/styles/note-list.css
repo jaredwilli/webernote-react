@@ -174,13 +174,18 @@
 
 .zero-notes {
     padding: 10px;
+    width: 76%;
+    margin: 0 auto;
 }
 
 .zero-notes .welcome-msg {
-    background: #fff;
-    padding: 30px;
-    font-weight: 15px;
-    height: 600px;
+	background: #fff;
+	font-size: 16px;
+	text-align: center;
+	height: 600px;
+	width: 70%;
+	padding: 30px;
+	margin: 0 auto;
 }
 
 .zero-notes .welcome-msg h2 {
@@ -191,20 +196,38 @@
     margin-bottom: 10px;
 }
 
-.zero-notes .welcome-msg .get-started {
+.zero-notes .welcome-msg ul {
+    font-size: 15px;
+	line-height: 18px;
+	text-align: left;
+	list-style-type: disc;
+	width: 415px;
+	margin: 20px auto;
+}
+
+
+.zero-notes .get-started {
     margin: 20px 0 10px;
 }
 
-.zero-notes .welcome-msg .get-started-btn {
-    background: #03A9F4;
+.zero-notes .get-started-btn {
+    background: #e91f63;
     border: 1px solid #333;
     border-radius: 2px;
     color: #fff;
-    font-size: 16px;
-    padding: 10px;
+    font-size: 14px;
+    padding: 6px 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 
+.zero-notes .get-started-btn.fbBlue {
+    background: #4367b1;
+}
+
+.zero-notes .get-started-btn i {
+    padding: 0 10px 0 0;
+}
 
 
 @media all and (max-width: 990px) {

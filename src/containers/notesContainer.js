@@ -107,7 +107,7 @@ class NotesContainer extends React.PureComponent {
         //     }
         // });
 
-        // debugger;x
+        // debugger;
 
         return (
             <div className="wrapper">

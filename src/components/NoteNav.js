@@ -157,51 +157,55 @@ class NoteNav extends React.Component {
                         <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
                     </nav>
                 </div>
-            )
+            );
         }
 
         return (
-            <div className={this.props.show + '-nav drawer-nav'}>
-                <nav className="nav-col note-nav" style={drawMenuStyles}>
-                    {(notebooks && notebooks.length) ?
-                        <div className="notebooks-nav">
-                            <ul className="notebooks top-nav-item">
-                                <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                    <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                                    <ul className="notebooks-list">
-                                        {notebookItems}
+            <div>
+                {(notes.length) ?
+                    <div className={this.props.show + '-nav drawer-nav'}>
+                        <nav className="nav-col note-nav" style={drawMenuStyles}>
+                            {(notebooks && notebooks.length) ?
+                                <div className="notebooks-nav">
+                                    <ul className="notebooks top-nav-item">
+                                        <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                            <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                            <ul className="notebooks-list">
+                                                {notebookItems}
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    : ''}
+                                </div>
+                            : ''}
 
-                    {(tags && tags.length) ?
-                        <div className="tags-nav">
-                            <ul className="tags top-nav-item">
-                                <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                    <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                    <ul className="tags">
-                                        {tagItems}
+                            {(tags && tags.length) ?
+                                <div className="tags-nav">
+                                    <ul className="tags top-nav-item">
+                                        <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                            <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                            <ul className="tags">
+                                                {tagItems}
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    : ''}
+                                </div>
+                            : ''}
 
-                    {(labels && labels.length) ?
-                        <div className="labels-nav">
-                            <ul className="labels top-nav-item">
-                                <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                    <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                    <ul className="labels">
-                                        {labelItems}
+                            {(labels && labels.length) ?
+                                <div className="labels-nav">
+                                    <ul className="labels top-nav-item">
+                                        <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                            <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                            <ul className="labels">
+                                                {labelItems}
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    : ''}
-                </nav>
+                                </div>
+                            : ''}
+                        </nav>
+                    </div>
+                : ''}
             </div>
         );
     }
@@ -228,55 +232,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteNav);
-
-
-/**
- * TO BE ADDED MAYBE LATER???
-
-
-    <ul id="attributes">
-        <li><a href="">Attributes</a>
-            <ul id="created" className="attributes hidden">
-                <li><a href="">Created</a>
-                    <ul className="created hidden">
-                        <li id="create-createdId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="modified" className="attributes hidden">
-                <li><a href="">Last Modified</a>
-                    <ul className="modified hidden">
-                        <li id="modified-modifiedId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="contains" className="attributes hidden">
-                <li><a href="">Contains</a>
-                    <ul className="contains hidden">
-                        <li id="contains-containsId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="source" className="attributes hidden">
-                <li><a href="">Source</a>
-                    <ul className="source hidden">
-                        <li id="source-sourceId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <ul id="searches">
-        <li><a href="">Saved&nbsp;Searches</a>
-            <ul className="searches hidden">
-            </ul>
-        </li>
-    </ul>
-    <ul className="trash">
-        <li><a href="">Trash</a></li>
-    </ul>
-*/
