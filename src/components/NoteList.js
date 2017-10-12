@@ -59,7 +59,7 @@ class NoteList extends Component {
                                 Create A New Note
                             </button>
 
-                            <button onClick={this.props.addNote} className="fbBlue get-started-btn">
+                            <button onClick={this.props.login} className="fbBlue get-started-btn">
                                 <i className="fa fa-facebook"></i>
                                 Login With Facebook
                             </button>

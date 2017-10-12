@@ -122,6 +122,7 @@ class NotesContainer extends React.PureComponent {
 
                     <NoteList notes={notes}
                         addNote={this.addNote}
+                        login={this.props.login}
                         deleteNote={note => this.deleteNote(note)}
                         filterByNotebook={notebook => this.filterByNotebook(notebook)}
                         filterList={filter => this.filterList(filter)}

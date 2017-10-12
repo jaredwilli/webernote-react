@@ -115,7 +115,7 @@ class AppContainer extends React.PureComponent {
 
                     </header>
 
-                    <NotesContainer />
+                    <NotesContainer login={this.login} />
                 </div>
             </MuiThemeProvider>
         );
