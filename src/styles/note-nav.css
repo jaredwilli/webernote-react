@@ -3,18 +3,28 @@
 .note-nav {
     background: #fff;
     border: 1px solid #B8CDE0;
-	padding: 0;
+	padding: 10px 0 0 10px;
     height: 670px;
+    min-width: 200px;
     overflow: hidden;
 	overflow-y: auto;
 }
 
-.note-nav nav {
+
+.wide-nav .note-nav {
+    display: block;
+}
+.narrow-nav .note-nav {
+    display: none;
+}
+
+
+.note-nav div {
     display: block;
     margin: 5px 0 0 5px;
 }
 
-.note-nav nav a {
+.note-nav div a {
     text-align: left;
 }
 
@@ -83,4 +93,31 @@
 	margin-right: 5px;
     padding: 10px;
     vertical-align: middle;
+}
+
+
+
+
+@media all and (min-width: 900px) {
+    /* . { flex: 1 auto; } */
+}
+
+@media all and (min-width: 768px) {
+    .notes-container {
+        /* flex: 3 0px; */
+    }
+    .notes-container .wide-nav {
+        display: none;
+    }
+    .narrow-nav .note-nav {
+        position: absolute;
+        width: 200px;
+        z-index: 1;
+    }
+    /* .list-col {
+        order: 1;
+    }
+    .edit-col {
+        order: 2;
+    } */
 }

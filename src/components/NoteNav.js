@@ -15,13 +15,27 @@ class NoteNav extends React.Component {
     constructor(props) {
         super(props);
 
+        this.burgerToggle = this.burgerToggle.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
+            showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
             expandLabels: true
         }
+    }
+
+    burgerToggle() {
+        let linksEl = document.querySelector('.note-nav .notebooks li a');
+    }
+
+    burgerToggle(e) {
+        e.preventDefault();
+
+        this.setState({
+            showBurgerMenu: !this.state.showBurgerMenu
+        });
     }
 
     toggleExpanded(e) {
@@ -40,7 +54,7 @@ class NoteNav extends React.Component {
         if (notebooks && notebooks.length) {
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
-                    <a href={'#/' + notebook.name}>
+                    <a onClick={(e) => this.burgerToggle(e, notebook.name)}>
                         <span className="name">{shorten(notebook.name)}</span>
                     </a>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
@@ -53,7 +67,7 @@ class NoteNav extends React.Component {
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <a href={'#/' + tag.label}>
+                    <a onClick={(e) => this.burgerToggle(e, tag.label)}>
                         <span className="name">{shorten(tag.label, 80)}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
@@ -66,7 +80,7 @@ class NoteNav extends React.Component {
         if (labels && labels.length) {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
-                    <a href={'#/' + label.hex}>
+                    <a onClick={(e) => this.burgerToggle(e, label.hex)}>
                         <div className="note-label" style={{background: label.hex}}></div>
                     </a>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
@@ -75,45 +89,51 @@ class NoteNav extends React.Component {
         }
 
         return (
-            <div className="note-nav">
-                {(notebooks && notebooks.length) ?
-                    <nav className="notebooks-nav">
-                        <ul className="notebooks top-nav-item">
-                            <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                                <ul className="notebooks">
-                                    {notebookItems}
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                : ''}
+            <div className={this.props.show + '-nav'}>
+                <div onClick={this.burgerToggle}>
+                    <i className="fa fa-bars fa-2x"></i>
+                </div>
 
-                {(tags && tags.length) ?
-                    <nav className="notebooks-nav">
-                        <ul className="tags top-nav-item">
-                            <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                <ul className="tags">
-                                    {tagItems}
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                : ''}
+                <nav className="nav-col note-nav">
+                    {(notebooks && notebooks.length) ?
+                        <div className="notebooks-nav">
+                            <ul className="notebooks top-nav-item">
+                                <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                    <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                    <ul className="notebooks-list">
+                                        {notebookItems}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    : ''}
 
-                {(labels && labels.length) ?
-                    <nav className="labels-nav">
-                        <ul className="labels top-nav-item">
-                            <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                <ul className="labels">
-                                    {labelItems}
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                : ''}
+                    {(tags && tags.length) ?
+                        <div className="tags-nav">
+                            <ul className="tags top-nav-item">
+                                <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                    <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                    <ul className="tags">
+                                        {tagItems}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    : ''}
+
+                    {(labels && labels.length) ?
+                        <div className="labels-nav">
+                            <ul className="labels top-nav-item">
+                                <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                    <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                    <ul className="labels">
+                                        {labelItems}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    : ''}
+                </nav>
             </div>
         );
     }

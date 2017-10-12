@@ -79,7 +79,7 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	deleteNote(note) {
-		// this.props.actions.resetSelectedNote();
+		// this.props.actions.resetSelectedNote(); // i might not want to auto select first note on delete
 		this.props.actions.deleteNote(note);
 	}
 
@@ -110,38 +110,26 @@ class NotesContainer extends React.PureComponent {
         // debugger;x
 
         return (
-			<div>
-				<div className="wrapper">
-					<Toolbar addNote={this.addNote} />
+            <div className="wrapper">
+                <Toolbar addNote={this.addNote} />
 
-					<nav className="note-types">
-						<NoteTypes />
-					</nav>
+                <nav className="note-types">
+                    <NoteTypes />
+                </nav>
 
-					<table id="resizable" className="resizable">
-						<tbody>
-							<tr>
-								<td>
-									<NoteNav />
-								</td>
+                <div className="notes-container">
+                    <NoteNav show="wide" />
 
-								<td className="middle note-list-col">
-									<NoteList notes={notes}
-                                        addNote={this.addNote}
-										deleteNote={note => this.deleteNote(note)}
-										filterByNotebook={notebook => this.filterByNotebook(notebook)}
-										filterList={filter => this.filterList(filter)}
-										setFilterType={type => this.setFilterType(type)} />
-								</td>
+                    <NoteList notes={notes}
+                        addNote={this.addNote}
+                        deleteNote={note => this.deleteNote(note)}
+                        filterByNotebook={notebook => this.filterByNotebook(notebook)}
+                        filterList={filter => this.filterList(filter)}
+                        setFilterType={type => this.setFilterType(type)} />
 
-								<td className="edit-note-col">
-									<EditNote notes={notes} />
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+                    <EditNote notes={notes} />
+                </div>
+            </div>
 		);
 	}
 }

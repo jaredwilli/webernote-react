@@ -24,14 +24,15 @@ class NotebooksContainer extends React.PureComponent {
     // TODO: add a minimum character limit for new notebooks
     keyPress(e) {
         // If enter or tab key pressed on new notebook input
-        if (e.keyCode === 13 || e.keyCode === 9) {
-            this.addNotebook(e);
-        }
+        // if (e.keyCode === 13 || e.keyCode === 9) {
+        //     this.addNotebook(e);
+        // }
     }
 
     cancelNew(e) {
         e.preventDefault();
-        this.setState({ addNotebook: false });
+        // debugger;
+        // this.setState({ addNotebook: false });
     }
 
     addNotebook(e) {
@@ -39,7 +40,7 @@ class NotebooksContainer extends React.PureComponent {
         let notebookExists = [];
 
         this.setState({
-            addNotebook: false
+            // addNotebook: false
         });
 
         if (e.target.value !== '') {
@@ -172,14 +173,16 @@ class NotebooksContainer extends React.PureComponent {
         }
 
         return (
-            <select name="notebook" className="notebook"
-                value={notebookSelection}
-                onChange={(e) => this.selectNotebook(e)}>
-                {selectNoteBookOption}
-                {allNotebooksOption}
-                {notebookOptions}
-                {addNoteBookOption}
-            </select>
+            <span className="select-notebook">
+                <select name="notebook" className="notebook"
+                    value={notebookSelection}
+                    onChange={(e) => this.selectNotebook(e)}>
+                    {selectNoteBookOption}
+                    {allNotebooksOption}
+                    {notebookOptions}
+                    {addNoteBookOption}
+                </select>
+            </span>
         );
     }
 }

@@ -12,6 +12,10 @@
 	background: rgb(216, 227, 228);
 }
 
+body * {
+    box-sizing: border-box;
+}
+
 html {
     padding: 0;
     margin: 0;
@@ -20,8 +24,7 @@ html {
 body {
     font: 14px/22px "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
     padding: 0;
-    margin: 5px auto;
-    width: 95%;
+    margin: 10px 2%;
 }
 
 a {
@@ -118,7 +121,6 @@ td {
 td:first-child {
 	width: 15%;
 }
-
 
 sup {
     font-size: 6px;

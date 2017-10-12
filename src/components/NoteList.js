@@ -88,7 +88,7 @@ class NoteList extends Component {
         }
 
         return (
-            <div className="note-list">
+            <div className="middle list-col note-list">
                 {filtersText}
 
                 <div className="notes">
