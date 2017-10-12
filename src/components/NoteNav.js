@@ -101,6 +101,7 @@ class NoteNav extends React.Component {
             drawMenuStyles = { left: '-15px' };
         }
 
+        // If this is the narrow menu, do things different
         if (this.props.show === 'narrow') {
             return (
                 <div className={this.props.show + '-nav drawer-nav'}>
@@ -155,7 +156,6 @@ class NoteNav extends React.Component {
 
                         <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
                     </nav>
-
                 </div>
             )
         }
