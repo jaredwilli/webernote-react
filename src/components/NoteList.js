@@ -58,7 +58,7 @@ class NoteList extends Component {
             filtersText = (
                 <div className="filters">
                     <div className="filter">
-                        Search type:
+                        <label>Search type:</label>
                         <select name="filterType" className="filter-type"
                             value={this.props.filterType || 'Title'}
                             onChange={(e) => this.props.setFilterType(e)}>

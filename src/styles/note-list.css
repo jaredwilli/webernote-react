@@ -3,7 +3,6 @@
 .note-list {
     background: #bdcad4;
     border: 1px solid #B8CDE0;
-    height: 670px;
     overflow: hidden;
     overflow-y: auto;
 }
@@ -21,7 +20,7 @@
 .note-list .filter,
 .note-list .viewing {
     display: block;
-    padding: 5px;
+    padding: 3.4px 5px;
     width: 100%;
 }
 
@@ -61,18 +60,16 @@
     -moz-appearance: none;
 }
 
-.note-list .filter-type {
-    border: 1px solid rgb(190, 202, 213);
-    font-size: 14px;
-    margin: 0 0 0 2px;
-    width: 100px;
-    margin: 0 5px;
-}
-
 .note-list .filter-type,
 .note-list .viewing .notebook {
     height: 22px;
-	width: 150px;
+    width: 32%;
+}
+
+.note-list .filter-type {
+    border: 1px solid rgb(190, 202, 213);
+    font-size: 14px;
+    margin: 0 5px;
 }
 
 .note-list .viewing .notebook {
@@ -81,6 +78,7 @@
 	font-size: 14px;
     padding: 2px 4px;
     margin-left: 5px;
+    min-width: 120px;
 }
 
 .note-list .filter .search {
@@ -101,22 +99,25 @@
 
 .note-list .notes li {
     background: #FFF;
-    border: 1px solid #abb1b3;
+    border: 1px solid #7a7e80;
     -webkit-border-radius: 2px;
-    border-radius: 2px;
+            border-radius: 2px;
 	display: block;
     position: relative;
-	width: 97.4%;
 	min-height: 50px;
 	margin: 2px;
     padding: 5px;
     cursor: pointer;
 }
 
-.note-list .notes li:hover,
+.note-list .notes li:hover {
+    background: #ebf1f6;
+    border: 1px solid #cb26ff;
+}
+
 .note-list .notes .selected {
 	background: #ebf1f6;
-	border: 1px solid #42a7f5;
+	border: 1px solid #e91f63;
 }
 
 .note-list .delete-note {
@@ -133,6 +134,15 @@
 	margin: 0;
 	padding: 0;
 }
+
+.note-list .notes .title {
+    color: #000;
+	font-size: 14px;
+	font-weight: bold;
+    display: inline-block;
+	margin: 5px 5px 0 0;
+}
+
 
 .note-list .notes .note-details {
 	max-height: 95px;
@@ -193,4 +203,50 @@
     font-size: 16px;
     padding: 10px;
     cursor: pointer;
+}
+
+
+
+@media all and (max-width: 990px) {
+    .filter label {
+        display: none;
+    }
+}
+
+@media all and (max-width: 690px) {
+    header > span {
+        display: none;
+    }
+
+    .notes-container .list-col.note-list {
+        flex: 3 10%;
+    }
+
+    .notes-container .list-col.note-list .filters {
+        display: none;
+        height: 0;
+    }
+
+    .note-list .note {
+        width: 98%;
+    }
+
+    .note-list .note-label,
+    .note-list .note-details {
+        display: none;
+    }
+
+    .note-list .notes .title {
+        font-weight: normal;
+    }
+
+    .notes-container .edit-col {
+        flex: 10 1;
+    }
+}
+
+@media all and (min-width: 320px, max-width: 510px) {
+    .notes-container .list-col .note {
+        widows: 64%
+    }
 }

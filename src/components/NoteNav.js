@@ -15,19 +15,22 @@ class NoteNav extends React.Component {
     constructor(props) {
         super(props);
 
-        this.burgerToggle = this.burgerToggle.bind(this);
+        this.toggleDrawer = this.toggleDrawer.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
             showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
-            expandLabels: true
+            expandLabels: true,
+            open: false
         }
     }
 
-    burgerToggle() {
-        let linksEl = document.querySelector('.note-nav .notebooks li a');
+    toggleDrawer(e) {
+        this.setState({
+            open: !this.state.open
+        });
     }
 
     burgerToggle(e) {
@@ -88,13 +91,78 @@ class NoteNav extends React.Component {
             );
         }
 
-        return (
-            <div className={this.props.show + '-nav'}>
-                <div onClick={this.burgerToggle}>
-                    <i className="fa fa-bars fa-2x"></i>
-                </div>
+        let coverStyles = {
+            display: 'none'
+        };
+        let drawMenuStyles = {};
 
-                <nav className="nav-col note-nav">
+        if (this.state.open) {
+            coverStyles = { display: 'inline-block' };
+            drawMenuStyles = { left: '-15px' };
+        }
+
+        if (this.props.show === 'narrow') {
+            return (
+                <div className={this.props.show + '-nav drawer-nav'}>
+                    <div className="hamburger" onClick={(e) => this.toggleDrawer(e)}>
+                        <i className="fa fa-bars"></i>
+                    </div>
+
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {this.state.open ? <span className="remove Select-clear"
+                                onClick={(e) => this.setState({ open: false })}>×
+                            </span>
+                        : ''}
+
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
+                    </nav>
+
+                </div>
+            )
+        }
+
+        return (
+            <div className={this.props.show + '-nav drawer-nav'}>
+                <nav className="nav-col note-nav" style={drawMenuStyles}>
                     {(notebooks && notebooks.length) ?
                         <div className="notebooks-nav">
                             <ul className="notebooks top-nav-item">

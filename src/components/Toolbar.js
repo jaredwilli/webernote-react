@@ -9,9 +9,9 @@ class Toolbar extends Component {
         return (
             <div>
                 <nav className="toolbar">
-                    <NoteNav show="narrow" />
-
                     <ul>
+                        <NoteNav show="narrow" />
+
                         <li><a href="">File</a></li>
                         <li><a href="">Edit</a></li>
                         <li><a href="">View</a></li>

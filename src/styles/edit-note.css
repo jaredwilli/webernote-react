@@ -1,11 +1,8 @@
 /* Edit Note */
 
 .edit-note {
-    background: #d8e3e4; /* #bdcad4; */
+    background: #bdcad4;
     border: 1px solid #B8CDE0;
-    /* height: 670px; */
-    /* overflow: hidden; */
-    /* display: flex; */
 }
 
 .edit-note form {
@@ -51,8 +48,9 @@
 .edit-note .notebook,
 .edit-note .add-notebook,
 .edit-note .tags,
+.edit-note .label-picker,
 .edit-note .description {
-    border: 1px solid #becad5;
+    border: 1px solid #828c94;
 }
 
 .edit-note .title,
@@ -62,7 +60,12 @@
 }
 
 .edit-note .title {
-	position: relative;
+    color: #000;
+	font-size: 14px;
+	font-weight: bold;
+    display: inline-block;
+	margin: 5px 5px 0 0;
+    position: relative;
     margin: 0;
     flex: 2;
 }
@@ -141,9 +144,12 @@
     flex: 2;
 }
 
+.edit-note .url:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 9999px white;
+}
+
 .edit-note .label-picker {
     background: #fff;
-	border: 1px solid #bdcad4;
     display: inline-block;
     position: relative;
 	padding: 5px 4px 4px 4px;
@@ -195,10 +201,11 @@
 }
 
 .edit-note .bottom {
-    height: 84%;
     display: flex;
     flex-direction: column;
+    height: 84.3%;
 }
+
 .edit-note .description {
     padding: 4px;
     height: 100%;
@@ -232,4 +239,11 @@
     background: #edf5ff;
     border: 1px solid #b8d8ff;
     color: #086995;
+}
+
+
+@media all and (max-width: 690px) {
+    .notes-container .edit-col {
+        flex: 10 1;
+    }
 }

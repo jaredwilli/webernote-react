@@ -82,6 +82,7 @@ class AppContainer extends React.PureComponent {
         if (this.props.user && !this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     <span className="user-meta">
                         <UserPhoto imgSrc={this.props.user.photo}
                             size={20}
@@ -112,7 +113,6 @@ class AppContainer extends React.PureComponent {
                         <h1><a href="/">Webernote<sup>TM</sup></a></h1>
                         <span>Real-time note taking. Increase your productivity!</span>
 
-                        <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     </header>
 
                     <NotesContainer />
