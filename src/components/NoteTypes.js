@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import '../styles/toolbar.css';
 
@@ -7,9 +8,15 @@ class NoteTypes extends Component {
         return (
             <div>
                 <ul>
-                    <li><a href="/notes">All Notes</a></li>
-                    <li><a href="/notebooks">Notebooks</a></li>
-                    <li><a href="/tags">Tags</a></li>
+                    <li>
+                        <Link to="/notes">All Notes</Link>
+                    </li>
+                    <li>
+                        <Link to="/notebooks">Notebooks</Link>
+                    </li>
+                    <li>
+                        <Link to="/tags">Tags</Link>
+                    </li>
                 </ul>
 
                 <div className="quick-access dropzone">

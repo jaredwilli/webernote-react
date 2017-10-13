@@ -1,10 +1,6 @@
-// Facebook URI redirect for authentication
-// https://weberuser-7f700.firebaseapp.com/__/auth/handler
-
 import { database } from '../data/firebase.js';
 import { auth, fbProvider } from '../data/firebase.js';
 import { createNewUser } from '../common/userHelpers.js';
-// import { uniq } from '../common/helpers.js';
 
 import * as types from '../constants/actionTypes.js';
 
@@ -89,13 +85,11 @@ export function addUser(user, anonUser) {
 
 export function loginUser(user) {
     return (dispatch) => {
-        dispatch(loginUserRequestedAction());
-
         const anonUser = (auth.currentUser.isAnonymous) ? auth.currentUser : null;
 
         auth.signInWithPopup(fbProvider)
             .then((result) => {
-                dispatch(addUser(result.user, anonUser));
+                dispatch(getUser(result.user, anonUser));
             })
             .catch((error) => {
                 console.error(error);
@@ -124,12 +118,14 @@ export function loginAnonymously() {
 }
 
 export function logoutUser() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(logoutUserRequestedAction());
+
+        const user = getState().userData.user;
 
         auth.signOut()
             .then(() => {
-                dispatch(logoutUserFulfilledAction());
+                dispatch(logoutUserFulfilledAction(user));
             })
             .catch((error) => {
                 console.log(error.code, error.message);
@@ -198,16 +194,8 @@ function addUserFulfilledAction(user) {
 /**
  * Login User
  */
-function loginUserRequestedAction() {
-    return { type: types.LoginUserRequested };
-}
-
 function loginUserRejectedAction() {
     return { type: types.LoginUserRejected };
-}
-
-function loginUserFulfilledAction(user) {
-    return { type: types.LoginUserFulfilled, user };
 }
 
 /**
@@ -236,6 +224,6 @@ function logoutUserRejectedAction() {
     return { type: types.LogoutUserRejected };
 }
 
-function logoutUserFulfilledAction() {
-    return { type: types.LogoutUserFulfilled };
+function logoutUserFulfilledAction(user) {
+    return { type: types.LogoutUserFulfilled, user };
 }

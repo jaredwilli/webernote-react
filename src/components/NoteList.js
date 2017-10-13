@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import * as noteActions from '../actions/noteActions';
 
@@ -120,10 +119,7 @@ class NoteList extends Component {
 
 function mapStateToProps(state) {
     const newState = {
-        // user: state.userData.user,
-        // notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        // // selectedNote: state.noteData.selectedNote,
         tags: state.tagData.tags
     };
     // console.log('STATE: ', state, newState);

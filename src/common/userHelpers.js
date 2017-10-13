@@ -10,6 +10,7 @@ export function createNewUser(user, anon) {
     return {
         uid: user.uid,
         isAnonymous: user.isAnonymous,
+        online: true,
         displayName: (!user.isAnonymous) ? user.displayName : 'guest',
         email: (!user.isAnonymous) ? user.email : '',
         photo: (!user.isAnonymous) ? user.photoURL : '',
@@ -28,7 +29,7 @@ export function a2z(from = 'a', to = 'z') {
 }
 
 export function randomVal(arr) {
-    if (typeof arr !== 'Array') {
+    if (typeof arr !== Array) {
         arr = Object.keys(arr).map((a) => {
             return arr[a];
         });

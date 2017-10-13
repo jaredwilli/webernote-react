@@ -23,7 +23,6 @@
     flex: 3;
 }
 
-
 .edit-note .top {
     position: relative;
     padding: 0;
@@ -35,6 +34,15 @@
 }
 
 /* NOTE Parts */
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus,
+.edit-note .tags.is-focused,
+.edit-note .add-notebook.is-focused {
+    border-color: #c51752 !important;
+}
 
 .edit-note h2 {
 	display: inline-block;

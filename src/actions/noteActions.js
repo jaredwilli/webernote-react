@@ -125,13 +125,22 @@ export function editNoteLabel(noteRef, note, obj) {
 
         const noteLabelRef = noteRef.child('label');
 
-        noteLabelRef
-            .set(obj.label)
-            .then(dispatch(editNoteFulfilledAction(note, obj)))
-            .catch(error => {
-                console.error(error);
-                dispatch(editNoteRejectedAction());
-            });
+        if (obj.label && !obj.label.name) {
+            noteLabelRef.remove()
+                .then(dispatch(editNoteFulfilledAction(note, obj)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
+        } else {
+            noteLabelRef
+                .set(obj.label)
+                .then(dispatch(editNoteFulfilledAction(note, obj)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
+        }
     }
 }
 

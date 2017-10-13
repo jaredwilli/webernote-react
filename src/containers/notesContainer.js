@@ -11,7 +11,6 @@ import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 
 import * as noteActions from '../actions/noteActions';
-import { filterData } from '../common/noteHelpers';
 
 import '../App.css';
 import '../styles/note-types.css';
@@ -88,6 +87,7 @@ class NotesContainer extends React.PureComponent {
 	render() {
         let notes = this.props.notes;
 
+        // Show loading if no notes yet
         if (!notes) {
 			return (
 				<div className="big-loader">
@@ -100,16 +100,6 @@ class NotesContainer extends React.PureComponent {
 				</div>
 			);
         }
-
-
-        // Filter notes by notebookFilter
-        // notes = notes.filter((n) => {
-        //     if (n.notebook && this.state.notebookFilter.name !== 'All notebooks') {
-        //         return n.notebook.id === this.state.notebookFilter.id;
-        //     }
-        // });
-
-        // debugger;
 
         return (
             <div className="wrapper">
