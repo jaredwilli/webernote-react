@@ -24,9 +24,9 @@ class NotebooksContainer extends React.PureComponent {
     // TODO: add a minimum character limit for new notebooks
     keyPress(e) {
         // If enter or tab key pressed on new notebook input
-        // if (e.keyCode === 13 || e.keyCode === 9) {
-        //     this.addNotebook(e);
-        // }
+        if (e.keyCode === 13 || e.keyCode === 9) {
+            this.addNotebook(e);
+        }
     }
 
     cancelNew(e) {
@@ -143,6 +143,7 @@ class NotebooksContainer extends React.PureComponent {
             } else {
                 // notebookSelection = this.props.selectedNotebook;
                 allNotebooksOption = <option>All Notebooks</option>
+                notebookSelection = this.props.notebookFilter;
             }
         }
 

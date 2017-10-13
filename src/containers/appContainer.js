@@ -43,11 +43,6 @@ class AppContainer extends React.PureComponent {
         }, this.updateData);
     }
 
-    goToGithub(e) {
-        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
-        window.open(projectUrl);
-    }
-
     updateData() {
         this.props.actions.getNotes(this.state.user);
         this.props.actions.getNotebooks(this.state.user);
@@ -59,15 +54,20 @@ class AppContainer extends React.PureComponent {
         this.props.actions.listenForDeletedLabels();
     }
 
+    goToGithub(e) {
+        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
+        window.open(projectUrl);
+    }
+
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser(this.props.user);
     }
 
     logout() {
-        this.props.actions.resetSelectedNote();
+        // this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
-        this.props.actions.getNotes();
+        // this.props.actions.getNotes();
     }
 
     render() {

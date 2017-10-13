@@ -5,7 +5,7 @@
 	border: solid #B8CDE0;
 	border-width: 1px 0;
 	display: block;
-	padding: 2px 0;
+	padding: 2px 6px;
 	width: 100%;
 }
 
@@ -25,8 +25,8 @@
 .note-types li a.active {
 	background: #068dcc;
 	border: 1px solid rgb(118, 158, 218);
-	-webkit-border-radius: 4px;
-			border-radius: 4px;
+	-webkit-border-radius: 2px;
+			border-radius: 2px;
 	color: #fff;
 	margin: 0;
 }

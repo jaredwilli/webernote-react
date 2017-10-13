@@ -204,7 +204,7 @@ export function selectNote(note) {
         })[0];
 
         if (!note) {
-            // note = notes[0];
+            note = notes[0];
         }
 
         notesRef.child(note.id + '/isEditing')

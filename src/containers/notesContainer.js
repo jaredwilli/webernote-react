@@ -30,7 +30,9 @@ class NotesContainer extends React.PureComponent {
 		this.state = {
             user: this.props.user,
             notes: this.props.notes,
-			selectedNote: this.props.selectedNote,
+            selectedNote: this.props.selectedNote,
+            filterType: 'Title',
+            searchTerm: '',
 			notebookFilter: {
 				name: 'All notebooks',
 				id: 'all_notebooks'
@@ -39,29 +41,29 @@ class NotesContainer extends React.PureComponent {
     }
 
 	setFilterType(e) {
-		debugger;
-		let filterType = e.target.name;
-		let updatedList = this.state.initialNotes;
-		console.log(filterType, updatedList);
+        if (e) {
+            this.setState({
+                filterType: e.target.name
+            }, () => {
+                if (this.state.searchTerm) {
+                    this.filterList()
+                }
+            });
+        }
 	}
 
 	filterList(e) {
-		debugger;
-		// TODO: Get the filterType for controlling what to filter based on
+		let val = e.target.value;
 
-		let updatedList = this.state.initialNotes;
+        if (val) {
+            this.props.notes.find((note) => {
+                return note[this.state.filterType].toLowerCase().search(val.toLowerCase()) !== -1;
+            });
 
-		updatedList = updatedList.filter(function(note) {
-			return (
-				note.description
-					.toLowerCase()
-					.search(e.target.value.toLowerCase()) !== -1
-			);
-		});
-
-		this.setState({
-			currentNotes: updatedList
-		});
+            this.setState({
+                searchTerm: val
+            });
+        }
     }
 
     filterByNotebook(notebook) {

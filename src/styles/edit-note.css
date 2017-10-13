@@ -241,9 +241,31 @@
     color: #086995;
 }
 
+/* Media Queries */
+
+@media all and (max-width: 952px) {
+}
 
 @media all and (max-width: 690px) {
-    .notes-container .edit-col {
+    .edit-col {
         flex: 10 1;
+    }
+
+    .edit-col .top {
+        flex-direction: column;
+    }
+
+    .edit-col .add-notebook .new-notebook {
+        width: 90%;
+    }
+
+    .edit-col .select-notebook .notebook {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 540px) {
+    .edit-col .mid {
+        flex-direction: column;
     }
 }
