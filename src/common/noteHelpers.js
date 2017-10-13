@@ -267,3 +267,17 @@ export function filterData(data, filters) {
 
     return data;
 }
+
+
+export function hasNotesAndOneOtherData(props) {
+    // has 1+ notes
+    if (props && props.notes && props.notes.length) {
+        // has 1+ notebook or tags or label
+        if ((props.notebooks && props.notebooks.length) ||
+            (props.tags && props.tags.length) ||
+            (props.labels && props.labels.length)) {
+            return true;
+        }
+    }
+    return false;
+}

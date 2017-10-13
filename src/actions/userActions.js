@@ -52,15 +52,22 @@ export function addUser(user, anonUser) {
 
         const userRef = database.ref('users/' + user.uid);
 
+        // Take anonymous users data if any and copy to new account
         if (anonUser && anonUser.uid !== user.uid) {
             const anonUserRef = database.ref('users/' + anonUser.uid);
+
             anonUserRef.once('value', (snap) => {
                 // populate user with anonymous users data
                 if (snap.exists()) {
                     user = createNewUser(user, snap.val());
-
+                    // Set new user data and cleanup the anonymous user refs
                     userRef.set(user)
-                        .then(dispatch(addUserFulfilledAction(user)))
+                        .then(() => {
+                            // No longer accessible account so remove
+                            anonUser.delete();
+                            anonUserRef.remove();
+                            dispatch(addUserFulfilledAction(user))
+                        })
                         .catch((error) => {
                             console.error(error);
                             dispatch(addUserRejectedAction());
@@ -77,17 +84,14 @@ export function addUser(user, anonUser) {
                     dispatch(addUserRejectedAction());
                 });
         }
-
     }
 }
 
 export function loginUser(user) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(loginUserRequestedAction());
 
         const anonUser = (auth.currentUser.isAnonymous) ? auth.currentUser : null;
-
-        debugger;
 
         auth.signInWithPopup(fbProvider)
             .then((result) => {
@@ -103,12 +107,12 @@ export function loginUser(user) {
 export function loginAnonymously() {
     return (dispatch) => {
         dispatch(loginAnonymousRequestedAction());
-        // fbProvider.credential()
+
         auth.signInAnonymously()
             .then((user) => {
-                sessionStorage.setItem('currentUser', {
-                    user: { uid: user.uid, isAnonymous: user.isAnonymous }
-                });
+                // sessionStorage.setItem('currentUser', {
+                //     user: { uid: user.uid, isAnonymous: user.isAnonymous }
+                // });
 
                 dispatch(loginAnonymousFulfilledAction(user));
             })
@@ -124,7 +128,9 @@ export function logoutUser() {
         dispatch(logoutUserRequestedAction());
 
         auth.signOut()
-            .then(dispatch(logoutUserFulfilledAction()))
+            .then(() => {
+                dispatch(logoutUserFulfilledAction());
+            })
             .catch((error) => {
                 console.log(error.code, error.message);
                 dispatch(logoutUserRejectedAction());

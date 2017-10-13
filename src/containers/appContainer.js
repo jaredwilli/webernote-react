@@ -38,14 +38,11 @@ class AppContainer extends React.PureComponent {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        this.setState({
-            user: nextProps.user
-        }, this.updateData);
-    }
-
-    goToGithub(e) {
-        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
-        window.open(projectUrl);
+        if (nextProps.user !== '') {
+            this.setState({
+                user: nextProps.user
+            }, this.updateData);
+        }
     }
 
     updateData() {
@@ -59,29 +56,37 @@ class AppContainer extends React.PureComponent {
         this.props.actions.listenForDeletedLabels();
     }
 
+    goToGithub(e) {
+        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
+        window.open(projectUrl);
+    }
+
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser(this.props.user);
     }
 
     logout() {
-        this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
-        this.props.actions.getNotes();
     }
 
     render() {
         let loginOut = '';
+        let avatarStyle = {
+            border: '1px solid rgba(51, 51, 51, 0.50)'
+        };
+        let iconBtnStyle = {
+	        verticalAlign: 'bottom'
+        };
 
         if (this.props.user && !this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} />
-
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     <span className="user-meta">
                         <UserPhoto imgSrc={this.props.user.photo}
                             size={20}
-                            style={{border: '1px solid rgba(51, 51, 51, 0.50)'}} />
+                            style={avatarStyle} />
                         <span className="username">
                             {this.props.user.displayName}
                         </span>
@@ -92,6 +97,14 @@ class AppContainer extends React.PureComponent {
         } else if (this.props.user && this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
+                    <div className="user-meta">
+                        <UserPhoto size={20}
+                            style={avatarStyle} />
+                        <span className="username">
+                            {this.props.user.displayName}
+                        </span>
+                    </div>
                     <button className="login" onClick={this.login}>Login</button>
                 </div>
             );
@@ -106,14 +119,11 @@ class AppContainer extends React.PureComponent {
                         </div>
 
                         <h1><a href="/">Webernote<sup>TM</sup></a></h1>
-                        <span>A TodoApp on steroids...</span>
+                        <span>Real-time note taking. Increase your productivity!</span>
 
-                        <span className="old-versions-nav">
-                            Check out <a href="http://anti-code.com/webernote/" target="_blank" rel="noopener noreferrer">v1</a> and <a href="https://github.com/jaredwilli/webernote/tree/angular/" target="_blank" rel="noopener noreferrer">v2</a>!
-                        </span>
                     </header>
 
-                    <NotesContainer />
+                    <NotesContainer login={this.login} />
                 </div>
             </MuiThemeProvider>
         );

@@ -68,11 +68,11 @@
 }
 
 .toolbar .new-note:hover {
-    background: hsla(22, 100%, 53%, 1);
+    background: #FF5722;
 }
 
 .toolbar .new-note:hover button .plus {
-    background: #0471a5;
+    /* background: #0471a5; */
 	border-left: 1px solid rgb(185, 74, 0, 0.5);
 }
 

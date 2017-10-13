@@ -79,7 +79,7 @@ class EditNote extends React.Component {
         }
 
         return (
-            <div className="edit-note">
+            <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
                         <input type="text" className="title" name="title" placeholder="Enter title..."
@@ -92,11 +92,13 @@ class EditNote extends React.Component {
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
+                            pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
                         <LabelsContainer editLabel={(color) => this.editLabel(color)} />
-
+                    </div>
+                    <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />

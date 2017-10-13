@@ -30,7 +30,9 @@ class NotesContainer extends React.PureComponent {
 		this.state = {
             user: this.props.user,
             notes: this.props.notes,
-			selectedNote: this.props.selectedNote,
+            selectedNote: this.props.selectedNote,
+            filterType: 'Title',
+            searchTerm: '',
 			notebookFilter: {
 				name: 'All notebooks',
 				id: 'all_notebooks'
@@ -39,29 +41,29 @@ class NotesContainer extends React.PureComponent {
     }
 
 	setFilterType(e) {
-		debugger;
-		let filterType = e.target.name;
-		let updatedList = this.state.initialNotes;
-		console.log(filterType, updatedList);
+        if (e) {
+            this.setState({
+                filterType: e.target.name
+            }, () => {
+                if (this.state.searchTerm) {
+                    this.filterList()
+                }
+            });
+        }
 	}
 
 	filterList(e) {
-		debugger;
-		// TODO: Get the filterType for controlling what to filter based on
+		let val = e.target.value;
 
-		let updatedList = this.state.initialNotes;
+        if (val) {
+            this.props.notes.find((note) => {
+                return note[this.state.filterType].toLowerCase().search(val.toLowerCase()) !== -1;
+            });
 
-		updatedList = updatedList.filter(function(note) {
-			return (
-				note.description
-					.toLowerCase()
-					.search(e.target.value.toLowerCase()) !== -1
-			);
-		});
-
-		this.setState({
-			currentNotes: updatedList
-		});
+            this.setState({
+                searchTerm: val
+            });
+        }
     }
 
     filterByNotebook(notebook) {
@@ -79,7 +81,7 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	deleteNote(note) {
-		// this.props.actions.resetSelectedNote();
+		// this.props.actions.resetSelectedNote(); // i might not want to auto select first note on delete
 		this.props.actions.deleteNote(note);
 	}
 
@@ -100,47 +102,37 @@ class NotesContainer extends React.PureComponent {
         }
 
 
-        // Filter notes bu notebookFilter
+        // Filter notes by notebookFilter
         // notes = notes.filter((n) => {
         //     if (n.notebook && this.state.notebookFilter.name !== 'All notebooks') {
         //         return n.notebook.id === this.state.notebookFilter.id;
         //     }
         // });
 
-        // debugger;x
+        // debugger;
 
         return (
-			<div>
-				<div className="wrapper">
-					<Toolbar addNote={this.addNote} />
+            <div className="wrapper">
+                <Toolbar addNote={this.addNote} />
 
-					<nav className="note-types">
-						<NoteTypes />
-					</nav>
+                <nav className="note-types">
+                    <NoteTypes />
+                </nav>
 
-					<table id="resizable" className="resizable">
-						<tbody>
-							<tr>
-								<td>
-									<NoteNav />
-								</td>
+                <div className="notes-container">
+                    <NoteNav show="wide" />
 
-								<td className="middle note-list-col">
-									<NoteList notes={notes}
-										deleteNote={note => this.deleteNote(note)}
-										filterByNotebook={notebook => this.filterByNotebook(notebook)}
-										filterList={filter => this.filterList(filter)}
-										setFilterType={type => this.setFilterType(type)} />
-								</td>
+                    <NoteList notes={notes}
+                        addNote={this.addNote}
+                        login={this.props.login}
+                        deleteNote={note => this.deleteNote(note)}
+                        filterByNotebook={notebook => this.filterByNotebook(notebook)}
+                        filterList={filter => this.filterList(filter)}
+                        setFilterType={type => this.setFilterType(type)} />
 
-								<td className="edit-note-col">
-									<EditNote notes={notes} />
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+                    <EditNote notes={notes} />
+                </div>
+            </div>
 		);
 	}
 }

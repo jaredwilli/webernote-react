@@ -90,6 +90,7 @@ class LabelsContainer extends React.PureComponent {
             colorPicker = (
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
+
                     <TwitterPicker color={this.state.background}
                         onChangeComplete={this.editLabel}
                         colors={colors}

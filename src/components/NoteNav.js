@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNotebookCount, getTagCount, getLabelCount } from '../common/noteHelpers.js';
+import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
@@ -15,13 +15,29 @@ class NoteNav extends React.Component {
     constructor(props) {
         super(props);
 
+        this.toggleDrawer = this.toggleDrawer.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
+            showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
-            expandLabels: true
+            expandLabels: true,
+            open: false
         }
+    }
+
+    toggleDrawer(e) {
+        this.setState({
+            open: !this.state.open
+        });
+    }
+
+    burgerToggle(e) {
+        e.preventDefault();
+        this.setState({
+            showBurgerMenu: !this.state.showBurgerMenu
+        });
     }
 
     toggleExpanded(e) {
@@ -40,7 +56,7 @@ class NoteNav extends React.Component {
         if (notebooks && notebooks.length) {
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
-                    <a href={'#/' + notebook.name}>
+                    <a href onClick={(e) => this.toggleExpanded(e, notebook.name)}>
                         <span className="name">{shorten(notebook.name)}</span>
                     </a>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
@@ -53,7 +69,7 @@ class NoteNav extends React.Component {
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <a href={'#/' + tag.label}>
+                    <a href onClick={(e) => this.toggleExpanded(e, tag.label)}>
                         <span className="name">{shorten(tag.label, 80)}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
@@ -66,54 +82,133 @@ class NoteNav extends React.Component {
         if (labels && labels.length) {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
-                    <a href={'#/' + label.hex}>
-                        <div className="note-label" style={{background: label.hex}}></div>
+                    <a href onClick={(e) => this.toggleExpanded(e, label.hex)}>
+                        <div className="note-label" style={{background: label.hex}} />
+                        <span className="label-name">{label.name}</span>
                     </a>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
                 </li>
             );
         }
 
+        let coverStyles = {
+            display: 'none'
+        };
+        let drawMenuStyles = {};
+
+        if (this.state.open) {
+            coverStyles = { display: 'inline-block' };
+            drawMenuStyles = { left: '-15px' };
+        }
+
+        // If this is the narrow menu, do things different
+        if (this.props.show === 'narrow') {
+            return (
+                <div className={this.props.show + '-nav drawer-nav'}>
+                    <div className="hamburger" onClick={(e) => this.toggleDrawer(e)}>
+                        <i className="fa fa-bars"></i>
+                    </div>
+
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {this.state.open ? <span className="remove Select-clear"
+                                onClick={(e) => this.setState({ open: false })}>×
+                            </span>
+                        : ''}
+
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
+                    </nav>
+                </div>
+            );
+        }
+
+        let hideLeftNav = 'hidden';
+        if (hasNotesAndOneOtherData(this.props)) {
+            hideLeftNav = '';
+        }
+
         return (
-            <div className="note-nav">
-                {(notebooks && notebooks.length) ?
-                    <nav className="notebooks-nav">
-                        <ul className="notebooks top-nav-item">
-                            <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                                <ul className="notebooks">
-                                    {notebookItems}
+            <div>
+                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                : ''}
+                            </div>
+                        : ''}
 
-                {(tags && tags.length) ?
-                    <nav className="notebooks-nav">
-                        <ul className="tags top-nav-item">
-                            <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                <ul className="tags">
-                                    {tagItems}
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                : ''}
+                            </div>
+                        : ''}
 
-                {(labels && labels.length) ?
-                    <nav className="labels-nav">
-                        <ul className="labels top-nav-item">
-                            <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                <ul className="labels">
-                                    {labelItems}
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
+                            </div>
+                        : ''}
                     </nav>
-                : ''}
+                </div>
             </div>
         );
     }
@@ -140,55 +235,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteNav);
-
-
-/**
- * TO BE ADDED MAYBE LATER???
-
-
-    <ul id="attributes">
-        <li><a href="">Attributes</a>
-            <ul id="created" className="attributes hidden">
-                <li><a href="">Created</a>
-                    <ul className="created hidden">
-                        <li id="create-createdId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="modified" className="attributes hidden">
-                <li><a href="">Last Modified</a>
-                    <ul className="modified hidden">
-                        <li id="modified-modifiedId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="contains" className="attributes hidden">
-                <li><a href="">Contains</a>
-                    <ul className="contains hidden">
-                        <li id="contains-containsId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="source" className="attributes hidden">
-                <li><a href="">Source</a>
-                    <ul className="source hidden">
-                        <li id="source-sourceId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <ul id="searches">
-        <li><a href="">Saved&nbsp;Searches</a>
-            <ul className="searches hidden">
-            </ul>
-        </li>
-    </ul>
-    <ul className="trash">
-        <li><a href="">Trash</a></li>
-    </ul>
-*/

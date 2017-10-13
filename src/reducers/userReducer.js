@@ -190,6 +190,13 @@ export default function userReducer(state = {}, action) {
             });
         }
 
+        case types.LogoutUserRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error logging out'
+            });
+        }
+
         case types.LogoutUserFulfilled: {
             const newState = Object.assign({}, state, {
                 inProgress: false,

@@ -1,20 +1,71 @@
 /* NOTE NAV */
 
-.note-nav {
+.wide-nav {
     background: #fff;
     border: 1px solid #B8CDE0;
-	padding: 0;
-    height: 670px;
+    height: 100%;
+}
+
+.wide-nav .note-nav {
+    display: inline-block;
+}
+
+.wide-nav.hidden,
+.wide-nav .hamburger,
+.narrow-nav .hamburger {
+    display: none;
+}
+
+.note-nav {
+    padding: 10px 0 0 10px;
+    min-width: 200px;
     overflow: hidden;
 	overflow-y: auto;
 }
 
-.note-nav nav {
+.narrow-nav .hamburger {
+    border-right: 1px solid #000;
+    -webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+            box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+	padding: 4px 10px;
+}
+
+.narrow-nav .hamburger:hover {
+    background: #E91E63;
+}
+
+.narrow-nav.drawer-nav .note-nav {
+    box-shadow: -5px 14px 25px #000;
+	background: #fff;
+    border: 1px solid #828c93;
+    border-left: 0;
+	padding: 5px 5px 20px 30px;
+	vertical-align: top;
+	position: fixed;
+	left: -280px;
+    width: 250px;
+    height: 100%;
+    z-index: 3;
+    transition: 0.5s; /* slide in/out */
+}
+
+.narrow-nav.drawer-nav .note-nav .remove {
+    font-size: 25px;
+	position: absolute;
+	right: 10px;
+	z-index: 2;
+}
+
+.note-nav > div {
     display: block;
     margin: 5px 0 0 5px;
 }
 
-.note-nav nav a {
+.note-nav > div a {
     text-align: left;
 }
 
@@ -23,12 +74,11 @@
 }
 
 .note-nav ul ul {
-    visibility: hidden;
-    width: 100%;
+    display: none;
 }
 
 .note-nav ul .expanded ul {
-    visibility: visible;
+    display: block;
 }
 
 .note-nav ul ul li {
@@ -37,7 +87,7 @@
 }
 
 .note-nav li > div {
-	background: url('../img/arrow.png') no-repeat 1px 4px;
+	background: url('../img/arrow.png') no-repeat 1px 2px;
     color: #068dcc;
 	text-decoration: none;
     padding: 0 0 0 14px;
@@ -46,6 +96,9 @@
 }
 
 .note-nav li > a {
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     color: #068dcc;
     font-weight: normal;
 }
@@ -78,9 +131,32 @@
 
 .note-nav .note-label {
 	border: 1px solid #d0d0d0;
-	border-radius: 24px;
+    border-radius: 24px;
+    text-transform: capitalize;
 	display: inline-block;
 	margin-right: 5px;
     padding: 10px;
     vertical-align: middle;
+}
+
+
+/* Media Queries */
+
+@media screen and (max-width: 820px) {
+    .notes-container .wide-nav {
+        display: none;
+    }
+
+    .toolbar .narrow-nav,
+    .toolbar .narrow-nav .hamburger {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+@media all and (max-width: 486px) {
+    .toolbar > ul > li,
+    .wrapper .note-types .quick-access {
+        display: none;
+    }
 }

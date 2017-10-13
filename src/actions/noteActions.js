@@ -4,7 +4,7 @@ import * as types from '../constants/actionTypes.js';
 import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
 import { uniq } from '../common/helpers.js';
 
-export function getNotes(user) {
+export function getNotes() {
 	return (dispatch, getState) => {
 		dispatch(getNotesRequestedAction());
 
@@ -194,6 +194,10 @@ export function selectNote(note) {
 		const user = getState().userData.user;
         const notesRef = database.ref('users').child(user.uid + '/notes');
         const notes = getState().noteData.notes;
+
+        if (!notes || !notes.length) {
+            return dispatch(selectNoteRejectedAction());
+        }
 
 		note = notes.filter((n) => {
             return n.id === note.id;
