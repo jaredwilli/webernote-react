@@ -35,7 +35,6 @@ class NoteNav extends React.Component {
 
     burgerToggle(e) {
         e.preventDefault();
-
         this.setState({
             showBurgerMenu: !this.state.showBurgerMenu
         });
@@ -57,7 +56,7 @@ class NoteNav extends React.Component {
         if (notebooks && notebooks.length) {
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
-                    <a onClick={(e) => this.burgerToggle(e, notebook.name)}>
+                    <a href onClick={(e) => this.toggleExpanded(e, notebook.name)}>
                         <span className="name">{shorten(notebook.name)}</span>
                     </a>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
@@ -70,7 +69,7 @@ class NoteNav extends React.Component {
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <a onClick={(e) => this.burgerToggle(e, tag.label)}>
+                    <a href onClick={(e) => this.toggleExpanded(e, tag.label)}>
                         <span className="name">{shorten(tag.label, 80)}</span>
                     </a>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
@@ -83,7 +82,7 @@ class NoteNav extends React.Component {
         if (labels && labels.length) {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
-                    <a onClick={(e) => this.burgerToggle(e, label.hex)}>
+                    <a onClick={(e) => this.toggleExpanded(e, label.hex)}>
                         <div className="note-label" style={{background: label.hex}}></div>
                     </a>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
