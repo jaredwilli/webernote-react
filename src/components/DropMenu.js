@@ -7,11 +7,11 @@ import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 const style = {
 	display: 'inline-block',
-	float: 'left',
-	margin: '16px 32px 16px 0'
+	margin: '16px 32px 16px 0',
+	float: 'left'
 };
 
-const MenuExampleSecondary = () => (
+const SecondaryMenu = () => (
 	<div>
 		<Paper style={style}>
 			<Menu desktop={true} width={256}>
@@ -78,4 +78,4 @@ const MenuExampleSecondary = () => (
 	</div>
 );
 
-export default MenuExampleSecondary;
+export default SecondaryMenu;

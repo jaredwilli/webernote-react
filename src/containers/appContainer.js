@@ -38,9 +38,11 @@ class AppContainer extends React.PureComponent {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        this.setState({
-            user: nextProps.user
-        }, this.updateData);
+        if (nextProps.user !== '') {
+            this.setState({
+                user: nextProps.user
+            }, this.updateData);
+        }
     }
 
     updateData() {
@@ -65,9 +67,7 @@ class AppContainer extends React.PureComponent {
     }
 
     logout() {
-        // this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
-        // this.props.actions.getNotes();
     }
 
     render() {
@@ -97,6 +97,14 @@ class AppContainer extends React.PureComponent {
         } else if (this.props.user && this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
+                    <div className="user-meta">
+                        <UserPhoto size={20}
+                            style={avatarStyle} />
+                        <span className="username">
+                            {this.props.user.displayName}
+                        </span>
+                    </div>
                     <button className="login" onClick={this.login}>Login</button>
                 </div>
             );

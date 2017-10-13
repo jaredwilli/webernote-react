@@ -39,10 +39,10 @@
 .user-meta img {
     width: 22px;
     vertical-align: middle;
-    margin-right: 5px;
 }
 
-.user-meta span {
+.user-meta .username {
+    margin-left: 5px;
 	padding: 5px 0;
 	vertical-align: middle;
 }

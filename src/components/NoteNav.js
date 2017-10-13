@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNotebookCount, getTagCount, getLabelCount } from '../common/noteHelpers.js';
+import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
@@ -82,8 +82,9 @@ class NoteNav extends React.Component {
         if (labels && labels.length) {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
-                    <a onClick={(e) => this.toggleExpanded(e, label.hex)}>
-                        <div className="note-label" style={{background: label.hex}}></div>
+                    <a href onClick={(e) => this.toggleExpanded(e, label.hex)}>
+                        <div className="note-label" style={{background: label.hex}} />
+                        <span className="label-name">{label.name}</span>
                     </a>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
                 </li>
@@ -159,52 +160,55 @@ class NoteNav extends React.Component {
             );
         }
 
+        let hideLeftNav = 'hidden';
+        if (hasNotesAndOneOtherData(this.props)) {
+            hideLeftNav = '';
+        }
+
         return (
             <div>
-                {(notes.length) ?
-                    <div className={this.props.show + '-nav drawer-nav'}>
-                        <nav className="nav-col note-nav" style={drawMenuStyles}>
-                            {(notebooks && notebooks.length) ?
-                                <div className="notebooks-nav">
-                                    <ul className="notebooks top-nav-item">
-                                        <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                            <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                                            <ul className="notebooks-list">
-                                                {notebookItems}
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            : ''}
+                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
 
-                            {(tags && tags.length) ?
-                                <div className="tags-nav">
-                                    <ul className="tags top-nav-item">
-                                        <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                            <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                            <ul className="tags">
-                                                {tagItems}
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            : ''}
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
 
-                            {(labels && labels.length) ?
-                                <div className="labels-nav">
-                                    <ul className="labels top-nav-item">
-                                        <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                            <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                            <ul className="labels">
-                                                {labelItems}
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            : ''}
-                        </nav>
-                    </div>
-                : ''}
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+                    </nav>
+                </div>
             </div>
         );
     }

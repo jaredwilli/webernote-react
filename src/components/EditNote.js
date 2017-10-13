@@ -92,6 +92,7 @@ class EditNote extends React.Component {
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
+                            pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 

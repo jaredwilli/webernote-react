@@ -4,7 +4,7 @@ import * as types from '../constants/actionTypes.js';
 import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
 import { uniq } from '../common/helpers.js';
 
-export function getNotes(user) {
+export function getNotes() {
 	return (dispatch, getState) => {
 		dispatch(getNotesRequestedAction());
 
