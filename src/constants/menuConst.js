@@ -7,110 +7,149 @@ export const MOD_KEYS = {
 export const FILE = [
     {
         text: 'New Note',
-        secondary: '⌘N'
+        secondary: '⌘N',
+        action: 'addNote'
     }, {
         text: 'divider'
     }, {
         text: 'Save',
-        secondary: '⌘S'
+        secondary: '⌘S',
+        action: null
     }, {
         text: 'Save As...',
-        secondary: '⌘⇧S'
+        secondary: '⌘⇧S',
+        action: null
     }, {
         text: 'Save',
-        secondary: '⌘S'
+        secondary: '⌘S',
+        action: null
+    }, {
+        text: 'divider'
+    }, {
+        text: 'Login',
+        secondary: '⌘L',
+        action: 'loginUser'
+    }, {
+        text: 'Logout',
+        secondary: '⌘⇧L',
+        action: 'logoutUser'
     }, {
         text: 'divider'
     }, {
         text: 'Close',
-        secondary: '⌘W'
+        secondary: '⌘W',
+        action: null
     }, {
         text: 'Quit',
-        secondary: '⌘Q'
+        secondary: '⌘Q',
+        action: null
     }, {
         text: 'divider'
     }, {
         text: 'Import Notes...',
-        secondary: ''
+        secondary: '',
+        action: null
     }, {
         text: 'Export Notes...',
-        secondary: ''
+        secondary: '',
+        action: null
     }, {
         text: 'Print',
-        secondary: '⌘P'
+        secondary: '⌘P',
+        action: null
     }
 ];
 
 export const EDIT = [
     {
         text: 'Undo',
-        secondary: '⌘Z'
+        secondary: '⌘Z',
+        action: null
     }, {
         text: 'Redo',
-        secondary: '⌘⇧Z'
+        secondary: '⌘⇧Z',
+        action: null
     }, {
         text: 'divider'
     }, {
         text: 'Cut',
-        secondary: '⌘X'
+        secondary: '⌘X',
+        action: null
     }, {
         text: 'Copy',
-        secondary: '⌘C'
+        secondary: '⌘C',
+        action: null
     }, {
         text: 'Paste',
-        secondary: '⌘V'
+        secondary: '⌘V',
+        action: null
     }
 ];
 
 export const VIEW = [
     {
         text: 'Hide Sidebar',
-        secondary: '⌘B'
+        secondary: '⌘B',
+        action: null
     }, {
         text: 'divider'
     }, {
         text: 'Zoom In',
-        secondary: '⌘+'
+        secondary: '⌘+',
+        action: null
     }, {
         text: 'Zoom Out',
-        secondary: '⌘-'
+        secondary: '⌘-',
+        action: null
     }, {
         text: 'Reset Zoom',
-        secondary: '⌘0'
+        secondary: '⌘0',
+        action: null
     }, {
         text: 'divider'
     }, {
         text: 'Reload',
-        secondary: '⌘R'
-    }, {
-        text: 'Copy',
-        secondary: '⌘C'
-    }, {
-        text: 'Paste',
-        secondary: '⌘V'
+        secondary: '⌘R',
+        action: null
     }
 ];
 
 export const NOTE = [
     {
         text: 'Edit Note Title',
-        secondary: '⌘L'
+        secondary: '⌘L',
+        action: null
+    }, {
+        text: 'Edit Note Notebook',
+        secondary: '⌘`',
+        action: null
+    }, {
+        text: 'Edit Note Label',
+        secondary: '⌘`',
+        action: null
     }, {
         text: 'Edit Note Tags',
-        secondary: '⌘`'
+        secondary: '⌘`',
+        action: null
+    }, {
+        text: 'Edit Note Description',
+        secondary: '⌘`',
+        action: null
     }
 ];
 
 export const TOOLS = [
     {
-        text: 'Clean Up',
-        secondary: '⌘⇧D'
+        text: 'Clean Up Empty Notes',
+        secondary: '⌘⇧D',
+        action: null
     }
 ];
 
 export const HELP = [
     {
         text: 'Shortcuts',
-        secondary: '⌘?'
+        secondary: '⌘?',
+        action: null
     }
 ];

@@ -64,7 +64,7 @@ export function editNoteTags(noteRef, note, obj) {
         // Remove all tags removed from edit input
         const removedTags = getDeletedTags(obj.tags, note);
 
-        if (removedTags.length) {
+        if (removedTags && removedTags.length) {
             removedTags.forEach((tag) => {
                 noteTagsRef.child(tag.id).remove()
                     .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
@@ -86,36 +86,22 @@ export function editNoteTags(noteRef, note, obj) {
         } else {
             // Note has tags
             obj.tags = uniq(obj.tags);
-            obj.tagList = [];
 
             // Update existing tags and add new ones
             obj.tags.forEach((tag) => {
-                // if tag has an ID update that ref
+                // if tag has an ID which it should, set that ref
                 if (tag.id) {
                     noteRef.child('tags/' + tag.id)
-                        .update(tag)
-                        .then(dispatch(editNoteFulfilledAction(note)))
+                        .set(tag)
+                        .then(dispatch(editNoteFulfilledAction(note, obj)))
                         .catch((error) => {
                             console.error(error);
                             dispatch(editNoteRejectedAction());
                         });
                 } else {
-                    // if no ID push a new tag to the list
-                    let tagsRef = noteRef.child('tags').push();
-
-                    tag.id = tagsRef.key;
-                    tag.value = tagsRef.key;
-
-                    tagsRef.set(tag)
-                        .then(dispatch(editNoteFulfilledAction(note, obj)))
-                        .catch((error) => {
-                            console.error(error);
-                            dispatch(editNoteRejectedAction());
-                        });;
+                    dispatch(editNoteRejectedAction());
                 }
             });
-
-            dispatch(editNoteFulfilledAction(note, obj));
         }
     }
 }

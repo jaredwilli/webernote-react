@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 import { shorten } from '../common/helpers.js';
 
@@ -166,7 +167,7 @@ class NoteNav extends React.Component {
         }
 
         return (
-            <div>
+            <div className="left sidebar-nav">
                 <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
                     <nav className="nav-col note-nav" style={drawMenuStyles}>
                         {(notebooks && notebooks.length) ?

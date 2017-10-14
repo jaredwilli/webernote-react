@@ -61,6 +61,7 @@ export function getUser(user, anonUser) {
             });
 
         } else {
+
             userRef.once('value', (snap) => {
                 if (snap.exists()) {
                     user = snap.val();

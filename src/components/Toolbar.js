@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as noteActions from '../actions/noteActions';
+import * as notebookActions from '../actions/notebookActions';
+import * as tagActions from '../actions/tagActions';
+import * as labelActions from '../actions/labelActions';
 
 import AddNote from './AddNote';
 import NoteNav from '../components/NoteNav';
@@ -33,6 +40,11 @@ class Toolbar extends Component {
         });
     }
 
+    componentDidMount() {
+
+        // debugger;
+    }
+
     showDropdown(e) {
         let type = e.target.className;
 
@@ -54,7 +66,7 @@ class Toolbar extends Component {
                             <a className="file" onMouseEnter={this.showDropdown}>File</a>
                             {this.state.file ?
                                 <div onMouseLeave={this.showDropdown} className="file-dropdown">
-                                    <SecondaryMenu items={FILE} />
+                                    <SecondaryMenu items={FILE} noteActions={noteActions} />
                                 </div>
                             : ''}
                         </li>
@@ -109,4 +121,24 @@ class Toolbar extends Component {
     }
 }
 
-export default Toolbar;
+function mapStateToProps(state) {
+    const newState = {
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        tags: state.tagData.tags,
+        labels: state.labelData.labels
+    };
+    // console.log('STATE: ', state, newState);
+
+    return newState;
+}
+
+function mapDispatchToProps(dispatch) {
+    let actions = Object.assign({}, noteActions, notebookActions, tagActions, labelActions);
+
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
