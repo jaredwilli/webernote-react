@@ -149,21 +149,21 @@ button:focus,
 }
 
 .edit-note .url {
-    font-size: 14px;
-    padding: 7px 5px;
-    margin: 0;
+	font-size: 14px;
+	padding: 1px 5px;
+	margin: 0;
     flex: 2;
 }
 
-.edit-note .url:-webkit-autofill {
+.edit-note input:-webkit-autofill {
     -webkit-box-shadow: inset 0 0 0 9999px white;
 }
 
 .edit-note .label-picker {
-    background: #fff;
-    display: inline-block;
-    position: relative;
-	padding: 5px 4px 4px 4px;
+	background: #fff;
+	display: inline-block;
+	position: relative;
+	padding: 4px;
 	margin-left: 2px;
 }
 
@@ -183,11 +183,11 @@ button:focus,
 }
 
 .edit-note .label-background {
-    border: 1px solid #bdcad4;
+	border: 1px solid #bdcad4;
 	border-radius: 2px;
 	display: inline-block;
 	padding: 10px 20px;
-	vertical-align: top;
+	vertical-align: super;
 	cursor: pointer;
 }
 

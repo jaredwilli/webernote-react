@@ -3,43 +3,32 @@
 .note-list {
     background: #bdcad4;
     border: 1px solid #B8CDE0;
+    padding: 0 1px 0 2px;
     overflow: hidden;
     overflow-y: auto;
 }
 
-.note-list input,
-.note-list select {
-    border: 1px solid #bdcad4;
-}
-
 .note-list .filters {
-    background: #fff;
-    /* position: fixed; */
+    margin-top: 2px;
 }
 
 .note-list .filter,
 .note-list .viewing {
     display: block;
-    padding: 3.4px 5px;
+    padding: 2.7px 5px;
     width: 100%;
 }
 
 .note-list .filter {
-	background-color: rgb(216, 227, 228);
-	background-image: -webkit-gradient(linear, left top, left bottom,
-        from( rgba(216, 227, 228, 0.9)),
-        to( rgba(216, 227, 228, 0.3))
-	);
-	background-image: -webkit-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
-	background-image:    -moz-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
-	background-image:      -o-linear-gradient(top, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
-	background-image:         linear-gradient(to bottom, rgba(216, 227, 228, 0.9), rgba(216, 227, 228, 0.3));
+    background-color: rgb(216, 227, 228);
+    border: 1px solid #828c94;
+    margin-bottom: 2px;
 }
 
 .note-list .viewing {
-	background: rgba(189, 53, 0, 0.15);
-	border: solid rgba(190, 131, 85, 0.4);
-	border-width: 1px 0;
+    background: #f6e1db;
+	border: solid #be8355;
+	border-width: 1px;
 	font-size: 14px;
 }
 
@@ -67,13 +56,13 @@
 }
 
 .note-list .filter-type {
-    border: 1px solid rgb(190, 202, 213);
+    border: 1px solid #828c94;
     font-size: 14px;
     margin: 0 5px;
 }
 
 .note-list .viewing .notebook {
-	border: 1px solid hsla(17, 100%, 37%, 0.12);
+    border: 1px solid #828c94;
 	color: #333;
 	font-size: 14px;
     padding: 2px 4px;
@@ -82,16 +71,13 @@
 }
 
 .note-list .filter .search {
+    border: 1px solid #828c94;
     font-size: 14px;
     padding: 2px 4px 1px;
 }
 
 
 /* Notes */
-
-.note-list .notes {
-    /* min-width: 150px; */
-}
 
 .note-list .notes ul {
     list-style: none;
@@ -105,7 +91,7 @@
 	display: block;
     position: relative;
 	min-height: 50px;
-	margin: 2px;
+	margin: 2px 0;
     padding: 5px;
     cursor: pointer;
 }

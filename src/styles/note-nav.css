@@ -1,9 +1,14 @@
 /* NOTE NAV */
 
+.sidebar-nav {
+    background: #bdcad4;
+}
+
 .wide-nav {
     background: #fff;
-    border: 1px solid #B8CDE0;
+    border: 1px solid #828c93;
     height: 100%;
+    margin-top: 2px;
 }
 
 .wide-nav .note-nav {

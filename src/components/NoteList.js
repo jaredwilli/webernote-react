@@ -71,7 +71,7 @@ class NoteList extends Component {
         if (this.props.notes.length) {
             filtersText = (
                 <div className="filters">
-                    <div className="filter hidden">
+                    <div className="filter">
                         <label>Search type:</label>
                         <select name="filterType" className="filter-type"
                             value={this.props.filterType || 'Title'}
