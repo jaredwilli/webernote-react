@@ -25,11 +25,11 @@ export function getUser(user, anonUser) {
     return (dispatch) => {
         dispatch(getUserRequestedAction());
 
-        let anonUid = (sessionStorage.getItem('anonUser')) ? {
-            uid: sessionStorage.getItem('anonUser')
-        } : null;
+        // let anonUid = (sessionStorage.getItem('anonUser')) ? {
+        //     uid: sessionStorage.getItem('anonUser')
+        // } : null;
 
-        anonUser = anonUser || anonUid || null;
+        anonUser = anonUser || null;
 
         const userRef = database.ref('users/' + user.uid);
 
