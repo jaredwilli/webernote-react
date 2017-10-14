@@ -23,6 +23,31 @@ export function createNewUser(user, anon) {
     };
 }
 
+export function pushAnonToUser(userRef, anonUser) {
+    if (anonUser) {
+        if (anonUser.notes && anonUser.notes.length) {
+            anonUser.notes.forEach((note) => {
+                userRef.child('notes').push(note);
+            });
+        }
+        // if (anonUser.notebooks && anonUser.notebooks.length) {
+        //     anonUser.notebooks.forEach((notebook) => {
+        //         userRef.child('notebooks').push(notebook);
+        //     });
+        // }
+        // if (anonUser.tags && anonUser.tags.length) {
+        //     anonUser.tags.forEach((tag) => {
+        //         userRef.child('tags').push(tag);
+        //     });
+        // }
+        // if (anonUser.labels && anonUser.labels.length) {
+        //     anonUser.labels.forEach((label) => {
+        //         userRef.child('labels').push(label);
+        //     });
+        // }
+    }
+}
+
 export function a2z(from = 'a', to = 'z') {
     let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
     return (a.slice(a.indexOf(from), a.indexOf(to) + 1));

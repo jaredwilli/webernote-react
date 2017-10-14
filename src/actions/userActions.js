@@ -1,6 +1,6 @@
 import { database } from '../data/firebase.js';
 import { auth, fbProvider } from '../data/firebase.js';
-import { createNewUser } from '../common/userHelpers.js';
+import { createNewUser, pushAnonToUser } from '../common/userHelpers.js';
 
 import * as types from '../constants/actionTypes.js';
 
@@ -21,24 +21,59 @@ export function getUsers() {
     }
 }
 
-export function getUser(user) {
+export function getUser(user, anonUser) {
     return (dispatch) => {
         dispatch(getUserRequestedAction());
 
+        let anonUid = (sessionStorage.getItem('anonUser')) ? {
+            uid: sessionStorage.getItem('anonUser')
+        } : null;
+
+        anonUser = anonUser || anonUid || null;
+
         const userRef = database.ref('users/' + user.uid);
 
-        userRef.once('value', (snap) => {
-            if (snap.exists()) {
-                user = snap.val();
-                dispatch(getUserFulfilledAction(user));
-            } else {
-                dispatch(addUser(user));
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            dispatch(getUserRejectedAction());
-        });
+        // Take anonymous users data if any and copy to new account
+        if (anonUser && anonUser.uid !== user.uid) {
+            const anonUserRef = database.ref('users/' + anonUser.uid);
+
+            anonUserRef.once('value', (snap) => {
+                // populate user with anonymous users data
+                if (snap.exists()) {
+                    anonUser = snap.val();
+
+                    pushAnonToUser(userRef, anonUser)
+
+                    userRef.once('value', (snap) => {
+                        if (snap.exists()) {
+                            user = snap.val();
+
+                            dispatch(getUserFulfilledAction(user));
+                        } else {
+                            dispatch(addUser(user, anonUser));
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(getUserRejectedAction());
+                    });
+                }
+            });
+
+        } else {
+            userRef.once('value', (snap) => {
+                if (snap.exists()) {
+                    user = snap.val();
+                    dispatch(getUserFulfilledAction(user));
+                } else {
+                    dispatch(addUser(user, anonUser));
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                dispatch(getUserRejectedAction());
+            });
+        }
     }
 }
 
@@ -60,8 +95,12 @@ export function addUser(user, anonUser) {
                     userRef.set(user)
                         .then(() => {
                             // No longer accessible account so remove
-                            anonUser.delete();
-                            anonUserRef.remove();
+                            anonUserRef.remove()
+                                .then(() => {
+                                    // TODO: Fix this
+                                    // anonUser.delete();
+                                })
+                                .then(() => sessionStorage.setItem('anonUser', ''));
                             dispatch(addUserFulfilledAction(user))
                         })
                         .catch((error) => {
@@ -104,9 +143,7 @@ export function loginAnonymously() {
 
         auth.signInAnonymously()
             .then((user) => {
-                // sessionStorage.setItem('currentUser', {
-                //     user: { uid: user.uid, isAnonymous: user.isAnonymous }
-                // });
+                sessionStorage.setItem('anonUser', user.uid);
 
                 dispatch(loginAnonymousFulfilledAction(user));
             })
@@ -136,6 +173,8 @@ export function logoutUser() {
 
 export function listenForAuth() {
     return (dispatch) => {
+
+        // Need to some how pass to getUser here the anonymous user to copy data to existing accounts
         auth.onAuthStateChanged((user) => {
             if (user) {
                 dispatch(getUser(user));
