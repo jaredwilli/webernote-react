@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import NotesContainer from './notesContainer';
 
 import UserPhoto from '../components/UserPhoto';
 import IconBtn from '../components/IconBtn';
-import NotesContainer from './notesContainer';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -79,6 +81,7 @@ class AppContainer extends React.PureComponent {
 	        verticalAlign: 'bottom'
         };
 
+        // Setup login/out and user meta block
         if (this.props.user && !this.props.user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
@@ -118,9 +121,8 @@ class AppContainer extends React.PureComponent {
                             {loginOut}
                         </div>
 
-                        <h1><a href="/">Webernote<sup>TM</sup></a></h1>
+                        <h1><Link to="/">Webernote<sup>TM</sup></Link></h1>
                         <span>Real-time note taking. Increase your productivity!</span>
-
                     </header>
 
                     <NotesContainer login={this.login} />

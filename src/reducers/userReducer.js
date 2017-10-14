@@ -181,6 +181,14 @@ export default function userReducer(state = {}, action) {
             return newState;
         }
 
+        // *** LOGIN USER
+        case types.LoginUserRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error logging in'
+            });
+        }
+
         // *** LOGOUT USER
         case types.LogoutUserRequested: {
             return Object.assign({}, state, {
@@ -198,12 +206,17 @@ export default function userReducer(state = {}, action) {
         }
 
         case types.LogoutUserFulfilled: {
+            let user = action.user;
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'User logged out'
             });
 
             newState.user = '';
+            newState.users = newState.users.filter((u) => {
+                return u.uid !== user.uid;
+            });
             return newState;
         }
 

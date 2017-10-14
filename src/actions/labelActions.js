@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { getLabelCount, createNewLabel } from '../common/noteHelpers.js';
+import { getLabelCount } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
 export function getLabels() {

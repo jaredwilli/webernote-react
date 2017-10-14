@@ -1,6 +1,5 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import FontIcon from 'material-ui/FontIcon';
 
 import { randomVal, randomLetter } from '../common/userHelpers';
 import * as colors from 'material-ui/styles/colors';

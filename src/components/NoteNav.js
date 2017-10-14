@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -56,9 +57,9 @@ class NoteNav extends React.Component {
         if (notebooks && notebooks.length) {
             notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
-                    <a href onClick={(e) => this.toggleExpanded(e, notebook.name)}>
+                    <Link to={`/notebooks/${notebook.name}`}>
                         <span className="name">{shorten(notebook.name)}</span>
-                    </a>&nbsp;
+                    </Link>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
                 </li>
             );
@@ -69,9 +70,9 @@ class NoteNav extends React.Component {
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <a href onClick={(e) => this.toggleExpanded(e, tag.label)}>
+                    <Link to={`/tags/${tag.value}`}>
                         <span className="name">{shorten(tag.label, 80)}</span>
-                    </a>&nbsp;
+                    </Link>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
                 </li>
             );
@@ -82,10 +83,10 @@ class NoteNav extends React.Component {
         if (labels && labels.length) {
             labelItems = labels.map((label) =>
                 <li key={label.id} id={label.id}>
-                    <a href onClick={(e) => this.toggleExpanded(e, label.hex)}>
+                    <Link to={`/labels/${label.name}`}>
                         <div className="note-label" style={{background: label.hex}} />
                         <span className="label-name">{label.name}</span>
-                    </a>&nbsp;
+                    </Link>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
                 </li>
             );
@@ -166,7 +167,7 @@ class NoteNav extends React.Component {
         }
 
         return (
-            <div>
+            <div className="left sidebar-nav">
                 <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
                     <nav className="nav-col note-nav" style={drawMenuStyles}>
                         {(notebooks && notebooks.length) ?

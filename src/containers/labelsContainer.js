@@ -28,6 +28,7 @@ class LabelsContainer extends React.PureComponent {
 
     showColorPicker(e) {
         e.preventDefault();
+
         this.setState({
             displayColorPicker: !this.state.displayColorPicker
         });
@@ -35,8 +36,8 @@ class LabelsContainer extends React.PureComponent {
 
     removeLabel(e) {
         e.preventDefault();
-
-        this.props.editLabel();
+        const label = {};
+        this.props.editLabel(label);
     }
 
     editLabel(color) {
@@ -101,8 +102,8 @@ class LabelsContainer extends React.PureComponent {
 
         return (
             <div className="label-picker">
-                <button className="label-background"
-                    style={{ background: backgroundColor }}
+                <button className="label-background" type="button"
+                    style={{background: backgroundColor}}
                     onClick={this.showColorPicker} />
 
                 <span className="remove Select-clear"

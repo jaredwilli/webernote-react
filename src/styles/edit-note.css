@@ -23,10 +23,10 @@
     flex: 3;
 }
 
-
 .edit-note .top {
     position: relative;
     padding: 0;
+    margin-top: 2px;
 }
 
 .edit-note .mid {
@@ -35,6 +35,15 @@
 }
 
 /* NOTE Parts */
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus,
+.edit-note .tags.is-focused,
+.edit-note .add-notebook.is-focused {
+    border-color: #c51752 !important;
+}
 
 .edit-note h2 {
 	display: inline-block;
@@ -64,9 +73,8 @@
 	font-size: 14px;
 	font-weight: bold;
     display: inline-block;
-	margin: 5px 5px 0 0;
     position: relative;
-    margin: 0;
+    margin: 0 2px 0 0;
     flex: 2;
 }
 
@@ -107,9 +115,12 @@
 
 .edit-note .new-notebook {
     border: 0;
+    height: 27px;
+    flex: 1;
+}
 
-    height: 29px;
-    flex: 1
+.edit-note .add-notebook .remove {
+    margin-top: 4px;
 }
 
 .edit-note .cancel-new {
@@ -138,21 +149,21 @@
 }
 
 .edit-note .url {
-    font-size: 14px;
-    padding: 7px 5px;
-    margin: 0;
+	font-size: 14px;
+	padding: 1px 5px;
+	margin: 0;
     flex: 2;
 }
 
-.edit-note .url:-webkit-autofill {
+.edit-note input:-webkit-autofill {
     -webkit-box-shadow: inset 0 0 0 9999px white;
 }
 
 .edit-note .label-picker {
-    background: #fff;
-    display: inline-block;
-    position: relative;
-	padding: 5px 4px 4px 4px;
+	background: #fff;
+	display: inline-block;
+	position: relative;
+	padding: 4px;
 	margin-left: 2px;
 }
 
@@ -172,11 +183,11 @@
 }
 
 .edit-note .label-background {
-    border: 1px solid #bdcad4;
+	border: 1px solid #bdcad4;
 	border-radius: 2px;
 	display: inline-block;
 	padding: 10px 20px;
-	vertical-align: top;
+	vertical-align: super;
 	cursor: pointer;
 }
 
@@ -246,13 +257,33 @@
 @media all and (max-width: 952px) {
 }
 
+@media all and (max-width: 955px) {
+    .edit-note .new-notebook {
+        width: 86.2%;
+    }
+}
+
+@media all and (max-width: 870px) {
+    .edit-col .top {
+        flex-direction: column;
+    }
+    .edit-note .bottom {
+        height: 79.3%;
+    }
+    .edit-note .title {
+        margin: 0 0 2px 0;
+    }
+    .edit-note .notebook {
+        width: 90%;
+    }
+    .edit-note .new-notebook {
+        width: 93.5%;
+    }
+}
+
 @media all and (max-width: 690px) {
     .edit-col {
         flex: 10 1;
-    }
-
-    .edit-col .top {
-        flex-direction: column;
     }
 
     .edit-col .add-notebook .new-notebook {
@@ -264,8 +295,29 @@
     }
 }
 
+@media all and (max-width: 620px) {
+    .edit-note .label-color-picker {
+        left: -90%;
+    }
+    .edit-note .label-background {
+        padding: 10px;
+    }
+}
+
 @media all and (max-width: 540px) {
     .edit-col .mid {
         flex-direction: column;
+    }
+    .edit-note .bottom {
+        height: 74.1%;
+    }
+    /* .edit-note .label-color-picker {
+        left: 126px
+    } */
+    .edit-note .label-picker {
+        margin: 2px 0 0 0;
+    }
+    .edit-note .label-background {
+        width: 90.6%;
     }
 }
