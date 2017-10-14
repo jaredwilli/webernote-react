@@ -112,7 +112,7 @@
 
 .note-list .notes li:hover {
     background: #ebf1f6;
-    border: 1px solid #cb26ff;
+    border: 1px solid #086995; /* #cb26ff */;
 }
 
 .note-list .notes .selected {
