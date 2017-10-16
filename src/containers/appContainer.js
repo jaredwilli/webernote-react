@@ -32,14 +32,14 @@ class AppContainer extends React.PureComponent {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.user && nextState.user) {
-            return nextState.user.uid !== nextProps.user.uid;
+    shouldComponentUpdate(nextProps, prevState) {
+        if (nextProps.user && prevState.user) {
+            return prevState.user.uid !== nextProps.user.uid;
         }
         return true;
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate(nextProps, prevState) {
         if (nextProps.user !== '') {
             this.setState({
                 user: nextProps.user
@@ -136,7 +136,7 @@ function mapStateToProps(state) {
     const newState = {
         user: state.userData.user
     };
-    // console.log('STATE: ', state, newState);
+    console.log('STATE: ', state, newState);
 
     return newState;
 }

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/index';
 
-import { listenForAuth } from './actions/userActions';
+import { loginAnonymously } from './actions/userActions';
 import AppContainer from './containers/appContainer';
 
 import Notebooks from './components/Notebooks';
@@ -25,7 +25,7 @@ class WebernoteApp extends React.PureComponent {
 
         this.store = configureStore;
 
-        this.store.dispatch(listenForAuth());
+        this.store.dispatch(loginAnonymously());
     }
 
     render() {

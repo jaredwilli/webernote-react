@@ -86,7 +86,6 @@ export default function userReducer(state = {}, action) {
 
             newState.users = state.users || [];
             newState.users.push(user);
-
             newState.user = user;
             return newState;
         }
@@ -187,6 +186,36 @@ export default function userReducer(state = {}, action) {
                 inProgress: false,
                 error: 'Error logging in'
             });
+        }
+
+        // *** LOGIN ANONYMOUS USER
+        case types.LoginAnonymousRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+
+        case types.LoginAnonymousRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error loggin in anonymous'
+            });
+        }
+
+        case types.LoginAnonymousFulfilled: {
+            let user = action.user;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Anonymous user logged in'
+            });
+
+            newState.users = state.users || [];
+            newState.users.push(user);
+            newState.user = user;
+            return newState;
         }
 
         // *** LOGOUT USER

@@ -13,8 +13,8 @@ export function validateUid(obj, user) {
     obj = obj || {};
     user = user || {};
 
-    console.log(user.uid);
-    console.log(obj.uid);
+    // console.log(user.uid);
+    // console.log(obj.uid);
 
     // if both obj.uid and user.uid aren't set or if they match then return true
     if (obj.uid === undefined || obj.uid === null) {

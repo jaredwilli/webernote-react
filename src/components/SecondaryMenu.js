@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
 function SecondaryMenu(props) {
-    let actions = Object.assign({}, props.noteActions, props.notebookActions, props.tagActions, props.labelActions);
+    // let actions = Object.assign({}, props.noteActions, props.notebookActions, props.tagActions, props.labelActions);
 
     let items = props.items || [];
     let width = props.width || 256;
@@ -15,10 +15,6 @@ function SecondaryMenu(props) {
         margin: '16px 32px 16px 0',
         float: 'left'
     };
-
-    items.forEach((item) => {
-        console.log(item.action, actions, props.noteActions);
-    });
 
     items = items.map((m, v) =>
         (m.text === 'divider') ?
