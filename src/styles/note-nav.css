@@ -2,15 +2,13 @@
 
 .sidebar-nav {
     background: #bdcad4;
-    margin-bottom: 3px;
 }
 
 .wide-nav {
     background: #fff;
     border: 1px solid #828c93;
     height: 100%;
-    margin-top: 3px;
-    overflow: auto;
+    margin-top: 2px;
 }
 
 .wide-nav .note-nav {
@@ -77,8 +75,7 @@
 }
 
 .note-nav ul {
-    margin-bottom: 10px;
-    max-width: 200px;
+	margin-bottom: 10px;
 }
 
 .note-nav ul ul {
@@ -94,10 +91,6 @@
 	margin: 1px 0 0 5px;
 }
 
-.note-nav ul .labels li {
-    margin: 5px 0;
-}
-
 .note-nav li > div {
 	background: url('../img/arrow.png') no-repeat 1px 2px;
     color: #068dcc;
@@ -109,9 +102,10 @@
 
 .note-nav li > a {
     border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     color: #068dcc;
     font-weight: normal;
-    display: inline;
 }
 
 .note-nav li > div:hover,
@@ -129,8 +123,7 @@
 }
 
 .note-nav li .count {
-    color: #999;
-    font-size: 12px;
+	color: #999;
 }
 
 .note-nav li .count:before {
@@ -158,6 +151,7 @@
     .notes-container .wide-nav {
         display: none;
     }
+
     .toolbar .narrow-nav,
     .toolbar .narrow-nav .hamburger {
         display: inline-block;
@@ -165,3 +159,9 @@
     }
 }
 
+@media all and (max-width: 486px) {
+    .toolbar > ul > li,
+    .wrapper .note-types .quick-access {
+        display: none;
+    }
+}

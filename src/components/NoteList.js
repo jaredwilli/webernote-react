@@ -105,14 +105,12 @@ class NoteList extends Component {
 
         return (
             <div className="middle list-col note-list">
-                <div className="list-notes">
-                    {filtersText}
+                {filtersText}
 
-                    <div className="notes">
-                        <Note notes={this.props.notes}
-                            selectNote={(e, note) => this.selectNote(e, note)}
-                            deleteNote={(note) => this.deleteNote(note)} />
-                    </div>
+                <div className="notes">
+                    <Note notes={this.props.notes}
+                        selectNote={(e, note) => this.selectNote(e, note)}
+                        deleteNote={(note) => this.deleteNote(note)} />
                 </div>
             </div>
         );

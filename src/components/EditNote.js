@@ -24,34 +24,6 @@ class EditNote extends React.Component {
         };
     }
 
-    componentDidMount() {
-        if (this.props.selectedNote) {
-            this.setBottomHeight();
-        }
-    }
-
-    // shouldComponentUpdate(nextProps, prevProps) {
-    //     // debugger;
-    //     console.log(nextProps.selectedNote.tags, prevProps.selectedNote.tags);
-
-    //     if (nextProps.selectedNote != prevProps.selectedNote) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    componentWillUpdate(nextProps) {
-        if (nextProps.selectedNote) {
-            this.setBottomHeight();
-        }
-    }
-
-    setBottomHeight() {
-        let containerHeight = document.querySelector('.notes-container').offsetHeight;
-        let bottom = document.querySelector('.edit-note .bottom');
-        bottom.style.height = containerHeight - bottom.offsetTop - 6 + 'px';
-    }
-
     editNote(e) {
         let note = this.props.selectedNote;
 
@@ -82,19 +54,13 @@ class EditNote extends React.Component {
 
         this.setState({
             selectedNote: note
-        }, );
+        });
 
         this.props.actions.editNote(note, { notebook: notebook });
     }
 
     editTags(tags) {
         let note = this.props.selectedNote;
-
-        // this.setState((prevState) => {
-        //     return {
-        //         selectedNote: note
-        //     }
-        // });
 
         this.setState({
             selectedNote: note
@@ -114,7 +80,7 @@ class EditNote extends React.Component {
 
         return (
             <div className="right edit-col edit-note">
-                <form className="edit-form">
+                <form>
                     <div className="top">
                         <input type="text" className="title" name="title" placeholder="Enter title..."
                             value={selectedNote.title}
@@ -124,7 +90,7 @@ class EditNote extends React.Component {
                             canAddNotebook={true}
                             editNotebook={(notebook) => this.editNotebook(notebook)} />
                     </div>
-                    <div className="mid mid-top">
+                    <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
@@ -132,7 +98,7 @@ class EditNote extends React.Component {
 
                         <LabelsContainer editLabel={(color) => this.editLabel(color)} />
                     </div>
-                    <div className="mid mid-bottom">
+                    <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />
