@@ -22,7 +22,7 @@ function SecondaryMenu(props) {
 
     items = items.map((m, v) =>
         (m.text === 'divider') ?
-            <Divider /> :
+            <Divider key={v} /> :
             <MenuItem key={v} primaryText={m.text} secondaryText={m.secondary} />
     );
 

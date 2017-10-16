@@ -103,11 +103,10 @@ class NotesContainer extends React.PureComponent {
 
         return (
             <div className="wrapper">
-                <Toolbar addNote={this.addNote} />
-
-                <nav className="note-types">
+                <div className="header-bar">
+                    <Toolbar addNote={this.addNote} />
                     <NoteTypes />
-                </nav>
+                </div>
 
                 <div className="notes-container">
                     <NoteNav show="wide" />
