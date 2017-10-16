@@ -9,11 +9,7 @@
     display: inline-block;
 }
 
-.wrapper {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-}
+.wrapper { }
 
 .loginout {
 	float: right;
@@ -67,36 +63,22 @@
     color: #D0021B;
 }
 
-
-/* Top Bar */
-
-.header-bar {
-    /* background: #e8eef2;
-    border: solid #B8CDE0;
-    border-width: 1px 0;
-    display: block;
-    padding: 2px 6px;
-    width: 100%; */
-}
-
-
-/* Notes Container */
-
 .notes-container {
-    flex: 1 0 auto;
     display: flex;
-    max-height: 670px;
-    /* position: relative; */
+    flex-flow: row wrap;
+    align-items: stretch;
+    height: 670px;
+    position: relative;
 }
 
 .notes-container .nav-col,
 .notes-container .list-col,
 .notes-container .edit-col {
-    flex: 1 1 auto;
-    flex-direction: row;
+    display: inline-block;
+    flex: 1 100%;
 }
 
-/* .notes-container .nav-col {
+.notes-container .nav-col {
     flex: 1;
 }
 
@@ -107,4 +89,4 @@
 .notes-container .edit-col {
     display: flex;
     flex: 3;
-} */
+}

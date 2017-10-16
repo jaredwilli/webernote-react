@@ -8,7 +8,7 @@ class Labels extends React.Component {
     render() {
         return (
             <div>
-                {/* Labels */}
+                Labels
             </div>
         );
     }

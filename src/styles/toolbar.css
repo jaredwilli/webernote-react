@@ -1,6 +1,6 @@
 /* TOOLBAR NAV */
 
-.toolbar nav {
+.toolbar {
     background: #03A9F4;
 	display: block;
 	width: 100%;
@@ -88,7 +88,7 @@
 }
 
 /* Toolbar Dropdown Menus */
-.toolbar-dropdown {
+.toolbar > ul > li > div {
     background: #fff;
 	-webkit-box-shadow: 0 0 3px #000;
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
@@ -104,14 +104,4 @@
 
 .toolbar li > div > div > div > div > div {
     padding: 6px 0 !important;
-}
-
-
-/* Media Queries */
-
-@media all and (max-width: 486px) {
-    .toolbar .top-nav > li,
-    .note-types .quick-access {
-        display: none;
-    }
 }
