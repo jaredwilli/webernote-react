@@ -70,7 +70,7 @@ class NoteNav extends React.Component {
         if (tags && tags.length) {
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <Link to={`/tags/${tag.value}`}>
+                    <Link to={`/tags/${tag.label}`}>
                         <span className="name">{shorten(tag.label, 80)}</span>
                     </Link>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
@@ -111,6 +111,8 @@ class NoteNav extends React.Component {
                     </div>
 
                     <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
+
                         {this.state.open ? <span className="remove Select-clear"
                                 onClick={(e) => this.setState({ open: false })}>×
                             </span>
@@ -120,7 +122,7 @@ class NoteNav extends React.Component {
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <div className="expand-notebooks" onClick={this.toggleExpanded}>Notebooks</div>
                                         <ul className="notebooks-list">
                                             {notebookItems}
                                         </ul>
@@ -133,7 +135,7 @@ class NoteNav extends React.Component {
                             <div className="tags-nav">
                                 <ul className="tags top-nav-item">
                                     <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <div className="expand-tags" onClick={this.toggleExpanded}>Tags</div>
                                         <ul className="tags">
                                             {tagItems}
                                         </ul>
@@ -146,7 +148,7 @@ class NoteNav extends React.Component {
                             <div className="labels-nav">
                                 <ul className="labels top-nav-item">
                                     <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <div className="expand-labels" onClick={this.toggleExpanded}>Labels</div>
                                         <ul className="labels">
                                             {labelItems}
                                         </ul>
@@ -154,8 +156,6 @@ class NoteNav extends React.Component {
                                 </ul>
                             </div>
                         : ''}
-
-                        <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
                     </nav>
                 </div>
             );

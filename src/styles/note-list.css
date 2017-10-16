@@ -6,30 +6,31 @@
     padding: 0 1px 0 2px;
     overflow: hidden;
     overflow-y: auto;
+    width: 600px;
 }
 
 .note-list .filters {
-    margin-top: 2px;
+    margin: 2px 0;
 }
 
 .note-list .filter,
 .note-list .viewing {
+    border: 1px solid #828c94;
     display: block;
-    padding: 2.7px 5px;
     width: 100%;
 }
 
 .note-list .filter {
     background-color: rgb(216, 227, 228);
-    border: 1px solid #828c94;
-    margin-bottom: 2px;
+    padding: 2px 5px;
+    margin: 0 0 2px;
 }
 
 .note-list .viewing {
     background: #f6e1db;
-	border: solid #be8355;
-	border-width: 1px;
-	font-size: 14px;
+    font-size: 14px;
+    padding: 4px 5px;
+    margin-bottom: 2px;
 }
 
 .note-list .filter-type,
@@ -86,12 +87,10 @@
 .note-list .notes li {
     background: #FFF;
     border: 1px solid #7a7e80;
-    -webkit-border-radius: 2px;
-            border-radius: 2px;
 	display: block;
     position: relative;
 	min-height: 50px;
-	margin: 2px 0;
+	margin: 0 0 2px;
     padding: 5px;
     cursor: pointer;
 }
@@ -127,12 +126,6 @@
 	font-weight: bold;
     display: inline-block;
 	margin: 5px 5px 0 0;
-}
-
-
-.note-list .notes .note-details {
-	max-height: 95px;
-	overflow: hidden;
 }
 
 .note-list .notes .note-label {
@@ -231,9 +224,11 @@
     .zero-notes .welcome-msg {
         font-size: 14px;
     }
-
     .zero-notes .welcome-msg p {
         line-height: 20px;
+    }
+    .notes-container .list-col.note-list {
+        padding: 2px 0 0 0;
     }
 }
 
@@ -241,31 +236,26 @@
     header > span {
         display: none;
     }
-
     .notes-container .list-col.note-list {
-        flex: 3 10%;
+        flex: 1 2 auto;
+        padding: 2px 0 0 0;
     }
-
+    .note-list .note-details,
+    .note-list .notes .note-label,
     .notes-container .list-col.note-list .filters {
         display: none;
-        height: 0;
     }
-
-    .note-list .note {
-        width: 98%;
-    }
-
-    .note-list .note-label,
-    .note-list .note-details {
-        display: none;
-    }
-
     .note-list .notes .title {
         font-weight: normal;
     }
-
-    .notes-container .edit-col {
-        flex: 10 1;
-    }
 }
 
+@media all and (max-width: 486px) {
+    .notes-container {
+        flex-direction: column;
+    }
+    .notes-container .edit-col,
+    .notes-container .list-col.note-list {
+        width: 100%;
+    }
+}
