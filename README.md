@@ -26,12 +26,10 @@ To build the application for deployment run:
 
 `npm run build`
 
-Finally to deploy it run:
+The app is deployed using Surge, and a command for pushing it to the Surge domain it is on.
+Actually, currently it is set up to be built and pushed to the Surge domain when doing `git push ...`.
 
-`surge -p /project/path/webernote-react/build -d ≤SOME_DOMAIN_NAME>.surge.sh`
-
-Surge will awesomely deploy the built application code to the domain specified and you will be able to see it at the url http://SOME_DOMAIN_NAME.surge.sh/.
-
+It's like continuous deployment, cause I can.
 
 
 *Credits*:
