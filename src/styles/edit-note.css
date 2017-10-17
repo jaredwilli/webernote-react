@@ -42,6 +42,10 @@
     padding: 0;
 }
 
+.edit-note .bottom {
+    height: 100%;
+}
+
 /* NOTE Parts */
 
 input:focus,
