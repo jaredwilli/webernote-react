@@ -288,6 +288,12 @@ button:focus,
     }
 }
 
+@media all and (max-width: 768px) {
+    .add-notebook {
+        height: 30px;
+    }
+}
+
 @media all and (max-width: 690px) {
     .edit-col .add-notebook .new-notebook {
         width: 90%;
@@ -297,6 +303,6 @@ button:focus,
     }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 450px) {
 
 }

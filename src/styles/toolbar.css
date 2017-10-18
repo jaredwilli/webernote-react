@@ -3,7 +3,9 @@
 .toolbar nav {
     background: #03A9F4;
 	display: block;
-	width: 100%;
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
 }
 
 .toolbar ul {
@@ -110,8 +112,13 @@
 /* Media Queries */
 
 @media all and (max-width: 486px) {
-    .toolbar .top-nav > li,
-    .note-types .quick-access {
+    .note-types div.quick-access {
         display: none;
     }
+}
+
+@media all and (max-width: 376px) {
+    /* .toolbar ul li {
+        display: none;
+    }*/
 }
