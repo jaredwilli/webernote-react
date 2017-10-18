@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactLoading from 'react-loading';
+import Mousetrap from 'mousetrap';
 
 import Toolbar from '../components/Toolbar';
 import NoteNav from '../components/NoteNav';
@@ -37,6 +38,14 @@ class NotesContainer extends React.PureComponent {
 				id: 'all_notebooks'
 			}
 		};
+    }
+
+    // Handle keyboard shortcuts
+    componentDidMount() {
+        // Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], letFishFly);
+    }
+    componentWillUnmount() {
+        // Mousetrap.unbind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], letFishFly);
     }
 
 	setFilterType(e) {

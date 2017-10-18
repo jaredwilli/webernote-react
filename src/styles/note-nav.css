@@ -151,7 +151,6 @@
     .notes-container .wide-nav {
         display: none;
     }
-
     .toolbar .narrow-nav,
     .toolbar .narrow-nav .hamburger {
         display: inline-block;
@@ -160,7 +159,6 @@
 }
 
 @media all and (max-width: 486px) {
-    .toolbar > ul > li,
     .wrapper .note-types .quick-access {
         display: none;
     }
