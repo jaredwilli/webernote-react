@@ -1,6 +1,6 @@
 /* TOOLBAR NAV */
 
-.toolbar nav {
+.toolbar {
     background: #03A9F4;
 	display: block;
     width: 100%;
@@ -90,7 +90,7 @@
 }
 
 /* Toolbar Dropdown Menus */
-.toolbar-dropdown {
+.toolbar > ul > li > div {
     background: #fff;
 	-webkit-box-shadow: 0 0 3px #000;
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);

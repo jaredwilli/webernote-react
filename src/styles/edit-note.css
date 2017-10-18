@@ -3,43 +3,35 @@
 .edit-note {
     background: #bdcad4;
     border: 1px solid #B8CDE0;
-    width: 600px;
-    overflow: hidden;
 }
 
 .edit-note form {
     position: relative;
     width: 100%;
-    height: 100%;
-    min-height: 670px;
 }
 
-.edit-note input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 9999px white;
+.edit-note .top,
+.edit-note .mid,
+.edit-note .bottom {
+	background-color: rgb(216, 227, 228);
 }
 
 .edit-note .top,
 .edit-note .mid,
 .edit-note .bottom {
     display: flex;
-    flex: 1 0 auto;
+    flex: 3;
 }
 
 .edit-note .top {
     position: relative;
+    padding: 0;
     margin-top: 2px;
-    padding: 0;
 }
 
-.edit-note .mid-top {
+.edit-note .mid {
     padding: 0;
     margin: 2px 0;
-    height: 32px;
-}
-
-.edit-note .mid-bottom {
-    margin: 2px 0;
-    padding: 0;
 }
 
 .edit-note .bottom {
@@ -87,7 +79,7 @@ button:focus,
     display: inline-block;
     position: relative;
     margin: 0 2px 0 0;
-    flex: 1 0 auto;
+    flex: 2;
 }
 
 .edit-note .select-notebook,
@@ -96,7 +88,6 @@ button:focus,
     font-size: 14px;
     padding: 0;
     position: relative;
-    flex: 1;
 }
 
 .edit-note .add-notebook {
@@ -119,7 +110,9 @@ button:focus,
 	padding-right: 1.5em;
     vertical-align: top;
     height: 29px;
-    width: 100%;
+
+    flex: 1 auto;
+
     -webkit-appearance: none;
        -moz-appearance: none;
 }
@@ -127,7 +120,7 @@ button:focus,
 .edit-note .new-notebook {
     border: 0;
     height: 27px;
-    position: absolute;
+    flex: 1;
 }
 
 .edit-note .add-notebook .remove {
@@ -147,9 +140,9 @@ button:focus,
 }
 
 .edit-note .cancel-new {
+	right: 0;
     padding: 1px 5px 3px 5px;
     vertical-align: top;
-	right: 0;
 	z-index: 1;
 }
 
@@ -162,17 +155,20 @@ button:focus,
 .edit-note .url {
 	font-size: 14px;
 	padding: 1px 5px;
-    margin: 0;
-    flex: 1 0 auto;
+	margin: 0;
+    flex: 2;
+}
+
+.edit-note input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 9999px white;
 }
 
 .edit-note .label-picker {
 	background: #fff;
 	display: inline-block;
 	position: relative;
-    margin-left: 2px;
 	padding: 4px;
-    width: 70px;
+	margin-left: 2px;
 }
 
 /* Color picker cover for closing color picker on click */
@@ -203,14 +199,13 @@ button:focus,
     position: absolute;
 	left: -338%;
 	top: 36px;
-    width: 70px;
     z-index: 1;
 }
 
 .edit-note .tags {
     margin: 0;
-    width: 100%;
     vertical-align: top;
+    flex: 3;
 }
 
 /* Description */
@@ -220,9 +215,15 @@ button:focus,
     resize: none;
 }
 
+.edit-note .bottom {
+    display: flex;
+    flex-direction: column;
+    height: 84.3%;
+}
+
 .edit-note .description {
     padding: 4px;
-    width: 100%;
+    height: 100%;
 }
 
 .edit-note .placeholder {
@@ -235,14 +236,6 @@ button:focus,
 
 /* Select2 Styles */
 
-.edit-note .Select {
-    margin: 0;
-	width: 100%;
-	min-height: 30px;
-	display: flex;
-	flex: 1 0 auto;
-}
-
 .edit-note .Select-control {
     border-radius: 0;
     border: 0;
@@ -250,7 +243,7 @@ button:focus,
 
 .edit-note .Select-placeholder,
 .edit-note .Select--single > .Select-control .Select-value {
-    /* line-height: 30px; */
+    line-height: 30px;
 }
 
 .edit-note .Select-placeholder {
@@ -263,9 +256,10 @@ button:focus,
     color: #086995;
 }
 
-
-
 /* Media Queries */
+
+@media all and (max-width: 952px) {
+}
 
 @media all and (max-width: 955px) {
     .edit-note .new-notebook {
@@ -277,11 +271,14 @@ button:focus,
     .edit-col .top {
         flex-direction: column;
     }
+    .edit-note .bottom {
+        height: 79.3%;
+    }
     .edit-note .title {
         margin: 0 0 2px 0;
     }
     .edit-note .notebook {
-        width: 100%;
+        width: 90%;
     }
     .edit-note .new-notebook {
         width: 93.5%;
@@ -295,14 +292,42 @@ button:focus,
 }
 
 @media all and (max-width: 690px) {
+    .edit-col {
+        flex: 10 1;
+    }
+
     .edit-col .add-notebook .new-notebook {
         width: 90%;
     }
+
     .edit-col .select-notebook .notebook {
         width: 100%;
     }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 620px) {
+    .edit-note .label-color-picker {
+        left: -90%;
+    }
+    .edit-note .label-background {
+        padding: 10px;
+    }
+}
 
+@media all and (max-width: 540px) {
+    .edit-col .mid {
+        flex-direction: column;
+    }
+    .edit-note .bottom {
+        height: 74.1%;
+    }
+    /* .edit-note .label-color-picker {
+        left: 126px
+    } */
+    .edit-note .label-picker {
+        margin: 2px 0 0 0;
+    }
+    .edit-note .label-background {
+        width: 90.6%;
+    }
 }

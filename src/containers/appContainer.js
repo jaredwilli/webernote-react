@@ -86,14 +86,14 @@ class AppContainer extends React.PureComponent {
             loginOut = (
                 <div className="user-menu">
                     <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
-                    <div className="user-meta">
+                    <span className="user-meta">
                         <UserPhoto imgSrc={this.props.user.photo}
                             size={20}
                             style={avatarStyle} />
                         <span className="username">
                             {this.props.user.displayName}
                         </span>
-                    </div>
+                    </span>
                     <button className="logout" onClick={this.logout}>Logout</button>
                 </div>
             );
@@ -115,7 +115,7 @@ class AppContainer extends React.PureComponent {
 
         return (
             <MuiThemeProvider>
-                <div className="full-wrapper">
+                <div>
                     <header>
                         <div className="loginout">
                             {loginOut}
