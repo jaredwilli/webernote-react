@@ -116,40 +116,40 @@ export const VIEW = [
 
 export const NOTE = [
     {
-        text: 'Edit Note Title',
-        secondary: '⌘L',
+        text: 'Edit Note',
+        secondary: '⌘E',
         action: null
     }, {
-        text: 'Edit Note Notebook',
-        secondary: '⌘`',
+        text: 'Duplicate Note',
+        secondary: '⌘V',
         action: null
     }, {
-        text: 'Edit Note Label',
-        secondary: '⌘`',
+        text: 'Delete Note',
+        secondary: '⌘D',
         action: null
     }, {
-        text: 'Edit Note Tags',
-        secondary: '⌘`',
-        action: null
-    }, {
-        text: 'Edit Note Description',
-        secondary: '⌘`',
+        text: 'Delete Empty Notes',
+        secondary: '⌘⇧D',
         action: null
     }
 ];
 
 export const TOOLS = [
     {
-        text: 'Clean Up Empty Notes',
-        secondary: '⌘⇧D',
+        text: 'Use Rich Text Editor',
+        secondary: '⌘⇧R',
         action: null
     }
 ];
 
 export const HELP = [
     {
+        text: 'Report A Bug',
+        secondary: '',
+        action: null
+    }, {
         text: 'Shortcuts',
-        secondary: '⌘?',
+        secondary: '⇧?',
         action: null
     }
 ];
