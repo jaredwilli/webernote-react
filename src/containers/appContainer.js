@@ -73,6 +73,8 @@ class AppContainer extends React.PureComponent {
     }
 
     render() {
+        let { user } = this.props;
+
         let loginOut = '';
         let avatarStyle = {
             border: '1px solid rgba(51, 51, 51, 0.50)'
@@ -82,22 +84,22 @@ class AppContainer extends React.PureComponent {
         };
 
         // Setup login/out and user meta block
-        if (this.props.user && !this.props.user.isAnonymous) {
+        if (user && !user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
                     <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     <span className="user-meta">
-                        <UserPhoto imgSrc={this.props.user.photo}
+                        <UserPhoto imgSrc={user.photo}
                             size={20}
                             style={avatarStyle} />
                         <span className="username">
-                            {this.props.user.displayName}
+                            {user.displayName}
                         </span>
                     </span>
                     <button className="logout" onClick={this.logout}>Logout</button>
                 </div>
             );
-        } else if (this.props.user && this.props.user.isAnonymous) {
+        } else if (user && user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
                     <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
@@ -105,7 +107,7 @@ class AppContainer extends React.PureComponent {
                         <UserPhoto size={20}
                             style={avatarStyle} />
                         <span className="username">
-                            {this.props.user.displayName}
+                            {user.displayName}
                         </span>
                     </div>
                     <button className="login" onClick={this.login}>Login</button>
