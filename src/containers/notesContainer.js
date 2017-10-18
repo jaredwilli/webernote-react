@@ -42,10 +42,10 @@ class NotesContainer extends React.PureComponent {
 
     // Handle keyboard shortcuts
     componentDidMount() {
-        // Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], letFishFly);
+        Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
     }
     componentWillUnmount() {
-        // Mousetrap.unbind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], letFishFly);
+        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
     }
 
 	setFilterType(e) {
@@ -84,6 +84,7 @@ class NotesContainer extends React.PureComponent {
     }
 
 	addNote(e) {
+        e.preventDefault();
 		this.props.actions.resetSelectedNote();
 		this.props.actions.addNote();
 	}
