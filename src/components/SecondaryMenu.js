@@ -1,11 +1,17 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
+
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
+import * as noteActions from '../actions/noteActions';
+import * as notebookActions from '../actions/notebookActions';
+import * as tagActions from '../actions/tagActions';
+import * as labelActions from '../actions/labelActions';
+
 function SecondaryMenu(props) {
-    let actions = Object.assign({}, props.noteActions, props.notebookActions, props.tagActions, props.labelActions);
+    let actions = Object.assign({}, noteActions, notebookActions, tagActions, labelActions);
 
     let items = props.items || [];
     let width = props.width || 256;
@@ -16,14 +22,29 @@ function SecondaryMenu(props) {
         float: 'left'
     };
 
-    items.forEach((item) => {
-        console.log(item.action, actions, props.noteActions);
-    });
+    const performAction = (e, action) => {
+        console.log('performAction: ', action);
+        // action();
+        // debugger;
+    }
 
-    items = items.map((m, v) =>
-        (m.text === 'divider') ?
-            <Divider /> :
-            <MenuItem key={v} primaryText={m.text} secondaryText={m.secondary} />
+    const buildMenuItem = (item, v) => {
+        let action = null;
+
+        if (item.action && item.action in actions) {
+            action = actions[item.action];
+        }
+
+        return <MenuItem key={v}
+            primaryText={item.text}
+            secondaryText={item.secondary}
+            onClick={(e) => performAction(e, action)} />
+    }
+
+    items = items.map((item, v) =>
+        (item.text === 'divider') ?
+            <Divider key={v} /> :
+            buildMenuItem(item, v)
     );
 
     return (

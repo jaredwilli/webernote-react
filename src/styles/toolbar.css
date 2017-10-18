@@ -3,7 +3,7 @@
 .toolbar {
     background: #03A9F4;
 	display: block;
-	width: 100%;
+    width: 100%;
 }
 
 .toolbar ul {
@@ -104,4 +104,19 @@
 
 .toolbar li > div > div > div > div > div {
     padding: 6px 0 !important;
+}
+
+
+/* Media Queries */
+
+@media all and (max-width: 486px) {
+    .note-types div.quick-access {
+        display: none;
+    }
+}
+
+@media all and (max-width: 376px) {
+    /* .toolbar ul li {
+        display: none;
+    }*/
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactLoading from 'react-loading';
+import Mousetrap from 'mousetrap';
 
 import Toolbar from '../components/Toolbar';
 import NoteNav from '../components/NoteNav';
@@ -37,6 +38,14 @@ class NotesContainer extends React.PureComponent {
 				id: 'all_notebooks'
 			}
 		};
+    }
+
+    // Handle keyboard shortcuts
+    componentDidMount() {
+        Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
+    }
+    componentWillUnmount() {
+        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
     }
 
 	setFilterType(e) {
@@ -75,6 +84,7 @@ class NotesContainer extends React.PureComponent {
     }
 
 	addNote(e) {
+        e.preventDefault();
 		this.props.actions.resetSelectedNote();
 		this.props.actions.addNote();
 	}

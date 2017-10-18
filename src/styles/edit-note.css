@@ -34,6 +34,10 @@
     margin: 2px 0;
 }
 
+.edit-note .bottom {
+    height: 100%;
+}
+
 /* NOTE Parts */
 
 input:focus,
@@ -278,6 +282,12 @@ button:focus,
     }
     .edit-note .new-notebook {
         width: 93.5%;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .add-notebook {
+        height: 30px;
     }
 }
 

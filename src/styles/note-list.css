@@ -186,10 +186,9 @@
 	line-height: 18px;
 	text-align: left;
 	list-style-type: disc;
-	width: 415px;
+	width: 80%;
 	margin: 20px auto;
 }
-
 
 .zero-notes .get-started {
     margin: 20px 0 10px;
@@ -245,7 +244,8 @@
     .notes-container .list-col.note-list {
         flex: 3 10%;
     }
-
+    /* .note-list .note-details, */
+    /* .note-list .notes .note-label, */
     .notes-container .list-col.note-list .filters {
         display: none;
         height: 0;
@@ -266,6 +266,10 @@
 
     .notes-container .edit-col {
         flex: 10 1;
+    }
+    .zero-notes .get-started-btn {
+        padding: 6px 8px;
+        font-size: 12px;
     }
 }
 

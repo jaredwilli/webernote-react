@@ -40,11 +40,6 @@ class Toolbar extends Component {
         });
     }
 
-    componentDidMount() {
-
-        // debugger;
-    }
-
     showDropdown(e) {
         let type = e.target.className;
 
@@ -55,7 +50,6 @@ class Toolbar extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <nav className="toolbar">
@@ -66,7 +60,7 @@ class Toolbar extends Component {
                             <a className="file" onMouseEnter={this.showDropdown}>File</a>
                             {this.state.file ?
                                 <div onMouseLeave={this.showDropdown} className="file-dropdown">
-                                    <SecondaryMenu items={FILE} noteActions={noteActions} />
+                                    <SecondaryMenu items={FILE} />
                                 </div>
                             : ''}
                         </li>

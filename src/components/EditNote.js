@@ -24,6 +24,26 @@ class EditNote extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.selectedNote) {
+            this.setBottomHeight();
+        }
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.selectedNote) {
+            this.setBottomHeight();
+        }
+    }
+
+    setBottomHeight() {
+        let containerHeight = document.querySelector('.notes-container').offsetHeight;
+        let bottom = document.querySelector('.edit-note .bottom');
+        if (bottom) {
+            bottom.style.height = containerHeight - bottom.offsetTop - 6 + 'px';
+        }
+    }
+
     editNote(e) {
         let note = this.props.selectedNote;
 
