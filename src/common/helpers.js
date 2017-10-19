@@ -2,35 +2,9 @@
 import { DATA_TYPES } from '../constants/noteConst';
 
 /**
- * validateUid
  *
- * @description Validates the UID of an object (note, notebook, tag, etc.) with the user.uid if user exists.
- *
- * @param {Object} obj
- * @param {Object} user
+ * @param {*} item
  */
-export function validateUid(obj, user) {
-	// So don't have to worry about undefined for these
-	obj = obj || {};
-	user = user || {};
-
-	console.log(user.uid);
-	console.log(obj.uid);
-
-	// if both obj.uid and user.uid aren't set or if they match then return true
-	if (obj.uid === undefined || obj.uid === null) {
-		if (user.uid === undefined || user.uid === null) {
-			return true;
-		}
-	} else {
-		if (obj.uid === user.uid) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 export function isObject(item) {
 	return item && typeof item === 'object' && !Array.isArray(item);
 }

@@ -8,51 +8,19 @@ import { DATA_TYPES } from '../constants/noteConst';
  * @param {*} oldRef
  * @param {*} newRef
  */
-function copyFbRecord(oldRef, newRef) {
+export function copyFbRecord(oldRef, newRef) {
     return new Promise((resolve, reject) => {
-        oldRef.once('value').then(snap => {
-            return newRef.set(snap.val());
-        }).then(() => {
-            console.log('Done!');
-            resolve();
-        }).catch(err => {
-            console.log(err.message);
-            reject();
-        });
+        oldRef.once('value')
+            .then((snap) => {
+                return newRef.set(snap.val());
+            }).then((ref) => {
+                resolve(ref);
+            }).catch((error) => {
+                console.error(error.message);
+                reject();
+            });
     });
 }
-
-/**
- *
- * @param {*} oldRef
- * @param {*} newRef
- */
-/* export function moveAnonUser(oldRef, newRef, user) {
-	return new Promise((resolve, reject) => {
-        oldRef
-			.once('value')
-			.then((anonSnap) => {
-                let anonVal = anonSnap.val();
-
-                // Only set the data we want to set
-                DATA_TYPES.forEach((type) => {
-                    if (anonVal[type]) {
-                        newRef.child(type).set(anonVal[type]);
-                    }
-                });
-
-				return newRef;
-            })
-			.then(() => {
-				console.log('Done!');
-				resolve(newRef);
-			})
-			.catch(err => {
-				console.log(err.message);
-				reject();
-			});
-	});
-} */
 
 /**
  *
@@ -63,7 +31,7 @@ export function mergeAnonUser(userRef, anonRef) {
     // Promise for getting the user ref data
     let newUser = new Promise((resolve, reject) => {
         if (!userRef) {
-            reject();
+            resolve({});
         }
 
         userRef.once('value')
@@ -71,7 +39,7 @@ export function mergeAnonUser(userRef, anonRef) {
                 resolve(userSnap.val());
             })
             .catch((error) => {
-                console.log(error.message);
+                console.error(error.message);
                 reject();
             });
     });
@@ -79,7 +47,7 @@ export function mergeAnonUser(userRef, anonRef) {
     // Promise for getting the anonRef anonymous user data
     let anonUser = new Promise((resolve, reject) => {
         if (!anonRef) {
-            reject();
+            resolve({});
         }
 
         anonRef.once('value')
@@ -108,7 +76,6 @@ export function mergeAnonUser(userRef, anonRef) {
             var merged = deepMerge(snaps[0], guest);
             return merged;
         });
-
 }
 
 /**
@@ -169,6 +136,13 @@ export function pushAnonToUser(userRef, anonUser) {
 	}
 }
 
+/**
+ * a2z
+ *
+ * @description Random letter generator from A - Z
+ * @param {*} from
+ * @param {*} to
+ */
 export function a2z(from = 'a', to = 'z') {
 	let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	return a.slice(a.indexOf(from), a.indexOf(to) + 1);

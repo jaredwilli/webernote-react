@@ -66,7 +66,7 @@ class AppContainer extends React.PureComponent {
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser(this.props.user);
-        this.updateData();
+        // this.updateData();
     }
 
     logout() {

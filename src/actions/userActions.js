@@ -64,12 +64,10 @@ export function loginUser() {
 
         auth.signInWithPopup(fbProvider)
             .then((result) => {
-                let user = createUser(result.user);
+                let user = result.user;
 
                 // Set the userRef here
                 userRef = database.ref('users/' + user.uid);
-
-                debugger;
                 dispatch(doesUserExist(user, userRef, anonUserRef));
             })
             .catch((error) => {
@@ -104,11 +102,13 @@ export function logoutUser() {
         dispatch(logoutUserRequestedAction());
 
         const user = getState().userData.user;
+        // Set the user to be offline
+        // database.ref('users/' + user.id + '/online')
+        //     .set(false);
 
+        // Log the user out
         auth.signOut()
-            .then(() => {
-                dispatch(logoutUserFulfilledAction(user));
-            })
+            .then(dispatch(logoutUserFulfilledAction(user)))
             .catch((error) => {
                 console.error(error.code, error.message);
                 dispatch(logoutUserRejectedAction());
@@ -119,6 +119,7 @@ export function logoutUser() {
 export function doesUserExist(user, userRef, anonUserRef) {
     return (dispatch) => {
 
+        // TODO: Refactor this block to be more reasonably sized
         userRef.once('value', (snap) => {
             let userExists = snap.exists();
             let isAnonymous = user.isAnonymous;
@@ -131,49 +132,61 @@ export function doesUserExist(user, userRef, anonUserRef) {
             // Merge any data from anon with the userSnap then get the user
             if (userExists && !isAnonymous) {
                 console.log('User exists: not anonymous');
-                let userSnap = snap.val();
 
-                mergeAnonUser(userRef, anonUserRef)
-                    .then((mergedUser) => {
-                        console.log(mergedUser, userSnap);
-
-                        userRef.update(mergedUser)
-                            .then(anonUserRef.remove())
-                            .then(dispatch(getUser(userRef)))
-                            .catch((error) => {
-                                console.error(error.message);
-                                dispatch(loginUserRejectedAction());
-                            });
-                    });
+                if (userRef && anonUserRef) {
+                    // Merge the anonUserRef and userRef data together
+                    mergeAnonUser(userRef, anonUserRef)
+                        .then((mergedUser) => {
+                            // Update the user with the merged data
+                            userRef.update(mergedUser)
+                                .then(anonUserRef.remove())
+                                .then(dispatch(getUser(userRef)))
+                                .catch((error) => {
+                                    console.error(error.message);
+                                    dispatch(loginUserRejectedAction());
+                                });
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } else {
+                    // Just get the user if anonUserRef not defined
+                    dispatch(getUser(userRef));
+                }
             }
 
             // Just add a new anonymous user
             if (!userExists && isAnonymous) {
                 console.log('User doesnt exist: anonymous');
-
                 createUser(user, userRef);
 
                 dispatch(addUser(userRef));
             }
             // Merge any data from anonymous user to new one and add the user
-            if (!userExists && !isAnonymous) {
+            if (!userExists || !isAnonymous) {
                 console.log('User doesnt exist: not anonymous');
-
                 createUser(user, userRef);
 
-                mergeAnonUser(userRef, anonUserRef)
-                    .then((mergedUser) => {
-                        console.log(mergedUser, user);
-
-                        // Update the userRef
-                        userRef.update(mergedUser)
-                            .then(anonUserRef.remove())
-                            .then(dispatch(addUser(userRef)))
-                            .catch((error) => {
-                                console.error(error.message);
-                                dispatch(loginUserRejectedAction());
-                            });
-                    });
+                if (userRef && anonUserRef) {
+                    // Merge the anonUserRef and userRef data together
+                    mergeAnonUser(userRef, anonUserRef)
+                        .then((mergedUser) => {
+                            // Update the userRef
+                            userRef.update(mergedUser)
+                                .then(anonUserRef.remove())
+                                .then(dispatch(addUser(userRef)))
+                                .catch((error) => {
+                                    console.error(error.message);
+                                    dispatch(loginUserRejectedAction());
+                                });
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } else {
+                    // If missing anonUserRef just add the user
+                    dispatch(addUser(userRef));
+                }
             }
         })
         .catch((error) => {

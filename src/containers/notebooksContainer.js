@@ -31,12 +31,15 @@ class NotebooksContainer extends React.PureComponent {
 
     cancelNew(e) {
         e.preventDefault();
-        // debugger;
-        // this.setState({ addNotebook: false });
+        const { notebooks } = this.props;
+
+        if (notebooks && notebooks.length) {
+            this.setState({ addNotebook: false });
+        }
     }
 
     addNotebook(e) {
-        const notebooks = this.props.notebooks;
+        const { notebooks } = this.props;
         let notebookExists = [];
 
         this.setState({
