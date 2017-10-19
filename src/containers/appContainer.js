@@ -39,7 +39,7 @@ class AppContainer extends React.PureComponent {
         return true;
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate(nextProps) {
         if (nextProps.user !== '') {
             this.setState({
                 user: nextProps.user
@@ -58,7 +58,7 @@ class AppContainer extends React.PureComponent {
         this.props.actions.listenForDeletedLabels();
     }
 
-    goToGithub(e) {
+    goToGithub() {
         const projectUrl = 'https://github.com/jaredwilli/webernote-react';
         window.open(projectUrl);
     }
@@ -66,6 +66,7 @@ class AppContainer extends React.PureComponent {
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser(this.props.user);
+        this.updateData();
     }
 
     logout() {

@@ -38,3 +38,37 @@ let userDatabase = firebase.initializeApp(authConfig, 'AUTH');
 export const authDatabase = userDatabase.database();
 
 export default firebase;
+
+
+/*
+import 'firebase';
+import * as admin from 'firebase-admin';
+import firstServiceAccount from 'path/to/service-account-1';
+import secondServiceAccount from 'path/to/service-account-2';
+
+var _first = admin.initializeApp(
+  {
+    credential: admin.credential.cert(firstServiceAccount),
+    databaseURL: 'https://<1st-db-name>.firebaseio.com'
+  },
+  'first' // this name will be used to retrieve firebase instance. E.g. first.database();
+);
+
+var _second = admin.initializeApp(
+  {
+    credential: admin.credential.cert(secondServiceAccount),
+    databaseURL: 'https://<2nd-db-name>.firebaseio.com'
+  },
+  'second' // this name will be used to retrieve firebase instance. E.g. second.database();
+);
+
+export const first = _first;
+export const second = _second;
+
+
+@usage
+import { first, second } from '../path/to/the/file/above'
+
+first.database();
+second.database();
+*/

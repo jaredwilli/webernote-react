@@ -1,5 +1,12 @@
 /* Note constants */
 
+export const DATA_TYPES = [
+    'notes',
+    'notebooks',
+    'tags',
+    'labels'
+];
+
 export const DEFAULTS = {
     NOTEBOOK: 'General',
     TAG: ''

@@ -1,4 +1,5 @@
 // helper functions
+import { DATA_TYPES } from '../constants/noteConst';
 
 /**
  * validateUid
@@ -9,25 +10,58 @@
  * @param {Object} user
  */
 export function validateUid(obj, user) {
-    // So don't have to worry about undefined for these
-    obj = obj || {};
-    user = user || {};
+	// So don't have to worry about undefined for these
+	obj = obj || {};
+	user = user || {};
 
-    console.log(user.uid);
-    console.log(obj.uid);
+	console.log(user.uid);
+	console.log(obj.uid);
 
-    // if both obj.uid and user.uid aren't set or if they match then return true
-    if (obj.uid === undefined || obj.uid === null) {
-        if (user.uid === undefined || user.uid === null) {
-            return true;
-        }
-    } else {
-        if (obj.uid === user.uid) {
-            return true;
-        }
+	// if both obj.uid and user.uid aren't set or if they match then return true
+	if (obj.uid === undefined || obj.uid === null) {
+		if (user.uid === undefined || user.uid === null) {
+			return true;
+		}
+	} else {
+		if (obj.uid === user.uid) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+export function isObject(item) {
+	return item && typeof item === 'object' && !Array.isArray(item);
+}
+
+/**
+ * mergeDeep
+ *
+ * @param {*} target object to merge into
+ * @param {*} source object containing the data to merge
+ */
+export function deepMerge(target, source) {
+	let output = Object.assign({}, target);
+	if (isObject(target) || isObject(source)) {
+		Object.keys(source).forEach((key) => {
+            if (isObject(source[key])) {
+                if (!(key in target)) {
+                    Object.assign(output, {
+                        [key]: source[key]
+                    });
+                } else {
+                    output[key] = deepMerge(target[key], source[key]);
+                }
+            } else {
+                Object.assign(output, {
+                    [key]: source[key]
+                });
+            }
+		});
     }
 
-    return false;
+	return output;
 }
 
 /**
@@ -38,13 +72,13 @@ export function validateUid(obj, user) {
  * @param {Object} snap
  */
 export function refToArray(snap) {
-    let newSnap = [];
-    if (snap) {
-        newSnap = Object.keys(snap).map((s) => {
-            return snap[s];
-        });
-    }
-    return newSnap;
+	let newSnap = [];
+	if (snap) {
+		newSnap = Object.keys(snap).map(s => {
+			return snap[s];
+		});
+	}
+	return newSnap;
 }
 
 /**
@@ -53,8 +87,10 @@ export function refToArray(snap) {
  * @param {Date} timeStamp
  */
 export function formatDate(timeStamp) {
-    var date = new Date(timeStamp);
-	return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+	var date = new Date(timeStamp);
+	return (
+		date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
+	);
 }
 
 /**
@@ -67,11 +103,11 @@ export function formatDate(timeStamp) {
  * @param {Number} maxLength
  */
 export function shorten(text, maxLength) {
-    var ret = text;
-    if (ret && ret.length > maxLength) {
-        ret = ret.substr(0, maxLength - 1) + '…';
-    }
-    return ret;
+	var ret = text;
+	if (ret && ret.length > maxLength) {
+		ret = ret.substr(0, maxLength - 1) + '…';
+	}
+	return ret;
 }
 
 /**
@@ -81,13 +117,26 @@ export function shorten(text, maxLength) {
  * Generates a unique ID.
  */
 export function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+	}
 
-	return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
+	return (
+		s4() +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		s4() +
+		s4()
+	);
 }
 
 /**
@@ -101,10 +150,13 @@ export function guid() {
  * @returns {Array} thing a unique array of objects.
  */
 export function uniq(thing) {
-    thing = thing.filter((thing, index, self) => self.findIndex((t) => {
-        return t.id === thing.id && t.label === thing.label;
-    }) === index);
-    return thing;
+	thing = thing.filter(
+		(thing, index, self) =>
+			self.findIndex(t => {
+				return t.id === thing.id && t.label === thing.label;
+			}) === index
+	);
+	return thing;
 }
 
 /**
@@ -139,5 +191,3 @@ export function checkIfUserExists(authData, userRef) {
 	.catch(err => {
 		console.warn('Error signing in.', err);
 	}); */
-
-
