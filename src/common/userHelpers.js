@@ -1,4 +1,5 @@
 // user helper functions
+import { database } from 'firebase';
 import { deepMerge } from './helpers';
 import { DATA_TYPES } from '../constants/noteConst';
 
@@ -117,6 +118,7 @@ export function mergeAnonUser(userRef, anonRef) {
  * @param {Object} anon An anonymous user that is upgrading to oauth user
  */
 export function createUser(user, userRef) {
+    userRef = userRef || database.ref('users/' + user.uid);
     userRef.set({
 		uid: user.uid,
 		isAnonymous: user.isAnonymous,
