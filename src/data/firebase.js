@@ -32,6 +32,7 @@ const authConfig = {
 export const gProvider = new firebase.auth.GoogleAuthProvider();
 export const fbProvider = new firebase.auth.FacebookAuthProvider();
 export const twProvider = new firebase.auth.TwitterAuthProvider();
+
 export const auth = firebase.auth();
 
 let userDatabase = firebase.initializeApp(authConfig, 'AUTH');

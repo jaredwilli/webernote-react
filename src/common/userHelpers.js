@@ -1,7 +1,8 @@
 // user helper functions
-import { database } from 'firebase';
+// import { database, auth, fbProvider } from '../data/firebase.js';
+
 import { deepMerge } from './helpers';
-import { DATA_TYPES } from '../constants/noteConst';
+// import { DATA_TYPES } from '../constants/noteConst';
 
 /**
  *
@@ -63,17 +64,21 @@ export function mergeAnonUser(userRef, anonRef) {
     // Once these return
     return Promise.all([newUser, anonUser])
         .then((snaps) => {
+            let guest = {};
+            let merged;
+
             snaps[0] = snaps[0] || {};
             snaps[1] = snaps[1] || {};
 
-            // Create object of things to merge
-            let guest = {};
-            guest.notes = (snaps[1].notes) ? snaps[1].notes : null;
-            guest.notebooks = (snaps[1].notebooks) ? snaps[1].notebooks : null;
-            guest.labels = (snaps[1].labels) ? snaps[1].labels : null;
-            guest.tags = (snaps[1].tags) ? snaps[1].tags : null;
+            // Populate guest object if necessary
+            if (snaps[1].notebooks) { guest.notebooks = snaps[1].notebooks; }
+            if (snaps[1].labels) { guest.labels = snaps[1].labels; }
+            if (snaps[1].notes) { guest.notes = snaps[1].notes; }
+            if (snaps[1].tags) { guest.tags = snaps[1].tags; }
 
-            var merged = deepMerge(snaps[0], guest);
+            if (Object.keys(guest).length) {
+                merged = deepMerge(snaps[0], guest);
+            }
             return merged;
         });
 }
@@ -82,11 +87,9 @@ export function mergeAnonUser(userRef, anonRef) {
  * createUser
  *
  * @param {Object} user
- * @param {Object} anon An anonymous user that is upgrading to oauth user
  */
-export function createUser(user, userRef) {
-    userRef = userRef || database.ref('users/' + user.uid);
-    userRef.set({
+export function createUser(user, mergedUser) {
+    return {
 		uid: user.uid,
 		isAnonymous: user.isAnonymous,
 		online: true, // set to true cuz adding user means they logged in
@@ -97,14 +100,19 @@ export function createUser(user, userRef) {
 		last_login: new Date().getTime(),
 		permissions: [],
         role: '',
-        notebooks: {},
-        labels: {},
-        notes: {},
-        tags: []
-    })
-    .catch((error) => {
-        console.error(error.message);
-    });
+        notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},
+        labels: (mergedUser && mergedUser.labels) ? mergedUser.labels : {},
+        notes: (mergedUser && mergedUser.notes) ? mergedUser.notes : {},
+        tags: (mergedUser && mergedUser.tags) ? mergedUser.tags : []
+    };
+}
+
+export function updateUser(user, mergedUser) {
+    user.notebooks = (mergedUser.notebooks) ? mergedUser.notebooks : user.notebooks;
+    user.labels = (mergedUser.labels) ? mergedUser.labels : user.labels;
+    user.notes = (mergedUser.notes) ? mergedUser.notes : user.notes;
+    user.tags = (mergedUser.tags) ? mergedUser.tags : user.tags;
+    return user;
 }
 
 export function deleteAnon(anonRef) {

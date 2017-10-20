@@ -28,6 +28,7 @@ export default function userReducer(state = {}, action) {
                 success: 'Got users'
             });
 
+            newState.users = state.users || []
             newState.users = users;
             return newState;
         }
@@ -86,7 +87,6 @@ export default function userReducer(state = {}, action) {
 
             newState.users = state.users || [];
             newState.users.push(user);
-
             newState.user = user;
             return newState;
         }
@@ -206,17 +206,12 @@ export default function userReducer(state = {}, action) {
         }
 
         case types.LogoutUserFulfilled: {
-            let user = action.user;
-
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'User logged out'
             });
 
             newState.user = '';
-            newState.users = newState.users.filter((u) => {
-                return u.uid !== user.uid;
-            });
             return newState;
         }
 

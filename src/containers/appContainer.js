@@ -21,6 +21,8 @@ class AppContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        // this.props.actions.listenForAuth();
+
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
         this.goToGithub = this.goToGithub.bind(this);
@@ -32,14 +34,15 @@ class AppContainer extends React.PureComponent {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.user && nextState.user) {
-            return nextState.user.uid !== nextProps.user.uid;
+    shouldComponentUpdate(nextProps, prevState) {
+        if (nextProps.user && prevState.user) {
+            return prevState.user.uid !== prevState.user.uid;
         }
         return true;
     }
 
     componentWillUpdate(nextProps) {
+        debugger;
         if (nextProps.user !== '') {
             this.setState({
                 user: nextProps.user
@@ -66,15 +69,15 @@ class AppContainer extends React.PureComponent {
     login() {
         this.props.actions.resetSelectedNote();
         this.props.actions.loginUser(this.props.user);
-        // this.updateData();
     }
 
     logout() {
+        this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
     }
 
     render() {
-        let { user } = this.props;
+        let user = this.props.user;
 
         let loginOut = '';
         let avatarStyle = {
