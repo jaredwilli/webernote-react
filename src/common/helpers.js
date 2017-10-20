@@ -1,5 +1,4 @@
 // helper functions
-import { DATA_TYPES } from '../constants/noteConst';
 
 /**
  *

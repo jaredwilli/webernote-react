@@ -15,13 +15,12 @@ import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
+import { URLS } from '../constants/noteConst';
 import '../App.css';
 
 class AppContainer extends React.PureComponent {
     constructor(props) {
         super(props);
-
-        // this.props.actions.listenForAuth();
 
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
@@ -36,13 +35,12 @@ class AppContainer extends React.PureComponent {
 
     shouldComponentUpdate(nextProps, prevState) {
         if (nextProps.user && prevState.user) {
-            return prevState.user.uid !== prevState.user.uid;
+            return nextProps.user.uid !== prevState.user.uid;
         }
         return true;
     }
 
     componentWillUpdate(nextProps) {
-        debugger;
         if (nextProps.user !== '') {
             this.setState({
                 user: nextProps.user
@@ -62,8 +60,7 @@ class AppContainer extends React.PureComponent {
     }
 
     goToGithub() {
-        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
-        window.open(projectUrl);
+        window.open(URLS.GITHUB_REPO);
     }
 
     login() {
@@ -72,7 +69,6 @@ class AppContainer extends React.PureComponent {
     }
 
     logout() {
-        this.props.actions.resetSelectedNote();
         this.props.actions.logoutUser();
     }
 

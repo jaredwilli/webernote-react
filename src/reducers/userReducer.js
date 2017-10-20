@@ -206,13 +206,11 @@ export default function userReducer(state = {}, action) {
         }
 
         case types.LogoutUserFulfilled: {
-            const newState = Object.assign({}, state, {
+            debugger;
+            return Object.assign({}, state, {
                 inProgress: false,
                 success: 'User logged out'
             });
-
-            newState.user = '';
-            return newState;
         }
 
         default:

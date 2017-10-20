@@ -28,6 +28,7 @@ export function getUser(user, userRef, anonUserRef) {
         function fetchUser(user, userRef, mergedUser) {
             if (user && mergedUser) {
                 user = updateUser(user, mergedUser);
+                debugger;
                 userRef.set(user);
             }
 
@@ -51,14 +52,11 @@ export function getUser(user, userRef, anonUserRef) {
                 // Merge the anonUserRef and userRef data together
                 mergeAnonUser(userRef, anonUserRef)
                     .then((mergedUser) => {
-                        if (user.uid !== anonUserRef.key) {
-                            anonUserRef.remove();
-                        }
+                        // remove anonUser
+                        anonUserRef.remove();
                         return mergedUser;
                     })
-                    .then((mergedUser) => {
-                        fetchUser(user, userRef, mergedUser);
-                    })
+                    .then((mergedUser) => fetchUser(user, userRef, mergedUser))
                     .catch((error) => {
                         console.error(error.message);
                         dispatch(loginUserRejectedAction);
@@ -103,11 +101,11 @@ export function addUser(user, userRef, anonUserRef) {
             // Merge the anonUserRef and userRef data together
             mergeAnonUser(userRef, anonUserRef)
                 .then((mergedUser) => {
-                    if (mergedUser.uid && mergedUser.uid !== anonUserRef.key) {
-                        anonUserRef.remove();
-                    }
-                    setUser(user, userRef, mergedUser);
+                    // remove anonUser
+                    anonUserRef.remove();
+                    return mergedUser;
                 })
+                .then((mergedUser) => setUser(user, userRef, mergedUser))
                 .catch((error) => {
                     console.error(error.message);
                     dispatch(loginUserRejectedAction);
@@ -116,8 +114,30 @@ export function addUser(user, userRef, anonUserRef) {
     }
 }
 
+export function doesUserExist(user, userRef, anonUserRef) {
+    return (dispatch) => {
+        userRef.once('value', (snap) => {
+            let userExists = snap.exists();
+
+            // User exists so get the user otherwise add the user
+            if (userExists) {
+                user = snap.val();
+                dispatch(getUser(user, userRef, anonUserRef));
+            } else {
+                dispatch(addUser(user, userRef, anonUserRef));
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            dispatch(loginAnonymousRejectedAction);
+        });
+    }
+}
+
 export function loginUser() {
     return (dispatch) => {
+        dispatch(loginUserRequestedAction);
+
         const anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
         let anonUserRef, userRef;
 
@@ -136,14 +156,15 @@ export function loginUser() {
             })
             .catch((error) => {
                 console.error(error);
-                dispatch(loginUserRejectedAction());
+                dispatch(loginUserRejectedAction);
             });
     }
 }
 
 export function loginAnonymously() {
     return (dispatch) => {
-        dispatch(loginAnonymousRequestedAction());
+        dispatch(loginAnonymousRequestedAction);
+
         let anonUserRef, userRef;
 
         auth.signInAnonymously()
@@ -156,45 +177,32 @@ export function loginAnonymously() {
             })
             .catch((error) => {
                 console.error(error.code, error.message);
-                dispatch(loginAnonymousRejectedAction());
+                dispatch(loginAnonymousRejectedAction);
             });
     }
 }
 
 export function logoutUser() {
-    return (dispatch, getState) => {
-        dispatch(logoutUserRequestedAction());
+    return (dispatch) => {
+        dispatch(logoutUserRequestedAction);
 
-        const user = getState().userData.user;
+        const user = auth.currentUser;
 
         // Log the user out
         auth.signOut()
-            .then(dispatch(logoutUserFulfilledAction(user)))
+            .then(() => {
+                // set user to be offline
+                database.ref('users/' + user.uid + '/online')
+                    .set(false)
+                    .then(dispatch(logoutUserFulfilledAction(user)))
+                    .catch((error) => {
+                        console.error(error.code, error.message);
+                    });
+            })
             .catch((error) => {
                 console.error(error.code, error.message);
-                dispatch(logoutUserRejectedAction());
+                dispatch(logoutUserRejectedAction);
             });
-    }
-}
-
-export function doesUserExist(user, userRef, anonUserRef) {
-    return (dispatch) => {
-
-        // TODO: Refactor this block to be more reasonably sized
-        userRef.once('value', (snap) => {
-            let userExists = snap.exists();
-
-            // User exists so get the user otherwise add the user
-            if (userExists) {
-                dispatch(getUser(user, userRef, anonUserRef));
-            } else {
-                dispatch(addUser(user, userRef, anonUserRef));
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            dispatch(loginAnonymousRejectedAction());
-        });
     }
 }
 
@@ -223,7 +231,7 @@ export function listenForAuth() {
 }
 
 
- /**
+/**
  * Get Users
  */
 function getUsersRequestedAction() {
@@ -271,9 +279,17 @@ function addUserFulfilledAction(user) {
 /**
  * Login User
  */
+function loginUserRequestedAction() {
+    return { type: types.LoginUserRequested };
+}
+
 function loginUserRejectedAction() {
     return { type: types.LoginUserRejected };
 }
+
+// function loginUserFulfilledAction(user) {
+//     return { type: types.LoginUserFulfilled, user };
+// }
 
 /**
  * Login Anonymous User
@@ -286,9 +302,9 @@ function loginAnonymousRejectedAction() {
     return { type: types.LoginAnonymousRejected };
 }
 
-function loginAnonymousFulfilledAction(user) {
-    return { type: types.LoginAnonymousFulfilled, user };
-}
+// function loginAnonymousFulfilledAction(user) {
+//     return { type: types.LoginAnonymousFulfilled, user };
+// }
 
 /**
  * Logout User
