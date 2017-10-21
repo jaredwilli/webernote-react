@@ -53,6 +53,7 @@ export function getUser(user, userRef, anonUserRef) {
                 mergeAnonUser(userRef, anonUserRef)
                     .then((mergedUser) => {
                         // remove anonUser
+                        // https://github.com/firebase/firebaseui-web/blob/master/demo/public/app.js#L135
                         anonUserRef.remove();
                         return mergedUser;
                     })
