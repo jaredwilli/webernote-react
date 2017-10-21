@@ -65,13 +65,17 @@
 }
 
 .notes-container {
-	background: #bdcad4;
+    background: #bdcad4;
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     height: 670px;
     position: relative;
     padding-top: 2px;
+}
+
+.notes-container.white {
+    background: #fff;
 }
 
 .notes-container .nav-col,

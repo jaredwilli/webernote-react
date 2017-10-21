@@ -1,8 +1,7 @@
 // user helper functions
 // import { database, auth, fbProvider } from '../data/firebase.js';
 
-import { deepMerge } from './helpers';
-// import { DATA_TYPES } from '../constants/noteConst';
+import { deepMerge, uniqify } from './helpers';
 
 /**
  *
@@ -24,6 +23,9 @@ export function copyFbRecord(oldRef, newRef) {
 }
 
 /**
+ * mergeAnonUser
+ *
+ * @description combine the anonymous user data with the logged in user account data.
  *
  * @param {*} anonRef
  * @param {*} userRef
@@ -31,9 +33,7 @@ export function copyFbRecord(oldRef, newRef) {
 export function mergeAnonUser(userRef, anonRef) {
     // Promise for getting the user ref data
     let newUser = new Promise((resolve, reject) => {
-        if (!userRef) {
-            resolve({});
-        }
+        if (!userRef) { resolve({}); }
 
         userRef.once('value')
             .then((userSnap) => {
@@ -47,9 +47,7 @@ export function mergeAnonUser(userRef, anonRef) {
 
     // Promise for getting the anonRef anonymous user data
     let anonUser = new Promise((resolve, reject) => {
-        if (!anonRef) {
-            resolve({});
-        }
+        if (!anonRef) { resolve({}); }
 
         anonRef.once('value')
             .then((anonSnap) => {
@@ -79,6 +77,9 @@ export function mergeAnonUser(userRef, anonRef) {
             if (Object.keys(guest).length) {
                 merged = deepMerge(snaps[0], guest);
             }
+
+            merged = uniqify(merged);
+            debugger;
             return merged;
         });
 }

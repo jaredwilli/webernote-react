@@ -1,6 +1,7 @@
 import { database, auth, fbProvider } from '../data/firebase.js';
 
 import { mergeAnonUser, createUser, updateUser } from '../common/userHelpers.js';
+import { uniq } from '../common/helpers.js';
 import * as types from '../constants/actionTypes.js';
 
 export function getUsers() {

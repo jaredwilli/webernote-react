@@ -1,4 +1,6 @@
 // helper functions
+import _ from 'lodash';
+import { DATA_TYPES } from '../constants/noteConst';
 
 /**
  *
@@ -11,7 +13,7 @@ export function isObject(item) {
 /**
  * mergeDeep
  *
- * @param {*} target object to merge into
+ * @param {*} target object to merge data into
  * @param {*} source object containing the data to merge
  */
 export function deepMerge(target, source) {
@@ -37,6 +39,75 @@ export function deepMerge(target, source) {
 	return output;
 }
 
+export function removeDuplicates(arr, key) {
+    if (!(arr instanceof Array) || key && typeof key !== 'string') {
+        return false;
+    }
+
+    if (key && typeof key === 'string') {
+        return arr.filter((obj, index, arr) => {
+            return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === index;
+        });
+
+    } else {
+        return arr.filter(function(item, index, arr) {
+            return arr.indexOf(item) == index;
+        });
+    }
+}
+
+export function uniqify(merged) {
+    let output = Object.assign({}, {});
+    /* DATA_TYPES.forEach((type) => {
+        if (merged[type] && isObject(merged[type])) {
+            let obj = merged[type];
+            let objKeys = Object.keys(obj);
+
+            objKeys.forEach((key) => {
+                if (obj[key].hasOwnProperty('isAnonymous')) {
+                    // notes object
+                    debugger;
+                }
+                else if (obj[key].hasOwnProperty('name')) {
+                    debugger;
+                }
+                else {
+                    console.log(obj[key]);
+                    console.log(type);
+
+                    debugger;
+                }
+            });
+        }
+
+        console.log(merged[type]);
+
+        debugger;
+    }); */
+
+    return output;
+
+    /* Object.keys(target).forEach((t) => {
+        debugger;
+        // Handle duplicates
+        if (source[key].hasOwnProperty('name') && target[t].name === source[key].name) {
+
+            debugger;
+        } else if (source[key].hasOwnProperty('label') && target[t].label === source[key].label) {
+
+            debugger;
+        } else if (source[key].hasOwnProperty('hex') && target[t].hex === source[key].hex) {
+
+            debugger;
+        } else {
+            debugger;
+            Object.assign(output, {
+                [key]: source[key]
+            });
+        }
+    }); */
+}
+
 /**
  * refToArray
  *
@@ -47,7 +118,7 @@ export function deepMerge(target, source) {
 export function refToArray(snap) {
 	let newSnap = [];
 	if (snap) {
-		newSnap = Object.keys(snap).map(s => {
+		newSnap = Object.keys(snap).map((s) => {
 			return snap[s];
 		});
 	}

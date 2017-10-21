@@ -117,7 +117,7 @@ class AppContainer extends React.PureComponent {
 
         return (
             <MuiThemeProvider>
-                <div>
+                <div className="full-wrapper">
                     <header>
                         <div className="loginout">
                             {loginOut}

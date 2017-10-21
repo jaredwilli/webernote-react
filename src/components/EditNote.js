@@ -25,9 +25,15 @@ class EditNote extends React.Component {
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.setBottomHeight);
+
         if (this.props.selectedNote) {
             this.setBottomHeight();
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.setBottomHeight);
     }
 
     componentWillUpdate(nextProps) {
@@ -60,32 +66,26 @@ class EditNote extends React.Component {
 
     editLabel(label) {
         let note = this.props.selectedNote;
-
         this.setState({
             selectedNote: note
         });
-
         this.props.actions.editNote(note, { label: label });
         this.props.actions.getNotes();
     }
 
     editNotebook(notebook) {
         let note = this.props.selectedNote;
-
         this.setState({
             selectedNote: note
         });
-
         this.props.actions.editNote(note, { notebook: notebook });
     }
 
     editTags(tags) {
         let note = this.props.selectedNote;
-
         this.setState({
             selectedNote: note
         });
-
         this.props.actions.editNote(note, { tags: tags });
     }
 
