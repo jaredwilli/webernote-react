@@ -8,7 +8,7 @@
     background: #fff;
     border: 1px solid #828c93;
     height: 100%;
-    margin-top: 2px;
+    overflow-y: auto;
 }
 
 .wide-nav .note-nav {

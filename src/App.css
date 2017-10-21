@@ -65,11 +65,13 @@
 }
 
 .notes-container {
+	background: #bdcad4;
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     height: 670px;
     position: relative;
+    padding-top: 2px;
 }
 
 .notes-container .nav-col,
@@ -90,4 +92,19 @@
 .notes-container .edit-col {
     display: flex;
     flex: 3;
+}
+
+/* Media Queries */
+
+@media all and (max-width: 540px) {
+    .notes-container {
+        flex-direction: row;
+    }
+    .notes-container .list-col {
+        flex: 1 0 100%;
+        height: 30%;
+    }
+    .note-list .notes .note-details {
+        display: none;
+    }
 }
