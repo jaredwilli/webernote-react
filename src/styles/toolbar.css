@@ -109,10 +109,11 @@
 
 /* Media Queries */
 
-@media all and (max-width: 486px) {
+@media all and (max-width: 490px) {
     .note-types div.quick-access {
         display: none;
     }
+
 }
 
 @media all and (max-width: 376px) {

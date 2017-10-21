@@ -2,7 +2,6 @@
 
 .edit-note {
     background: #bdcad4;
-    border: 1px solid #B8CDE0;
 }
 
 .edit-note form {
@@ -26,7 +25,6 @@
 .edit-note .top {
     position: relative;
     padding: 0;
-    margin-top: 2px;
 }
 
 .edit-note .mid {
@@ -258,9 +256,6 @@ button:focus,
 
 /* Media Queries */
 
-@media all and (max-width: 952px) {
-}
-
 @media all and (max-width: 955px) {
     .edit-note .new-notebook {
         width: 86.2%;
@@ -278,7 +273,7 @@ button:focus,
         margin: 0 0 2px 0;
     }
     .edit-note .notebook {
-        width: 90%;
+        width: 100%;
     }
     .edit-note .new-notebook {
         width: 93.5%;
@@ -295,39 +290,29 @@ button:focus,
     .edit-col {
         flex: 10 1;
     }
-
     .edit-col .add-notebook .new-notebook {
         width: 90%;
     }
-
     .edit-col .select-notebook .notebook {
         width: 100%;
     }
 }
 
-@media all and (max-width: 620px) {
-    .edit-note .label-color-picker {
-        left: -90%;
-    }
-    .edit-note .label-background {
-        padding: 10px;
-    }
-}
-
 @media all and (max-width: 540px) {
-    .edit-col .mid {
+    .edit-note .edit-col {
+        margin-top: 2px;
+    }
+    .edit-note form {
+        box-shadow: 0 -8px 22px rgba(115, 115, 115, 0.42);
+    }
+    .edit-col .mid-top {
         flex-direction: column;
     }
     .edit-note .bottom {
         height: 74.1%;
     }
-    /* .edit-note .label-color-picker {
-        left: 126px
-    } */
-    .edit-note .label-picker {
-        margin: 2px 0 0 0;
+    .edit-note .url {
+        padding: 5px;
     }
-    .edit-note .label-background {
-        width: 90.6%;
-    }
+
 }

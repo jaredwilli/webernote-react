@@ -1,66 +1,95 @@
 // user helper functions
+// import { database, auth, fbProvider } from '../data/firebase.js';
 
+import { deepMerge } from './helpers';
+// import { DATA_TYPES } from '../constants/noteConst';
+
+/**
+ *
+ * @param {*} oldRef
+ * @param {*} newRef
+ */
 export function copyFbRecord(oldRef, newRef) {
-	oldRef.once('value', snap => {
-		newRef.set(snap.val(), error => {
-			if (error && typeof console !== 'undefined' && console.error) {
-				console.error(error);
-			}
-		});
-	});
-}
-
-// export function moveFbRecord(oldRef, newRef) {
-// 	oldRef.once('value', (snap) => {
-// 		newRef.set(snap.val(), (error) => {
-// 			if (!error) {
-// 				oldRef.remove();
-// 			} else if (typeof console !== 'undefined' && console.error) {
-// 				console.error(error);
-// 			}
-// 		});
-// 	});
-// }
-
-export function moveFbRecord(oldRef, newRef, user) {
-	return new Promise((resolve, reject) => {
-        oldRef
-			.once('value')
-			.then((snap) => {
-				return newRef.set(snap.val());
-			})
-			.then(() => {
-                newRef.update({
-                    uid: user.uid,
-                    isAnonymous: user.isAnonymous,
-                    online: true,
-                    displayName: !user.isAnonymous ? user.displayName : 'guest',
-                    email: !user.isAnonymous ? user.email : '',
-                    photo: !user.isAnonymous ? user.photoURL : '',
-                    created_date: new Date().getTime(),
-                    last_login: new Date().getTime()
-                });
-				return oldRef.set(null);
-			})
-			.then(() => {
-				console.log('Done!');
-				resolve(newRef);
-			})
-			.catch(err => {
-				console.log(err.message);
-				reject();
-			});
-	});
+    return new Promise((resolve, reject) => {
+        oldRef.once('value')
+            .then((snap) => {
+                return newRef.set(snap.val());
+            }).then((ref) => {
+                resolve(ref);
+            }).catch((error) => {
+                console.error(error.message);
+                reject();
+            });
+    });
 }
 
 /**
- * createNewUser
+ *
+ * @param {*} anonRef
+ * @param {*} userRef
+ */
+export function mergeAnonUser(userRef, anonRef) {
+    // Promise for getting the user ref data
+    let newUser = new Promise((resolve, reject) => {
+        if (!userRef) {
+            resolve({});
+        }
+
+        userRef.once('value')
+            .then((userSnap) => {
+                resolve(userSnap.val());
+            })
+            .catch((error) => {
+                console.error(error.message);
+                reject();
+            });
+    });
+
+    // Promise for getting the anonRef anonymous user data
+    let anonUser = new Promise((resolve, reject) => {
+        if (!anonRef) {
+            resolve({});
+        }
+
+        anonRef.once('value')
+            .then((anonSnap) => {
+                resolve(anonSnap.val());
+            })
+            .catch((error) => {
+                console.error(error.message);
+                reject();
+            });
+    });
+
+    // Once these return
+    return Promise.all([newUser, anonUser])
+        .then((snaps) => {
+            let guest = {};
+            let merged;
+
+            snaps[0] = snaps[0] || {};
+            snaps[1] = snaps[1] || {};
+
+            // Populate guest object if necessary
+            if (snaps[1].notebooks) { guest.notebooks = snaps[1].notebooks; }
+            if (snaps[1].labels) { guest.labels = snaps[1].labels; }
+            if (snaps[1].notes) { guest.notes = snaps[1].notes; }
+            if (snaps[1].tags) { guest.tags = snaps[1].tags; }
+
+            if (Object.keys(guest).length) {
+                merged = deepMerge(snaps[0], guest);
+            }
+            return merged;
+        });
+}
+
+/**
+ * createUser
  *
  * @param {Object} user
- * @param {Object} anon An anonymous user that is upgrading to oauth user
  */
-export function createNewUser(user, anon) {
-	let obj = {
+export function createUser(user, mergedUser) {
+    return {
 		uid: user.uid,
 		isAnonymous: user.isAnonymous,
 		online: true, // set to true cuz adding user means they logged in
@@ -71,37 +100,23 @@ export function createNewUser(user, anon) {
 		last_login: new Date().getTime(),
 		permissions: [],
         role: '',
-        notebooks: {},
-        labels: {},
-        notes: {},
-        tags: []
+        notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},
+        labels: (mergedUser && mergedUser.labels) ? mergedUser.labels : {},
+        notes: (mergedUser && mergedUser.notes) ? mergedUser.notes : {},
+        tags: (mergedUser && mergedUser.tags) ? mergedUser.tags : []
     };
+}
 
-    if (user.notebooks) {
-        obj.notebooks = user.notebooks;
-    } else if (anon && anon.notebooks) {
-        obj.notebooks = user.notebooks;
-    }
+export function updateUser(user, mergedUser) {
+    user.notebooks = (mergedUser.notebooks) ? mergedUser.notebooks : user.notebooks;
+    user.labels = (mergedUser.labels) ? mergedUser.labels : user.labels;
+    user.notes = (mergedUser.notes) ? mergedUser.notes : user.notes;
+    user.tags = (mergedUser.tags) ? mergedUser.tags : user.tags;
+    return user;
+}
 
-    if (user.labels) {
-        obj.labels = user.labels;
-    } else if (anon && anon.labels) {
-        obj.labels = user.labels;
-    }
-
-    if (user.notes) {
-        obj.notes = user.notes;
-    } else if (anon && anon.notes) {
-        obj.notes = user.notes;
-    }
-
-    if (user.tags) {
-		obj.tags = user.tags;
-    } else if (anon && anon.tags) {
-        obj.tags = user.tags;
-    }
-
-    return obj;
+export function deleteAnon(anonRef) {
+    return anonRef.remove();
 }
 
 export function pushAnonToUser(userRef, anonUser) {
@@ -129,6 +144,13 @@ export function pushAnonToUser(userRef, anonUser) {
 	}
 }
 
+/**
+ * a2z
+ *
+ * @description Random letter generator from A - Z
+ * @param {*} from
+ * @param {*} to
+ */
 export function a2z(from = 'a', to = 'z') {
 	let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	return a.slice(a.indexOf(from), a.indexOf(to) + 1);

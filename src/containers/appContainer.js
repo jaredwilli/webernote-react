@@ -15,6 +15,7 @@ import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
+import { URLS } from '../constants/noteConst';
 import '../App.css';
 
 class AppContainer extends React.PureComponent {
@@ -32,14 +33,14 @@ class AppContainer extends React.PureComponent {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.user && nextState.user) {
-            return nextState.user.uid !== nextProps.user.uid;
+    shouldComponentUpdate(nextProps, prevState) {
+        if (nextProps.user && prevState.user) {
+            return nextProps.user.uid !== prevState.user.uid;
         }
         return true;
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate(nextProps) {
         if (nextProps.user !== '') {
             this.setState({
                 user: nextProps.user
@@ -58,9 +59,8 @@ class AppContainer extends React.PureComponent {
         this.props.actions.listenForDeletedLabels();
     }
 
-    goToGithub(e) {
-        const projectUrl = 'https://github.com/jaredwilli/webernote-react';
-        window.open(projectUrl);
+    goToGithub() {
+        window.open(URLS.GITHUB_REPO);
     }
 
     login() {
@@ -73,7 +73,7 @@ class AppContainer extends React.PureComponent {
     }
 
     render() {
-        let { user } = this.props;
+        let user = this.props.user;
 
         let loginOut = '';
         let avatarStyle = {

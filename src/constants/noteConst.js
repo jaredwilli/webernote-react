@@ -1,5 +1,12 @@
 /* Note constants */
 
+export const DATA_TYPES = [
+    'notes',
+    'notebooks',
+    'tags',
+    'labels'
+];
+
 export const DEFAULTS = {
     NOTEBOOK: 'General',
     TAG: ''
@@ -21,3 +28,7 @@ export const COLORS = [
     { name: 'white', hex: '#ffffff' },
     { name: 'black', hex: '#000000' }
 ];
+
+export const URLS = {
+    GITHUB_REPO: 'https://github.com/jaredwilli/webernote-react'
+}
