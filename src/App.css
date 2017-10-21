@@ -74,6 +74,10 @@
     padding-top: 2px;
 }
 
+.notes-container.white {
+    background: #fff;
+}
+
 .notes-container .nav-col,
 .notes-container .list-col,
 .notes-container .edit-col {

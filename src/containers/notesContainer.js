@@ -119,7 +119,7 @@ class NotesContainer extends React.PureComponent {
                     <NoteTypes />
                 </nav>
 
-                <div className="notes-container">
+                <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
                     <NoteNav show="wide" />
 
                     <NoteList notes={notes}
