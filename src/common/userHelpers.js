@@ -78,8 +78,6 @@ export function mergeAnonUser(userRef, anonRef) {
                 merged = deepMerge(snaps[0], guest);
             }
 
-            merged = uniqify(merged);
-            debugger;
             return merged;
         });
 }
@@ -108,41 +106,18 @@ export function createUser(user, mergedUser) {
     };
 }
 
-export function updateUser(user, mergedUser) {
-    user.notebooks = (mergedUser.notebooks) ? mergedUser.notebooks : user.notebooks;
-    user.labels = (mergedUser.labels) ? mergedUser.labels : user.labels;
-    user.notes = (mergedUser.notes) ? mergedUser.notes : user.notes;
-    user.tags = (mergedUser.tags) ? mergedUser.tags : user.tags;
+/**
+ * updateUser
+ *
+ * @param {*} user
+ * @param {*} updatedUser
+ */
+export function updateUser(user, updatedUser) {
+    user.notebooks = (updatedUser.notebooks) ? updatedUser.notebooks : user.notebooks || {};
+    user.labels = (updatedUser.labels) ? updatedUser.labels : user.labels || {};
+    user.notes = (updatedUser.notes) ? updatedUser.notes : user.notes || {};
+    user.tags = (updatedUser.tags) ? updatedUser.tags : user.tags || [];
     return user;
-}
-
-export function deleteAnon(anonRef) {
-    return anonRef.remove();
-}
-
-export function pushAnonToUser(userRef, anonUser) {
-	if (anonUser) {
-		if (anonUser.notes && anonUser.notes.length) {
-			anonUser.notes.forEach(note => {
-				userRef.child('notes').push(note);
-			});
-		}
-		// if (anonUser.notebooks && anonUser.notebooks.length) {
-		//     anonUser.notebooks.forEach((notebook) => {
-		//         userRef.child('notebooks').push(notebook);
-		//     });
-		// }
-		// if (anonUser.tags && anonUser.tags.length) {
-		//     anonUser.tags.forEach((tag) => {
-		//         userRef.child('tags').push(tag);
-		//     });
-		// }
-		// if (anonUser.labels && anonUser.labels.length) {
-		//     anonUser.labels.forEach((label) => {
-		//         userRef.child('labels').push(label);
-		//     });
-		// }
-	}
 }
 
 /**

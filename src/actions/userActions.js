@@ -27,11 +27,13 @@ export function getUser(user, userRef, anonUserRef) {
 
         // Fetch and update
         function fetchUser(user, userRef, mergedUser) {
+            console.log(anonUserRef, mergedUser);
+
+            /* TODO: goes with the todo below - duplicate data
             if (user && mergedUser) {
                 user = updateUser(user, mergedUser);
-                debugger;
                 userRef.set(user);
-            }
+            } */
 
             userRef.once('value', (snap) => {
                 user = snap.val();
@@ -44,12 +46,16 @@ export function getUser(user, userRef, anonUserRef) {
             });
         }
 
+        fetchUser(user, userRef);
+
         // If user is anonymous just get fetch the data
-        if (user.isAnonymous) {
+        // TODO: make this work somehow... - merge duplicate anon/user data
+        /* if (user.isAnonymous) {
             fetchUser(user, userRef);
         } else {
             // If not anonymous user then merge anonymous with the user account
             if (userRef && anonUserRef) {
+                debugger;
                 // Merge the anonUserRef and userRef data together
                 mergeAnonUser(userRef, anonUserRef)
                     .then((mergedUser) => {
@@ -66,7 +72,7 @@ export function getUser(user, userRef, anonUserRef) {
                 // Just get the user if anonUserRef not defined
                 fetchUser(user, userRef);
             }
-        }
+        } */
     }
 }
 
@@ -147,29 +153,51 @@ export function loginUser() {
             anonUserRef = database.ref('users/' + anonUser.uid);
         }
 
-        auth.signInWithPopup(fbProvider)
-            .then((result) => {
-                let user = result.user;
+        // Delete the anonymous user auth then signIn with fb credentials
+        anonUser.delete()
+            .then(() => {
+                auth.signInWithPopup(fbProvider)
+                    .then((result) => {
+                        let user = result.user;
 
-                // Set the userRef here
-                userRef = database.ref('users/' + user.uid);
-                dispatch(doesUserExist(user, userRef, anonUserRef));
+                        // Set the userRef here
+                        userRef = database.ref('users/' + user.uid);
+                        dispatch(doesUserExist(user, userRef, anonUserRef));
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(loginUserRejectedAction);
+                    });
             })
             .catch((error) => {
                 console.error(error);
-                dispatch(loginUserRejectedAction);
+                if (error.code == 'auth/requires-recent-login') {
+                    // The user's credential is too old. She needs to sign in again.
+                    auth.signOut()
+                        .then(function() {
+                            // The timeout allows the message to be displayed after the UI has
+                            // changed to the signed out state.
+                            setTimeout(function() {
+                                alert('Please sign in again to delete your account.');
+                            }, 1);
+                        });
+                }
             });
     }
 }
 
 export function loginAnonymously() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(loginAnonymousRequestedAction);
 
-        let anonUserRef, userRef;
+        let anonUserRef, userRef,
+            userState = getState().userData.user;
+
+        console.log('userState: loginAnonymously: ', userState); // to test the double login issue
 
         auth.signInAnonymously()
             .then((user) => {
+                // debugger;
                 // Set up anonUserRef and userRefs to be the same
                 anonUserRef = database.ref('users/' + user.uid);
                 userRef = anonUserRef;

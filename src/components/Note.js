@@ -32,6 +32,10 @@ function Note(props) {
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
                 </span>
                 <span className="description">{shorten(note.description, 250)}</span>
+                <span className="notebook">
+                    <i className="fa fa-document"></i>
+                    <a href>{note.notebook.name}</a>
+                </span>
                 {getTags(note.tags)}
             </div>
         </li>

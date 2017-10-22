@@ -192,7 +192,7 @@
 
 .zero-notes .get-started-btn {
     background: #e91f63;
-    border: 1px solid #333;
+    border: 1px solid #900433;
     border-radius: 2px;
     color: #fff;
     font-size: 14px;
@@ -203,6 +203,7 @@
 
 .zero-notes .get-started-btn.fbBlue {
     background: #4367b1;
+    border-color: #1b4392;
 }
 
 .zero-notes .get-started-btn i {
