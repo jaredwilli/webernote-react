@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -7,6 +8,10 @@ import * as noteActions from '../actions/noteActions';
 import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
 import Note from './Note';
+
+import Notebooks from './Notebooks';
+import Tags from './Tags';
+import Labels from './Labels';
 
 import '../styles/note-list.css';
 
@@ -33,7 +38,9 @@ class NoteList extends Component {
     }
 
     render() {
-        if (!this.props.notes.length) {
+        let { notes, notebooks, labels, tags } = this.props;
+
+        if (!notes.length) {
             return (
                 <WelcomeMsg addNote={this.props.addNote}
                     login={this.props.login} />
@@ -42,7 +49,7 @@ class NoteList extends Component {
 
         let filtersText = '';
 
-        if (this.props.notes.length) {
+        if (notes.length) {
             filtersText = (
                 <div className="filters">
                     <div className="filter">
@@ -63,10 +70,10 @@ class NoteList extends Component {
                             value={this.props.search}
                             onChange={(e) => this.props.filterList(e)} />
                     </div>
-                    {(this.props.notebooks && this.props.notebooks.length) ?
+                    {(notebooks && notebooks.length) ?
                         <div className="viewing">
                             <span className="viewtext">
-                                Viewing <span className="count">{this.props.notes.length}</span> notes from
+                                Viewing <span className="count">{notes.length}</span> notes from
                             </span>
                             <NotebookContainer
                                 filterByNotebook={(e) => this.props.filterByNotebook(e)}
@@ -82,10 +89,14 @@ class NoteList extends Component {
                 {filtersText}
 
                 <div className="notes">
-                    <Note notes={this.props.notes}
+                    <Note notes={notes}
                         selectNote={(e, note) => this.selectNote(e, note)}
                         deleteNote={(note) => this.deleteNote(note)} />
                 </div>
+
+                <Route path="/notebooks/:notebookName" component={Notebooks} />
+                <Route path="/tags/:tagValue" component={Tags} />
+                <Route path="/labels/:labelName" component={Labels} />
             </div>
         );
     }

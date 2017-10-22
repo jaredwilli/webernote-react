@@ -48,7 +48,7 @@ function SecondaryMenu(props) {
     );
 
     return (
-        <div>
+        <div className="secondary-dropdown">
             <Paper style={style}>
                 <Menu desktop={desktop} width={width}>
                     {items}

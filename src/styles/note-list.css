@@ -146,6 +146,23 @@
     margin-right: 5px;
 }
 
+.note-list .notes .notebook,
+.note-list .notes .url {
+    margin-left: 5px;
+}
+
+.note-list .notes a {
+    color: #068dcc;
+}
+
+.note-list .notes a:hover {
+    color: #E91E63;
+}
+
+.note-list .notes .fa {
+    margin-right: 2px;
+}
+
 .note-list .notes .tag-item {
     color: #086995;
     margin-right: 5px;

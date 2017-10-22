@@ -11,6 +11,10 @@ import NoteTypes from '../components/NoteTypes';
 import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 
+// import Notebooks from './components/Notebooks';
+// import Tags from './components/Tags';
+// import Labels from './components/Labels';
+
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';
@@ -44,6 +48,7 @@ class NotesContainer extends React.PureComponent {
     componentDidMount() {
         Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
     }
+
     componentWillUnmount() {
         Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
     }
@@ -54,7 +59,7 @@ class NotesContainer extends React.PureComponent {
                 filterType: e.target.name
             }, () => {
                 if (this.state.searchTerm) {
-                    this.filterList()
+                    this.filterList();
                 }
             });
         }
@@ -79,7 +84,7 @@ class NotesContainer extends React.PureComponent {
 		this.setState({
 			notebookFilter: notebook
 		}, () => {
-
+            debugger;
         });
     }
 
@@ -95,7 +100,7 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-        let notes = this.props.notes;
+        let { notes } = this.props;
 
         // Show loading if no notes yet
         if (!notes) {
