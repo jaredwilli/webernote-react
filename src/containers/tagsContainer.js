@@ -67,7 +67,7 @@ function mapStateToProps(state) {
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote
 	};
-	console.log('STATE: ', state, newState);
+	// console.log('STATE: ', state, newState);
 
 	return newState;
 }

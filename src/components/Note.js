@@ -34,7 +34,7 @@ function Note(props) {
                 </span>
                 <span className="description">{shorten(note.description, 250)}</span>
                 <div className="taxonomies">
-                    {(note.notebook) ?
+                    {(note.notebook && note.notebook.name) ?
                         <span className="notebook">
                             <FontAwesome name='book' />
                             <a href>{note.notebook.name}</a>

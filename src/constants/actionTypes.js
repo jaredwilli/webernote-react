@@ -63,6 +63,9 @@ export const ResetSelectedNoteRequested = 'RESET_SELECTED_NOTE_REQUESTED';
 export const ResetSelectedNoteRejected = 'RESET_SELECTED_NOTE_REJECTED';
 export const ResetSelectedNoteFulfilled = 'RESET_SELECTED_NOTE_FULFILLED';
 
+export const FilterNotesRequested = 'FILTER_NOTES_REQUESTED';
+export const FilterNotesRejected = 'FILTER_NOTES_REJECTED';
+export const FilterNotesFulfilled = 'FILTER_NOTES_FULFILLED';
 
 /* NOTEBOOKS */
 

@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.toolbar nav {
+    display: block;
+}
+
 .toolbar ul {
     margin: 0;
     padding: 0;
@@ -88,7 +92,7 @@
 }
 
 /* Toolbar Dropdown Menus */
-.toolbar > ul > li > div {
+.toolbar nav > ul > li > div {
     background: #fff;
 	-webkit-box-shadow: 0 0 3px #000;
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);

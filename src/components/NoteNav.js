@@ -25,20 +25,13 @@ class NoteNav extends React.Component {
             expandNotebooks: true,
             expandTags: true,
             expandLabels: true,
-            open: false
+            drawerOpen: false
         }
     }
 
     toggleDrawer(e) {
         this.setState({
-            open: !this.state.open
-        });
-    }
-
-    burgerToggle(e) {
-        e.preventDefault();
-        this.setState({
-            showBurgerMenu: !this.state.showBurgerMenu
+            drawerOpen: !this.state.drawerOpen
         });
     }
 
@@ -52,6 +45,10 @@ class NoteNav extends React.Component {
 
     render() {
         let { notes, notebooks, tags, labels } = this.props;
+
+        if (!notes) {
+            return <div className="loading"></div>
+        }
 
         // NOTEBOOKS MENU
         let notebookItems = '';
@@ -98,7 +95,7 @@ class NoteNav extends React.Component {
         };
         let drawMenuStyles = {};
 
-        if (this.state.open) {
+        if (this.state.drawerOpen) {
             coverStyles = { display: 'inline-block' };
             drawMenuStyles = { left: '-15px' };
         }
@@ -111,9 +108,11 @@ class NoteNav extends React.Component {
                         <i className="fa fa-bars"></i>
                     </div>
 
+                    <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
+
                     <nav className="nav-col note-nav" style={drawMenuStyles}>
-                        {this.state.open ? <span className="remove Select-clear"
-                                onClick={(e) => this.setState({ open: false })}>×
+                        {this.state.drawerOpen ? <span className="remove Select-clear"
+                                onClick={(e) => this.setState({ drawerOpen: false })}>×
                             </span>
                         : ''}
 
@@ -157,8 +156,6 @@ class NoteNav extends React.Component {
                                 </ul>
                             </div>
                         : ''}
-
-                        <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
                     </nav>
                 </div>
             );

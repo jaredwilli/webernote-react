@@ -206,10 +206,51 @@ export default function noteReducer(state = {}, action) {
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Reset selected note',
+                success: 'Reset selected note'
             });
 
             note.isEditing = false;
+            newState.selectedNote = '';
+            return newState;
+        }
+
+        // *** FILTER NOTES
+        case types.FilterNotesFulfilled: {
+            let notes = refToArray(action.notes);
+            let filter = action.filter;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Filtered notes'
+            });
+
+            if (!filter) {
+                newState.filteredNotes = null;
+                newState.notes = notes;
+            }
+
+            // Filter by notebook
+            if (filter.notebook) {
+                newState.filteredNotes = notes.filter((note) => {
+                    return note.notebook && note.notebook.name === filter.notebook.name;
+                });
+            }
+            else if (filter.term && filter.type) {
+                console.log(filter.term);
+
+                // filter by field and keyword
+                newState.filteredNotes = notes.filter((note) => {
+                    let term = filter.term.toLowerCase(),
+                        type = filter.type,
+                        typeVal = note[type.toLowerCase()].toLowerCase();
+
+                    if (typeVal) {
+                        return typeVal.search(term) !== -1;
+                    }
+                });
+                console.log(newState.filteredNotes);
+            }
+
             newState.selectedNote = '';
             return newState;
         }

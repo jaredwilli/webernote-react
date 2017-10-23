@@ -55,20 +55,20 @@ class NoteList extends Component {
                     <div className="filter">
                         <label>Search type:</label>
                         <select name="filterType" className="filter-type"
-                            value={this.props.filterType || 'Title'}
+                            value={this.props.filterType}
                             onChange={(e) => this.props.setFilterType(e)}>
                             <option>Title</option>
                             <option>Description</option>
                             <option>Url</option>
-                            <option>Label</option>
-                            <option>Tags</option>
-                            <option>Created Date</option>
-                            <option>Modified Date</option>
                         </select>
 
                         <input type="text" name="search" placeholder="Search" className="search"
                             value={this.props.search}
                             onChange={(e) => this.props.filterList(e)} />
+
+                            <span className="remove clear-filters Select-clear"
+                                onClick={() => this.props.clearFilters()}>×
+                            </span>
                     </div>
                     {(notebooks && notebooks.length) ?
                         <div className="viewing">
