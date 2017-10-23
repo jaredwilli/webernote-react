@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import { formatDate, shorten } from '../common/helpers';
 import { sortNotes, getTags } from '../common/noteHelpers';
@@ -32,7 +33,21 @@ function Note(props) {
                     {formatDate((note.modified_date) ? note.modified_date : note.created_date)}
                 </span>
                 <span className="description">{shorten(note.description, 250)}</span>
-                {getTags(note.tags)}
+                <div className="taxonomies">
+                    {(note.notebook) ?
+                        <span className="notebook">
+                            <FontAwesome name='book' />
+                            <a href>{note.notebook.name}</a>
+                        </span>
+                    : ''}
+                    {(note.url) ?
+                        <span className="url">
+                            <FontAwesome name='link' />
+                            <a href={note.url} target="_blank">{shorten(note.url, 80)}</a>
+                        </span>
+                    :  ''}
+                    {getTags(note.tags)}
+                </div>
             </div>
         </li>
     );

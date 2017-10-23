@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -117,7 +117,7 @@ class AppContainer extends React.PureComponent {
 
         return (
             <MuiThemeProvider>
-                <div>
+                <div className="full-wrapper">
                     <header>
                         <div className="loginout">
                             {loginOut}
@@ -151,4 +151,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));

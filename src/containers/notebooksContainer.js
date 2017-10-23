@@ -161,7 +161,7 @@ class NotebooksContainer extends React.PureComponent {
 
             if (showAddNotebook) {
                 return (
-                    <span className="add-notebook is-focused">
+                    <span className="add-notebook">
                         <input type="text" name="notebook" className="new-notebook"
                             autoFocus={true}
                             placeholder="Notebook name"

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FontAwesome from 'react-fontawesome';
 
 import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 import { shorten } from '../common/helpers.js';
@@ -120,7 +121,9 @@ class NoteNav extends React.Component {
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>
+                                            Notebooks
+                                        </div>
                                         <ul className="notebooks-list">
                                             {notebookItems}
                                         </ul>
@@ -235,4 +238,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteNav);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteNav));

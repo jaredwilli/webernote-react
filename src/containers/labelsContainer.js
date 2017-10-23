@@ -49,7 +49,8 @@ class LabelsContainer extends React.PureComponent {
         });
 
         if (color) {
-            let label = color;
+            let label = {};
+            label.hex = color.hex;
 
             COLORS.forEach((c) => {
                 if (c.hex === label.hex) {

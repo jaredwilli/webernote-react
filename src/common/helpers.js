@@ -1,6 +1,10 @@
 // helper functions
+import _ from 'lodash';
+
+import { DATA_TYPES } from '../constants/noteConst';
 
 /**
+ * isObject
  *
  * @param {*} item
  */
@@ -11,7 +15,7 @@ export function isObject(item) {
 /**
  * mergeDeep
  *
- * @param {*} target object to merge into
+ * @param {*} target object to merge data into
  * @param {*} source object containing the data to merge
  */
 export function deepMerge(target, source) {
@@ -33,21 +37,108 @@ export function deepMerge(target, source) {
             }
 		});
     }
-
 	return output;
 }
+
+export function removeDuplicatesBy(keyFn, array) {
+    var mySet = new Set();
+    return array.filter((x) => {
+        let key = keyFn(x),
+            isNew = !mySet.has(key);
+        if (isNew) {
+            mySet.add(key);
+        }
+        return isNew;
+    });
+}
+
+/* // export function uniqify(merged) {
+//     let output = Object.assign({}, {});
+//     if (merged) {
+//         debugger;
+
+//         DATA_TYPES.forEach((type) => {
+//             if (merged[type] && isObject(merged[type])) {
+//                 let obj = merged[type];
+//                 let objKeys = Object.keys(obj);
+
+//                 if (objKeys.length > 1) {
+//                     objKeys.forEach((key) => {
+//                         let objKey;
+
+//                         if (obj[key].hasOwnProperty('title')) {
+//                             // notes object
+//                             debugger;
+//                             output[type][key] = obj[key];
+//                             objKey = obj[key];
+//                         }
+//                         else if (obj[key].hasOwnProperty('name')) {
+//                             debugger;
+
+//                             objKey = obj[key];
+//                         }
+//                         else if (obj[key].hasOwnProperty('label')) {
+//                             debugger;
+
+//                             objKey = obj[key];
+//                         }
+//                         else if (obj[key].hasOwnProperty('hexl')) {
+//                             debugger;
+
+//                             objKey = obj[key];
+//                         }
+//                         else {
+
+//                             console.log(obj[key]);
+//                             console.log(type);
+
+//                             debugger;
+//                         }
+//                     });
+//                 } else {
+//                     output[type] = obj[objKeys[0]];
+//                 }
+//             }
+
+//             console.log(output);
+
+//             debugger;
+//         });
+//     }
+
+//     return output;
+
+//     /* Object.keys(target).forEach((t) => {
+//         debugger;
+//         // Handle duplicates
+//         if (source[key].hasOwnProperty('name') && target[t].name === source[key].name) {
+
+//             debugger;
+//         } else if (source[key].hasOwnProperty('label') && target[t].label === source[key].label) {
+
+//             debugger;
+//         } else if (source[key].hasOwnProperty('hex') && target[t].hex === source[key].hex) {
+
+//             debugger;
+//         } else {
+//             debugger;
+//             Object.assign(output, {
+//                 [key]: source[key]
+//             });
+//         }
+//     }); */
+// } */
 
 /**
  * refToArray
  *
  * @description Converts a Firebase Objects of Object to Array of Objects.
- *
  * @param {Object} snap
  */
 export function refToArray(snap) {
 	let newSnap = [];
 	if (snap) {
-		newSnap = Object.keys(snap).map(s => {
+		newSnap = Object.keys(snap).map((s) => {
 			return snap[s];
 		});
 	}
@@ -69,8 +160,7 @@ export function formatDate(timeStamp) {
 /**
  * shorten
  *
- * @description
- * Truncate text and add an ellipsis to the end of it.
+ * @description Truncate text and add an ellipsis to the end of it.
  *
  * @param {String} text
  * @param {Number} maxLength

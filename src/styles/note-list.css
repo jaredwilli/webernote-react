@@ -146,6 +146,24 @@
     margin-right: 5px;
 }
 
+.note-list .notes .notebook,
+.note-list .notes .url {
+    margin-left: 5px;
+}
+
+.note-list .notes a {
+    color: #068dcc;
+}
+
+.note-list .notes a:hover {
+    color: #E91E63;
+}
+
+.note-list .notes .fa {
+    color: #33465f;
+    margin-right: 2px;
+}
+
 .note-list .notes .tag-item {
     color: #086995;
     margin-right: 5px;
@@ -192,7 +210,7 @@
 
 .zero-notes .get-started-btn {
     background: #e91f63;
-    border: 1px solid #333;
+    border: 1px solid #900433;
     border-radius: 2px;
     color: #fff;
     font-size: 14px;
@@ -203,6 +221,7 @@
 
 .zero-notes .get-started-btn.fbBlue {
     background: #4367b1;
+    border-color: #1b4392;
 }
 
 .zero-notes .get-started-btn i {
