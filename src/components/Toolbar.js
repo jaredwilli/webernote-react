@@ -19,6 +19,7 @@ class Toolbar extends Component {
         super(props);
 
         this.showDropdown = this.showDropdown.bind(this);
+        this.goToUrl = this.goToUrl.bind(this);
 
         this.state = {
             file: false,
@@ -41,6 +42,10 @@ class Toolbar extends Component {
         });
     }
 
+    goToUrl(url) {
+        window.open(url);
+    }
+
     showDropdown(e) {
         let type = e.target.className;
 
@@ -52,8 +57,8 @@ class Toolbar extends Component {
 
     render() {
         return (
-            <div>
-                <nav className="toolbar">
+            <div className="toolbar">
+                <nav>
                     <ul>
                         <NoteNav show="narrow" />
 
@@ -61,7 +66,8 @@ class Toolbar extends Component {
                             <a className="file" onMouseEnter={this.showDropdown}>File</a>
                             {this.state.file ?
                                 <div onMouseLeave={this.showDropdown} className="file-dropdown">
-                                    <SecondaryMenu items={FILE} />
+                                    <SecondaryMenu items={FILE}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>
@@ -69,7 +75,8 @@ class Toolbar extends Component {
                             <a className="edit" onMouseEnter={this.showDropdown}>Edit</a>
                             {this.state.edit ?
                                 <div className="edit-dropdown">
-                                    <SecondaryMenu items={EDIT} />
+                                    <SecondaryMenu items={EDIT}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>
@@ -77,7 +84,8 @@ class Toolbar extends Component {
                             <a className="view" onMouseEnter={this.showDropdown}>View</a>
                             {this.state.view ?
                                 <div className="view-dropdown">
-                                    <SecondaryMenu items={VIEW} />
+                                    <SecondaryMenu items={VIEW}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>
@@ -85,7 +93,8 @@ class Toolbar extends Component {
                             <a className="note" onMouseEnter={this.showDropdown}>Note</a>
                             {this.state.note ?
                                 <div className="view-dropdown">
-                                    <SecondaryMenu items={NOTE} />
+                                    <SecondaryMenu items={NOTE}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>
@@ -93,7 +102,8 @@ class Toolbar extends Component {
                             <a className="tools" onMouseEnter={this.showDropdown}>Tools</a>
                             {this.state.tools ?
                                 <div className="tools-dropdown">
-                                    <SecondaryMenu items={TOOLS} />
+                                    <SecondaryMenu items={TOOLS}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>
@@ -101,7 +111,9 @@ class Toolbar extends Component {
                             <a className="help" onMouseEnter={this.showDropdown}>Help</a>
                             {this.state.help ?
                                 <div className="help-dropdown">
-                                    <SecondaryMenu items={HELP} />
+                                    <SecondaryMenu items={HELP}
+                                        goToUrl={this.goToUrl}
+                                        actions={this.props.actions} />
                                 </div>
                             : ''}
                         </li>

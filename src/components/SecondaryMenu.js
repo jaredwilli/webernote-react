@@ -11,7 +11,7 @@ import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
 function SecondaryMenu(props) {
-    let actions = Object.assign({}, noteActions, notebookActions, tagActions, labelActions);
+    let { actions } = props;
 
     let items = props.items || [];
     let width = props.width || 256;
@@ -24,8 +24,12 @@ function SecondaryMenu(props) {
 
     const performAction = (e, action) => {
         console.log('performAction: ', action);
-        // action();
-        // debugger;
+
+        if (action.url) {
+            props.goToUrl(action.url);
+        } else {
+            action();
+        }
     }
 
     const buildMenuItem = (item, v) => {
@@ -33,6 +37,10 @@ function SecondaryMenu(props) {
 
         if (item.action && item.action in actions) {
             action = actions[item.action];
+        }
+
+        if (item.url) {
+            action = { url: item.url };
         }
 
         return <MenuItem key={v}

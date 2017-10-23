@@ -28,7 +28,3 @@ export const COLORS = [
     { name: 'white', hex: '#ffffff' },
     { name: 'black', hex: '#000000' }
 ];
-
-export const URLS = {
-    GITHUB_REPO: 'https://github.com/jaredwilli/webernote-react'
-}

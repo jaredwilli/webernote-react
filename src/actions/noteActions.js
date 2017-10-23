@@ -238,6 +238,24 @@ export function resetSelectedNote() {
 	};
 }
 
+export function filterNotes(filter) {
+	return (dispatch, getState) => {
+        dispatch(filterNotesRequestedAction(filter));
+
+        const user = getState().userData.user;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
+
+        notesRef.once('value')
+            .then((snap) => snap.val())
+            .then((notes) => dispatch(filterNotesFulfilledAction(notes, filter)))
+            .catch((error) => {
+                console.error(error);
+                dispatch(filterNotesRejectedAction);
+            })
+	};
+}
+
+
 /**
  * Get Notes
  */
@@ -327,3 +345,17 @@ function resetSelectedNoteRejectedAction() {
 function resetSelectedNoteFulfilledAction(note) {
 	return { type: types.ResetSelectedNoteFulfilled, note };
 }
+
+/* Filter Notes */
+function filterNotesRequestedAction() {
+	return { type: types.FilterNotesRequested };
+}
+
+function filterNotesRejectedAction() {
+	return { type: types.FilterNotesRejected };
+}
+
+function filterNotesFulfilledAction(notes, filter) {
+	return { type: types.FilterNotesFulfilled, notes, filter };
+}
+

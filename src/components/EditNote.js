@@ -94,7 +94,7 @@ class EditNote extends React.Component {
 
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="show-note"></div>
+                <div className="edit-note"></div>
             );
         }
 

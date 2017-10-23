@@ -6,7 +6,7 @@
 
 .wide-nav {
     background: #fff;
-    border: 1px solid #828c93;
+    border: 1px solid hsl(205, 7%, 54%);
     height: 100%;
     overflow-y: auto;
 }
@@ -149,7 +149,7 @@
 /* Media Queries */
 
 @media screen and (max-width: 820px) {
-    .notes-container .wide-nav {
+    .main .wide-nav {
         display: none;
     }
     .toolbar .narrow-nav,

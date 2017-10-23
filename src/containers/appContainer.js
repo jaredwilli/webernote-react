@@ -3,7 +3,13 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Mousetrap from 'mousetrap';
+import ReactLoading from 'react-loading';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import Toolbar from '../components/Toolbar';
+import NoteTypes from '../components/NoteTypes';
+import NoteNav from '../components/NoteNav';
 import NotesContainer from './notesContainer';
 
 import UserPhoto from '../components/UserPhoto';
@@ -15,21 +21,25 @@ import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
-import { URLS } from '../constants/noteConst';
+import { URLS } from '../constants/menuConst';
 import '../App.css';
+import '../styles/note-types.css';
+
 
 class AppContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        this.goToGithub = this.goToGithub.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-        this.goToGithub = this.goToGithub.bind(this);
+		this.addNote = this.addNote.bind(this);
 
         this.state = {
             selectedNote: '',
             notes: [],
-            user: this.props.user
+            user: this.props.user,
+            showNoteNav: true
         }
     }
 
@@ -48,6 +58,17 @@ class AppContainer extends React.PureComponent {
         }
     }
 
+    // Handle keyboard shortcuts
+    componentDidMount() {
+        Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
+        Mousetrap.bind(['command+b'], (e) => this.toggleNoteNav(e));
+    }
+
+    componentWillUnmount() {
+        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
+        Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
+    }
+
     updateData() {
         this.props.actions.getNotes(this.state.user);
         this.props.actions.getNotebooks(this.state.user);
@@ -57,6 +78,13 @@ class AppContainer extends React.PureComponent {
         this.props.actions.listenForDeletedNotebook();
         this.props.actions.listenForDeletedTags();
         this.props.actions.listenForDeletedLabels();
+    }
+
+    toggleNoteNav(e) {
+        e.preventDefault();
+        this.setState({
+            showNoteNav: !this.state.showNoteNav
+        });
     }
 
     goToGithub() {
@@ -72,8 +100,14 @@ class AppContainer extends React.PureComponent {
         this.props.actions.logoutUser();
     }
 
+    addNote(e) {
+        e.preventDefault();
+		this.props.actions.resetSelectedNote();
+		this.props.actions.addNote();
+	}
+
     render() {
-        let user = this.props.user;
+        let { user, notes } = this.props;
 
         let loginOut = '';
         let avatarStyle = {
@@ -127,7 +161,20 @@ class AppContainer extends React.PureComponent {
                         <span>Real-time note taking. Increase your productivity!</span>
                     </header>
 
-                    <NotesContainer login={this.login} />
+                    <div className="wrapper">
+                        <Toolbar addNote={this.addNote} />
+
+                        <nav className="note-types">
+                            <NoteTypes />
+                        </nav>
+{this.state.showNoteNav}
+                        <div className="main">
+                            {(this.state.showNoteNav) ? <NoteNav show="wide" /> : '' }
+
+                            <NotesContainer login={this.login}
+                                addNote={this.addNote} />
+                        </div>
+                    </div>
                 </div>
             </MuiThemeProvider>
         );
@@ -136,7 +183,8 @@ class AppContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user
+        user: state.userData.user,
+        notes: state.noteData.notes
     };
     // console.log('STATE: ', state, newState);
 

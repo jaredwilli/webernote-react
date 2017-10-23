@@ -9,7 +9,17 @@
     display: inline-block;
 }
 
-.wrapper { }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    background: #bdcad4;
+    display: flex;
+    flex-direction: row;
+    padding-top: 2px;
+}
 
 .loginout {
 	float: right;
@@ -62,53 +72,4 @@
 
 .remove:hover {
     color: #D0021B;
-}
-
-.notes-container {
-    background: #bdcad4;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
-    height: 670px;
-    position: relative;
-    padding-top: 2px;
-}
-
-.notes-container.white {
-    background: #fff;
-}
-
-.notes-container .nav-col,
-.notes-container .list-col,
-.notes-container .edit-col {
-    display: inline-block;
-    flex: 1 100%;
-}
-
-.notes-container .nav-col {
-    flex: 1;
-}
-
-.notes-container .list-col {
-    flex: 3;
-}
-
-.notes-container .edit-col {
-    display: flex;
-    flex: 3;
-}
-
-/* Media Queries */
-
-@media all and (max-width: 540px) {
-    .notes-container {
-        flex-direction: row;
-    }
-    .notes-container .list-col {
-        flex: 1 0 100%;
-        height: 30%;
-    }
-    .note-list .notes .note-details {
-        display: none;
-    }
 }
