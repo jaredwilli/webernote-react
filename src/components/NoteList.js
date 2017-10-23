@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -93,15 +93,15 @@ class NoteList extends Component {
                         selectNote={(e, note) => this.selectNote(e, note)}
                         deleteNote={(note) => this.deleteNote(note)} />
                 </div>
-
-                <Route path="/notebooks/:notebookName" component={Notebooks} />
-                <Route path="/tags/:tagValue" component={Tags} />
-                <Route path="/labels/:labelName" component={Labels} />
             </div>
         );
     }
 }
 
+/* <Route path="/" component={Note} />
+                <Route path="/notebooks/:notebookName" component={Notebooks} />
+                <Route path="/tags/:tagValue" component={Tags} />
+                <Route path="/labels/:labelName" component={Labels} /> */
 function mapStateToProps(state) {
     const newState = {
         notebooks: state.notebookData.notebooks,
@@ -118,4 +118,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteList));

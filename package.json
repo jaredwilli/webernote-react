@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.3.1",
+    "history": "^4.7.2",
     "lodash": "^4.17.4",
     "material-ui": "^0.19.4",
     "mousetrap": "^1.6.1",
@@ -16,6 +17,7 @@
     "react-loading": "^0.1.4",
     "react-redux": "^4.4.8",
     "react-router-dom": "next",
+    "react-router-redux": "^5.0.0-alpha.8",
     "react-rte": "^0.15.0",
     "react-scripts": "1.0.13",
     "react-select": "^1.0.0-rc.10",

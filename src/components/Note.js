@@ -1,6 +1,6 @@
 import React from 'react';
-
 import FontAwesome from 'react-fontawesome';
+
 import { formatDate, shorten } from '../common/helpers';
 import { sortNotes, getTags } from '../common/noteHelpers';
 
