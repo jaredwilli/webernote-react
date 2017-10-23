@@ -224,6 +224,14 @@ export default function noteReducer(state = {}, action) {
                 success: 'Filtered notes'
             });
 
+            if (notes) {
+                notes = notes.map((note) => {
+                    note.tags = refToArray(note.tags);
+                    return note;
+                });
+            }
+
+            // Clear filteredNotes if no filters applied
             if (!filter) {
                 newState.filteredNotes = null;
                 newState.notes = notes;
@@ -236,8 +244,6 @@ export default function noteReducer(state = {}, action) {
                 });
             }
             else if (filter.term && filter.type) {
-                console.log(filter.term);
-
                 // filter by field and keyword
                 newState.filteredNotes = notes.filter((note) => {
                     let term = filter.term.toLowerCase(),
@@ -248,7 +254,6 @@ export default function noteReducer(state = {}, action) {
                         return typeVal.search(term) !== -1;
                     }
                 });
-                console.log(newState.filteredNotes);
             }
 
             newState.selectedNote = '';

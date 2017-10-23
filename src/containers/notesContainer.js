@@ -107,12 +107,15 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-        let { notes, filteredNotes } = this.props;
+        let { filteredNotes } = this.props;
+        let notes;
 
         if (filteredNotes && filteredNotes.length) {
             if (this.state.notebookFilter.name || (this.state.filterType && this.state.searchTerm)) {
                 notes = filteredNotes;
             }
+        } else {
+            notes = this.props.notes;
         }
 
         // Show loading if no notes yet

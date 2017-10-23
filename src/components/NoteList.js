@@ -38,7 +38,7 @@ class NoteList extends Component {
     }
 
     render() {
-        let { notes, notebooks, labels, tags } = this.props;
+        let { notes, notebooks } = this.props;
 
         if (!notes.length) {
             return (
@@ -66,11 +66,11 @@ class NoteList extends Component {
                             value={this.props.search}
                             onChange={(e) => this.props.filterList(e)} />
 
-                            <span className="remove clear-filters Select-clear"
-                                onClick={() => this.props.clearFilters()}>×
-                            </span>
+                        <span className="remove clear-filters Select-clear"
+                            onClick={() => this.props.clearFilters()}>×
+                        </span>
                     </div>
-                    {(notebooks && notebooks.length) ?
+                    {(notebooks) ?
                         <div className="viewing">
                             <span className="viewtext">
                                 Viewing <span className="count">{notes.length}</span> notes from
