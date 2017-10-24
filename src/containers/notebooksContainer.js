@@ -43,7 +43,7 @@ class NotebooksContainer extends React.PureComponent {
         let notebookExists = [];
 
         this.setState({
-            // addNotebook: false
+            addNotebook: false
         });
 
         if (e.target.value !== '') {

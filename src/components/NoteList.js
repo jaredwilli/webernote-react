@@ -23,9 +23,59 @@ class NoteList extends Component {
         this.deleteNote = this.deleteNote.bind(this);
 
         this.state = {
+            filterType: 'Title',
             searchTerm: '',
-            filterType: ''
+			notebookFilter: {
+				name: 'All notebooks',
+				id: 'all_notebooks'
+			}
         };
+    }
+
+    filterNotes(filter) {
+        filter = filter.target.value
+
+        if (filter) {
+            this.setState({
+
+            });
+        }
+    }
+
+    // Type of field to filter on from dropdown
+	setFilterType(e) {
+        let type = e.target.value;
+
+        this.setState({
+            filterType: type
+        }, () => {
+            this.props.filterNotes({ type });
+        });
+    }
+
+    // Search keyword to look for in the field from filterType
+	filterList(e) {
+		let term = e.target.value;
+
+        if (term) {
+            this.setState({
+                searchTerm: term
+            }, () => {
+                this.props.actions.filterNotes({
+                    type: this.state.filterType,
+                    term: term
+                });
+            });
+        }
+    }
+
+    // Notebook to filter by
+    filterByNotebook(notebook) {
+		this.setState({
+			notebookFilter: notebook
+		}, () => {
+            this.props.filterNotes({ notebook });
+        });
     }
 
     selectNote(e, note) {
@@ -55,19 +105,19 @@ class NoteList extends Component {
                     <div className="filter">
                         <label>Search type:</label>
                         <select name="filterType" className="filter-type"
-                            value={this.props.filterType}
-                            onChange={(e) => this.props.setFilterType(e)}>
+                            value={this.state.filterType}
+                            onChange={(e) => this.filterNotes(e)}>
                             <option>Title</option>
                             <option>Description</option>
                             <option>Url</option>
                         </select>
 
                         <input type="text" name="search" placeholder="Search" className="search"
-                            value={this.props.search}
-                            onChange={(e) => this.props.filterList(e)} />
+                            value={this.state.searchTerm}
+                            onChange={(e) => this.filterNotes(e)} />
 
                         <span className="remove clear-filters Select-clear"
-                            onClick={() => this.props.clearFilters()}>×
+                            onClick={() => this.filterNotes('clear')}>×
                         </span>
                     </div>
                     {(notebooks) ?
@@ -76,7 +126,7 @@ class NoteList extends Component {
                                 Viewing <span className="count">{notes.length}</span> notes from
                             </span>
                             <NotebookContainer
-                                filterByNotebook={(e) => this.props.filterByNotebook(e)}
+                                filterByNotebook={(e) => this.filterNotes(e)}
                                 canAddNotebook={false} />
                         </div>
                     : ''}

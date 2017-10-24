@@ -1,7 +1,14 @@
 // user helper functions
-// import { database, auth, fbProvider } from '../data/firebase.js';
+import { auth } from '../data/firebase.js';
+import { deepMerge } from './helpers';
 
-import { deepMerge, uniqify } from './helpers';
+export function listenForAuth() {
+    // // Need to some how pass to getUser here the anonymous user to copy data to existing accounts
+    auth.onAuthStateChanged((user) => {
+        return user;
+    });
+}
+
 
 /**
  *

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import Mousetrap from 'mousetrap';
 import ReactLoading from 'react-loading';
+import ReactModal from 'react-modal';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Toolbar from '../components/Toolbar';
@@ -34,12 +35,15 @@ class AppContainer extends React.PureComponent {
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
 		this.addNote = this.addNote.bind(this);
+		this.openModal = this.openModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
 
         this.state = {
             selectedNote: '',
             notes: [],
             user: this.props.user,
-            showNoteNav: true
+            showNoteNav: true,
+            showModal: false
         }
     }
 
@@ -91,9 +95,21 @@ class AppContainer extends React.PureComponent {
         window.open(URLS.GITHUB_REPO);
     }
 
+    openModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
     login() {
-        this.props.actions.resetSelectedNote();
-        this.props.actions.loginUser(this.props.user);
+        // this.props.actions.resetSelectedNote();
+        // this.props.actions.loginUser(this.props.user);
     }
 
     logout() {
@@ -130,7 +146,7 @@ class AppContainer extends React.PureComponent {
                             {user.displayName}
                         </span>
                     </span>
-                    <button className="logout" onClick={this.logout}>Logout</button>
+                    <button className="logout" onClick={this.openModal()}>Logout</button>
                 </div>
             );
         } else if (user && user.isAnonymous) {
@@ -144,7 +160,7 @@ class AppContainer extends React.PureComponent {
                             {user.displayName}
                         </span>
                     </div>
-                    <button className="login" onClick={this.login}>Login</button>
+                    <button className="login" onClick={this.openModal}>Login</button>
                 </div>
             );
         }
@@ -167,7 +183,7 @@ class AppContainer extends React.PureComponent {
                         <nav className="note-types">
                             <NoteTypes />
                         </nav>
-{this.state.showNoteNav}
+
                         <div className="main">
                             {(this.state.showNoteNav) ? <NoteNav show="wide" /> : '' }
 
@@ -175,6 +191,8 @@ class AppContainer extends React.PureComponent {
                                 addNote={this.addNote} />
                         </div>
                     </div>
+
+
                 </div>
             </MuiThemeProvider>
         );
