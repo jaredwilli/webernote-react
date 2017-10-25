@@ -5,13 +5,14 @@ import { bindActionCreators } from 'redux';
 
 import Mousetrap from 'mousetrap';
 import ReactLoading from 'react-loading';
-import ReactModal from 'react-modal';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import NotesContainer from './notesContainer';
+import ModalContainer from './modalContainer';
 
 import Toolbar from '../components/Toolbar';
 import NoteTypes from '../components/NoteTypes';
 import NoteNav from '../components/NoteNav';
-import NotesContainer from './notesContainer';
 
 import UserPhoto from '../components/UserPhoto';
 import IconBtn from '../components/IconBtn';
@@ -21,11 +22,12 @@ import * as noteActions from '../actions/noteActions';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
+import * as modalActions from '../actions/modalActions';
 
+import { MODAL_TYPES } from '../constants/modalTypes';
 import { URLS } from '../constants/menuConst';
-import '../App.css';
-import '../styles/note-types.css';
 
+import '../App.css';
 
 class AppContainer extends React.PureComponent {
     constructor(props) {
@@ -35,8 +37,7 @@ class AppContainer extends React.PureComponent {
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
 		this.addNote = this.addNote.bind(this);
-		this.openModal = this.openModal.bind(this);
-		this.closeModal = this.closeModal.bind(this);
+		this.showLoginModal = this.showLoginModal.bind(this);
 
         this.state = {
             selectedNote: '',
@@ -95,21 +96,17 @@ class AppContainer extends React.PureComponent {
         window.open(URLS.GITHUB_REPO);
     }
 
-    openModal() {
-        this.setState({
-            showModal: true
+    showLoginModal() {
+        this.props.actions.showModal(MODAL_TYPES.LOGIN_MODAL, {
+            login: (provider) => {
+                this.login(provider);
+                this.props.actions.hideModal();
+            }
         });
     }
 
-    closeModal() {
-        this.setState({
-            showModal: false
-        });
-    }
-
-    login() {
-        // this.props.actions.resetSelectedNote();
-        // this.props.actions.loginUser(this.props.user);
+    login(provider) {
+        this.props.actions.loginUser(provider);
     }
 
     logout() {
@@ -146,7 +143,7 @@ class AppContainer extends React.PureComponent {
                             {user.displayName}
                         </span>
                     </span>
-                    <button className="logout" onClick={this.openModal()}>Logout</button>
+                    <button className="logout" onClick={(e) => this.logout()}>Logout</button>
                 </div>
             );
         } else if (user && user.isAnonymous) {
@@ -160,7 +157,7 @@ class AppContainer extends React.PureComponent {
                             {user.displayName}
                         </span>
                     </div>
-                    <button className="login" onClick={this.openModal}>Login</button>
+                    <button className="login" onClick={this.showLoginModal}>Login</button>
                 </div>
             );
         }
@@ -192,7 +189,7 @@ class AppContainer extends React.PureComponent {
                         </div>
                     </div>
 
-
+                    <ModalContainer />
                 </div>
             </MuiThemeProvider>
         );
@@ -210,7 +207,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions);
+    let actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions, modalActions);
 
     return {
         actions: bindActionCreators(actions, dispatch)

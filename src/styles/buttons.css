@@ -1,0 +1,17 @@
+
+/* Buttons */
+
+.btn-group button {
+    background: #fff;
+    border: 1px solid #828c93;
+    border-radius: 2px;
+    color: #333;
+    font-size: 14px;
+    padding: 6px 0;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.btn-group button i {
+    padding: 0 10px 0 0;
+}

@@ -1,4 +1,4 @@
-import { database, auth, fbProvider } from '../data/firebase.js';
+import { database, auth, PROVIDERS } from '../data/firebase.js';
 
 import { mergeAnonUser, createUser } from '../common/userHelpers.js';
 import * as types from '../constants/actionTypes.js';
@@ -103,7 +103,7 @@ export function doesUserExist(user, userRef, anonUserRef) {
     }
 }
 
-export function loginUser() {
+export function loginUser(provider) {
     return (dispatch) => {
         dispatch(loginUserRequestedAction);
 
@@ -113,14 +113,12 @@ export function loginUser() {
         // Set the anonUserRef here if can
         if (anonUser && anonUser.isAnonymous) {
             anonUserRef = database.ref('users/' + anonUser.uid);
-
-            //sessionStorage.setItem('anon', anonUser.uid);
         }
 
         // Delete the anonymous user auth then signIn with fb credentials
         anonUser.delete()
             .then(() => {
-                auth.signInWithPopup(fbProvider)
+                auth.signInWithPopup(PROVIDERS[provider])
                     .then((result) => {
                         // let user = result.user;
 

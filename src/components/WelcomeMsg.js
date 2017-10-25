@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/welcome-msg.css';
+
 const WelcomeMsg = (props) => {
     return (
         <div className="zero-notes">
@@ -24,7 +26,7 @@ const WelcomeMsg = (props) => {
                         Create A New Note
                     </button>
 
-                    <button onClick={props.login} className="fbBlue get-started-btn">
+                    <button onClick={props.login} className="facebook get-started-btn">
                         <i className="fa fa-facebook"></i>
                         Login With Facebook
                     </button>

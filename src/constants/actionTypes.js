@@ -141,3 +141,8 @@ export const DeleteLabelFulfilled = 'DELETE_LABEL_FULFILLED';
 export const SelectLabelRequested = 'SELECT_LABEL_REQUESTED';
 export const SelectLabelRejected = 'SELECT_LABEL_REJECTED';
 export const SelectLabelFulfilled = 'SELECT_LABEL_FULFILLED';
+
+/* MODALS */
+
+export const ShowModal = 'SHOW_MODAL';
+export const HideModal = 'HIDE_MODAL';

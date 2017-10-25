@@ -174,9 +174,6 @@ export function deleteNote(note) {
 
         note = note || getState().noteData.selectedNote || null;
 
-        console.log(note);
-        debugger;
-
         if (!note) {
             dispatch(deleteNoteRejectedAction());
         } else {

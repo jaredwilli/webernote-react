@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import '../styles/toolbar.css';
+import '../styles/note-types.css';
 
 class NoteTypes extends Component {
     render() {
