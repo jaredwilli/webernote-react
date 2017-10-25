@@ -123,6 +123,10 @@
     line-height: 16px;
 }
 
+.note-nav li .name {
+    text-transform: capitalize;
+}
+
 .note-nav li .count {
 	color: #999;
 }

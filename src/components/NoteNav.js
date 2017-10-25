@@ -83,7 +83,7 @@ class NoteNav extends React.Component {
                 <li key={label.id} id={label.id}>
                     <Link to={`/labels/${label.name.toLowerCase()}`}>
                         <div className="note-label" style={{background: label.hex}} />
-                        <span className="label-name">{label.name}</span>
+                        <span className="name">{label.name}</span>
                     </Link>&nbsp;
                     <span className="count">{getLabelCount(label, notes).count}</span>
                 </li>

@@ -254,7 +254,7 @@ export default function noteReducer(state = {}, action) {
                 // Filter by notebook
                 if (filter.notebook) {
                     newState.filteredNotes = notes.filter((note) => {
-                        return note.notebook && note.notebook.name === filter.notebook.name;
+                        return note.notebook && note.notebook.name === filter.notebook;
                     });
                 }
                 else if (filter.term && filter.type) {
@@ -265,7 +265,7 @@ export default function noteReducer(state = {}, action) {
                             typeVal = note[type.toLowerCase()].toLowerCase();
 
                         if (typeVal) {
-                            return typeVal.search(term) !== -1;
+                            return typeVal.search(term.toString()) !== -1;
                         }
                     });
                 }

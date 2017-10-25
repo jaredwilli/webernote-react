@@ -19,10 +19,6 @@ class NotesContainer extends React.PureComponent {
 		super(props);
 
 		this.deleteNote = this.deleteNote.bind(this);
-		this.filterList = this.filterList.bind(this);
-		this.setFilterType = this.setFilterType.bind(this);
-		this.filterByNotebook = this.filterByNotebook.bind(this);
-		this.clearFilters = this.clearFilters.bind(this);
 
 		this.state = {
             notes: this.props.notes,
@@ -49,55 +45,6 @@ class NotesContainer extends React.PureComponent {
                 notes: nextProps.notes
             });
         }
-    }
-
-    clearFilters() {
-        this.setState({
-            filterType: 'Title',
-            searchTerm: '',
-            notebookFilter: {
-                name: 'All notebooks',
-                id: 'all_notebooks'
-            }
-        }, () => {
-            this.props.actions.filterNotes();
-        });
-    }
-
-    // Type of field to filter on from dropdown
-	setFilterType(e) {
-        let type = e.target.value;
-
-        this.setState({
-            filterType: type
-        }, () => {
-            this.props.actions.filterNotes({ type });
-        });
-    }
-
-    // Search keyword to look for in the field from filterType
-	filterList(e) {
-		let term = e.target.value;
-
-        if (term) {
-            this.setState({
-                searchTerm: term
-            }, () => {
-                this.props.actions.filterNotes({
-                    type: this.state.filterType,
-                    term: term
-                });
-            });
-        }
-    }
-
-    // Notebook to filter by
-    filterByNotebook(notebook) {
-		this.setState({
-			notebookFilter: notebook
-		}, () => {
-            this.props.actions.filterNotes({ notebook });
-        });
     }
 
 	deleteNote(note) {
@@ -131,10 +78,7 @@ class NotesContainer extends React.PureComponent {
                     addNote={this.props.addNote}
                     showLoginModal={this.props.showLoginModal}
                     deleteNote={note => this.deleteNote(note)}
-                    filterByNotebook={notebook => this.filterByNotebook(notebook)}
-                    filterList={filter => this.filterList(filter)}
-                    setFilterType={type => this.setFilterType(type)}
-                    clearFilters={this.clearFilters} />
+                    filterNotes={this.props.actions.filterNotes} />
 
                 <EditNote notes={notes} />
             </div>
