@@ -9,6 +9,9 @@ import configureStore from './store/index';
 import { listenForAuth } from './actions/userActions';
 import AppContainer from './containers/appContainer';
 
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap-theme.css';
+
 import './index.css';
 import './styles/base.css';
 import './styles/helpers.css';
