@@ -15,62 +15,62 @@ export const FILE = [
         text: 'New Note',
         secondary: '⌘N',
         action: 'addNote'
-    }, {
-        text: 'divider'
-    }, {
-        text: 'Save',
-        secondary: '⌘S',
-        action: null,
-        url: null
-    }, {
-        text: 'Save As...',
-        secondary: '⌘⇧S',
-        action: null,
-        url: null
-    }, {
-        text: 'Save',
-        secondary: '⌘S',
-        action: null,
-        url: null
-    }, {
-        text: 'divider'
-    }, {
-        text: 'Login',
-        secondary: '⌘L',
-        action: 'loginUser'
-    }, {
-        text: 'Logout',
-        secondary: '⌘⇧L',
-        action: 'logoutUser'
-    }, {
-        text: 'divider'
-    }, {
-        text: 'Close',
-        secondary: '⌘W',
-        action: null,
-        url: null
-    }, {
-        text: 'Quit',
-        secondary: '⌘Q',
-        action: null,
-        url: null
-    }, {
-        text: 'divider'
-    }, {
-        text: 'Import Notes...',
-        secondary: '',
-        action: null,
-        url: null
-    }, {
-        text: 'Export Notes...',
-        secondary: '',
-        action: null,
-        url: null
-    }, {
-        text: 'Print',
-        secondary: '⌘P',
-        action: null,
-        url: null
+    // }, {
+    //     text: 'divider'
+    // }, {
+    //     text: 'Save',
+    //     secondary: '⌘S',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'Save As...',
+    //     secondary: '⌘⇧S',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'Save',
+    //     secondary: '⌘S',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'divider'
+    // }, {
+    //     text: 'Login',
+    //     secondary: '⌘L',
+    //     action: 'loginUser'
+    // }, {
+    //     text: 'Logout',
+    //     secondary: '⌘⇧L',
+    //     action: 'logoutUser'
+    // }, {
+    //     text: 'divider'
+    // }, {
+    //     text: 'Close',
+    //     secondary: '⌘W',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'Quit',
+    //     secondary: '⌘Q',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'divider'
+    // }, {
+    //     text: 'Import Notes...',
+    //     secondary: '',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'Export Notes...',
+    //     secondary: '',
+    //     action: null,
+    //     url: null
+    // }, {
+    //     text: 'Print',
+    //     secondary: '⌘P',
+    //     action: null,
+    //     url: null
     }
 ];
 
@@ -109,7 +109,7 @@ export const VIEW = [
     {
         text: 'Hide Sidebar',
         secondary: '⌘B',
-        action: null,
+        action: 'toggleNoteNav',
         url: null
     }, {
         text: 'divider'
@@ -140,35 +140,41 @@ export const VIEW = [
 
 export const NOTE = [
     {
-        text: 'Edit Note',
-        secondary: '⌘E',
-        action: null,
-        url: null
-    }, {
-        text: 'Duplicate Note',
-        secondary: '⌘V',
-        action: null,
-        url: null
-    }, {
+//         text: 'Edit Note',
+//         secondary: '⌘E',
+//         action: null,
+//         url: null
+//     }, {
+//         text: 'Duplicate Note',
+//         secondary: '⌘V',
+//         action: null,
+//         url: null
+    // }, {
         text: 'Delete Note',
         secondary: '⌘D',
-        action: null,
+        action: 'deleteNote',
         url: null
-    }, {
-        text: 'Delete Empty Notes',
-        secondary: '⌘⇧D',
-        action: null,
-        url: null
+//     }, {
+//         text: 'Delete Empty Notes',
+//         secondary: '⌘⇧D',
+//         action: null,
+//         url: null
     }
 ];
 
 export const TOOLS = [
     {
-        text: 'Use Rich Text Editor',
-        secondary: '⌘⇧R',
+        text: 'Settings',
+        secondary: '⌘⇧S',
         action: null,
         url: null
     }
+    // {
+    //     text: 'Use Rich Text Editor',
+    //     secondary: '⌘⇧R',
+    //     action: null,
+    //     url: null
+    // }
 ];
 
 export const HELP = [

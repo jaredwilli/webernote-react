@@ -1,4 +1,4 @@
-import { database, auth, fbProvider } from '../data/firebase.js';
+import { database, auth, PROVIDERS } from '../data/firebase.js';
 
 import { mergeAnonUser, createUser } from '../common/userHelpers.js';
 import * as types from '../constants/actionTypes.js';
@@ -20,59 +20,19 @@ export function getUsers() {
     }
 }
 
-export function getUser(user, userRef, anonUserRef) {
+export function getUser(user, userRef) {
     return (dispatch) => {
         dispatch(getUserRequestedAction);
 
-        // Fetch and update
-        function fetchUser(user, userRef, mergedUser) {
-            console.log(anonUserRef, mergedUser);
+        userRef.once('value', (snap) => {
+            user = snap.val();
 
-            /* TODO: goes with the todo below - duplicate data
-            if (user && mergedUser) {
-                user = updateUser(user, mergedUser);
-                userRef.set(user);
-            } */
-
-            userRef.once('value', (snap) => {
-                user = snap.val();
-
-                dispatch(getUserFulfilledAction(user));
-            })
-            .catch((error) => {
-                console.error(error.message);
-                dispatch(getUserRejectedAction);
-            });
-        }
-
-        fetchUser(user, userRef);
-
-        // If user is anonymous just get fetch the data
-        // TODO: make this work somehow... - merge duplicate anon/user data
-        /* if (user.isAnonymous) {
-            fetchUser(user, userRef);
-        } else {
-            // If not anonymous user then merge anonymous with the user account
-            if (userRef && anonUserRef) {
-                debugger;
-                // Merge the anonUserRef and userRef data together
-                mergeAnonUser(userRef, anonUserRef)
-                    .then((mergedUser) => {
-                        // remove anonUser
-                        // https://github.com/firebase/firebaseui-web/blob/master/demo/public/app.js#L135
-                        anonUserRef.remove();
-                        return mergedUser;
-                    })
-                    .then((mergedUser) => fetchUser(user, userRef, mergedUser))
-                    .catch((error) => {
-                        console.error(error.message);
-                        dispatch(loginUserRejectedAction);
-                    });
-            } else {
-                // Just get the user if anonUserRef not defined
-                fetchUser(user, userRef);
-            }
-        } */
+            dispatch(getUserFulfilledAction(user));
+        })
+        .catch((error) => {
+            console.error(error.message);
+            dispatch(getUserRejectedAction);
+        });
     }
 }
 
@@ -109,10 +69,12 @@ export function addUser(user, userRef, anonUserRef) {
             mergeAnonUser(userRef, anonUserRef)
                 .then((mergedUser) => {
                     // remove anonUser
-                    anonUserRef.remove();
-                    return mergedUser;
+                    anonUserRef.remove()
+                        .then(() => setUser(user, userRef, mergedUser))
+                        .catch((error) => {
+                            console.error(error);
+                        });
                 })
-                .then((mergedUser) => setUser(user, userRef, mergedUser))
                 .catch((error) => {
                     console.error(error.message);
                     dispatch(loginUserRejectedAction);
@@ -129,7 +91,7 @@ export function doesUserExist(user, userRef, anonUserRef) {
             // User exists so get the user otherwise add the user
             if (userExists) {
                 user = snap.val();
-                dispatch(getUser(user, userRef, anonUserRef));
+                dispatch(getUser(user, userRef));
             } else {
                 dispatch(addUser(user, userRef, anonUserRef));
             }
@@ -141,7 +103,7 @@ export function doesUserExist(user, userRef, anonUserRef) {
     }
 }
 
-export function loginUser() {
+export function loginUser(provider) {
     return (dispatch) => {
         dispatch(loginUserRequestedAction);
 
@@ -156,13 +118,13 @@ export function loginUser() {
         // Delete the anonymous user auth then signIn with fb credentials
         anonUser.delete()
             .then(() => {
-                auth.signInWithPopup(fbProvider)
+                auth.signInWithPopup(PROVIDERS[provider])
                     .then((result) => {
-                        let user = result.user;
+                        // let user = result.user;
 
                         // Set the userRef here
-                        userRef = database.ref('users/' + user.uid);
-                        dispatch(doesUserExist(user, userRef, anonUserRef));
+                        // userRef = database.ref('users/' + user.uid);
+                        // dispatch(doesUserExist(user, userRef, anonUserRef));
                     })
                     .catch((error) => {
                         console.error(error);
@@ -174,10 +136,10 @@ export function loginUser() {
                 if (error.code == 'auth/requires-recent-login') {
                     // The user's credential is too old. She needs to sign in again.
                     auth.signOut()
-                        .then(function() {
+                        .then(() => {
                             // The timeout allows the message to be displayed after the UI has
                             // changed to the signed out state.
-                            setTimeout(function() {
+                            setTimeout(() => {
                                 alert('Please sign in again to delete your account.');
                             }, 1);
                         });

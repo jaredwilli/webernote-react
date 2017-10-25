@@ -215,6 +215,21 @@ export default function noteReducer(state = {}, action) {
         }
 
         // *** FILTER NOTES
+        case types.FilterNotesRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+
+        case types.FilterNotesRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error filtering notes'
+            });
+        }
+
         case types.FilterNotesFulfilled: {
             let notes = refToArray(action.notes);
             let filter = action.filter;
@@ -235,25 +250,25 @@ export default function noteReducer(state = {}, action) {
             if (!filter) {
                 newState.filteredNotes = null;
                 newState.notes = notes;
-            }
+            } else {
+                // Filter by notebook
+                if (filter.notebook) {
+                    newState.filteredNotes = notes.filter((note) => {
+                        return note.notebook && note.notebook.name === filter.notebook;
+                    });
+                }
+                else if (filter.term && filter.type) {
+                    // filter by field and keyword
+                    newState.filteredNotes = notes.filter((note) => {
+                        let term = filter.term.toLowerCase(),
+                            type = filter.type,
+                            typeVal = note[type.toLowerCase()].toLowerCase();
 
-            // Filter by notebook
-            if (filter.notebook) {
-                newState.filteredNotes = notes.filter((note) => {
-                    return note.notebook && note.notebook.name === filter.notebook.name;
-                });
-            }
-            else if (filter.term && filter.type) {
-                // filter by field and keyword
-                newState.filteredNotes = notes.filter((note) => {
-                    let term = filter.term.toLowerCase(),
-                        type = filter.type,
-                        typeVal = note[type.toLowerCase()].toLowerCase();
-
-                    if (typeVal) {
-                        return typeVal.search(term) !== -1;
-                    }
-                });
+                        if (typeVal) {
+                            return typeVal.search(term.toString()) !== -1;
+                        }
+                    });
+                }
             }
 
             newState.selectedNote = '';

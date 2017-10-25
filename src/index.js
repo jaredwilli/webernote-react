@@ -12,6 +12,7 @@ import AppContainer from './containers/appContainer';
 import './index.css';
 import './styles/base.css';
 import './styles/helpers.css';
+import './styles/buttons.css';
 
 import registerServiceWorker from './registerServiceWorker';
 

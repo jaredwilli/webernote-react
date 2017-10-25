@@ -172,13 +172,19 @@ export function deleteNote(note) {
 		const user = getState().userData.user;
         const notesRef = database.ref('users/' + user.uid + '/notes');
 
-        notesRef.child(note.id)
-            .remove()
-            .then(dispatch(deleteNoteFulfilledAction(note)))
-            .catch((error) => {
-                console.error(error);
-                dispatch(deleteNoteRejectedAction());
-            });
+        note = note || getState().noteData.selectedNote || null;
+
+        if (!note) {
+            dispatch(deleteNoteRejectedAction());
+        } else {
+            notesRef.child(note.id)
+                .remove()
+                .then(dispatch(deleteNoteFulfilledAction(note)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(deleteNoteRejectedAction());
+                });
+        }
 	};
 }
 

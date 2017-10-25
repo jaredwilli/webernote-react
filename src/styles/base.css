@@ -36,16 +36,18 @@ a:hover {
     color: #03A9F4;
 }
 
+h1, h2, h3, h4, h5 {
+    color: #333;
+    font: 18px "Myriad Pro", "Helvetica";
+}
 
 h1 {
-    font: 18px "Myriad Pro", "Helvetica";
+    display: inline-block;
     padding: 0;
-    margin: 0 20px 0 0;
-    display: inline-block
+    margin: 0;
 }
 
 h2 {
-    font: 12px/100% "Myriad Pro", "Helvetica", "Arial", "sans-serif";
     margin: 0 0 0.5em;
     padding: 0;
 }
@@ -70,9 +72,9 @@ img {
 }
 
 ul {
+    list-style: none;
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 
 nav { display: inline-block; }
@@ -104,7 +106,6 @@ table {
 }
 
 th {
-	border: 1px hidden #5f9e2b;
 	color: #fff;
 	text-shadow: 1px 1px 1px #5f9e2b;
 	height: 30px;
