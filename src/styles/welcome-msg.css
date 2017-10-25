@@ -45,7 +45,7 @@
 }
 
 .zero-notes button i {
-    border-right: 1px solid #000;
+    /* border-right: 1px solid #000; */
     padding: 0 10px;
     height: 35px;
     width: 35px;
@@ -60,14 +60,10 @@
 }
 
 .zero-notes .login {
-    background: #f7f7f7;
-    border: 1px solid #333;
-    color: #333;
+	background: #5cb85c;
+	border: 1px solid #05982d;
 }
 
-.zero-notes .login i {
-    color: #333;
-}
 
 
 /* Media Queries */

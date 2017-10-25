@@ -122,7 +122,7 @@ class AppContainer extends React.PureComponent {
 	}
 
     render() {
-        let { user, notes } = this.props;
+        let { user } = this.props;
 
         let loginOut = '';
         let avatarStyle = {

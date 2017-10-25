@@ -9,6 +9,39 @@ export function listenForAuth() {
     });
 }
 
+/**
+ * checkIfUserExists
+ *
+ * @param {Object} authData
+ */
+export function checkIfUserExists(authData, userRef) {
+	return userRef
+		.child('users')
+		.child(authData.uid)
+		.once('value')
+		.then(dataSnapshot => {
+			return Promise.resolve({
+				authData,
+				userExists: dataSnapshot.exists()
+			});
+		});
+}
+
+// example usage
+/* database
+	.authWithOAuthPopup(provider)
+	.then(checkIfUserExists)
+	.then(({ authData, userExists }) => {
+		if (userExists) {
+			// update user
+		} else {
+			// go create a user
+		}
+	})
+	.catch(err => {
+		console.warn('Error signing in.', err);
+	}); */
+
 
 /**
  *

@@ -264,9 +264,7 @@ export default function noteReducer(state = {}, action) {
                             type = filter.type,
                             typeVal = note[type.toLowerCase()].toLowerCase();
 
-                        if (typeVal) {
-                            return typeVal.search(term.toString()) !== -1;
-                        }
+                        return typeVal.search(term.toString()) !== -1;
                     });
                 }
             }

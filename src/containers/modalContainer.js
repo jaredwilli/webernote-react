@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LoginModal from '../components/LoginModal';
-import { MODAL_TYPES } from '../constants/modalTypes';
+import LoginModal from '../components/modals/LoginModal';
+import SettingsModal from '../components/modals/SettingsModal';
 
 const MODAL_COMPONENTS = {
-    LOGIN_MODAL: LoginModal
+    LOGIN_MODAL: LoginModal,
+    SETTINGS_MODAL: SettingsModal
 };
 
 const ModalContainer = ({type, props}) => {

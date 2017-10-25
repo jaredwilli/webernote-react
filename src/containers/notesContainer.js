@@ -5,10 +5,6 @@ import { bindActionCreators } from 'redux';
 import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 
-// import Notebooks from './components/Notebooks';
-// import Tags from './components/Tags';
-// import Labels from './components/Labels';
-
 import * as noteActions from '../actions/noteActions';
 
 import '../App.css';

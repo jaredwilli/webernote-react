@@ -108,16 +108,17 @@ export function loginUser(provider) {
         dispatch(loginUserRequestedAction);
 
         const anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
-        let anonUserRef, userRef;
+        // let anonUserRef, userRef;
 
         // Set the anonUserRef here if can
-        if (anonUser && anonUser.isAnonymous) {
-            anonUserRef = database.ref('users/' + anonUser.uid);
-        }
+        // if (anonUser && anonUser.isAnonymous) {
+        //     anonUserRef = database.ref('users/' + anonUser.uid);
+        // }
 
         // Delete the anonymous user auth then signIn with fb credentials
         anonUser.delete()
             .then(() => {
+                debugger;
                 auth.signInWithPopup(PROVIDERS[provider])
                     .then((result) => {
                         // let user = result.user;
@@ -133,7 +134,7 @@ export function loginUser(provider) {
             })
             .catch((error) => {
                 console.error(error);
-                if (error.code == 'auth/requires-recent-login') {
+                if (error.code === 'auth/requires-recent-login') {
                     // The user's credential is too old. She needs to sign in again.
                     auth.signOut()
                         .then(() => {
