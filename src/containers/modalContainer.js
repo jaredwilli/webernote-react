@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-/** Modal Components */
 import LoginModal from '../components/LoginModal';
-
-/** Modal Type Constants */
 import { MODAL_TYPES } from '../constants/modalTypes';
 
 const MODAL_COMPONENTS = {
@@ -17,6 +14,7 @@ const ModalContainer = ({type, props}) => {
     }
 
     const ModalComponent = MODAL_COMPONENTS[type];
+
     return <ModalComponent {...props} />;
 };
 

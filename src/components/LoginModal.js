@@ -14,13 +14,15 @@ class LoginModal extends React.Component {
     }
 
     onClose() {
-        this.props.close();
+        this.props.onClose();
     }
 
     render() {
+
         return (
-            <Modal onClose={this.onClose}>
+            <Modal onClose={this.onClose} dialogStyle={this.props.dialogStyle}>
                 <div className="login">
+                    <h1>Choose a login method:</h1>
                     <div className="login-with btn-group">
                         <button onClick={(e) => this.props.login('fbProvider')}
                             className="facebook">

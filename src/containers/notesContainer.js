@@ -129,7 +129,7 @@ class NotesContainer extends React.PureComponent {
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
                 <NoteList notes={notes}
                     addNote={this.props.addNote}
-                    login={this.props.login}
+                    showLoginModal={this.props.showLoginModal}
                     deleteNote={note => this.deleteNote(note)}
                     filterByNotebook={notebook => this.filterByNotebook(notebook)}
                     filterList={filter => this.filterList(filter)}

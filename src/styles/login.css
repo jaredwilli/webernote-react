@@ -3,7 +3,7 @@
     border: 1px solid #dedede;
     border-radius: 2px;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .login .btn-group button {
@@ -22,7 +22,9 @@
 
 .login .btn-group button i {
     border-right: 1px solid #000;
-    padding: 0 10px;
-    height: 35px;
-    line-height: 35px;
+	padding: 0 10px;
+	height: 35px;
+	width: 35px;
+	line-height: 35px;
+	text-align: center;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import '../styles/buttons.css';
 import '../styles/welcome-msg.css';
 
 const WelcomeMsg = (props) => {
@@ -20,15 +21,15 @@ const WelcomeMsg = (props) => {
 
                 <p>Making changes to your notes is a snap. Everything is instantly saved as you do it. <br/> You don't have to create an account to try it out, just click the Add Note button. Later if you choose to keep using the app login with your Facebook account. Everything you've added will be added to your user account.</p>
 
-                <div className="get-started">
-                    <button onClick={props.addNote} className="get-started-btn">
+                <div className="get-started btn-group">
+                    <button onClick={props.addNote} className="create-note get-started-btn">
                         <i className="fa fa-file-text"></i>
                         Create A New Note
                     </button>
 
-                    <button onClick={props.login} className="facebook get-started-btn">
-                        <i className="fa fa-facebook"></i>
-                        Login With Facebook
+                    <button onClick={props.showLoginModal} className="login get-started-btn">
+                        <i className="fa fa-sign-in"></i>
+                        Login 4 Different Ways
                     </button>
                 </div>
             </div>

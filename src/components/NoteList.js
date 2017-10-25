@@ -93,7 +93,7 @@ class NoteList extends Component {
         if (!notes.length) {
             return (
                 <WelcomeMsg addNote={this.props.addNote}
-                    login={this.props.login} />
+                    showLoginModal={this.props.showLoginModal} />
             );
         }
 

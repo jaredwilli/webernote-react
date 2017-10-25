@@ -42,7 +42,7 @@ class Modal extends React.Component {
         const dialogStyle = this.props.dialogStyle ? this.props.dialogStyle : {};
 
 		return (
-			<div>
+			<div className="modal">
 				<div className="modal-overlay" style={overlayStyle} />
 				<div className="modal-content"
 					style={contentStyle}

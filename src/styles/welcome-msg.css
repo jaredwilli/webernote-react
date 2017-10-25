@@ -36,19 +36,37 @@
     margin: 20px 0 10px;
 }
 
-.zero-notes .get-started-btn {
-    background: #e91f63;
-    border: 1px solid #900433;
-    border-radius: 2px;
+.zero-notes button {
     color: #fff;
-    font-size: 14px;
-    padding: 6px 10px;
+    width: auto;
     margin: 0 5px;
-    cursor: pointer;
+    padding: 0;
+    padding-right: 20px;
 }
 
-.zero-notes .get-started-btn i {
-    padding: 0 10px 0 0;
+.zero-notes button i {
+    border-right: 1px solid #000;
+    padding: 0 10px;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.zero-notes .create-note {
+    background: #e91f63;
+    border: 1px solid #900433;
+}
+
+.zero-notes .login {
+    background: #f7f7f7;
+    border: 1px solid #333;
+    color: #333;
+}
+
+.zero-notes .login i {
+    color: #333;
 }
 
 

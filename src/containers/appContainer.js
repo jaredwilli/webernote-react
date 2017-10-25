@@ -98,6 +98,8 @@ class AppContainer extends React.PureComponent {
 
     showLoginModal() {
         this.props.actions.showModal(MODAL_TYPES.LOGIN_MODAL, {
+            dialogStyle: { height: 'auto', width: '300px' },
+            onClose: () => this.props.actions.hideModal(),
             login: (provider) => {
                 this.login(provider);
                 this.props.actions.hideModal();
@@ -184,7 +186,7 @@ class AppContainer extends React.PureComponent {
                         <div className="main">
                             {(this.state.showNoteNav) ? <NoteNav show="wide" /> : '' }
 
-                            <NotesContainer login={this.login}
+                            <NotesContainer showLoginModal={this.showLoginModal}
                                 addNote={this.addNote} />
                         </div>
                     </div>
