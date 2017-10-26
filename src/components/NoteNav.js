@@ -10,8 +10,6 @@ import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
-import '../styles/note-nav.css';
-
 class NoteNav extends React.Component {
     constructor(props) {
         super(props);

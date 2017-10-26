@@ -8,8 +8,6 @@ import EditNote from '../components/EditNote';
 
 import * as noteActions from '../actions/noteActions';
 
-import '../styles/notes-container.css';
-
 class NotesContainer extends React.PureComponent {
 	constructor(props) {
 		super(props);

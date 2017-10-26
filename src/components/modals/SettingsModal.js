@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { showModal, hideModal } from '../../actions/modalActions';
 import Modal from '../Modal';
 
-import '../../styles/buttons.css';
-import '../../styles/settings.css';
-
 class SettingsModal extends React.Component {
     constructor(props) {
         super(props);

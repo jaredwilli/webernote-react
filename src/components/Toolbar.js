@@ -14,8 +14,6 @@ import SecondaryMenu from '../components/SecondaryMenu';
 
 import { MENU_ITEMS } from '../constants/menu';
 
-import '../styles/toolbar.css';
-
 class Toolbar extends Component {
     constructor(props) {
         super(props);

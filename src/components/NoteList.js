@@ -13,8 +13,6 @@ import * as noteActions from '../actions/noteActions';
 // import Tags from './Tags';
 // import Labels from './Labels';
 
-import '../styles/note-list.css';
-
 class NoteList extends Component {
     constructor(props, context) {
         super(props, context);
