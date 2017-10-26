@@ -1,6 +1,5 @@
 import React from 'react';
 
-import '../styles/buttons.css';
 import '../styles/welcome-msg.css';
 
 const WelcomeMsg = (props) => {
