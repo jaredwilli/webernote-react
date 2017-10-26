@@ -52,6 +52,8 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "gh-pages": "^1.0.0",
     "git-scripts": "^0.2.1",
     "redux-devtools": "^3.4.0",

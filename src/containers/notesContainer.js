@@ -7,7 +7,6 @@ import EditNote from '../components/EditNote';
 
 import * as noteActions from '../actions/noteActions';
 
-import '../App.css';
 import '../styles/notes-container.css';
 
 class NotesContainer extends React.PureComponent {
