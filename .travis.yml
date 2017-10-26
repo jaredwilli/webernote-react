@@ -7,10 +7,9 @@ cache:
     directories:
         node_modules
 script:
+    npm run build-css
     npm test
-    npm run build
-before_deploy:
-    yarn build
+    npm run react-build
 deploy:
     provider: surge
     project: ./build/
