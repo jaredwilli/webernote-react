@@ -220,5 +220,5 @@ export const MENU_CONST = {
             },
             permissions: []
         }
-    ];
+    ]
 };
