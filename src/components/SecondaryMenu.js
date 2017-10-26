@@ -25,6 +25,7 @@ function SecondaryMenu(props) {
     const performAction = (e, action) => {
         console.log('performAction: ', action);
 
+        debugger;
         if (action.url) {
             props.goToUrl(action.url);
         } else {

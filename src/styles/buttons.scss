@@ -19,7 +19,8 @@
 }
 
 .btn-group button i {
-    border-right: 1px solid #000;
+    border-right: 1px solid rgba(64, 64, 64, 0.75);
+	box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
 	padding: 0 10px;
 	height: 35px;
 	width: 35px;

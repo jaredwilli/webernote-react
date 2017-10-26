@@ -107,6 +107,17 @@ class AppContainer extends React.PureComponent {
         });
     }
 
+    showSettingsModal() {
+        this.props.actions.showModal(MODAL_TYPES.SETTINGS_MODAL, {
+            dialogStyle: { height: 'auto', width: '80%' },
+            onClose: () => this.props.actions.hideModal(),
+            onSave: (options) => {
+                this.saveSettings(options);
+                this.props.actions.hideModal();
+            }
+        });
+    }
+
     login(provider) {
         this.props.actions.loginUser(provider);
     }

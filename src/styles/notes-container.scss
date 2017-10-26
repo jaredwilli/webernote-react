@@ -4,6 +4,8 @@
     flex-flow: row wrap;
     flex: 1;
     height: 670px;
+    max-height: 670px;
+    min-height: 360px;
     position: relative;
 }
 
@@ -33,9 +35,22 @@
 
 /* Media Queries */
 
+@media all and (max-width: 690px) {
+    .notes-container {
+        .list-col.note-list .filters {
+            display: none;
+            height: 0;
+        }
+        .edit-col {
+            flex: 10 1;
+        }
+    }
+}
+
 @media all and (max-width: 540px) {
     .notes-container {
         flex-direction: row;
+        height: 425px;
     }
     .notes-container .list-col {
         flex: 1 0 100%;
