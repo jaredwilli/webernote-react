@@ -68,6 +68,7 @@ class NoteList extends Component {
     }
 
     deleteNote(note) {
+        debugger;
         this.props.deleteNote(note);
     }
 

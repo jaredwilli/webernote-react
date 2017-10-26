@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import configureStore from './store/index';
 import { listenForAuth } from './actions/userActions';
-import AppContainer from './containers/appContainer';
+import App from './App';
 
 // import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap/dist/css/bootstrap-theme.css';
@@ -19,28 +19,16 @@ import './styles/buttons.css';
 
 import registerServiceWorker from './registerServiceWorker';
 
-class WebernoteApp extends React.PureComponent {
-    constructor(props, context) {
-        super(props, context);
+const store = configureStore;
 
-        this.store = configureStore;
-
-        this.store.dispatch(listenForAuth());
-    }
-
-    render() {
-        return (
-            <AppContainer />
-        );
-    }
-}
-
-export default WebernoteApp;
+store.dispatch((dispatch) => {
+    dispatch(listenForAuth());
+});
 
 ReactDOM.render(
-    <Provider store={configureStore}>
+    <Provider store={store}>
         <Router>
-            <WebernoteApp />
+            <App />
         </Router>
     </Provider>,
     document.getElementById('root')

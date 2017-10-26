@@ -216,7 +216,7 @@ export function listenForAuth() {
                 anonUserRef = (!anonUserRef && user.isAnonymous) ? userRef : anonUserRef;
                 dispatch(doesUserExist(user, userRef, anonUserRef));
             } else {
-                dispatch(loginAnonymously());
+                dispatch(loginAnonymously);
             }
         });
     }
