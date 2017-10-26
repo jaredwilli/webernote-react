@@ -45,7 +45,7 @@
   "scripts": {
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-build",
+    "build": "npm run build-css react-build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build surge",
