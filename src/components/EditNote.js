@@ -16,9 +16,10 @@ class EditNote extends React.Component {
         super(props);
 
         this.editNote = this.editNote.bind(this);
-        this.editNotebook = this.editNotebook.bind(this);
-        this.editTags = this.editTags.bind(this);
-        this.editLabel = this.editLabel.bind(this);
+        this.editField = this.editField.bind(this);
+        // this.editNotebook = this.editNotebook.bind(this);
+        // this.editTags = this.editTags.bind(this);
+        // this.editLabel = this.editLabel.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
@@ -65,30 +66,34 @@ class EditNote extends React.Component {
         this.props.actions.getNotes();
     }
 
-    editLabel(label) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
-        });
-        this.props.actions.editNote(note, { label: label });
-        this.props.actions.getNotes();
+    editField(field) {
+        this.props.actions.editNote(this.props.selectedNote, field);
     }
 
-    editNotebook(notebook) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
-        });
-        this.props.actions.editNote(note, { notebook: notebook });
-    }
+    // editLabel(label) {
+    //     let note = this.props.selectedNote;
+    //     this.setState({
+    //         selectedNote: note
+    //     });
+    //     this.props.actions.editNote(note, { label: label });
+    //     this.props.actions.getNotes();
+    // }
 
-    editTags(tags) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
-        });
-        this.props.actions.editNote(note, { tags: tags });
-    }
+    // editNotebook(notebook) {
+    //     let note = this.props.selectedNote;
+    //     this.setState({
+    //         selectedNote: note
+    //     });
+    //     this.props.actions.editNote(note, { notebook: notebook });
+    // }
+
+    // editTags(tags) {
+    //     let note = this.props.selectedNote;
+    //     this.setState({
+    //         selectedNote: note
+    //     });
+    //     this.props.actions.editNote(note, { tags: tags });
+    // }
 
     render() {
         const selectedNote = this.props.selectedNote;
@@ -109,7 +114,7 @@ class EditNote extends React.Component {
                             onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer
                             canAddNotebook={true}
-                            editNotebook={(notebook) => this.editNotebook(notebook)} />
+                            editNotebook={(notebook) => this.editField({ notebook: notebook })} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
@@ -117,12 +122,12 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
-                        <LabelsContainer editLabel={(color) => this.editLabel(color)} />
+                        <LabelsContainer editLabel={(color) => this.editField({ label: color })} />
                     </div>
                     <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
-                            editTags={(tags) => this.editTags(tags)} />
+                            editTags={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description"
