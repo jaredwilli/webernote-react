@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '../styles/welcome-msg.css';
-
 const WelcomeMsg = (props) => {
     return (
         <div className="zero-notes">
