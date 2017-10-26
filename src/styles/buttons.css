@@ -1,0 +1,32 @@
+
+/* Buttons */
+
+.btn-group button {
+    background: #fff;
+    border: 1px solid #828c93;
+    border-radius: 2px;
+    color: #333;
+    font-size: 14px;
+    padding: 6px 0;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.btn-group button:hover {
+    background: #068dcc;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.btn-group button i {
+    border-right: 1px solid #000;
+	padding: 0 10px;
+	height: 35px;
+	width: 35px;
+	line-height: 35px;
+	text-align: center;
+}
+
+.btn-group button:hover i {
+    color: #fff;
+}

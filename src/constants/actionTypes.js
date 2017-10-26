@@ -25,9 +25,15 @@ export const SelectUserRejected = 'SELECT_USER_REJECTED';
 export const SelectUserFulfilled = 'SELECT_USER_FULFILLED';
 
 export const LoginUserRequested = 'LOGIN_USER_REQUESTED';
+export const LoginUserRejected = 'LOGIN_USER_REJECTED';
 export const LoginUserFulfilled = 'LOGIN_USER_FULFILLED';
 
+export const LoginAnonymousRequested = 'LOGIN_ANONYMOUS_REQUESTED';
+export const LoginAnonymousRejected = 'LOGIN_ANONYMOUS_REJECTED';
+export const LoginAnonymousFulfilled = 'LOGIN_ANONYMOUS_FULFILLED';
+
 export const LogoutUserRequested = 'LOGOUT_USER_REQUESTED';
+export const LogoutUserRejected = 'LOGOUT_USER_REJECTED';
 export const LogoutUserFulfilled = 'LOGOUT_USER_FULFILLED';
 
 
@@ -57,6 +63,9 @@ export const ResetSelectedNoteRequested = 'RESET_SELECTED_NOTE_REQUESTED';
 export const ResetSelectedNoteRejected = 'RESET_SELECTED_NOTE_REJECTED';
 export const ResetSelectedNoteFulfilled = 'RESET_SELECTED_NOTE_FULFILLED';
 
+export const FilterNotesRequested = 'FILTER_NOTES_REQUESTED';
+export const FilterNotesRejected = 'FILTER_NOTES_REJECTED';
+export const FilterNotesFulfilled = 'FILTER_NOTES_FULFILLED';
 
 /* NOTEBOOKS */
 
@@ -106,3 +115,34 @@ export const DeleteTagsFulfilled = 'DELETE_TAGS_FULFILLED';
 export const SelectTagRequested = 'SELECT_TAG_REQUESTED';
 export const SelectTagRejected = 'SELECT_TAG_REJECTED';
 export const SelectTagFulfilled = 'SELECT_TAG_FULFILLED';
+
+/* LABELS */
+
+export const GetLabelsRequested = 'GET_LABELS_REQUESTED';
+export const GetLabelsRejected = 'GET_LABELS_REJECTED';
+export const GetLabelsFulfilled = 'GET_LABELS_FULFILLED';
+
+export const GetLabelRequested = 'GET_LABEL_REQUESTED';
+export const GetLabelRejected = 'GET_LABEL_REJECTED';
+export const GetLabelFulfilled = 'GET_LABEL_FULFILLED';
+
+export const AddLabelRequested = 'ADD_LABEL_REQUESTED';
+export const AddLabelRejected = 'ADD_LABEL_REJECTED';
+export const AddLabelFulfilled = 'ADD_LABEL_FULFILLED';
+
+export const EditLabelRequested = 'EDIT_LABEL_REQUESTED';
+export const EditLabelRejected = 'EDIT_LABEL_REJECTED';
+export const EditLabelFulfilled = 'EDIT_LABEL_FULFILLED';
+
+export const DeleteLabelRequested = 'DELETE_LABEL_REQUESTED';
+export const DeleteLabelRejected = 'DELETE_LABEL_REJECTED';
+export const DeleteLabelFulfilled = 'DELETE_LABEL_FULFILLED';
+
+export const SelectLabelRequested = 'SELECT_LABEL_REQUESTED';
+export const SelectLabelRejected = 'SELECT_LABEL_REJECTED';
+export const SelectLabelFulfilled = 'SELECT_LABEL_FULFILLED';
+
+/* MODALS */
+
+export const ShowModal = 'SHOW_MODAL';
+export const HideModal = 'HIDE_MODAL';

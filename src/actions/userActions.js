@@ -1,33 +1,17 @@
-// Facebook URI redirect for authentication
-// https://weberuser-7f700.firebaseapp.com/__/auth/handler
+import { database, auth, PROVIDERS } from '../data/firebase.js';
 
-import { database } from '../data/firebase.js';
-import { auth, fbProvider } from '../data/firebase.js';
-import { createNewUser } from '../common/userHelpers.js';
-// import { uniq } from '../common/helpers.js';
-
+import { mergeAnonUser, createUser } from '../common/userHelpers.js';
 import * as types from '../constants/actionTypes.js';
 
-export function getState() {
-    return (dispatch, getState) => {
-        return getState();
-    }
-}
-
 export function getUsers() {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(getUsersRequestedAction());
 
         const usersRef = database.ref('users');
-        
-        usersRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const users = snap.val();
 
-                dispatch(getUsersFulfilledAction(users));
-            } else {
-                dispatch(getUsersRejectedAction());
-            }
+        usersRef.once('value', (snap) => {
+            const users = snap.val();
+            dispatch(getUsersFulfilledAction(users));
         })
         .catch((error) => {
             console.error(error);
@@ -36,74 +20,202 @@ export function getUsers() {
     }
 }
 
-export function getUser(user) {
-    return (dispatch, getState) => {
-        dispatch(getUserRequestedAction());
+export function getUser(user, userRef) {
+    return (dispatch) => {
+        dispatch(getUserRequestedAction);
 
-        const userRef = database.ref('users/' + user.uid);
-        
         userRef.once('value', (snap) => {
-            if (snap.exists()) {
-                user = snap.val();
-                dispatch(getUserFulfilledAction(user));
-            } else {
-                dispatch(addUser(user));
-            }
+            user = snap.val();
+
+            dispatch(getUserFulfilledAction(user));
         })
         .catch((error) => {
-            console.error(error);
-            dispatch(getUserRejectedAction());
+            console.error(error.message);
+            dispatch(getUserRejectedAction);
         });
     }
 }
 
-export function addUser(user) {
+export function addUser(user, userRef, anonUserRef) {
     return (dispatch) => {
-        dispatch(addUserRequestedAction());
+        dispatch(addUserRequestedAction);
 
-        const usersRef = database.ref('users');
-        let userRef = usersRef.child(user.uid);
-        user = createNewUser(user);
+        // Set user function
+        function setUser(user, userRef, mergedUser) {
+            user = createUser(user, mergedUser);
 
-        userRef.set(user)
-            .then(dispatch(addUserFulfilledAction(user)));
-    }
-}
+            userRef.set(user)
+                .then(() => {
+                    userRef.once('value', (snap) => {
+                        user = snap.val();
+                        dispatch(addUserFulfilledAction(user));
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(addUserRejectedAction);
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(addUserRejectedAction);
+                });
+        }
 
-export function loginUser(user) {
-    return (dispatch) => {
-        dispatch(loginUserRequestedAction());
-
-        if (user) {
-            dispatch(getUser(user));
+        // If user is anonymous just get fetch the data
+        if (user.isAnonymous || !anonUserRef) {
+            setUser(user, userRef);
         } else {
-            auth.signInWithPopup(fbProvider)
-                .then((res) => {
-                    user = res.user;                
-                    dispatch(getUser(user));
+            // Merge the anonUserRef and userRef data together
+            mergeAnonUser(userRef, anonUserRef)
+                .then((mergedUser) => {
+                    // remove anonUser
+                    anonUserRef.remove()
+                        .then(() => setUser(user, userRef, mergedUser))
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                })
+                .catch((error) => {
+                    console.error(error.message);
+                    dispatch(loginUserRejectedAction);
                 });
         }
     }
 }
 
+export function doesUserExist(user, userRef, anonUserRef) {
+    return (dispatch) => {
+        userRef.once('value', (snap) => {
+            let userExists = snap.exists();
+
+            // User exists so get the user otherwise add the user
+            if (userExists) {
+                user = snap.val();
+                dispatch(getUser(user, userRef));
+            } else {
+                dispatch(addUser(user, userRef, anonUserRef));
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            dispatch(loginAnonymousRejectedAction);
+        });
+    }
+}
+
+export function loginUser(provider) {
+    return (dispatch) => {
+        dispatch(loginUserRequestedAction);
+
+        const anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
+        let anonUserRef, userRef;
+
+        // Set the anonUserRef here if can
+        if (anonUser && anonUser.isAnonymous) {
+            anonUserRef = database.ref('users/' + anonUser.uid);
+        }
+
+        // Delete the anonymous user auth then signIn with fb credentials
+        anonUser.delete()
+            .then(() => {
+                auth.signInWithPopup(PROVIDERS[provider])
+                    .then((result) => {
+                        // let user = result.user;
+
+                        // Set the userRef here
+                        // userRef = database.ref('users/' + user.uid);
+                        // dispatch(doesUserExist(user, userRef, anonUserRef));
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(loginUserRejectedAction);
+                    });
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.code == 'auth/requires-recent-login') {
+                    // The user's credential is too old. She needs to sign in again.
+                    auth.signOut()
+                        .then(() => {
+                            // The timeout allows the message to be displayed after the UI has
+                            // changed to the signed out state.
+                            setTimeout(() => {
+                                alert('Please sign in again to delete your account.');
+                            }, 1);
+                        });
+                }
+            });
+    }
+}
+
+export function loginAnonymously() {
+    return (dispatch, getState) => {
+        dispatch(loginAnonymousRequestedAction);
+
+        let anonUserRef, userRef,
+            userState = getState().userData.user;
+
+        console.log('userState: loginAnonymously: ', userState); // to test the double login issue
+
+        auth.signInAnonymously()
+            .then((user) => {
+                // debugger;
+                // Set up anonUserRef and userRefs to be the same
+                anonUserRef = database.ref('users/' + user.uid);
+                userRef = anonUserRef;
+
+                dispatch(doesUserExist(user, userRef, anonUserRef));
+            })
+            .catch((error) => {
+                console.error(error.code, error.message);
+                dispatch(loginAnonymousRejectedAction);
+            });
+    }
+}
+
 export function logoutUser() {
     return (dispatch) => {
-        dispatch(logoutUserRequestedAction());
-        
+        dispatch(logoutUserRequestedAction);
+
+        const user = auth.currentUser;
+
+        // Log the user out
         auth.signOut()
             .then(() => {
-                dispatch(logoutUserFulfilledAction());
+                // set user to be offline
+                database.ref('users/' + user.uid + '/online')
+                    .set(false)
+                    .then(dispatch(logoutUserFulfilledAction(user)))
+                    .catch((error) => {
+                        console.error(error.code, error.message);
+                    });
+            })
+            .catch((error) => {
+                console.error(error.code, error.message);
+                dispatch(logoutUserRejectedAction);
             });
     }
 }
 
 export function listenForAuth() {
     return (dispatch) => {
+        let userRef, anonUserRef,
+            anonUser = null;
+
+        // Need to some how pass to getUser here the anonymous user to copy data to existing accounts
         auth.onAuthStateChanged((user) => {
+            anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
+
+            if (anonUser) {
+                anonUserRef = database.ref('users/' + anonUser.uid);
+            }
+
             if (user) {
-                dispatch(loginUser(user));
+                userRef = database.ref('users/' + user.uid);
+                anonUserRef = (!anonUserRef && user.isAnonymous) ? userRef : anonUserRef;
+                dispatch(doesUserExist(user, userRef, anonUserRef));
             } else {
-                dispatch(logoutUser());
+                dispatch(loginAnonymously());
             }
         });
     }
@@ -147,6 +259,10 @@ function addUserRequestedAction() {
     return { type: types.AddUserRequested };
 }
 
+function addUserRejectedAction() {
+    return { type: types.AddUserRejected };
+}
+
 function addUserFulfilledAction(user) {
     return { type: types.AddUserFulfilled, user };
 }
@@ -158,8 +274,27 @@ function loginUserRequestedAction() {
     return { type: types.LoginUserRequested };
 }
 
-// function loginUserFulfilledAction() {
-//     return { type: types.LoginUserFulfilled };
+function loginUserRejectedAction() {
+    return { type: types.LoginUserRejected };
+}
+
+// function loginUserFulfilledAction(user) {
+//     return { type: types.LoginUserFulfilled, user };
+// }
+
+/**
+ * Login Anonymous User
+ */
+function loginAnonymousRequestedAction() {
+    return { type: types.LoginAnonymousRequested };
+}
+
+function loginAnonymousRejectedAction() {
+    return { type: types.LoginAnonymousRejected };
+}
+
+// function loginAnonymousFulfilledAction(user) {
+//     return { type: types.LoginAnonymousFulfilled, user };
 // }
 
 /**
@@ -169,6 +304,10 @@ function logoutUserRequestedAction() {
     return { type: types.LogoutUserRequested };
 }
 
-function logoutUserFulfilledAction() {
-    return { type: types.LogoutUserFulfilled };
+function logoutUserRejectedAction() {
+    return { type: types.LogoutUserRejected };
+}
+
+function logoutUserFulfilledAction(user) {
+    return { type: types.LogoutUserFulfilled, user };
 }

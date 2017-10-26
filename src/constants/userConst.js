@@ -4,4 +4,3 @@ export const AUTH = {
     ANONYMOUS: 'anonymous',
     LOGGEDIN: 'loggedin'
 };
-

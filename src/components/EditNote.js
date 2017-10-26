@@ -6,6 +6,9 @@ import * as noteActions from '../actions/noteActions';
 
 import NotebooksContainer from '../containers/notebooksContainer';
 import TagsContainer from '../containers/tagsContainer';
+import LabelsContainer from '../containers/labelsContainer';
+
+import '../styles/edit-note.css';
 
 class EditNote extends React.Component {
     constructor(props) {
@@ -14,10 +17,37 @@ class EditNote extends React.Component {
         this.editNote = this.editNote.bind(this);
         this.editNotebook = this.editNotebook.bind(this);
         this.editTags = this.editTags.bind(this);
+        this.editLabel = this.editLabel.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
         };
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.setBottomHeight);
+
+        if (this.props.selectedNote) {
+            this.setBottomHeight();
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.setBottomHeight);
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.selectedNote) {
+            this.setBottomHeight();
+        }
+    }
+
+    setBottomHeight() {
+        let containerHeight = document.querySelector('.notes-container').offsetHeight;
+        let bottom = document.querySelector('.edit-note .bottom');
+        if (bottom) {
+            bottom.style.height = containerHeight - bottom.offsetTop - 6 + 'px';
+        }
     }
 
     editNote(e) {
@@ -33,59 +63,69 @@ class EditNote extends React.Component {
         this.props.actions.editNote(note);
         this.props.actions.getNotes();
     }
-    
+
+    editLabel(label) {
+        let note = this.props.selectedNote;
+        this.setState({
+            selectedNote: note
+        });
+        this.props.actions.editNote(note, { label: label });
+        this.props.actions.getNotes();
+    }
+
     editNotebook(notebook) {
         let note = this.props.selectedNote;
-
         this.setState({
             selectedNote: note
         });
-
         this.props.actions.editNote(note, { notebook: notebook });
     }
-    
+
     editTags(tags) {
         let note = this.props.selectedNote;
-
         this.setState({
             selectedNote: note
         });
-        
         this.props.actions.editNote(note, { tags: tags });
     }
 
     render() {
-        // get the selectedNote from props
         const selectedNote = this.props.selectedNote;
-        
+
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="show-note"></div>
+                <div className="edit-note"></div>
             );
         }
 
         return (
-            <div className="show-note">
+            <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."  
-                            value={selectedNote.title} 
+                        <input type="text" className="title" name="title" placeholder="Enter title..."
+                            value={selectedNote.title}
+                            autoFocus={true}
                             onChange={(e) => this.editNote(e)} />
-                        <NotebooksContainer 
-                            canAddNotebook={true} 
+                        <NotebooksContainer
+                            canAddNotebook={true}
                             editNotebook={(notebook) => this.editNotebook(notebook)} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://" 
-                            value={selectedNote.url} 
+                        <input type="url" className="url" name="url" placeholder="http://"
+                            pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
+                            value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
-                        <TagsContainer 
+
+                        <LabelsContainer editLabel={(color) => this.editLabel(color)} />
+                    </div>
+                    <div className="mid">
+                        <TagsContainer
                             noteTags={selectedNote.tags}
                             editTags={(tags) => this.editTags(tags)} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description" 
-                            value={selectedNote.description} 
+                        <textarea className="description" name="description"
+                            value={selectedNote.description}
                             onChange={(e) => this.editNote(e)}>
                         </textarea>
                     </div>

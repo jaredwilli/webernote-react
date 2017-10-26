@@ -2,16 +2,17 @@ import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { uniq } from '../common/helpers';
-import { DEFAULTS } from '../constants/noteConst';
+import { refToArray, uniq } from '../common/helpers';
 
 export function getTags() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(getTagsRequestedAction());
 
-        return database.ref('tags').once('value', snap => {
-            const tags = snap.val();
+        const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
+        tagsRef.once('value', (snap) => {
+            const tags = snap.val();
             dispatch(getTagsFulfilledAction(tags));
         })
         .catch((error) => {
@@ -21,35 +22,33 @@ export function getTags() {
     }
 }
 
-/* export function getTag(tag) {
-    return dispatch => {
-        dispatch(getTagRequestedAction());
-        dispatch(getTagFulfilledAction(tag));
-    }
-} */
-
 export function addTag(tags, note) {
     return (dispatch, getState) => {
         dispatch(addTagRequestedAction());
 
         const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
         // Make tag list unique
         tags = uniq(tags);
         let tagList = [];
-        
+
         // Only add new tags but make full tagList
         tags.forEach((tag) => {
-            const tagsRef = database.ref('tags');
-            
             // if no ID push a new tag to the list
             if (!tag.id && tag.className) {
                 const tagRef = tagsRef.push();
+
                 tag = createNewTag(tagRef.key, tag, note, user);
 
-                tagRef.set(tag);
+                tagRef.set(tag)
+                    .then(dispatch(addTagFulfilledAction(tag)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(addTagRejectedAction());
+                    });
             }
-            
+
             // push to tagList
             tagList.push(tag);
         });
@@ -59,39 +58,56 @@ export function addTag(tags, note) {
 }
 
 export function removeTags(notes) {
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
-        const tagsRef = database.ref('tags');
+        const user = getState().userData.user;
+        const tagsRef = database.ref('users/' + user.uid + '/tags');
 
         tagsRef.once('value', (snap) => {
-            const tags = snap.val();
-            let tagsList = [];
-            
-            Object.keys(tags).forEach((t) => {
-                let tag = tags[t];
-                let tagCount = getTagCount(tag, notes);
+            if (snap.exists()) {
+                const tags = refToArray(snap.val());
+                let tagsList = [];
 
-                // Remove empty tags
-                if (tagCount.count === 0 && tagCount.tag.name !== DEFAULTS.TAG) {
-                    let tagRef = tagsRef.child(tagCount.tag.id);
-                    // remove tag
-                    tagRef.remove();
-                } else {
-                    tagsList.push(tags[t]);
-                }
-            });
-            
-            dispatch(deleteTagsFulfilledAction(tagsList));
+                tags.forEach((tag) => {
+                    let tagCount = getTagCount(tag, notes);
+                    // Remove empty tags
+                    if (tagCount.count === 0) {
+                        tagsRef.child(tagCount.tag.id)
+                            .remove()
+                            .then(dispatch(deleteTagsRejectedAction(tag)))
+                            .catch((error) => {
+                                console.error(error);
+                                dispatch(deleteTagsRejectedAction());
+                            });;
+                    } else {
+                        tagsList.push(tag);
+                    }
+                });
+
+                dispatch(deleteTagsFulfilledAction(tagsList));
+            }
         });
 	};
 }
 
-export function selectTag(tag) {
+export function listenForDeletedTags() {
     return (dispatch, getState) => {
-        
-        const tag = getState().tagData.tags.filter(function(n) {
-            return n.id = tag.id;
+
+        const user = getState().userData.user;
+        if (!user) return;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
+
+        notesRef.on('child_removed', (snap) => {
+            let notes = getState().noteData.notes;
+            const n = snap.val();
+
+            // Filter the deleted note out of current notes state
+            notes = notes.filter((note) => {
+                return note.id !== n.id;
+            });
+
+            dispatch(removeTags(notes));
         });
     }
 }
@@ -112,30 +128,15 @@ function getTagsFulfilledAction(tags) {
 }
 
 /**
- * Get tag
- */
-/* function getTagRequestedAction() {
-    return { type: types.GetTagsRequested };
-}
-
-function getTagRejectedAction() {
-    return { type: types.GetTagsRejected };
-}
-
-function getTagFulfilledAction(tag) {
-    return { type: types.GetTagFulfilled, tag };
-} */
-
-/**
  * Add Tag
  */
 function addTagRequestedAction() {
     return { type: types.AddTagRequested };
 }
 
-/* function addTagRejectedAction() {
+function addTagRejectedAction() {
     return { type: types.AddTagRejected };
-} */
+}
 
 function addTagFulfilledAction(tags) {
     return { type: types.AddTagFulfilled, tags };
@@ -148,9 +149,9 @@ function deleteTagsRequestedAction() {
     return { type: types.DeleteTagsRequested };
 }
 
-/* function deleteTagsRejectedAction() {
+function deleteTagsRejectedAction() {
     return { type: types.DeleteTagsRejected };
-} */
+}
 
 function deleteTagsFulfilledAction(tags) {
     return { type: types.DeleteTagsFulfilled, tags };

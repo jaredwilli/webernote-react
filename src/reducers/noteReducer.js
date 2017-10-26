@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function noteReducer(state = {}, action) {
     switch(action.type) {
@@ -19,36 +20,27 @@ export default function noteReducer(state = {}, action) {
         }
 
         case types.GetNotesFulfilled: {
-            const notes = action.notes;
+            let notes = refToArray(action.notes);
             let selectedNote = '';
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got notes'
             });
-            
-            newState.notes = state.notes;
 
-            if (notes) {
-                // Get keys and set id for each note and set selectedNote
-                newState.notes = Object.keys(notes).map(function(n) {
-                    if (notes[n].isEditing) {
-                        selectedNote = notes[n];
+            newState.notes = notes;
+            newState.selectedNote = {};
+
+            if (notes.length) {
+                notes.forEach((note) => {
+                    if (note.isEditing) {
+                        selectedNote = note;
                     }
 
-                    // Convert tag objects to arrays
-                    if (!notes[n].tags) {
-                        notes[n].tags = [];
-                    } else {
-                        notes[n].tags = Object.keys(notes[n].tags).map((t) => {
-                            return notes[n].tags[t];
-                        });
-                    }
-                    return notes[n];
+                    note.tags = refToArray(note.tags);
                 });
-            } else {
-                newState.notes = [];
-                selectedNote = '';
+
+                newState.notes = notes;
             }
 
             newState.selectedNote = selectedNote;
@@ -63,14 +55,14 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.AddNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error adding note'
             });
         }
-        
+
         case types.AddNoteFulfilled: {
             const note = action.note;
 
@@ -81,7 +73,7 @@ export default function noteReducer(state = {}, action) {
 
             newState.notes = state.notes || [];
             newState.notes.push(note);
-            
+
             newState.selectedNote = note;
             return newState;
         }
@@ -94,14 +86,14 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.EditNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error editing note'
             });
         }
-        
+
         case types.EditNoteFulfilled: {
             let note = action.note;
 
@@ -110,20 +102,26 @@ export default function noteReducer(state = {}, action) {
                 success: 'Edited note'
             });
 
-            if (action.obj.notebook) {
+            newState.notes = state.notes;
+
+            if (action.obj && action.obj.notebook) {
                 note.notebook = action.obj.notebook
             }
 
-            if (action.obj.tags) {
+            if (action.obj && action.obj.tags) {
                 note.tags = action.obj.tags;
             } else {
                 note.tags = (note.tags) ? note.tags.slice() : [];
             }
 
+            if (action.obj && action.obj.label) {
+                note.label = action.obj.label
+            }
+
             newState.selectedNote = note;
             return newState;
         }
-        
+
         // *** DELETE NOTE
         case types.DeleteNoteRequested: {
             return Object.assign({}, state, {
@@ -132,21 +130,32 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.DeleteNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error delete note'
             });
         }
-        
-        case types.DeleteNoteFulfilled: {            
-            return Object.assign({}, state, {
+
+        case types.DeleteNoteFulfilled: {
+            const note = action.note;
+            // const selected = action.selected;
+
+            const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted note'
             });
+
+            newState.notes = state.notes;
+            newState.notes = newState.notes.filter((n) => {
+                return n.id !== note.id;
+            });
+
+            newState.selectedNote = {};
+            return newState;
         }
-        
+
         // *** SELECT NOTE
         case types.SelectNoteRequested: {
             return Object.assign({}, state, {
@@ -155,7 +164,7 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.SelectNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -165,17 +174,17 @@ export default function noteReducer(state = {}, action) {
 
         case types.SelectNoteFulfilled: {
             const note = action.note;
-            note.isEditing = true;
-            
+
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Note selected: ' + note.title
+                success: 'Note selected'
             });
-            
+
+            note.isEditing = true;
             newState.selectedNote = note;
             return newState;
         }
-        
+
         // *** RESET SELECTED NOTE
         case types.ResetSelectedNoteRequested: {
             return Object.assign({}, state, {
@@ -184,28 +193,89 @@ export default function noteReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.ResetSelectedNoteRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error resetting selected note'
             });
         }
-        
+
         case types.ResetSelectedNoteFulfilled: {
             const note = action.note;
-            note.isEditing = false;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
-                success: 'Reset selected note' + note.title,
+                success: 'Reset selected note'
             });
+
+            note.isEditing = false;
+            newState.selectedNote = '';
+            return newState;
+        }
+
+        // *** FILTER NOTES
+        case types.FilterNotesRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+
+        case types.FilterNotesRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error filtering notes'
+            });
+        }
+
+        case types.FilterNotesFulfilled: {
+            let notes = refToArray(action.notes);
+            let filter = action.filter;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Filtered notes'
+            });
+
+            if (notes) {
+                notes = notes.map((note) => {
+                    note.tags = refToArray(note.tags);
+                    return note;
+                });
+            }
+
+            // Clear filteredNotes if no filters applied
+            if (!filter) {
+                newState.filteredNotes = null;
+                newState.notes = notes;
+            } else {
+                // Filter by notebook
+                if (filter.notebook) {
+                    newState.filteredNotes = notes.filter((note) => {
+                        return note.notebook && note.notebook.name === filter.notebook;
+                    });
+                }
+                else if (filter.term && filter.type) {
+                    // filter by field and keyword
+                    newState.filteredNotes = notes.filter((note) => {
+                        let term = filter.term.toLowerCase(),
+                            type = filter.type,
+                            typeVal = note[type.toLowerCase()].toLowerCase();
+
+                        if (typeVal) {
+                            return typeVal.search(term.toString()) !== -1;
+                        }
+                    });
+                }
+            }
 
             newState.selectedNote = '';
             return newState;
         }
 
-        default: 
+        default:
             return state;
     }
 }

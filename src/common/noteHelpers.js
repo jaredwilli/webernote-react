@@ -4,8 +4,8 @@ import React from 'react';
 
 /**
  * sortNotes
- * 
- * @param {Array} notes 
+ *
+ * @param {Array} notes
  */
 export function sortNotes(notes) {
     notes.sort((a, b) => {
@@ -19,20 +19,25 @@ export function sortNotes(notes) {
 
 /**
  * getNotebookCount
- * 
- * @param {Object} notebook 
- * @param {Array} notes 
+ *
+ * @param {Object} notebook
+ * @param {Array} notes
  * @returns {Object} obj with notebook name and note count using it
  */
 export function getNotebookCount(notebook, notes) {
     let count = 0;
+
     // iterate over notes
-    notes.forEach(function(n) {
-        if (!n.notebook) return;
-        if (n.notebook.name === notebook.name) {
-            count++;
-        }
-    });
+    if (notes.length) {
+        notes.forEach((n) => {
+            if (!n.notebook) return;
+
+            if (n.notebook.name === notebook.name) {
+                count++;
+            }
+        });
+    }
+
     return {
         notebook: notebook,
         count: count
@@ -41,26 +46,31 @@ export function getNotebookCount(notebook, notes) {
 
 /**
  * getTagCount
- * 
+ *
  * @description
  * Get the total count for notes that have each tag assigned to them. If a tag has zero notes it should remove the tag from the tags bucket, so need to trigger a removeTag event.
- * 
- * @param {Object} tag 
- * @param {Array} notes 
+ *
+ * @param {Object} tag
+ * @param {Array} notes
  * @returns {Object} obj with tag name and note count using it
  */
 export function getTagCount(tag, notes) {
     let count = 0;
+
     // iterate over notes
-    notes.forEach((n) => {
-        if (!n.tags.length) return;
-        // iterate over note tags
-        n.tags.forEach((t) => {
-            if (tag.label === t.label) {
-                count++;
-            }
-        })
-    });
+    if (notes.length) {
+        notes.forEach((n) => {
+            if (!n.tags) return;
+
+            // iterate over note tags
+            n.tags.forEach((t) => {
+                if (tag.label === t.label) {
+                    count++;
+                }
+            });
+        });
+    }
+
     return {
         tag: tag,
         count: count
@@ -68,14 +78,41 @@ export function getTagCount(tag, notes) {
 }
 
 /**
+ * getLabelCount
+ *
+ * @param {Object} label
+ * @param {Array} notes
+ * @returns {Object} obj with label name and note count using it
+ */
+export function getLabelCount(label, notes) {
+    let count = 0;
+
+    // iterate over notes
+    if (notes.length) {
+        notes.forEach((n) => {
+            if (!n.label) return;
+
+            if (n.label.hex === label.hex) {
+                count++;
+            }
+        });
+    }
+
+    return {
+        label: label,
+        count: count
+    };
+}
+
+/**
  * getTags
- * 
- * @param {Object} noteTags 
+ *
+ * @param {Object} noteTags
  */
 export function getTags(noteTags) {
     let tags = '';
     if (noteTags) {
-        tags = noteTags.map((t) => 
+        tags = noteTags.map((t) =>
             <span key={t.id} className="Select-value">
                 <span className="Select-value-label" id="react-select-2--value-">
                     {t.label}
@@ -91,14 +128,14 @@ export function getTags(noteTags) {
             </span>
         </div>
 
-    );    
+    );
 }
 
 /**
  * getDeletedTags
- * 
- * @param {*} tags 
- * @param {*} note 
+ *
+ * @param {*} tags
+ * @param {*} note
  */
 // TODO: refactor this
 export function getDeletedTags(tags, note) {
@@ -124,15 +161,14 @@ export function getDeletedTags(tags, note) {
 
 /**
  * createNewNote
- * 
- * @param {String} refId 
+ *
+ * @param {String} refId
  */
 export function createNewNote(refId, user) {
     const newNote = {
-        uid: (user) ? user.uid : null,
         id: refId,
         isEditing: true,
-        title: 'Untitled note...',
+        title: '',
         description: '',
         url: '',
         notebook: {},
@@ -145,18 +181,17 @@ export function createNewNote(refId, user) {
 
 /**
  * Generate a new tag object
- * 
- * @param {*} refId 
- * @param {*} tag 
- * @param {*} note 
+ *
+ * @param {*} refId
+ * @param {*} tag
+ * @param {*} note
  */
-export function createNewTag(refId, tag, note, user) {
+export function createNewTag(refId, tag, note) {
     // no className - not new tag...
     if (!tag.className) return;
     delete tag.className;
 
     // Add some extra data to tag object
-    tag.uid = (user) ? user.uid : null;
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
@@ -166,16 +201,15 @@ export function createNewTag(refId, tag, note, user) {
 
 /**
  * Generate a new notebook object
- * 
- * @param {*} refId 
+ *
+ * @param {*} refId
  * @param {*} notebook
- * @param {*} note 
+ * @param {*} note
  */
-export function createNewNotebook(refId, notebook, user) {
+export function createNewNotebook(refId, notebook) {
     if (!notebook.name) return;
 
     // Add some extra data to notebook object
-    notebook.uid = (user) ? user.uid : null;
     notebook.id = refId;
     notebook.value = refId;
     notebook.name = notebook.name;
@@ -185,13 +219,13 @@ export function createNewNotebook(refId, notebook, user) {
 
 /**
  * getSelectedNotebook
- * 
+ *
  * @param {Object} e event object from the onChange event of notebook select menu
  * @param {Object} notebooks the current list of notebooks
  */
 export function getSelectedNotebook(e, notebooks) {
     let notebookId = '';
-    
+
     if (e.target.value === 'All Notebooks') {
         return { name: e.target.value, id: 'all_notebooks' };
     }
@@ -209,48 +243,41 @@ export function getSelectedNotebook(e, notebooks) {
 
 /**
  * filterData
- * 
- * @param {Object} user 
- * @param {Object} data 
- * @param {Object} filter 
+ *
+ * @param {Object} user
+ * @param {Object} data
+ * @param {Object} filter
  */
-export function filterData(user, data, filters) {
-    if (user) {
-        data = data.filter((d) => {
-            return d.uid === user.uid;
-        });
-    } else {
-        data = data.filter((d) => {
-            return d.uid === undefined || d.uid === null;
-        });
-    }
-
+export function filterData(data, filters) {
     if (filters) {
         let filterKeys = Object.keys(filters);
         // Loop over the filterKeys
         filterKeys.forEach((filterKey) => {
-            // If user exists get filter just theirs
-            if (user) {
-                data = data.filter((d) => {
-                    if (filters[filterKey].id === 'all_notebooks') {
-                        return d;
-                    }
-
-                    return d[filterKey].uid === user.uid &&
-                        d[filterKey].id === filters[filterKey].id;
-                });
-            } else {
-                data = data.filter((d) => {
-                    if (filters[filterKey].id === 'all_notebooks') {
-                        return d;
-                    }
+            data = data.filter((d) => {
+                if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
+                    // if data has the filter return those with same id
                     return d[filterKey].id === filters[filterKey].id;
-                });
-            }
+                }
+                return d;
+            });
 
             return data;
         });
     }
 
     return data;
+}
+
+
+export function hasNotesAndOneOtherData(props) {
+    // has 1+ notes
+    if (props && props.notes && props.notes.length) {
+        // has 1+ notebook or tags or label
+        if ((props.notebooks && props.notebooks.length) ||
+            (props.tags && props.tags.length) ||
+            (props.labels && props.labels.length)) {
+            return true;
+        }
+    }
+    return false;
 }

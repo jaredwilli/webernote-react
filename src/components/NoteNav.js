@@ -1,24 +1,40 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FontAwesome from 'react-fontawesome';
 
-import { getNotebookCount, getTagCount, filterData } from '../common/noteHelpers.js';
+import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+import { shorten } from '../common/helpers.js';
+
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
+import * as labelActions from '../actions/labelActions';
 
+import '../styles/note-nav.css';
 
 class NoteNav extends React.Component {
     constructor(props) {
         super(props);
 
+        this.toggleDrawer = this.toggleDrawer.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
+            showBurgerMenu: false,
             expandNotebooks: true,
-            expandTags: true
+            expandTags: true,
+            expandLabels: true,
+            drawerOpen: false
         }
     }
-    
+
+    toggleDrawer(e) {
+        this.setState({
+            drawerOpen: !this.state.drawerOpen
+        });
+    }
+
     toggleExpanded(e) {
         let current = this.state;
 
@@ -28,71 +44,172 @@ class NoteNav extends React.Component {
     }
 
     render() {
-        const user = this.props.user;
-        let { notes, notebooks, tags } = this.props;
-        
-        // Filter notes for user or not
-        notes = filterData(user, notes);
-        
-        // NOTEBOOKS MENU
-        // let expandNotebookMenu = (notebooks && notebooks.length > 0) ? 'expanded' : '';
-        let notebookItems = '';
+        let { notes, notebooks, tags, labels } = this.props;
 
+        if (!notes) {
+            return <div className="loading"></div>
+        }
+
+        // NOTEBOOKS MENU
+        let notebookItems = '';
         if (notebooks && notebooks.length) {
-            // Filter user notebooks
-            notebooks = filterData(user, notebooks);
-        
-            notebookItems = notebooks.map((notebook) => 
+            notebookItems = notebooks.map((notebook) =>
                 <li key={notebook.id} id={notebook.id}>
-                    <a href={'#/' + notebook.name}>
-                        <span className="name">{notebook.name}</span>
-                    </a>&nbsp;
+                    <Link to={`/notebooks/${notebook.name.toLowerCase()}`}>
+                        <span className="name">{shorten(notebook.name)}</span>
+                    </Link>&nbsp;
                     <span className="count">{getNotebookCount(notebook, notes).count}</span>
                 </li>
             );
         }
-        
-        // TAGS MENU
-        // let expandTagsMenu = (tags && tags.length > 0) ? 'expanded' : '';
-        let tagItems = '';
 
+        // TAGS MENU
+        let tagItems = '';
         if (tags && tags.length) {
-            // Filter user tags
-            tags = filterData(user, tags);
-            
             tagItems = tags.map((tag) =>
                 <li key={tag.value} value={tag.value}>
-                    <a href={'#/' + tag.label}>
-                        <span className="name">{tag.label}</span>
-                    </a>&nbsp;
+                    <Link to={`/tags/${tag.label.toLowerCase()}`}>
+                        <span className="name">{shorten(tag.label, 80)}</span>
+                    </Link>&nbsp;
                     <span className="count">{getTagCount(tag, notes).count}</span>
                 </li>
             );
         }
-    
-        return (
-            <div id="note-nav" className="left-nav">
-                <nav className="notebooks-nav">
-                    <ul className="notebooks top-nav-item">
-                        <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                            <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                            <ul className="notebooks">
-                                {notebookItems}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
 
-                <nav className="notebooks-nav">
-                    <ul className="tags top-nav-item">
-                        <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                            <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                            <ul className="tags">
-                                {tagItems}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+        // LABELS MENU
+        let labelItems = '';
+        if (labels && labels.length) {
+            labelItems = labels.map((label) =>
+                <li key={label.id} id={label.id}>
+                    <Link to={`/labels/${label.name.toLowerCase()}`}>
+                        <div className="note-label" style={{background: label.hex}} />
+                        <span className="name">{label.name}</span>
+                    </Link>&nbsp;
+                    <span className="count">{getLabelCount(label, notes).count}</span>
+                </li>
+            );
+        }
+
+        let coverStyles = {
+            display: 'none'
+        };
+        let drawMenuStyles = {};
+
+        if (this.state.drawerOpen) {
+            coverStyles = { display: 'inline-block' };
+            drawMenuStyles = { left: '-15px' };
+        }
+
+        // If this is the narrow menu, do things different
+        if (this.props.show === 'narrow') {
+            return (
+                <div className={this.props.show + '-nav drawer-nav'}>
+                    <div className="hamburger" onClick={(e) => this.toggleDrawer(e)}>
+                        <i className="fa fa-bars"></i>
+                    </div>
+
+                    <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
+
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {this.state.drawerOpen ? <span className="remove Select-clear"
+                                onClick={(e) => this.setState({ drawerOpen: false })}>×
+                            </span>
+                        : ''}
+
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>
+                                            Notebooks
+                                        </div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+                    </nav>
+                </div>
+            );
+        }
+
+        let hideLeftNav = 'hidden';
+        if (hasNotesAndOneOtherData(this.props)) {
+            hideLeftNav = '';
+        }
+
+        return (
+            <div className="left sidebar-nav">
+                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {notebookItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {tagItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {labelItems}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+                    </nav>
+                </div>
             </div>
         );
     }
@@ -100,10 +217,10 @@ class NoteNav extends React.Component {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user,
         notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        tags: state.tagData.tags
+        tags: state.tagData.tags,
+        labels: state.labelData.labels
     };
     // console.log('STATE: ', state, newState);
 
@@ -111,61 +228,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = Object.assign({}, notebookActions, tagActions, labelActions);
+
     return {
-        actions: bindActionCreators(notebookActions, tagActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteNav);
-
-
-/**
- * TO BE ADDED MAYBE LATER???
-
-
-    <ul id="attributes">
-        <li><a href="">Attributes</a>
-            <ul id="created" className="attributes hidden">
-                <li><a href="">Created</a>
-                    <ul className="created hidden">
-                        <li id="create-createdId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="modified" className="attributes hidden">
-                <li><a href="">Last Modified</a>
-                    <ul className="modified hidden">
-                        <li id="modified-modifiedId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="contains" className="attributes hidden">
-                <li><a href="">Contains</a>
-                    <ul className="contains hidden">
-                        <li id="contains-containsId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul id="source" className="attributes hidden">
-                <li><a href="">Source</a>
-                    <ul className="source hidden">
-                        <li id="source-sourceId"><a href="">Since</a></li>
-                        <li><a href="">Before</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <ul id="searches">
-        <li><a href="">Saved&nbsp;Searches</a>
-            <ul className="searches hidden">
-            </ul>
-        </li>
-    </ul>
-    <ul className="trash">
-        <li><a href="">Trash</a></li>
-    </ul>
-*/
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteNav));

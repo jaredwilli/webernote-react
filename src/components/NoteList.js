@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as noteActions from '../actions/noteActions';
-// import * as notebookActions from '../actions/notebookActions';
 
 import NotebookContainer from '../containers/notebooksContainer';
+import WelcomeMsg from './WelcomeMsg';
 import Note from './Note';
+
+import Notebooks from './Notebooks';
+import Tags from './Tags';
+import Labels from './Labels';
+
+import '../styles/note-list.css';
 
 class NoteList extends Component {
     constructor(props, context) {
@@ -16,61 +23,107 @@ class NoteList extends Component {
         this.deleteNote = this.deleteNote.bind(this);
 
         this.state = {
+            filterType: 'Title',
             searchTerm: '',
-            filterType: ''
+			notebookFilter: {
+				name: 'All notebooks',
+				id: 'all_notebooks'
+			}
         };
     }
-    
+
+    clearFilters() {
+        this.setState({
+            filterType: 'Title',
+            searchTerm: '',
+            notebookFilter: {
+                name: 'All notebooks',
+                id: 'all_notebooks'
+            }
+        }, () => this.props.filterNotes());
+    }
+
+    filterNotes(filter) {
+        if (filter) {
+            this.setState(filter, () => {
+                let filterVals = {};
+
+                if (filter.filterType || filter.searchTerm) {
+                    filterVals.type = this.state.filterType;
+                    filterVals.term = filter.searchTerm;
+                } else if (filter.notebookFilter) {
+                    filterVals.notebook = filter.notebookFilter;
+                }
+
+                this.props.filterNotes(filterVals);
+            });
+        } else {
+            this.clearFilters();
+        }
+    }
 
     selectNote(e, note) {
-        if (e.target.className === 'delete') return;
-
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }
 
     deleteNote(note) {
-        this.props.actions.deleteNote(note);
-        this.props.actions.getNotes();
+        this.props.deleteNote(note);
     }
-    
+
     render() {
-        if (!this.props.notes) {
+        let { notes, notebooks } = this.props;
+
+        if (!notes.length) {
             return (
-                <div className="loading">Loading...</div>
+                <WelcomeMsg addNote={this.props.addNote}
+                    showLoginModal={this.props.showLoginModal} />
+            );
+        }
+
+        let filtersText = '';
+
+        if (notes.length) {
+            filtersText = (
+                <div className="filters">
+                    <div className="filter">
+                        <label>Search type:</label>
+                        <select name="filterType" className="filter-type"
+                            value={this.state.filterType}
+                            onChange={(e) => this.filterNotes({ filterType: e.target.value })}>
+                            <option>Title</option>
+                            <option>Description</option>
+                            <option>Url</option>
+                        </select>
+
+                        <input type="text" name="search" placeholder="Search" className="search"
+                            value={this.state.searchTerm}
+                            onChange={(e) => this.filterNotes((e.target.value.length) ? { searchTerm: e.target.value } : undefined)} />
+
+                        <span className="remove clear-filters Select-clear"
+                            onClick={() => this.filterNotes()}>×
+                        </span>
+                    </div>
+                    {(notebooks) ?
+                        <div className="viewing">
+                            <span className="viewtext">
+                                Viewing <span className="count">{notes.length}</span> notes from
+                            </span>
+                            <NotebookContainer
+                                filterByNotebook={(e) => this.filterNotes({ notebookFilter: e.name })}
+                                canAddNotebook={false} />
+                        </div>
+                    : ''}
+                </div>
             );
         }
 
         return (
-            <div className="note-list">
-                <div className="filter">
-                    Search type: 
-                    <select name="filterType" className="filter-type" 
-                        value={this.props.filterType}
-                        onChange={(e) => this.props.setFilterType(e)}>
-                        <option>Description</option>
-                        <option>Title</option>
-                        <option>Url</option>
-                        <option>Tags</option>
-                        <option>Created Date</option>
-                        <option>Modified Date</option>
-                    </select>
+            <div className="middle list-col note-list">
+                {filtersText}
 
-                    <input type="text" name="search" placeholder="Search"
-                        onChange={(e) => this.props.filterList(e)} />
-                </div>
-                <div className="viewing">
-                    <span className="viewtext">
-                        Viewing <span className="count">{this.props.notes.length}</span> notes from
-                    </span>
-                    
-                    <NotebookContainer 
-                        filterByNotebook={(e) => this.props.filterByNotebook(e)} 
-                        canAddNotebook={false} />
-                </div>
-                
                 <div className="notes">
-                    <Note notes={this.props.notes} 
+                    <Note notes={notes}
                         selectNote={(e, note) => this.selectNote(e, note)}
                         deleteNote={(note) => this.deleteNote(note)} />
                 </div>
@@ -79,12 +132,13 @@ class NoteList extends Component {
     }
 }
 
+/* <Route path="/" component={Note} />
+                <Route path="/notebooks/:notebookName" component={Notebooks} />
+                <Route path="/tags/:tagValue" component={Tags} />
+                <Route path="/labels/:labelName" component={Labels} /> */
 function mapStateToProps(state) {
     const newState = {
-        // user: state.userData.user,
-        // notes: state.noteData.notes,
         notebooks: state.notebookData.notebooks,
-        // // selectedNote: state.noteData.selectedNote,
         tags: state.tagData.tags
     };
     // console.log('STATE: ', state, newState);
@@ -98,4 +152,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteList));

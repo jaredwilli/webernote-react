@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function tagReducer(state = {}, action) {
     switch(action.type) {
@@ -20,21 +21,14 @@ export default function tagReducer(state = {}, action) {
         }
 
         case types.GetTagsFulfilled: {
-            const tags = action.tags;
+            const tags = refToArray(action.tags);
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got tags'
             });
-            
-            if (tags) {
-                newState.tags = Object.keys(tags).map(function(k) {
-                    tags[k].id = k;
-                    tags[k].value = k;
-                    return tags[k];
-                });
-            }
 
+            newState.tags = tags;
             return newState;
         }
 
@@ -46,7 +40,7 @@ export default function tagReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.GetTagRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -57,23 +51,12 @@ export default function tagReducer(state = {}, action) {
         case types.GetTagFulfilled: {
             const tag = action.tag;
 
-            if (tag) {
-                state.tags.filter(function(n) {
-                    if (n.id === tag.id) {
-                        n = tag;
-                    }
-                    return n;
-                });
-            }
-
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got tag'
             });
-            
-            newState.tag = state.tag;
+
             newState.selectedTag = tag;
-            
             return newState;
         }
 
@@ -85,14 +68,14 @@ export default function tagReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.AddTagRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error adding tag'
             });
         }
-        
+
         case types.AddTagFulfilled: {
             const tags = action.tags;
 
@@ -100,11 +83,11 @@ export default function tagReducer(state = {}, action) {
                 inProgress: false,
                 success: 'Added tag'
             });
-            
+
             newState.tags = tags;
             return newState;
         }
-        
+
         // *** DELETE TAGS
         case types.DeleteTagsRequested: {
             return Object.assign({}, state, {
@@ -113,14 +96,14 @@ export default function tagReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.DeleteTagsRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error deleting tags'
             });
         }
-        
+
         case types.DeleteTagsFulfilled: {
             const tags = action.tags;
 
@@ -132,7 +115,7 @@ export default function tagReducer(state = {}, action) {
             newState.tags = tags;
             return newState;
         }
-        
+
         // *** SELECT TAGS
         case types.SelectTagRequested: {
             return Object.assign({}, state, {
@@ -141,29 +124,27 @@ export default function tagReducer(state = {}, action) {
                 success: ''
             });
         }
-        
+
         case types.SelectTagRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
                 error: 'Error selecting tag'
             });
         }
-        
-        case types.SelectTagFulfilled: {
-            const tag = action.tag[0];
 
-            // action.selectedNote.tags = tag.name;
+        case types.SelectTagFulfilled: {
+            const tag = action.tag;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Selected tag'
             });
 
-            newState.tags.selectedTag = tag;
+            newState.selectedTag = tag;
             return newState;
         }
-        
-        default: 
+
+        default:
             return state;
     }
 }

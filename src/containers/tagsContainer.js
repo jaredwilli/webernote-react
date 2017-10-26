@@ -12,7 +12,6 @@ class TagsContainer extends React.PureComponent {
 		super(props);
 
 		this.editTags = this.editTags.bind(this);
-		// this.removeEmptyTags = this.removeEmptyTags.bind(this);
 	}
 
     // TODO: add a minimum character limit for new tags
@@ -27,7 +26,7 @@ class TagsContainer extends React.PureComponent {
                 }
             });
         }
-        
+
         // Check for tags to be removed
         if (tags.length < selectedNote.tags.length) {
             this.props.actions.removeTags(this.props.notes);
@@ -40,24 +39,11 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { user, selectedNote, tags } = this.props;
+        const { selectedNote, tags } = this.props;
         let tagOptions;
 
-        if (!tags) {
-            // return <div className="loading">Loading...</div>;
-		} else {
+        if (tags) {
             tagOptions = tags;
-            
-            // Filter notebooks for the logged in user
-            if (user) {
-                tagOptions = tagOptions.filter((tag) => {
-                    return tag.uid === user.uid;
-                });
-            } else {
-                tagOptions = tagOptions.filter((tag) => {
-                    return tag.uid === undefined;
-                });
-            }
         }
 
 		return (
@@ -81,7 +67,7 @@ function mapStateToProps(state) {
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote
 	};
-	console.log('STATE: ', state, newState);
+	// console.log('STATE: ', state, newState);
 
 	return newState;
 }

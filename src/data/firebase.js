@@ -29,13 +29,16 @@ const authConfig = {
     messagingSenderId: "567445181045"
 };
 
+export const PROVIDERS = {
+    fbProvider: new firebase.auth.FacebookAuthProvider(),
+    gProvider: new firebase.auth.GoogleAuthProvider(),
+    twProvider: new firebase.auth.TwitterAuthProvider(),
+    ghProvider: new firebase.auth.GithubAuthProvider()
+};
 
-// export const gProvider = new firebase.auth.GoogleAuthProvider();
-export const fbProvider = new firebase.auth.FacebookAuthProvider();
 export const auth = firebase.auth();
 
 let userDatabase = firebase.initializeApp(authConfig, 'AUTH');
-
 export const authDatabase = userDatabase.database();
 
 export default firebase;

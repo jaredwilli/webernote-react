@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getSelectedNotebook, filterData } from '../common/noteHelpers.js';
+import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 
 class NotebooksContainer extends React.PureComponent {
@@ -12,6 +12,7 @@ class NotebooksContainer extends React.PureComponent {
         this.selectNotebook = this.selectNotebook.bind(this);
         this.addNotebook = this.addNotebook.bind(this);
         this.keyPress = this.keyPress.bind(this);
+        this.cancelNew = this.cancelNew.bind(this);
 
         this.state = {
             addNotebook: false,
@@ -28,10 +29,19 @@ class NotebooksContainer extends React.PureComponent {
         }
     }
 
+    cancelNew(e) {
+        e.preventDefault();
+        const { notebooks } = this.props;
+
+        if (notebooks && notebooks.length) {
+            this.setState({ addNotebook: false });
+        }
+    }
+
     addNotebook(e) {
-        const notebooks = this.props.notebooks;
+        const { notebooks } = this.props;
         let notebookExists = [];
-        
+
         this.setState({
             addNotebook: false
         });
@@ -40,7 +50,7 @@ class NotebooksContainer extends React.PureComponent {
             this.setState({
                 addNotebook: false
             });
-            
+
             let notebook = {
                 name: e.target.value
             };
@@ -62,7 +72,7 @@ class NotebooksContainer extends React.PureComponent {
             this.updateNotebook(notebook);
         }
     }
-    
+
     selectNotebook(e) {
         // Handle New Notebook selection
         if (e.target.name === 'notebook' && e.target.value === '+Create notebook') {
@@ -77,7 +87,7 @@ class NotebooksContainer extends React.PureComponent {
                 addNotebook: false,
                 selectedNotebook: notebook
             });
-            
+
             if (this.props.canAddNotebook) {
                 this.updateNotebook(notebook);
             } else {
@@ -92,7 +102,7 @@ class NotebooksContainer extends React.PureComponent {
         });
         this.props.filterByNotebook(notebook);
     }
-    
+
     updateNotebook(notebook) {
         // Check if need to remove a notebook
         if (this.props.notebooks) {
@@ -105,77 +115,78 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     render() {
-        const user = this.props.user;
         const selectedNote = this.props.selectedNote;
         let notebooks = this.props.notebooks;
 
         // Notebook menu options
         let notebookOptions;
-        // Create notebook option
+        // Additional notebook options
+        let selectNoteBookOption = '';
         let addNoteBookOption = '';
         let allNotebooksOption = '';
         let notebookSelection;
 
         // Check for notebooks first
-        if (!notebooks) {
-            // return <div className="loading">Loading...</div>;
-        } else {
-            notebooks = filterData(user, notebooks);
-            
-            notebookOptions = notebooks.map((notebook) => 
+        if (notebooks) {
+            notebookOptions = notebooks.map((notebook) =>
                 <option key={notebook.id} id={notebook.id}>{notebook.name}</option>
             );
-            
+
             // If can't add notebooks then render the filter notebook menu
             if (this.props.canAddNotebook) {
+                selectNoteBookOption = <option>Select notebook</option>;
+                addNoteBookOption = <option>+Create notebook</option>;
+
                 // If can add notebooks check that selectedNote is set
-                if (!this.props.selectedNote) {
-                    return <div className="loading">Loading...</div>;
+                if (selectedNote && selectedNote.notebook) {
+                    notebookSelection = selectedNote.notebook.name;
                 } else {
-                    notebookSelection = (selectedNote.notebook) ? selectedNote.notebook.name : null;
-                    addNoteBookOption = <option>+Create notebook</option>;
+                    notebookSelection = selectNoteBookOption;
                 }
             } else {
-                notebookSelection = this.props.selectedNotebook;
+                // notebookSelection = this.props.selectedNotebook;
                 allNotebooksOption = <option>All Notebooks</option>
+                notebookSelection = this.props.notebookFilter;
             }
         }
 
         // Show add notebook input if selected add notebook
         if (this.props.canAddNotebook) {
-            let showAddNote;
-            if (!notebookSelection) {
-                showAddNote = true;
-            } else if (!notebookOptions.length) {
-                showAddNote = true;
-            } else if (this.state.addNotebook) {
-                 showAddNote = true;
+            let showAddNotebook;
+            if (this.state.addNotebook) {
+                showAddNotebook = true;
+            } else if (!notebooks || !notebooks.length) {
+                showAddNotebook = true;
             }
-            
-            if (showAddNote) {
+
+            if (showAddNotebook) {
                 return (
-                    <span>
-                        <button className="cancel-new" 
-                            onClick={() => this.setState({ addNotebook: false })}>x
-                        </button>
-                        <input type="text" name="notebook" className="new-notebook" 
-                            placeholder="Notebook name"
+                    <span className="add-notebook">
+                        <input type="text" name="notebook" className="new-notebook"
                             autoFocus={true}
+                            placeholder="Notebook name"
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
+
+                        <span className="remove Select-clear"
+                            onClick={(e) => this.setState({ addNotebook: false })}>×
+                        </span>
                     </span>
                 );
             }
         }
 
         return (
-            <select name="notebook" className="notebook" 
-                value={notebookSelection}
-                onChange={(e) => this.selectNotebook(e)}>
-                {allNotebooksOption}
-                {notebookOptions}
-                {addNoteBookOption}
-            </select>
+            <span className="select-notebook">
+                <select name="notebook" className="notebook"
+                    value={notebookSelection}
+                    onChange={(e) => this.selectNotebook(e)}>
+                    {selectNoteBookOption}
+                    {allNotebooksOption}
+                    {notebookOptions}
+                    {addNoteBookOption}
+                </select>
+            </span>
         );
     }
 }

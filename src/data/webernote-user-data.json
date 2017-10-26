@@ -1,707 +1,193 @@
 {
-	"notebooks": {
-		"-Isyb7Z64-e_RyTthas0": {
-			"id": "-Isyb7Z64-e_RyTthas0",
-			"name": "My Notebook",
-            "value": "-Isyb7Z64-e_RyTthas0",
-            "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-		},
-		"-Kv2CStHeiKAuDOXQJuW": {
-			"id": "-Kv2CStHeiKAuDOXQJuW",
-			"name": "Bugs",
-            "value": "-Kv2CStHeiKAuDOXQJuW"
-		},
-		"-Kv2R1Fi4eW11qN7Krrd": {
-			"id": "-Kv2R1Fi4eW11qN7Krrd",
-			"name": "Cool Ideas",
-			"value": "-Kv2R1Fi4eW11qN7Krrd"
-		},
-		"-Kv2ocfZQNDIVxy4XL0s": {
-			"id": "-Kv2ocfZQNDIVxy4XL0s",
-			"name": "test",
-            "value": "-Kv2ocfZQNDIVxy4XL0s"
-		},
-		"-Kv39jeUDEWLtk47vwMO": {
-			"id": "-Kv39jeUDEWLtk47vwMO",
-			"name": "New Builds",
-			"value": "-Kv39jeUDEWLtk47vwMO"
-		},
-		"-Kv39o_3SktCJ9FDwpUN": {
-			"id": "-Kv39o_3SktCJ9FDwpUN",
-			"name": "React",
-            "value": "-Kv39o_3SktCJ9FDwpUN"
-		},
-		"default": {
-			"id": "default",
-			"name": "General",
-			"value": "default"
-		}
+  "notebooks" : {
+    "-KvxOi4voYYSQgg2N9gf" : {
+      "id" : "-KvxOi4voYYSQgg2N9gf",
+      "name" : "test",
+      "value" : "-KvxOi4voYYSQgg2N9gf"
     },
-    
-	"notes": {
-		"-IsybGXJ-Cu9VebnSJ6h": {
-			"created_date": 1366850082964,
-			"description": "First note FTW!! ",
-			"id": "-IsybGXJ-Cu9VebnSJ6h",
-			"isEditing": false,
-			"modified_date": 1505922248907,
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Hello world!",
-			"url": "http://webernote.surge.sh/",
+    "-Kvy-oJUtjgj6M3ylCt6" : {
+      "id" : "-Kvy-oJUtjgj6M3ylCt6",
+      "name" : "user notebook",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "value" : "-Kvy-oJUtjgj6M3ylCt6"
+    }
+  },
+  "notes" : {
+    "-KvnHEsyh-utILULTUz-" : {
+      "created_date" : 1507320201347,
+      "description" : "First note FTW!!!",
+      "id" : "-KvnHEsyh-utILULTUz-",
+      "isEditing" : false,
+      "label" : "#00d084",
+      "modified_date" : 1507320367476,
+      "title" : "Hello world!",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvnI3QrdccOCnSNitRf" : {
+      "created_date" : 1507320416561,
+      "description" : "This version of Webernote is built with React, Redux, and Firebase for storing the data. It's written with es6, transpiled via Babel, and built/served with Webpack. I am also using VSCode as my editor to develop and write the code. \n\nIt took me about 3 days to get the core functionality working, get/edit/add/delete notes and notebooks. \n\nALLLLL of these things, are completely new technologies to me in that I have never used them before to build an actual app. VSCode has great support for all these and many more things, so I had to make the switch from Sublime Text 2. \n\nAs for React, I am willing to accept that it is taking over the web. Angular 2+ has a strong community, but React is taking the lead. The fundamentals and core concepts it is built on make it pretty compelling and who am I to argue with change. \n\nThe code for this app is probably shit. I struggled a lot to understand redux and the many different ways everyone everywhere write components and redux stores.\nI always avoided React, but I was wrong to. I may be late to the game, but I'm totally ready and here to play!! ",
+      "id" : "-KvnI3QrdccOCnSNitRf",
+      "isEditing" : false,
+      "label" : "#ff6900",
+      "modified_date" : 1507320421760,
+      "title" : "About Webernote",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvnIJ8I_i8qHL6bseaN" : {
+      "created_date" : 1507320480909,
+      "description" : "Webernote is a web app I built based on the Evernote desktop app. \n\nThis is the third time building Webernote, the first 2 times were a few years ago.  The first version I made with jQuery back in the good 'ol days when things were simple and everyone was a jQuery expert. \n\nI never finished it though because I decided to rebuild it using AngularJS v1.2, I think. Angular was just beginning to gain popularity at that time, and what better way to learn it than rebuild an app I already had a solid vision of how the should data flow and be presented.\n\nAlthough I never completed that version either, it did take less time to get more of it completed than with jQuery, and didn't have all the performance problems from callback hell.\n\nUnfortunately the Angular one was left in a broken state, in a branch of the repo I made the original app in, and never put it online. I should try to do that though for comparing all 3 versions. ",
+      "id" : "-KvnIJ8I_i8qHL6bseaN",
+      "isEditing" : false,
+      "modified_date" : 1507321088891,
+      "title" : "Welcome to Webernote!",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvnLN8CSXfb0M6UVfrm" : {
+      "created_date" : 1507321283711,
+      "description" : "Color palette:\n\nPink: #E91E63\nBlue: #03A9F4\nDarkBlue: #068dcc\nDarkerBlue: #0471a5\nBorders: #B8CDE0\n",
+      "id" : "-KvnLN8CSXfb0M6UVfrm",
+      "isEditing" : false,
+      "modified_date" : 1507321311962,
+      "title" : "Color Palette",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvnLWvh5mii4p1isN6f" : {
+      "created_date" : 1507321323807,
+      "description" : "The color picker currently has no way of removing a selected color.\n\nAlso clicking outside of it will not close it. It only closes when clicking on a color.\n\nAlso it needs to be added to the note in firebase similarly to how notebooks are. with an ID and UID if user is logged in. \n\nThat way I can add a new left nav filter for showing notes by specific label color.",
+      "id" : "-KvnLWvh5mii4p1isN6f",
+      "isEditing" : false,
+      "label" : "#7bdcb5",
+      "modified_date" : 1507331178390,
+      "title" : "Need to make the label color picker better",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvnRLYPCDgc_OdxDzsz" : {
+      "created_date" : 1507322850067,
+      "description" : "",
+      "id" : "-KvnRLYPCDgc_OdxDzsz",
+      "isEditing" : false,
+      "modified_date" : 1507326569605,
+      "title" : "Tags",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    },
+    "-KvxOCuhkEoQ01Eq02iy" : {
+      "created_date" : 1507489799880,
+      "description" : "",
+      "id" : "-KvxOCuhkEoQ01Eq02iy",
+      "isEditing" : false,
+      "modified_date" : 1507499529323,
+      "notebook" : {
+        "id" : "-Kvx1opOGH4VrWnsY6ft",
+        "name" : "test",
+        "value" : "-Kvx1opOGH4VrWnsY6ft"
+      },
+      "tags" : {
+        "-KvxyKlAdnMsgp_YdGKf" : {
+          "id" : "-KvxyKlAdnMsgp_YdGKf",
+          "label" : "tag",
+          "value" : "-KvxyKlAdnMsgp_YdGKf"
+        }
+      },
+      "title" : "Does it work?",
+      "url" : ""
+    },
+    "-KvxPxba1oHtSteMUfzf" : {
+      "created_date" : 1507490257408,
+      "description" : "",
+      "id" : "-KvxPxba1oHtSteMUfzf",
+      "isEditing" : false,
+      "modified_date" : 1507490267123,
+      "notebook" : {
+        "id" : "-KvxOi4voYYSQgg2N9gf",
+        "name" : "test",
+        "value" : "-KvxOi4voYYSQgg2N9gf"
+      },
+      "title" : "Testing 123 huge refactor",
+      "url" : ""
+    },
+    "-Kvy-_oUkVmg0Ucm5h4W" : {
+      "created_date" : 1507500121413,
+      "description" : "",
+      "id" : "-Kvy-_oUkVmg0Ucm5h4W",
+      "isEditing" : false,
+      "label" : "#e91e63",
+      "modified_date" : 1507500132238,
+      "tags" : {
+        "-Kvy-fGTunwXAe9Ln-fe" : {
+          "id" : "-Kvy-fGTunwXAe9Ln-fe",
+          "label" : "react",
+          "value" : "-Kvy-fGTunwXAe9Ln-fe"
         },
-        "-Isyb7Z64-e_RyTth-Lp": {
-            "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2",
-            "created_date": 1366850046215,
-			"description":
-				"A - mazing! Try it out!\n\n1. Click the red Add Note button ^\n2. Selected the note (still working out auto-select)\n3. Add content to the form fields, and watch the magic.\n\nTry refreshing the page, the data you entered is still there, thanks to Firebase's real-time database storing and syncing.",
-			"id": "-Isyb7Z64-e_RyTth-Lp",
-			"isEditing": false,
-			"modified_date": 1505922250109,
-			"notebook": {
-				"id": "-Isyb7Z64-e_RyTthas0",
-                "name": "My Notebook",
-                "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-			},
-			"tags": {
-				"-Kv2ko1foQMr64ROyPv2": {
-					"id": "-Kv2ko1foQMr64ROyPv2",
-					"label": "es6",
-                    "value": "-Kv2ko1foQMr64ROyPv2",
-                    "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-				},
-				"-Kv2kpz9MJvPqWPOvWxu": {
-					"id": "-Kv2kpz9MJvPqWPOvWxu",
-					"label": "react",
-                    "value": "-Kv2kpz9MJvPqWPOvWxu",
-                    "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-				},
-				"-Kv2kqZugNT4qHBXtKAs": {
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-                    "value": "-Kv2kqZugNT4qHBXtKAs",
-                    "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-				},
-				"-Kv2kqv8fJMjPq6Ba0mY": {
-					"id": "-Kv2kqv8fJMjPq6Ba0mY",
-					"label": "firebase",
-                    "value": "-Kv2kqv8fJMjPq6Ba0mY",
-                    "uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2"
-				}
-			},
-			"title": "It's updates the data in REAL TIME!!!",
-			"url": ""
-		},
-		"-IsyqBRhFxyfC6dbNEAr": {
-			"created_date": 1366853994283,
-			"description":
-				"The previous incarnations of Webernote included authentication to use it, using Twitter Oauth. \n\nI chose to not do that initially when starting this version because I remember how much time I spent on that back then, and it was way to long, with little reward. Visitors to the app were required to register to try it out. I didn't want that for this version, due to the likely fact I'll never actually complete it hahaha!!\n\nI mean, come on. It's pretty complex. All the navigation links in side and top would have to be dynamic and real-time updating, and all kinds of things, drag n drop, tagging inputs, and more. ",
-			"id": "-IsyqBRhFxyfC6dbNEAr",
-			"isEditing": false,
-			"modified_date": 1505922246182,
-			"notebook": {
-				"id": "-Kv2R1Fi4eW11qN7Krrd",
-				"name": "Cool Ideas"
-			},
-			"title": "Still to come...",
-			"url": "",
-		},
-		"-KsdBoZShjgR48eAk8Ak": {
-			"created_date": 1503929694807,
-			"description":
-				"This version of Webernote is built with React, Redux, and Firebase for storing the data. It's written with es6, transpiled via Babel, and built/served with Webpack. I am also using VSCode as my editor to develop and write the code. \n\nIt took me about 3 days to get the core functionality working, get/edit/add/delete notes and notebooks. \n\nALLLLL of these things, are completely new technologies to me in that I have never used them before to build an actual app. VSCode has great support for all these and many more things, so I had to make the switch from Sublime Text 2. \n\nAs for React, I am willing to accept that it is taking over the web. Angular 2+ has a strong community, but React is taking the lead. The fundamentals and core concepts it is built on make it pretty compelling and who am I to argue with change. \n\nThe code for this app is probably shit. I struggled a lot to understand redux and the many different ways everyone everywhere write components and redux stores.\nI always avoided React, but I was wrong to. I may be late to the game, but I'm totally ready and here to play!!  ",
-			"id": "-KsdBoZShjgR48eAk8Ak",
-			"isEditing": false,
-			"modified_date": 1505922247557,
-			"notebook": {
-				"id": "-Isyb7Z64-e_RyTthas0",
-                "name": "General"
-			},
-			"title": "About Webernote (v3)",
-			"url": ""
-		},
-		"-KsdVfkz8s_bicnmeA58": {
-			"created_date": 1503934986565,
-			"description":
-				"Webernote is a web app I built based on the Evernote desktop app. \n\nThis is the third time building Webernote, the first 2 times were a few years ago.  The first version I made with jQuery back in the good 'ol days when things were simple and everyone was a jQuery expert. \n\nI never finished it though because I decided to rebuild it using AngularJS v1.2, I think. Angular was just beginning to gain popularity at that time, and what better way to learn it than rebuild an app I already had a solid vision of how the should data flow and be presented.\n\nAlthough I never completed that version either, it did take less time to get more of it completed than with jQuery, and didn't have all the performance problems from callback hell.\n\nUnfortunately the Angular one was left in a broken state, in a branch of the repo I made the original app in, and never put it online. I should try to do that though for comparing all 3 versions. ",
-			"id": "-KsdVfkz8s_bicnmeA58",
-			"isEditing": false,
-			"modified_date": 1505922244826,
-			"notebook": {
-				"id": "-Kv2lbT9EFC54m2bKZa3",
-				"name": "React",
-				"value": "-Kv2lbT9EFC54m2bKZa3"
-			},
-			"tags": {
-				"-Kv2ko1foQMr64ROyPv2": {
-					"id": "-Kv2ko1foQMr64ROyPv2",
-					"label": "es6",
-					"value": "-Kv2ko1foQMr64ROyPv2"
-				},
-				"-Kv2kohPR_KZNkp-HCte": {
-					"id": "-Kv2kohPR_KZNkp-HCte",
-					"label": "webpack",
-					"value": "-Kv2kohPR_KZNkp-HCte"
-				},
-				"-Kv2kpz9MJvPqWPOvWxu": {
-					"id": "-Kv2kpz9MJvPqWPOvWxu",
-					"label": "react",
-					"value": "-Kv2kpz9MJvPqWPOvWxu"
-				},
-				"-Kv2kqZugNT4qHBXtKAs": {
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-					"value": "-Kv2kqZugNT4qHBXtKAs"
-				},
-				"-Kv2kqv8fJMjPq6Ba0mY": {
-					"id": "-Kv2kqv8fJMjPq6Ba0mY",
-					"label": "firebase",
-					"value": "-Kv2kqv8fJMjPq6Ba0mY"
-				}
-			},
-			"title": "Welcome to Webernote (v3)!!!",
-			"url": "http://anti-code.com/webernote/"
-		},
-		"-KuLFnBUjuMSA56R-QMm": {
-			"created_date": 1505755779485,
-			"description":
-				"React-select - https://github.com/JedWatson/react-select\n\nReact-prosemirror - https://github.com/tgecho/react-prosemirror\n\nReact-tagsinput - https://github.com/olahol/react-tagsinput/\n\nReact-tags - https://github.com/prakhar1989/react-tags\n\n\nReact.rocks - https://react.rocks/ ",
-			"id": "-KuLFnBUjuMSA56R-QMm",
-			"isEditing": false,
-			"modified_date": 1505922234753,
-			"notebook": {
-				"id": "-Kv39o_3SktCJ9FDwpUN",
-				"name": "React",
-				"value": "-Kv39o_3SktCJ9FDwpUN"
-			},
-			"tags": {
-				"-Kv2kpz9MJvPqWPOvWxu": {
-					"id": "-Kv2kpz9MJvPqWPOvWxu",
-					"label": "react",
-					"value": "-Kv2kpz9MJvPqWPOvWxu"
-				},
-				"-Kv2kqZugNT4qHBXtKAs": {
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-					"value": "-Kv2kqZugNT4qHBXtKAs"
-				},
-				"-Kv3ANREUAC73cx8Xemh": {
-					"id": "-Kv3ANREUAC73cx8Xemh",
-					"label": "javascript",
-					"value": "-Kv3ANREUAC73cx8Xemh"
-				}
-			},
-			"title": "React form plugins",
-			"url": ""
-		},
-		"-KuMjr5VliITosiHqTjZ": {
-			"created_date": 1505782676551,
-			"description":
-				"- Add Notes, Select note, Edit note Title, URL, Description.\n\n- Edit a notes Notebook, Select +Create Notebook to create new notebooks\n\n- Edit a notes Tags, Select tags, and enter Custom new Tags (still buggy but getting there)\n\n- Also, not fully working, but refreshing the page you will see the Notebooks and Tag counts update in the left Nav menu. \n\nEverything will eventually work in Real-Time. Instant updates all over the app, as you type and make changes.\n\nIt should behave like a native desktop application! ",
-			"id": "-KuMjr5VliITosiHqTjZ",
-			"isEditing": false,
-			"modified_date": 1505922233273,
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Things to try out here",
-			"url": ""
-		},
-		"-KuN5bj_Vwp08QgtBM56": {
-			"created_date": 1505784769905,
-			"description":
-				"I cannot get an incident, no matter what!\nWhy?\n\nLMAO! idk that's not good. lets push the release even harder. maybe it will work better!! ",
-			"id": "-KuN5bj_Vwp08QgtBM56",
-			"isEditing": false,
-			"modified_date": 1505922232256,
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Where is my Team Drive",
-			"url": ""
-		},
-		"-KuPsapJGuRFUiF0LC-v": {
-			"created_date": 1505837079714,
-			"description":
-				"You can Edit Note title, notebooks (add new and select existing), URL, tags (delete, add new and select existing), and description!\n\nIn addition to being able to Add and Delete Notes.\n\nFinally, this thing is working!! \n\nNeed to just fix up the left nav notebook counts and tag counts and then figure out how to get notebooks and tags and filtering the notelist based on filterTypes!!!!!\n\nSearching and filtering etc. ",
-			"id": "-KuPsapJGuRFUiF0LC-v",
-			"isEditing": false,
-			"modified_date": 1505922231097,
-			"notebook": {
-				"id": "-Kv39o_3SktCJ9FDwpUN",
-				"name": "React",
-				"value": "-Kv39o_3SktCJ9FDwpUN"
-			},
-			"tags": {
-				"-Kv2ko1foQMr64ROyPv2": {
-					"id": "-Kv2ko1foQMr64ROyPv2",
-					"label": "es6",
-					"value": "-Kv2ko1foQMr64ROyPv2"
-				},
-				"-Kv2kpz9MJvPqWPOvWxu": {
-					"id": "-Kv2kpz9MJvPqWPOvWxu",
-					"label": "react",
-					"value": "-Kv2kpz9MJvPqWPOvWxu"
-				},
-				"-Kv2kqZugNT4qHBXtKAs": {
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-					"value": "-Kv2kqZugNT4qHBXtKAs"
-				},
-				"-Kv2kqv8fJMjPq6Ba0mY": {
-					"id": "-Kv2kqv8fJMjPq6Ba0mY",
-					"label": "firebase",
-					"value": "-Kv2kqv8fJMjPq6Ba0mY"
-				}
-			},
-			"title": "Everything in edit note is working now!!!",
-			"url": ""
-		},
-		"-KuQnn2Si9Uqvi6_hMW_": {
-			"created_date": 1505852555496,
-			"description": "I think i fixed it... ",
-			"id": "-KuQnn2Si9Uqvi6_hMW_",
-			"isEditing": false,
-			"modified_date": 1505922228039,
-			"notebook": {
-				"id": "-Kv2CStHeiKAuDOXQJuW",
-				"name": "Bugs",
-				"value": "-Kv2CStHeiKAuDOXQJuW"
-			},
-			"tags": {
-				"-Kv2CXR8_qAVPJNMnDY5": {
-					"id": "-Kv2CXR8_qAVPJNMnDY5",
-					"label": "IMPORTANT",
-					"value": "-Kv2CXR8_qAVPJNMnDY5"
-				},
-				"-Kv39ux3MG5LQlnfdsaM": {
-					"id": "-Kv39ux3MG5LQlnfdsaM",
-					"label": "bugs",
-					"value": "-Kv39ux3MG5LQlnfdsaM"
-				},
-				"-Kv3AD00HrmmJp6OSg4s": {
-					"id": "-Kv3AD00HrmmJp6OSg4s",
-					"label": "tags",
-					"value": "-Kv3AD00HrmmJp6OSg4s"
-				}
-			},
-			"title":
-				"Theres a weird bug with tags and needing to call editNote with no tags/notebook object",
-
-			"url": ""
-		},
-		"-KuVJ1Ybl7VLXeQRnYKV": {
-			"created_date": 1505928162852,
-			"description":
-				"This is a note that has some default data that can be used to test the tags and notebooks, as I do what i need to for refactoring things so that the tags of a note are connected to the list of all tags by the tag object key value unique ID.",
-			"id": "-KuVJ1Ybl7VLXeQRnYKV",
-			"isEditing": false,
-			"modified_date": 1505943792089,
-			"notebook": {
-				"id": "-Kv39o_3SktCJ9FDwpUN",
-				"name": "React",
-				"value": "-Kv39o_3SktCJ9FDwpUN"
-			},
-			"tags": {
-				"-Kv2CVBDwVYkWc0Fo_2V": {
-					"id": "-Kv2CVBDwVYkWc0Fo_2V",
-					"label": "DONT DELETE",
-					"value": "-Kv2CVBDwVYkWc0Fo_2V"
-				},
-				"-Kv2CXR8_qAVPJNMnDY5": {
-					"id": "-Kv2CXR8_qAVPJNMnDY5",
-					"label": "IMPORTANT",
-					"value": "-Kv2CXR8_qAVPJNMnDY5"
-				},
-				"-Kv3AD00HrmmJp6OSg4s": {
-					"id": "-Kv3AD00HrmmJp6OSg4s",
-					"label": "tags",
-					"value": "-Kv3AD00HrmmJp6OSg4s"
-				},
-				"default",
-                    "id": "default",
-					"label": "general",
-					"value": "default"
-				}
-			},
-			"title": "Test Note with tags already set",
-			"url": "http://anit-code.com"
-		},
-		"-Kv2DLGBI-J40lUMS_Up": {
-			"created_date": 1506513882525,
-			"description":
-				"This is working again?\nA cool idea would be to add a color picker for statuses or to color code the notes in the note list somehow by the status of the note.",
-			"id": "-Kv2DLGBI-J40lUMS_Up",
-			"isEditing": false,
-			"modified_date": 1506517535540,
-			"notebook": {
-				"id": "-Kv2R1Fi4eW11qN7Krrd",
-				"name": "Cool Ideas",
-				"value": "-Kv2R1Fi4eW11qN7Krrd"
-			},
-			"tags": [
-				{
-					"id": "-Kv2Po5Z1AaOpNPBcGJU",
-					"label": "status",
-					"value": "-Kv2Po5Z1AaOpNPBcGJU"
-				},
-				{
-					"id": "-Kv2PpParo480GGronjs",
-					"label": "color coding",
-					"value": "-Kv2PpParo480GGronjs"
-				},
-				{
-					"id": "-Kv2CVBDwVYkWc0Fo_2V",
-					"label": "DONT DELETE",
-					"value": "-Kv2CVBDwVYkWc0Fo_2V"
-				},
-				{
-					"id": "-Kv2CXR8_qAVPJNMnDY5",
-					"label": "IMPORTANT",
-					"value": "-Kv2CXR8_qAVPJNMnDY5"
-				}
-			],
-			"title": "Good idea - color coding notes",
-			"url": "",
-		},
-		"-Kv2DLLcL89tVQ50Oxaa": {
-			"created_date": 1506513882873,
-			"description":
-				"It should select the notebook in the dropdown that exists for the notebook that typed into the input field instead of not doing anything\n\nThis has been fixed.\n\n",
-			"id": "-Kv2DLLcL89tVQ50Oxaa",
-			"isEditing": false,
-			"modified_date": 1506529778311,
-			"notebook": {
-				"id": "-Kv2PY90Tl9Stza5QfxX",
-				"name": "Bugs",
-				"value": "-Kv2PY90Tl9Stza5QfxX"
-			},
-			"tags": [
-				{
-					"id": "-Kv39w5hIgskSn-ZORvp",
-					"label": "notebooks",
-					"value": "-Kv39w5hIgskSn-ZORvp"
-				}
-			],
-			"title": "RE duplicate notebook bug when creating new notebooks",
-			"url": ""
-		},
-		"-Kv2kGNPtMhL5hB95SsK": {
-			"created_date": 1506522777792,
-			"description":
-				"It's auto updating. \nChange the form a bit. \nAdd tags\nWatch everything update and save instantly!",
-			"id": "-Kv2kGNPtMhL5hB95SsK",
-			"isEditing": false,
-			"modified_date": 1506522822553,
-			"notebook": {
-				"id": "-Kv39o_3SktCJ9FDwpUN",
-				"name": "React",
-				"value": "-Kv39o_3SktCJ9FDwpUN"
-			},
-			"tags": {
-				"-Kv2kqZugNT4qHBXtKAs": {
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-					"value": "-Kv2kqZugNT4qHBXtKAs"
-				}
-			},
-			"title": "Try adding a new note and editing it ",
-			"url": ""
-		},
-		"-Kv2kRr7VJtgo4ycYlXm": {
-			"created_date": 1506522824813,
-			"description": "works!",
-			"id": "-Kv2kRr7VJtgo4ycYlXm",
-			"isEditing": false,
-			"modified_date": 1506529801428,
-			"notebook": {
-				"id": "-Kv2ocfZQNDIVxy4XL0s",
-				"name": "test",
-				"value": "-Kv2ocfZQNDIVxy4XL0s"
-			},
-			"tags": [
-				{
-					"id": "-Kv2kqv8fJMjPq6Ba0mY",
-					"label": "firebase",
-					"value": "-Kv2kqv8fJMjPq6Ba0mY"
-				},
-				{
-					"id": "default",
-					"label": "general",
-					"value": "default"
-				}
-			],
-			"title": "Testing the tags auto expand height",
-			"url": ""
-		},
-		"-Kv2kRtrDufMaR1o3ozd": {
-			"created_date": 1506522824988,
-			"description":
-				"- Tags auto height overflow.\n- and new notebooks that dont create duplicates of existing names instead use the existing\n",
-			"id": "-Kv2kRtrDufMaR1o3ozd",
-			"isEditing": false,
-			"modified_date": 1506529698692,
-			"notebook": {
-				"id": "-Kv39jeUDEWLtk47vwMO",
-				"name": "New Builds",
-				"value": "-Kv39jeUDEWLtk47vwMO"
-			},
-			"tags": [
-				{
-					"id": "-Kv2kqZugNT4qHBXtKAs",
-					"label": "redux",
-					"value": "-Kv2kqZugNT4qHBXtKAs"
-				},
-				{
-					"id": "-Kv2kqv8fJMjPq6Ba0mY",
-					"label": "firebase",
-					"value": "-Kv2kqv8fJMjPq6Ba0mY"
-				},
-				{
-					"id": "default",
-					"label": "general",
-					"value": "default"
-				}
-			],
-			"title": "Success - Latest update 9/27 12:27pm",
-			"url": ""
-		},
-		"-Kv8WcOE0aFccKuxtVbF": {
-			"created_date": 1506619589038,
-			"description": "",
-			"id": "-Kv8WcOE0aFccKuxtVbF",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WcQWIjh14vyBR1O4": {
-			"created_date": 1506619589184,
-			"description":
-				"https://github.com/brillout/awesome-react-components",
-			"id": "-Kv8WcQWIjh14vyBR1O4",
-			"isEditing": false,
-			"modified_date": 1506622371361,
-			"notebook": {
-				"id": "-Kv2R1Fi4eW11qN7Krrd",
-				"name": "Cool Ideas",
-				"value": "-Kv2R1Fi4eW11qN7Krrd"
-			},
-			"tags": [
-				{
-					"id": "-Kv2CVBDwVYkWc0Fo_2V",
-					"label": "DONT DELETE",
-					"value": "-Kv2CVBDwVYkWc0Fo_2V"
-				},
-				{
-					"id": "-Kv2CXR8_qAVPJNMnDY5",
-					"label": "IMPORTANT",
-					"value": "-Kv2CXR8_qAVPJNMnDY5"
-				},
-				{
-					"id": "-Kv2kpz9MJvPqWPOvWxu",
-					"label": "react",
-					"value": "-Kv2kpz9MJvPqWPOvWxu"
-				}
-			],
-			"title": "Cool React Components",
-			"url": "https://github.com/brillout/awesome-react-components"
-		},
-		"-Kv8WcTIDnla69lLTssb": {
-			"created_date": 1506619589363,
-			"description": "",
-			"id": "-Kv8WcTIDnla69lLTssb",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WcWN-ZzwkNb01yYY": {
-			"created_date": 1506619589559,
-			"description": "",
-			"id": "-Kv8WcWN-ZzwkNb01yYY",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WcZOYeMKIECx_EkH": {
-			"created_date": 1506619589752,
-			"description": "",
-			"id": "-Kv8WcZOYeMKIECx_EkH",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WcbZWIFEAev2Sz7O": {
-			"created_date": 1506619589955,
-			"description": "",
-			"id": "-Kv8WcbZWIFEAev2Sz7O",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WcebwGLrwxmaZeRc": {
-			"created_date": 1506619590150,
-			"description": "",
-			"id": "-Kv8WcebwGLrwxmaZeRc",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8WchvlJhaMk_lPPLf": {
-			"created_date": 1506619590362,
-			"description": "",
-			"id": "-Kv8WchvlJhaMk_lPPLf",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-Kv8Wcl5rmDAgC-rjUjp": {
-			"created_date": 1506619590565,
-			"description": "",
-			"id": "-Kv8Wcl5rmDAgC-rjUjp",
-			"isEditing": false,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		},
-		"-KvItfGi-CtDDlf709He": {
-			"created_date": 1506793665659,
-			"description": "",
-			"id": "-KvItfGi-CtDDlf709He",
-			"isEditing": true,
-			"modified_date": "",
-			"notebook": {
-				"id": "default",
-				"name": "General"
-			},
-			"title": "Untitled note...",
-			"url": ""
-		}
+        "-Kvy-fdKbgh2Pm4Pldt9" : {
+          "id" : "-Kvy-fdKbgh2Pm4Pldt9",
+          "label" : "redux",
+          "value" : "-Kvy-fdKbgh2Pm4Pldt9"
+        }
+      },
+      "title" : "this is all fucked up now",
+      "url" : ""
     },
-    
-	"tags": {
-		"-Kv2CVBDwVYkWc0Fo_2V": {
-			"id": "-Kv2CVBDwVYkWc0Fo_2V",
-			"label": "DONT DELETE",
-			"value": "-Kv2CVBDwVYkWc0Fo_2V"
-		},
-		"-Kv2CXR8_qAVPJNMnDY5": {
-			"id": "-Kv2CXR8_qAVPJNMnDY5",
-			"label": "IMPORTANT",
-			"value": "-Kv2CXR8_qAVPJNMnDY5"
-		},
-		"-Kv2ko1foQMr64ROyPv2": {
-			"id": "-Kv2ko1foQMr64ROyPv2",
-			"label": "es6",
-			"value": "-Kv2ko1foQMr64ROyPv2"
-		},
-		"-Kv2kohPR_KZNkp-HCte": {
-			"id": "-Kv2kohPR_KZNkp-HCte",
-			"label": "webpack",
-			"value": "-Kv2kohPR_KZNkp-HCte"
-		},
-		"-Kv2kpz9MJvPqWPOvWxu": {
-			"id": "-Kv2kpz9MJvPqWPOvWxu",
-			"label": "react",
-			"value": "-Kv2kpz9MJvPqWPOvWxu"
-		},
-		"-Kv2kqZugNT4qHBXtKAs": {
-			"id": "-Kv2kqZugNT4qHBXtKAs",
-			"label": "redux",
-			"value": "-Kv2kqZugNT4qHBXtKAs"
-		},
-		"-Kv2kqv8fJMjPq6Ba0mY": {
-			"id": "-Kv2kqv8fJMjPq6Ba0mY",
-			"label": "firebase",
-			"value": "-Kv2kqv8fJMjPq6Ba0mY"
-		},
-		"-Kv39tl3TAOEXFrY4bn7": {
-			"id": "-Kv39tl3TAOEXFrY4bn7",
-			"label": "fixed",
-			"value": "-Kv39tl3TAOEXFrY4bn7"
-		},
-		"-Kv39ux3MG5LQlnfdsaM": {
-			"id": "-Kv39ux3MG5LQlnfdsaM",
-			"label": "bugs",
-			"value": "-Kv39ux3MG5LQlnfdsaM"
-		},
-		"-Kv39w5hIgskSn-ZORvp": {
-			"id": "-Kv39w5hIgskSn-ZORvp",
-			"label": "notebooks",
-			"value": "-Kv39w5hIgskSn-ZORvp"
-		},
-		"-Kv3AD00HrmmJp6OSg4s": {
-			"id": "-Kv3AD00HrmmJp6OSg4s",
-			"label": "tags",
-			"value": "-Kv3AD00HrmmJp6OSg4s"
-		},
-		"-Kv3ANREUAC73cx8Xemh": {
-			"id": "-Kv3ANREUAC73cx8Xemh",
-			"label": "javascript",
-			"value": "-Kv3ANREUAC73cx8Xemh"
-		},
-		"-Kv3ATDzcwZ1CLB44cki": {
-			"id": "-Kv3ATDzcwZ1CLB44cki",
-			"label": "ux",
-			"value": "-Kv3ATDzcwZ1CLB44cki"
-		},
-		"default": {
-			"id": "default",
-			"label": "general",
-			"value": "default"
-		}
+    "-Kvy-iDHCH7rEMra70JZ" : {
+      "created_date" : 1507500155832,
+      "description" : "damnit",
+      "id" : "-Kvy-iDHCH7rEMra70JZ",
+      "isEditing" : false,
+      "label" : "#e91e63",
+      "modified_date" : 1507500182853,
+      "notebook" : {
+        "id" : "-Kvy-oJUtjgj6M3ylCt6",
+        "name" : "user notebook",
+        "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+        "value" : "-Kvy-oJUtjgj6M3ylCt6"
+      },
+      "tags" : {
+        "-Kvy-p_XSjBVr_Ev_Rt9" : {
+          "id" : "-Kvy-p_XSjBVr_Ev_Rt9",
+          "label" : "user tag",
+          "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+          "value" : "-Kvy-p_XSjBVr_Ev_Rt9"
+        }
+      },
+      "title" : "Is this yea, it's all fucked.. ",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "url" : ""
+    }
+  },
+  "tags" : {
+    "-KvxyKlAdnMsgp_YdGKf" : {
+      "id" : "-KvxyKlAdnMsgp_YdGKf",
+      "label" : "tag",
+      "value" : "-KvxyKlAdnMsgp_YdGKf"
     },
-
-    
-	"users": {
-		"uq6IdM7x8UVZEX1YIqeiBl7IYYP2": {
-			"uid": "uq6IdM7x8UVZEX1YIqeiBl7IYYP2",
-			"displayName": "Jared Williams",
-			"email": "jaredwilli@gmail.com",
-			"photo":
-				"https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/21685907_10154693693932041_893008567237815622_n.jpg?oh=bde62290cb710411969740118fe8d7b0&oe=5A7ECEED"
-		}
-	}
+    "-Kvy-fGTunwXAe9Ln-fe" : {
+      "id" : "-Kvy-fGTunwXAe9Ln-fe",
+      "label" : "react",
+      "value" : "-Kvy-fGTunwXAe9Ln-fe"
+    },
+    "-Kvy-fdKbgh2Pm4Pldt9" : {
+      "id" : "-Kvy-fdKbgh2Pm4Pldt9",
+      "label" : "redux",
+      "value" : "-Kvy-fdKbgh2Pm4Pldt9"
+    },
+    "-Kvy-p_XSjBVr_Ev_Rt9" : {
+      "id" : "-Kvy-p_XSjBVr_Ev_Rt9",
+      "label" : "user tag",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2",
+      "value" : "-Kvy-p_XSjBVr_Ev_Rt9"
+    }
+  },
+  "users" : {
+    "i4FMi8xLBqgPYZmjMA7RMD17IOu2" : {
+      "displayName" : "Jared Williams",
+      "email" : "jaredwilli@gmail.com",
+      "photo" : "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/21685907_10154693693932041_893008567237815622_n.jpg?oh=bde62290cb710411969740118fe8d7b0&oe=5A7ECEED",
+      "uid" : "i4FMi8xLBqgPYZmjMA7RMD17IOu2"
+    }
+  }
 }

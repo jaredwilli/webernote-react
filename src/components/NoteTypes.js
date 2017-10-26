@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import '../styles/note-types.css';
 
 class NoteTypes extends Component {
     render() {
         return (
-            <ul>
-                <li><a href="#/notes">All Notes</a></li>
-                <li><a href="#/notebooks">Notebooks</a></li>
-                <li><a href="#/tags">Tags</a></li>
-                <li><em>For quick access, drag notes, notebooks and tags here</em></li>
-            </ul>
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/notes">All Notes</Link>
+                    </li>
+                    <li>
+                        <Link to="/notebooks">Notebooks</Link>
+                    </li>
+                    <li>
+                        <Link to="/tags">Tags</Link>
+                    </li>
+                </ul>
+
+                <div className="quick-access dropzone">
+                    <em>For quick access, drag notes, notebooks and tags here</em>
+                </div>
+            </div>
         );
     }
 }
