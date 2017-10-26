@@ -181,7 +181,7 @@ class AppContainer extends React.PureComponent {
                         </div>
 
                         <h1><Link to="/">Webernote<sup>TM</sup></Link></h1>
-                        <span>Real-time note taking. Increase your productivity!</span>
+                        <span className="tagline">Real-time note taking. Increase your productivity!</span>
                     </header>
 
                     <div className="wrapper">
