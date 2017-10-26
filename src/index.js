@@ -13,13 +13,6 @@ import App from './App';
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import './index.css';
-import './styles/base.css';
-import './styles/helpers.css';
-import './styles/buttons.css';
-import './styles/modal.css';
-import './styles/welcome-msg.css';
-import './styles/note-nav.css';
-import './styles/note-types.css';
 
 import registerServiceWorker from './registerServiceWorker';
 

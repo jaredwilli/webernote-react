@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { showModal, hideModal } from '../../actions/modalActions';
 import Modal from '../Modal';
 
-import '../../styles/login.css';
-
 class LoginModal extends React.Component {
     constructor(props) {
         super(props);
