@@ -59,15 +59,16 @@ class Toolbar extends Component {
 
     render() {
         const menuItems = Object.keys(MENU_CONST).map((menu) => {
-            let items = MENU_CONST[menu];
-            let key = menu.toLowerCase();
+            let items = MENU_CONST[menu],
+                key = menu.toLowerCase();
 
             return (
                 <li key={key} onMouseLeave={() => this.showDropdown(key)}>
                     <a className={key} onMouseEnter={() => this.showDropdown(key)}>{key}</a>
                     {this.state[key] ?
                         <div onMouseLeave={() => this.showDropdown(key)} className={key + '-dropdown'}>
-                            <SecondaryMenu items={items} actions={this.props.actions} />
+                            <SecondaryMenu items={items} actions={this.props.actions}
+ />
                         </div>
                     : ''}
                 </li>

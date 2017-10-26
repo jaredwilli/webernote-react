@@ -188,7 +188,7 @@ class AppContainer extends React.PureComponent {
                     </header>
 
                     <div className="wrapper">
-                        <Toolbar addNote={this.addNote} />
+                        <Toolbar addNote={this.addNote} actions={this.props.actions} />
 
                         <nav className="note-types">
                             <NoteTypes />

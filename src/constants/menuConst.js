@@ -5,6 +5,7 @@ export const URLS = {
 }
 
 export const MOD_KEYS = {
+    CTRL: '⌃',
     CMD: '⌘', //'&#8984;',
     SHIFT: '⇧', //'&#8679;',
     ALT: '⌥' //'&#8997;'
@@ -14,10 +15,12 @@ export const MENU_CONST = {
     FILE: [
         {
             text: 'New Note',
-            secondary: '⌘N',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌃N',
+                command: 'cntrl+n',
                 action: 'addNote',
+                options: null,
                 url: null
             },
             permissions: []
@@ -27,19 +30,23 @@ export const MENU_CONST = {
     EDIT: [
         {
             text: 'Undo',
-            secondary: '⌘Z',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘Z',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Redo',
-            secondary: '⌘⇧Z',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘⇧Z',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
@@ -47,28 +54,34 @@ export const MENU_CONST = {
             text: 'divider'
         }, {
             text: 'Cut',
-            secondary: '⌘X',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘X',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Copy',
-            secondary: '⌘C',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘C',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Paste',
-            secondary: '⌘V',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘V',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
@@ -78,10 +91,12 @@ export const MENU_CONST = {
     VIEW: [
         {
             text: 'Hide Sidebar',
-            secondary: '⌘B',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘B',
+                command: null,
                 action: 'toggleNoteNav',
+                options: null,
                 url: null
             },
             permissions: []
@@ -89,28 +104,34 @@ export const MENU_CONST = {
             text: 'divider'
         }, {
             text: 'Zoom In',
-            secondary: '⌘+',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘+',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Zoom Out',
-            secondary: '⌘-',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘-',
+                command: null,
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Reset Zoom',
-            secondary: '⌘0',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘0',
+                command: 'command+0',
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
@@ -118,10 +139,12 @@ export const MENU_CONST = {
             text: 'divider'
         }, {
             text: 'Reload',
-            secondary: '⌘R',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘R',
+                command: 'command+r',
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
@@ -131,19 +154,23 @@ export const MENU_CONST = {
     NOTE: [
         {
             text: 'Delete Note',
-            secondary: '⌘D',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘D',
+                command: 'command+d',
                 action: 'deleteNote',
+                options: null,
                 url: null
             },
             permissions: []
         }, {
             text: 'Delete Empty Notes',
-            secondary: '⌘⇧D',
             config: {
-                options: null,
+                type: 'action',
+                secondary: '⌘⇧D',
+                command: 'command+shift+d',
                 action: null,
+                options: null,
                 url: null
             },
             permissions: []
@@ -153,19 +180,15 @@ export const MENU_CONST = {
     TOOLS: [
         {
             text: 'Settings',
-            secondary: '⌘⇧S',
             config: {
-                modal: {
-                    type: 'SETTINGS_MODAL',
-                    dialogStyle: { height: 'auto', width: '80%' },
-                    onClose: () => this.props.actions.hideModal(),
-                    onSave: (options) => {
-                        this.saveSettings(options);
-                        this.props.actions.hideModal();
-                    }
-                },
+                type: 'link',
+                secondary: '⌘⇧S',
+                command: 'command+shift+s',
                 action: 'openSettingsModal',
-                url: '/settings'
+                options: {
+                    dialogStyle: { height: 'auto', width: '80%' }
+                },
+                url: null
             },
             permissions: []
         }
@@ -174,22 +197,28 @@ export const MENU_CONST = {
     HELP: [
         {
             text: 'Report A Bug',
-            secondary: '',
             config: {
-                options: null,
+                type: 'link',
+                secondary: '',
+                command: null,
                 action: null,
+                options: null,
                 url: 'https://github.com/jaredwilli/webernote-react/issues'
             },
             permissions: []
         }, {
             text: 'Shortcuts',
-            secondary: '⇧?',
             config: {
-                options: null,
-                action: null,
+                type: 'modal',
+                secondary: '⇧?',
+                command: 'shift+?',
+                action: 'openShortcutsModal',
+                options: {
+                    dialogStyle: { height: 'auto', width: '80%' }
+                },
                 url: null
             },
             permissions: []
         }
-    ]
+    ];
 };
