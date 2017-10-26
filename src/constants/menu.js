@@ -11,7 +11,7 @@ export const MOD_KEYS = {
     ALT: '⌥' //'&#8997;'
 };
 
-export const MENU_CONST = {
+export const MENU_ITEMS = {
     FILE: [
         {
             text: 'New Note',

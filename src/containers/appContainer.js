@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -24,7 +24,7 @@ import * as labelActions from '../actions/labelActions';
 import * as modalActions from '../actions/modalActions';
 
 import { MODAL_TYPES } from '../constants/modalTypes';
-import { URLS } from '../constants/menuConst';
+import { URLS } from '../constants/menu';
 
 class AppContainer extends React.PureComponent {
     constructor(props) {
@@ -224,4 +224,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));

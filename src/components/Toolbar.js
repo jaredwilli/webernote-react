@@ -12,7 +12,7 @@ import AddNote from './AddNote';
 import NoteNav from '../components/NoteNav';
 import SecondaryMenu from '../components/SecondaryMenu';
 
-import { MENU_CONST } from '../constants/menuConst';
+import { MENU_ITEMS } from '../constants/menu';
 
 import '../styles/toolbar.css';
 
@@ -58,8 +58,8 @@ class Toolbar extends Component {
     }
 
     render() {
-        const menuItems = Object.keys(MENU_CONST).map((menu) => {
-            let items = MENU_CONST[menu],
+        const menuItems = Object.keys(MENU_ITEMS).map((menu) => {
+            let items = MENU_ITEMS[menu],
                 key = menu.toLowerCase();
 
             return (
@@ -67,8 +67,7 @@ class Toolbar extends Component {
                     <a className={key} onMouseEnter={() => this.showDropdown(key)}>{key}</a>
                     {this.state[key] ?
                         <div onMouseLeave={() => this.showDropdown(key)} className={key + '-dropdown'}>
-                            <SecondaryMenu items={items} actions={this.props.actions}
- />
+                            <SecondaryMenu items={items} actions={this.props.actions} />
                         </div>
                     : ''}
                 </li>

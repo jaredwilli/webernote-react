@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import App from './App';
+import UserPhoto from '../UserPhoto';
 
 it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<UserPhoto />);
 });

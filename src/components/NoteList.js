@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as noteActions from '../actions/noteActions';
-
 import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
 import Note from './Note';
+
+import * as noteActions from '../actions/noteActions';
 
 // import Notebooks from './Notebooks';
 // import Tags from './Tags';
@@ -68,7 +68,6 @@ class NoteList extends Component {
     }
 
     deleteNote(note) {
-        debugger;
         this.props.deleteNote(note);
     }
 

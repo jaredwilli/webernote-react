@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import App from './App';
+import Modal from '../Modal';
 
 it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Modal />);
 });

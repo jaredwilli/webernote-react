@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import App from './App';
+import Toolbar from '../Toolbar';
 
 it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Toolbar />);
 });

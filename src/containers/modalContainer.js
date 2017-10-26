@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import LoginModal from '../components/modals/LoginModal';
 import SettingsModal from '../components/modals/SettingsModal';
@@ -19,4 +20,4 @@ const ModalContainer = ({type, props}) => {
     return <ModalComponent {...props} />;
 };
 
-export default connect(state => state.modal)(ModalContainer);
+export default withRouter(connect(state => state.modal)(ModalContainer));
