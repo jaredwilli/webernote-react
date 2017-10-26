@@ -7,7 +7,7 @@ import WebernoteApp from './index';
 it('renders without crashing', () => {
 	const div = document.createElement('div');
 	ReactDOM.render(
-        <Provider store={configureStore}
-            ><WebernoteApp />
+        <Provider store={configureStore}>
+            <WebernoteApp />
         </Provider>, div);
 });
