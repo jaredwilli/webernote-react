@@ -5,10 +5,10 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-import * as noteActions from '../actions/noteActions';
-import * as notebookActions from '../actions/notebookActions';
-import * as tagActions from '../actions/tagActions';
-import * as labelActions from '../actions/labelActions';
+// import * as noteActions from '../actions/noteActions';
+// import * as notebookActions from '../actions/notebookActions';
+// import * as tagActions from '../actions/tagActions';
+// import * as labelActions from '../actions/labelActions';
 
 function SecondaryMenu(props) {
     let { items } = props || [];

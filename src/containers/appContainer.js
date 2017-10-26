@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Mousetrap from 'mousetrap';
-import ReactLoading from 'react-loading';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import NotesContainer from './notesContainer';
