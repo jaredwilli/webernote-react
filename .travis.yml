@@ -1,14 +1,16 @@
 sudo: true
 language: node_js
 node_js:
-    - "stable"
+    "stable"
 cache:
     yarn: true
     directories:
-        - node_modules
+        node_modules
 script:
-    - npm test
-    - npm run build
+    npm test
+    npm run build
+before_deploy:
+    yarn build
 deploy:
     provider: surge
     project: ./build/
