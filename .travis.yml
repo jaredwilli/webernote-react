@@ -1,3 +1,4 @@
+# http://lint.travis-ci.org/
 sudo: true
 language: node_js
 node_js:
@@ -15,4 +16,3 @@ deploy:
     on:
         master
         build-path
-
