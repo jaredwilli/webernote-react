@@ -3,18 +3,16 @@ language: node_js
 node_js:
     "stable"
 cache:
-    yarn: true
-    directories:
-        node_modules
+    directories: node_modules
 script:
     npm test
     npm run build
 deploy:
     provider: surge
-        project: ./build
-        domain: webernote.surge.sh
-        skip_cleanup: true
-        on:
-            branch: master
-            branch: build-path
+    project: ./build
+    domain: webernote.surge.sh
+    skip_cleanup: true
+    on:
+        master
+        build-path
 
