@@ -1,5 +1,14 @@
 {
   "name": "webernote",
+  "description": "A real-time note app built with React, Redux, and Firebase.",
+  "author": {
+    "name": "Jared Williams",
+    "email": "jaredwilli@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaredwilli/webernote-react"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -31,31 +40,41 @@
     "react-rte": "^0.15.0",
     "react-scripts": "1.0.13",
     "react-select": "^1.0.0-rc.10",
-    "react-test-renderer": "15",
     "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "test"
+  ],
   "git": {
     "scripts": {
       "pre-push": "npm run build && npm run surge"
     }
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css react-build",
+    "build": "npm-run-all -p build-css build-react",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build surge",
     "surge": "surge -p /Users/jaredw/Sites/_play/react/webernote/build -d webernote-dev.surge.sh",
-    "react-build": "react-scripts build",
+    "build-react": "react-scripts build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
-    "gh-pages": "^1.0.0",
     "git-scripts": "^0.2.1",
     "react-test-renderer": "^15.6.2",
     "redux-devtools": "^3.4.0",

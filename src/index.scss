@@ -1,9 +1,14 @@
 /* Import files */
 
+// Import from node_modules thanks to the --include-path flag in npm script
+// @import 'bootstrap/dist/css/bootstrap.css';
+// @import 'bootstrap/dist/css/bootstrap-theme.css';
+
 @import './styles/base.css';
 @import './styles/helpers.css';
 @import './styles/buttons.css';
 @import './styles/modal.css';
+@import './styles/main.css';
 @import './styles/login.css';
 @import './styles/settings.css';
 @import './styles/welcome-msg.css';
@@ -13,129 +18,3 @@
 @import './styles/notes-container.css';
 @import './styles/note-list.css';
 @import './styles/edit-note.css';
-
-
-.big-loader {
-    -webkit-animation: fadein 1s;
-       -moz-animation: fadein 1s;
-         -o-animation: fadein 1s;
-            animation: fadein 1s;
-}
-
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-moz-keyframes fadein { /* Firefox */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes fadein { /* Safari and Chrome */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-o-keyframes fadein { /* Opera */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-
-
-/* STRUCTURE */
-
-.big-loader {
-    text-align: center;
-    margin-top: 100px;
-}
-
-.big-loader .loader {
-    display: inline-block;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.main {
-    background: #bdcad4;
-    display: flex;
-    flex-direction: row;
-    padding-top: 2px;
-}
-
-.tagline {
-    margin-left: 10px;
-}
-
-.loginout {
-	float: right;
-}
-
-.loginout button {
-    background: none;
-    border: 0;
-    color: #03A9F4;
-    font-size: 13px;
-    text-decoration: none;
-    cursor: pointer;
-    vertical-align: middle;
-}
-
-.loginout button:hover {
-    color: #E91E63;
-    text-decoration: underline;
-}
-
-.user-meta {
-    text-transform: capitalize;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.user-meta > div,
-.user-meta img {
-    width: 22px;
-    vertical-align: middle;
-}
-
-.user-meta .username {
-    margin-left: 5px;
-	padding: 5px 0;
-	vertical-align: middle;
-}
-
-.remove {
-	background: none;
-	border: 0;
-	color: #999;
-	font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
-	line-height: 1;
-	cursor: pointer;
-	padding: 0 3px;
-	margin-left: 1px;
-	float: right;
-}
-
-.remove:hover {
-    color: #D0021B;
-}

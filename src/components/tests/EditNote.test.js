@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import Editnote from '../Editnote';
+import EditNote from '../EditNote';
 
 it('renders without crashing', () => {
-    shallow(<Editnote />);
+    shallow(<EditNote />);
 });
