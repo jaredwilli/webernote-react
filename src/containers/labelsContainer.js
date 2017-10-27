@@ -38,7 +38,7 @@ class LabelsContainer extends React.PureComponent {
     removeLabel(e) {
         e.preventDefault();
         const label = {};
-        this.props.editLabel(label);
+        this.props.editField(label);
     }
 
     editLabel(color) {
@@ -53,6 +53,7 @@ class LabelsContainer extends React.PureComponent {
             let label = {};
             label.hex = color.hex;
 
+            // TODO: should probably move some of this stuff to the add label action
             COLORS.forEach((c) => {
                 if (c.hex === label.hex) {
                     label.name = c.name;
@@ -71,7 +72,8 @@ class LabelsContainer extends React.PureComponent {
                 label = labelExists[0];
             }
 
-            this.props.editLabel(label);
+            this.props.editField(label);
+            this.props.actions.getLabels();
         }
     }
 

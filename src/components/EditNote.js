@@ -63,35 +63,11 @@ class EditNote extends React.Component {
 
     editField(field) {
         this.props.actions.editNote(this.props.selectedNote, field);
+
         if (field.label) {
             this.props.actions.getNotes();
         }
     }
-
-    // editLabel(label) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { label: label });
-    //     this.props.actions.getNotes();
-    // }
-
-    // editNotebook(notebook) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { notebook: notebook });
-    // }
-
-    // editTags(tags) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { tags: tags });
-    // }
 
     render() {
         const selectedNote = this.props.selectedNote;
@@ -112,7 +88,7 @@ class EditNote extends React.Component {
                             onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer
                             canAddNotebook={true}
-                            editNotebook={(notebook) => this.editField({ notebook: notebook })} />
+                            editField={(notebook) => this.editField({ notebook: notebook })} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
@@ -120,12 +96,12 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
-                        <LabelsContainer editLabel={(color) => this.editField({ label: color })} />
+                        <LabelsContainer editField={(color) => this.editField({ label: color })} />
                     </div>
                     <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
-                            editTags={(tags) => this.editField({ tags: tags })} />
+                            editField={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description"

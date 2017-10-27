@@ -34,7 +34,7 @@ class TagsContainer extends React.PureComponent {
         }
 
         // Edit the notes tags
-        this.props.editTags(tags, selectedNote);
+        this.props.editField(tags, selectedNote);
         // Get tags again to update the state
         this.props.actions.getTags();
 	}
