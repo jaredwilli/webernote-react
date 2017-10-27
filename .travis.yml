@@ -11,9 +11,10 @@ script:
     npm run build
 deploy:
     provider: surge
-    project: build
-    domain: webernote.surge.sh
-    skip_cleanup: true
-    on:
-        branch: master
-        branch: build-path
+        project: build
+        domain: webernote.surge.sh
+        skip_cleanup: true
+        on:
+            branch: master
+            branch: build-path
+
