@@ -22,4 +22,4 @@ yarn-error.log*
 
 .access_token
 
-*.css
+src/**/*.css
