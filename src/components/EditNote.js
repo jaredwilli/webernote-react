@@ -15,9 +15,6 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editField = this.editField.bind(this);
-        // this.editNotebook = this.editNotebook.bind(this);
-        // this.editTags = this.editTags.bind(this);
-        // this.editLabel = this.editLabel.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
@@ -66,6 +63,9 @@ class EditNote extends React.Component {
 
     editField(field) {
         this.props.actions.editNote(this.props.selectedNote, field);
+        if (field.label) {
+            this.props.actions.getNotes();
+        }
     }
 
     // editLabel(label) {
