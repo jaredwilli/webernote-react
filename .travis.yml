@@ -12,7 +12,7 @@ script:
     npm run react-build
 deploy:
     provider: surge
-    project: ./build
+    project: /Users/jaredw/Sites/_play/react/webernote/build
     domain: webernote.surge.sh
     skip_cleanup: true
     on:
