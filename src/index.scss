@@ -1,3 +1,65 @@
+/* Import files */
+
+@import './styles/base.css';
+@import './styles/helpers.css';
+@import './styles/buttons.css';
+@import './styles/modal.css';
+@import './styles/login.css';
+@import './styles/settings.css';
+@import './styles/welcome-msg.css';
+@import './styles/toolbar.css';
+@import './styles/note-types.css';
+@import './styles/note-nav.css';
+@import './styles/notes-container.css';
+@import './styles/note-list.css';
+@import './styles/edit-note.css';
+
+
+.big-loader {
+    -webkit-animation: fadein 1s;
+       -moz-animation: fadein 1s;
+         -o-animation: fadein 1s;
+            animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
 /* STRUCTURE */
 
 .big-loader {
@@ -19,6 +81,10 @@
     display: flex;
     flex-direction: row;
     padding-top: 2px;
+}
+
+.tagline {
+    margin-left: 10px;
 }
 
 .loginout {
@@ -73,4 +139,3 @@
 .remove:hover {
     color: #D0021B;
 }
-

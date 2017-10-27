@@ -1,27 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import NoteList from '../components/NoteList';
 import EditNote from '../components/EditNote';
 
-// import Notebooks from './components/Notebooks';
-// import Tags from './components/Tags';
-// import Labels from './components/Labels';
-
 import * as noteActions from '../actions/noteActions';
-
-import '../App.css';
-import '../styles/notes-container.css';
 
 class NotesContainer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.deleteNote = this.deleteNote.bind(this);
+		// this.setAppHeight = this.setAppHeight.bind(this);
 
 		this.state = {
             notes: this.props.notes,
+            containerStyle: {},
             filteredNotes: this.props.filteredNotes,
             selectedNote: this.props.selectedNote,
             filterType: 'Title',
@@ -47,6 +43,30 @@ class NotesContainer extends React.PureComponent {
         }
     }
 
+    componentDidUpdate() {
+
+    }
+
+    // componentDidMount() {
+    //     window.addEventListener('resize', this.setAppHeight, false);
+    // }
+
+    // componentWillUnmount() {
+    //     window.addEventListener('resize', this.setAppHeight, false);
+    // }
+
+    // Set the notes-container height style based on the window height
+    // setAppHeight() {
+    //     let windowHeight = window.innerHeight,
+    //         container = document.querySelector('.notes-container');
+
+    //     if (container) {
+    //         this.setState({
+    //             containerStyle: {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'}
+    //         });
+    //     }
+    // }
+
 	deleteNote(note) {
         // I might not want to auto select first note on delete
         // this.props.actions.resetSelectedNote();
@@ -71,6 +91,17 @@ class NotesContainer extends React.PureComponent {
 				<div className="no-data"></div>
 			);
         }
+
+        // let containerStyle = this.state.containerStyle || {};
+        // debugger;
+        // if (!containerStyle.hasOwnProperty('height')) {
+        //     let windowHeight = window.innerHeight,
+        //         container = document.querySelector('.notes-container');
+
+        //     if (container) {
+        //         containerStyle = {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'};
+        //     }
+        // }
 
         return (
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
@@ -103,4 +134,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NotesContainer));

@@ -1,0 +1,19 @@
+sudo: true
+language: node_js
+node_js:
+    "stable"
+cache:
+    yarn: true
+    directories:
+        node_modules
+script:
+    npm run build-css
+    npm test
+    npm run react-build
+deploy:
+    provider: surge
+    project: ./build/
+    domain: webernote.surge.sh
+    skip_cleanup: true
+    on:
+        branch: master

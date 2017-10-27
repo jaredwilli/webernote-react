@@ -1,7 +1,4 @@
 // helper functions
-import _ from 'lodash';
-
-import { DATA_TYPES } from '../constants/noteConst';
 
 /**
  * isObject
@@ -51,83 +48,6 @@ export function removeDuplicatesBy(keyFn, array) {
         return isNew;
     });
 }
-
-/* // export function uniqify(merged) {
-//     let output = Object.assign({}, {});
-//     if (merged) {
-//         debugger;
-
-//         DATA_TYPES.forEach((type) => {
-//             if (merged[type] && isObject(merged[type])) {
-//                 let obj = merged[type];
-//                 let objKeys = Object.keys(obj);
-
-//                 if (objKeys.length > 1) {
-//                     objKeys.forEach((key) => {
-//                         let objKey;
-
-//                         if (obj[key].hasOwnProperty('title')) {
-//                             // notes object
-//                             debugger;
-//                             output[type][key] = obj[key];
-//                             objKey = obj[key];
-//                         }
-//                         else if (obj[key].hasOwnProperty('name')) {
-//                             debugger;
-
-//                             objKey = obj[key];
-//                         }
-//                         else if (obj[key].hasOwnProperty('label')) {
-//                             debugger;
-
-//                             objKey = obj[key];
-//                         }
-//                         else if (obj[key].hasOwnProperty('hexl')) {
-//                             debugger;
-
-//                             objKey = obj[key];
-//                         }
-//                         else {
-
-//                             console.log(obj[key]);
-//                             console.log(type);
-
-//                             debugger;
-//                         }
-//                     });
-//                 } else {
-//                     output[type] = obj[objKeys[0]];
-//                 }
-//             }
-
-//             console.log(output);
-
-//             debugger;
-//         });
-//     }
-
-//     return output;
-
-//     /* Object.keys(target).forEach((t) => {
-//         debugger;
-//         // Handle duplicates
-//         if (source[key].hasOwnProperty('name') && target[t].name === source[key].name) {
-
-//             debugger;
-//         } else if (source[key].hasOwnProperty('label') && target[t].label === source[key].label) {
-
-//             debugger;
-//         } else if (source[key].hasOwnProperty('hex') && target[t].hex === source[key].hex) {
-
-//             debugger;
-//         } else {
-//             debugger;
-//             Object.assign(output, {
-//                 [key]: source[key]
-//             });
-//         }
-//     }); */
-// } */
 
 /**
  * refToArray
@@ -181,25 +101,9 @@ export function shorten(text, maxLength) {
  */
 export function guid() {
 	function s4() {
-		return Math.floor((1 + Math.random()) * 0x10000)
-			.toString(16)
-			.substring(1);
+		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 	}
-
-	return (
-		s4() +
-		s4() +
-		'-' +
-		s4() +
-		'-' +
-		s4() +
-		'-' +
-		s4() +
-		'-' +
-		s4() +
-		s4() +
-		s4()
-	);
+	return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
 }
 
 /**
@@ -221,36 +125,3 @@ export function uniq(thing) {
 	);
 	return thing;
 }
-
-/**
- * checkIfUserExists
- *
- * @param {Object} authData
- */
-export function checkIfUserExists(authData, userRef) {
-	return userRef
-		.child('users')
-		.child(authData.uid)
-		.once('value')
-		.then(dataSnapshot => {
-			return Promise.resolve({
-				authData,
-				userExists: dataSnapshot.exists()
-			});
-		});
-}
-
-// example usage
-/* database
-	.authWithOAuthPopup(provider)
-	.then(checkIfUserExists)
-	.then(({ authData, userExists }) => {
-		if (userExists) {
-			// update user
-		} else {
-			// go create a user
-		}
-	})
-	.catch(err => {
-		console.warn('Error signing in.', err);
-	}); */

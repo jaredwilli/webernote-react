@@ -1,11 +1,8 @@
-import React, { PropTypes} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { showModal, hideModal } from '../actions/modalActions';
-import Modal from './Modal';
-
-import '../styles/login.css';
-import '../styles/buttons.css';
+import { showModal, hideModal } from '../../actions/modalActions';
+import Modal from '../Modal';
 
 class LoginModal extends React.Component {
     constructor(props) {
@@ -49,10 +46,6 @@ class LoginModal extends React.Component {
             </Modal>
         );
     }
-}
-
-LoginModal.propTypes = {
-    onClose: PropTypes.func
 }
 
 export default connect(null, { showModal, hideModal })(LoginModal);

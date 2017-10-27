@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -78,4 +79,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TagsContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TagsContainer));

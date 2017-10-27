@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import * as noteActions from '../actions/noteActions';
 
 import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
 import Note from './Note';
 
-import Notebooks from './Notebooks';
-import Tags from './Tags';
-import Labels from './Labels';
+import * as noteActions from '../actions/noteActions';
 
-import '../styles/note-list.css';
+// import Notebooks from './Notebooks';
+// import Tags from './Tags';
+// import Labels from './Labels';
 
 class NoteList extends Component {
     constructor(props, context) {
@@ -132,10 +130,6 @@ class NoteList extends Component {
     }
 }
 
-/* <Route path="/" component={Note} />
-                <Route path="/notebooks/:notebookName" component={Notebooks} />
-                <Route path="/tags/:tagValue" component={Tags} />
-                <Route path="/labels/:labelName" component={Labels} /> */
 function mapStateToProps(state) {
     const newState = {
         notebooks: state.notebookData.notebooks,

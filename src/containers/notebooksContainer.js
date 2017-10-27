@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
@@ -163,7 +164,6 @@ class NotebooksContainer extends React.PureComponent {
                 return (
                     <span className="add-notebook">
                         <input type="text" name="notebook" className="new-notebook"
-                            autoFocus={true}
                             placeholder="Notebook name"
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
@@ -210,4 +210,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotebooksContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NotebooksContainer));

@@ -1,4 +1,7 @@
+
 # Webernote app
+
+https://travis-ci.org/jaredwilli/webernote-react.svg?branch=master
 
 #### Overview
 
