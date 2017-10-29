@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { showModal, hideModal } from '../../actions/modalActions';
-import Modal from '../Modal';
+import Modal from '../ui/Modal';
 
 class LoginModal extends React.Component {
     constructor(props) {

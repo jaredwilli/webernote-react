@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import Modal from '../ui/Modal';
+import LoginModal from '../modals/LoginModal';
 
 it('renders without crashing', () => {
-    shallow(<Modal />);
+    shallow(<LoginModal />);
 });
