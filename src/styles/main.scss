@@ -1,5 +1,3 @@
-
-
 /* STRUCTURE */
 
 .big-loader {
@@ -37,8 +35,8 @@
     color: #03A9F4;
     font-size: 13px;
     text-decoration: none;
-    cursor: pointer;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .loginout button:hover {
@@ -62,20 +60,4 @@
     margin-left: 5px;
 	padding: 5px 0;
 	vertical-align: middle;
-}
-
-.remove {
-	background: none;
-	border: 0;
-	color: #999;
-	font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
-	line-height: 1;
-	cursor: pointer;
-	padding: 0 3px;
-	margin-left: 1px;
-	float: right;
-}
-
-.remove:hover {
-    color: #D0021B;
 }

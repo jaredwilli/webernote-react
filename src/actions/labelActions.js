@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { getLabelCount } from '../common/noteHelpers.js';
+import { getObjCounts, getLabelCount } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
 export function getLabels() {
@@ -54,7 +54,7 @@ export function removeLabel(notes) {
                 let labelsList = [];
 
                 labels.forEach((label) => {
-                    let labelCount = getLabelCount(label, notes);
+                    let labelCount = getObjCounts(label, notes);
                     // Remove empty labels
                     if (labelCount.count === 0) {
                         labelsRef.child(labelCount.label.id)

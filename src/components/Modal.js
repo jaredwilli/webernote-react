@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CloseBtn from './ui/CloseBtn';
+
 class Modal extends React.Component {
 	constructor(props) {
 		super(props);
@@ -48,9 +50,7 @@ class Modal extends React.Component {
 					<div className="modal-dialog"
                         onClick={this.onDialogClick}
                         style={dialogStyle}>
-                        <span className="x-button"
-                            onClick={this.onOverlayClick}>×
-                        </span>
+                        <CloseBtn onClick={this.onOverlayClick} />
 
 						{this.props.children}
 					</div>

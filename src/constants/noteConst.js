@@ -12,19 +12,33 @@ export const DEFAULTS = {
     TAG: ''
 };
 
+/*
+    NAVY: #001f3f,
+    BLUE: #0074D9,
+    AQUA: #7FDBFF,
+    TEAL: #39CCCC,
+    OLIVE: #3D9970,
+    GREEN: #2ECC40,
+    LIME: #01FF70,
+    YELLOW: #FFDC00,
+    ORANGE: #FF851B,
+    RED: #FF4136,
+    MAROON: #85144b,
+    FUCHSIA: #F012BE,
+    PURPLE: #B10DC9,
+    BLACK: #111111,
+    GRAY: #AAAAAA,
+    SILVER: #DDDDDD,
+    WHITE: #FFFFFF
+*/
 export const COLORS = [
     { name: 'red', hex: '#d0021b' },
     { name: 'yellow', hex: '#f8e71c' },
     { name: 'green', hex: '#00b600' },
+    { name: 'blue', hex: '#0074D9' },
     { name: 'orange', hex: '#ff6900' },
-    { name: 'magenta', hex: '#eb144c' },
     { name: 'purple', hex: '#9900ef' },
-    { name: 'blue', hex: '#2196f3' },
-    { name: 'teal', hex: '#03a9f4' },
-    { name: 'navy', hex: '#001380' },
-    { name: 'steel', hex: '#455a64' },
-    { name: 'gray', hex: '#525252' },
-    { name: 'brown', hex: '#795548' },
-    { name: 'white', hex: '#ffffff' },
+    { name: 'gray', hex: '#aaaaaa' },
+    { name: 'white', hex: '#f1f1f1' },
     { name: 'black', hex: '#000000' }
 ];

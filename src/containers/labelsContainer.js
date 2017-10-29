@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import { TwitterPicker } from 'react-color';
+import { GithubPicker } from 'react-color';
+import CloseBtn from '../components/ui/CloseBtn';
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 
@@ -96,7 +97,7 @@ class LabelsContainer extends React.PureComponent {
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
 
-                    <TwitterPicker color={this.state.background}
+                    <GithubPicker color={this.state.background}
                         onChangeComplete={this.editLabel}
                         colors={colors}
                         triangle="top-right" />
@@ -110,9 +111,7 @@ class LabelsContainer extends React.PureComponent {
                     style={{background: backgroundColor}}
                     onClick={this.showColorPicker} />
 
-                <span className="remove Select-clear"
-                    onClick={this.removeLabel}>×
-                </span>
+                <CloseBtn onClick={this.removeLabel} />
 
                 {colorPicker}
             </div>
