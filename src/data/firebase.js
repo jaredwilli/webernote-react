@@ -38,7 +38,7 @@ export const PROVIDERS = {
 
 export const auth = firebase.auth();
 
-let userDatabase = firebase.initializeApp(authConfig, 'AUTH');
+let userDatabase = firebase.initializeApp(publicConfig, 'AUTH');
 export const authDatabase = userDatabase.database();
 
 export default firebase;

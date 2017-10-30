@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import Dropdown from '../Dropdown';
+import Dropdown from '../ui/Dropdown';
 
 it('renders without crashing', () => {
     shallow(<Dropdown />);

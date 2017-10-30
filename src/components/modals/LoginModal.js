@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { showModal, hideModal } from '../../actions/modalActions';
-import Modal from '../Modal';
+import Modal from '../ui/Modal';
 
 class LoginModal extends React.Component {
     constructor(props) {
@@ -18,9 +19,11 @@ class LoginModal extends React.Component {
 
         return (
             <Modal onClose={this.onClose} dialogStyle={this.props.dialogStyle}>
-                <div className="login">
-                    <h1>Choose a login method:</h1>
-                    <div className="login-with btn-group">
+                <div className="login-modal">
+                    <div className="modal-header">
+                        <h1>Choose a login method:</h1>
+                    </div>
+                    <div className="modal-body login-with btn-group">
                         <button onClick={(e) => this.props.login('fbProvider')}
                             className="facebook">
                             <i className="fa fa-facebook"></i>
@@ -48,4 +51,4 @@ class LoginModal extends React.Component {
     }
 }
 
-export default connect(null, { showModal, hideModal })(LoginModal);
+export default withRouter(connect(null, { showModal, hideModal })(LoginModal));

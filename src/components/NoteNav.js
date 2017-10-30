@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+import { getObjCounts, getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
@@ -55,7 +55,7 @@ class NoteNav extends React.Component {
                     <Link to={`/notebooks/${notebook.name.toLowerCase()}`}>
                         <span className="name">{shorten(notebook.name)}</span>
                     </Link>&nbsp;
-                    <span className="count">{getNotebookCount(notebook, notes).count}</span>
+                    <span className="count">{getObjCounts({ notebook }, notes).count}</span>
                 </li>
             );
         }
@@ -68,7 +68,7 @@ class NoteNav extends React.Component {
                     <Link to={`/tags/${tag.label.toLowerCase()}`}>
                         <span className="name">{shorten(tag.label, 80)}</span>
                     </Link>&nbsp;
-                    <span className="count">{getTagCount(tag, notes).count}</span>
+                    <span className="count">{getObjCounts({ tags: tag }, notes).count}</span>
                 </li>
             );
         }
@@ -76,15 +76,15 @@ class NoteNav extends React.Component {
         // LABELS MENU
         let labelItems = '';
         if (labels && labels.length) {
-            labelItems = labels.map((label) =>
+            labelItems = labels.map((label) => {
                 <li key={label.id} id={label.id}>
                     <Link to={`/labels/${label.name.toLowerCase()}`}>
                         <div className="note-label" style={{background: label.hex}} />
                         <span className="name">{label.name}</span>
                     </Link>&nbsp;
-                    <span className="count">{getLabelCount(label, notes).count}</span>
+                    <span className="count">{getObjCounts({ label }, notes).count}</span>
                 </li>
-            );
+            });
         }
 
         let coverStyles = {

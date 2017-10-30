@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import Modal from '../ui/Modal';
+import CloseBtn from '../ui/CloseBtn';
 
 it('renders without crashing', () => {
-    shallow(<Modal />);
+    shallow(<CloseBtn />);
 });

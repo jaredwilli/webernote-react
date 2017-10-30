@@ -1,0 +1,57 @@
+
+.card {
+    width: 200px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    border: 0 solid rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    display: inline-block;
+    padding: 5px;
+    position: relative;
+}
+
+.swatch {
+    border-radius: 2px;
+    margin: 0 3px 3px 0;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.label {
+    font-size: 18px;
+    color: #fff;
+}
+
+.triangle {
+    border-color: transparent transparent #fff transparent;
+    border-width: 0 9px 10px 9px;
+    border-style: solid;
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    height: 0;
+    width: 0;
+}
+
+.triangle-shadow {
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    border-width: 0 9px 10px 9px;
+    border-style: solid;
+    position: absolute;
+    top: -11px;
+    right: 12px;
+    height: 0;
+    width: 0;
+}
+
+.label-name {
+    border: 1px solid #bccad3;
+    border-radius: 0 2px 2px 0;
+    box-sizing: content-box;
+    color: #333;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 5px;
+    width: 90%;
+}

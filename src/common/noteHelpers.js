@@ -17,6 +17,40 @@ export function sortNotes(notes) {
     return notes;
 }
 
+export function getObjCounts(objType, notes) {
+    let objCount = {};
+    objCount.count = 0;
+
+    if (!objType || !notes) {
+        return 'Error: missing objType or notes argument.';
+    } else {
+        let key = Object.keys(objType)[0];
+
+        if (notes && notes.length) {
+            notes.filter((note) => {
+                if (!note[key]) {
+                    return;
+                }
+
+                // Tags
+                if (note[key] && Array.isArray(note[key])) {
+                    note[key].filter((tkey) => {
+                        if (tkey.id === objType[key].id) {
+                            objCount.count++;
+                        }
+                    })
+                }
+                // Notebooks & Labels
+                else if (note[key].id === objType[key].id) {
+                    objCount.count++;
+                }
+            });
+        }
+    }
+
+    return objCount;
+}
+
 /**
  * getNotebookCount
  *

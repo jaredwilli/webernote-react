@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import { TwitterPicker } from 'react-color';
+import { LabelColor } from '../components/ui/LabelColor';
+import CloseBtn from '../components/ui/CloseBtn';
+
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 
@@ -11,13 +13,20 @@ class LabelsContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.showColorPicker = this.showColorPicker.bind(this);
+        this.toggleColorPicker = this.toggleColorPicker.bind(this);
         this.editLabel = this.editLabel.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.onSwatchHover = this.onSwatchHover.bind(this);
         this.removeLabel = this.removeLabel.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            displayColorPicker: false
+            displayColorPicker: false,
+            label: {
+                customName: '',
+                name: '',
+                hex: null
+            }
         };
     }
 
@@ -27,7 +36,7 @@ class LabelsContainer extends React.PureComponent {
         });
     }
 
-    showColorPicker(e) {
+    toggleColorPicker(e) {
         e.preventDefault();
 
         this.setState({
@@ -38,30 +47,51 @@ class LabelsContainer extends React.PureComponent {
     removeLabel(e) {
         e.preventDefault();
         const label = {};
-        this.props.editLabel(label);
+        this.props.editField(label);
     }
 
-    editLabel(color) {
+    onSwatchHover(label, e) {
+        debugger;
+        this.setState({
+            label: {
+                name: label.name,
+                hex: label.hex
+            }
+        });
+    }
+
+    handleNameChange(e) {
+        this.setState({
+            name: e.target.value
+        }, () => {
+            debugger;
+        });
+    }
+
+    editLabel(label) {
+        label = COLORS.filter((color) => color.hex === label.hex)[0];
+        console.log(label);
+
+        if (label.name && !label.hex) {
+            this.setState({ label: { name: label.name }});
+            return;
+        }
+
         const labels = this.props.labels;
         let labelExists = [];
 
         this.setState({
-            displayColorPicker: false
+            displayColorPicker: false,
+            label: {
+                name: label.name,
+                hex: label.hex
+            }
         });
 
-        if (color) {
-            let label = {};
-            label.hex = color.hex;
-
-            COLORS.forEach((c) => {
-                if (c.hex === label.hex) {
-                    label.name = c.name;
-                }
-            });
-
+        if (label) {
             if (labels) {
                 labelExists = labels.filter((l) => {
-                    return l.hex === color.hex;
+                    return l.hex === label.hex;
                 });
             }
 
@@ -71,33 +101,38 @@ class LabelsContainer extends React.PureComponent {
                 label = labelExists[0];
             }
 
-            this.props.editLabel(label);
+            this.props.editField(label);
+            this.props.actions.getLabels();
         }
     }
 
     render() {
         const selectedNote = this.props.selectedNote;
+        let labelName = '';
         let backgroundColor = 'none';
         let colorPicker = '';
-        let colors = [];
-
-        COLORS.forEach((c) => {
-            colors.push(c.hex);
-        });
-
-        if (selectedNote.label) {
-            backgroundColor = selectedNote.label.hex;
-        }
 
         if (this.state.displayColorPicker) {
             colorPicker = (
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
 
-                    <TwitterPicker color={this.state.background}
-                        onChangeComplete={this.editLabel}
-                        colors={colors}
-                        triangle="top-right" />
+                    <div className="card label-color">
+                        <div className="triangle-shadow" />
+                        <div className="triangle" />
+
+                        <LabelColor color={selectedNote.label.hex}
+                            colors={COLORS}
+                            onChangeComplete={this.editLabel}
+                            onSwatchHover={this.onSwatchHover}
+                            name={this.state.label.name}
+                            triangle="top-right" />
+
+                        <input type="text" className="label-name"
+                            placeholder="Label name"
+                            value={selectedNote.label.name}
+                            onChange={this.handleNameChange} />
+                    </div>
                 </div>
             );
         }
@@ -105,12 +140,10 @@ class LabelsContainer extends React.PureComponent {
         return (
             <div className="label-picker">
                 <button className="label-background" type="button"
-                    style={{background: backgroundColor}}
-                    onClick={this.showColorPicker} />
+                    style={{ background: selectedNote.label.hex }}
+                    onClick={this.toggleColorPicker} />
 
-                <span className="remove Select-clear"
-                    onClick={this.removeLabel}>×
-                </span>
+                <CloseBtn onClick={this.removeLabel} />
 
                 {colorPicker}
             </div>
