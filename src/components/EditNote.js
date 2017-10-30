@@ -62,6 +62,8 @@ class EditNote extends React.Component {
     }
 
     editField(field) {
+        debugger;
+
         this.props.actions.editNote(this.props.selectedNote, field);
 
         if (field.label) {

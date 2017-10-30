@@ -1,41 +1,28 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-
-import { randomVal, randomLetter } from '../common/userHelpers';
 import * as colors from 'material-ui/styles/colors';
+import { randomVal, randomLetter } from '../common/userHelpers';
 
-class UserPhoto extends React.Component {
-    constructor(props) {
-        super(props);
+function UserPhoto(props) {
+    const imgSrc = props.imgSrc || '',
+        bgColor = props.color || randomVal(colors),
+        letter = props.letter || randomLetter(),
+        style = props.style || {},
+        size = props.size || 20,
+        fontColor = '#fff';
 
-        this.state = {
-            imgSrc: this.props.imgSrc || '',
-            bgColor: this.props.color || randomVal(colors),
-            letter: this.props.letter || randomLetter(),
-            style: this.props.style || {},
-            size: this.props.size || 20,
-            fontColor: '#fff'
-        };
-    }
-
-    render() {
-        if (!this.props.imgSrc) {
-            return (
-                <Avatar color={this.state.fontColor}
-                    backgroundColor={this.state.bgColor}
-                    size={this.state.size}
-                    style={this.state.style}>
-                    {this.state.letter}
-                </Avatar>
-            )
-        }
-
+    if (imgSrc === '') {
         return (
-            <Avatar src={this.state.imgSrc}
-                size={this.state.size}
-                style={this.state.style} />
-        );
+            <Avatar color={fontColor}
+                backgroundColor={bgColor}
+                size={size}
+                style={style}>
+                {letter}
+            </Avatar>
+        )
     }
+
+    return <Avatar src={imgSrc} size={size} style={style} />
 }
 
 export default UserPhoto;

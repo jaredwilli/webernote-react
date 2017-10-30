@@ -8,37 +8,34 @@ export const DATA_TYPES = [
 ];
 
 export const DEFAULTS = {
-    NOTEBOOK: 'General',
-    TAG: ''
+    NOTEBOOK: '',
+    TAG: '',
+    LABEL: ''
 };
 
-/*
-    NAVY: #001f3f,
-    BLUE: #0074D9,
-    AQUA: #7FDBFF,
-    TEAL: #39CCCC,
-    OLIVE: #3D9970,
-    GREEN: #2ECC40,
-    LIME: #01FF70,
-    YELLOW: #FFDC00,
-    ORANGE: #FF851B,
-    RED: #FF4136,
-    MAROON: #85144b,
-    FUCHSIA: #F012BE,
-    PURPLE: #B10DC9,
-    BLACK: #111111,
-    GRAY: #AAAAAA,
-    SILVER: #DDDDDD,
-    WHITE: #FFFFFF
-*/
+// http://htmlcolorcodes.com/color-chart/material-design-color-chart/
 export const COLORS = [
-    { name: 'red', hex: '#d0021b' },
-    { name: 'yellow', hex: '#f8e71c' },
-    { name: 'green', hex: '#00b600' },
-    { name: 'blue', hex: '#0074D9' },
-    { name: 'orange', hex: '#ff6900' },
-    { name: 'purple', hex: '#9900ef' },
-    { name: 'gray', hex: '#aaaaaa' },
-    { name: 'white', hex: '#f1f1f1' },
-    { name: 'black', hex: '#000000' }
+    { name: 'red', hex: '#D50000', source: 'hex' },
+    { name: 'light red', hex: '#FFCDD2', source: 'hex' },
+    { name: 'light orange', hex: '#FFE0B2', source: 'hex' },
+    { name: 'orange', hex: '#FB8C00', source: 'hex' },
+    { name: 'dark orange', hex: '#FF5722', source: 'hex' },
+    { name: 'light yellow', hex: '#FFF9C4', source: 'hex' },
+    { name: 'yellow', hex: '#FFEB3B', source: 'hex' },
+    { name: 'light green', hex: '#C8E6C9', source: 'hex' },
+    { name: 'green', hex: '#64DD17', source: 'hex' },
+    { name: 'dark green', hex: '#00C853', source: 'hex' },
+    { name: 'light indigo', hex: '#C5CAE9', source: 'hex' },
+    { name: 'indigo', hex: '#304FFE', source: 'hex' },
+    { name: 'light blue', hex: '#81D4FA', source: 'hex' },
+    { name: 'blue', hex: '#03A9F4', source: 'hex' },
+    { name: 'dark blue', hex: '#2962FF', source: 'hex' },
+    { name: 'cyan', hex: '#00BCD4', source: 'hex' },
+    { name: 'light pink', hex: '#F8BBD0', source: 'hex' },
+    { name: 'pink', hex: '#E91E63', source: 'hex' },
+    { name: 'light purple', hex: '#E1BEE7', source: 'hex' },
+    { name: 'purple', hex: '#9C27B0', source: 'hex' },
+    { name: 'light gray', hex: '#F5F5F5', source: 'hex' },
+    { name: 'gray', hex: '#9E9E9E', source: 'hex' },
+    { name: 'dark gray', hex: '#212121', source: 'hex' }
 ];

@@ -76,7 +76,7 @@ class NoteNav extends React.Component {
         // LABELS MENU
         let labelItems = '';
         if (labels && labels.length) {
-            labelItems = labels.map((label) =>
+            labelItems = labels.map((label) => {
                 <li key={label.id} id={label.id}>
                     <Link to={`/labels/${label.name.toLowerCase()}`}>
                         <div className="note-label" style={{background: label.hex}} />
@@ -84,7 +84,7 @@ class NoteNav extends React.Component {
                     </Link>&nbsp;
                     <span className="count">{getObjCounts({ label }, notes).count}</span>
                 </li>
-            );
+            });
         }
 
         let coverStyles = {
