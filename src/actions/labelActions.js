@@ -54,7 +54,7 @@ export function removeLabel(notes) {
                 let labelsList = [];
 
                 labels.forEach((label) => {
-                    let labelCount = getObjCounts(label, notes);
+                    let labelCount = getLabelCount(label, notes);
                     // Remove empty labels
                     if (labelCount.count === 0) {
                         labelsRef.child(labelCount.label.id)

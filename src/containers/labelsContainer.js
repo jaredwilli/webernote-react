@@ -42,29 +42,20 @@ class LabelsContainer extends React.PureComponent {
         this.props.editField(label);
     }
 
-    editLabel(color) {
+    editLabel(label) {
         const labels = this.props.labels;
         let labelExists = [];
+        label = COLORS.filter((color) => {
+            return color.hex.toLowerCase() === label.hex.toLowerCase()
+        })[0];
 
         this.setState({
             displayColorPicker: false
         });
 
-        if (color) {
-            let label = {};
-            label.hex = color.hex;
-
-            // TODO: should probably move some of this stuff to the add label action
-            COLORS.forEach((c) => {
-                if (c.hex === label.hex) {
-                    label.name = c.name;
-                }
-            });
-
+        if (label) {
             if (labels) {
-                labelExists = labels.filter((l) => {
-                    return l.hex === color.hex;
-                });
+                labelExists = labels.filter((l) => l.hex === label.hex);
             }
 
             if (!labelExists.length) {

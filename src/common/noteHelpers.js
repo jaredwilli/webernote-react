@@ -1,6 +1,10 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { NOTE_PROPS } from '../constants/noteConst';
+import { shorten } from './helpers.js';
 
 /**
  * sortNotes
@@ -17,12 +21,30 @@ export function sortNotes(notes) {
     return notes;
 }
 
+export function noteNavItems(obj, notes) {
+    const key = Object.keys(obj);
+    let prop = (key[0] === 'tags') ? 'label' : 'name';
+    let items = '';
+
+    if (obj[key] && obj[key].length) {
+        items = obj[key].map((o, i) =>
+            <li key={i} id={o.id}>
+                <Link to={'/' + key + '/' + o[prop].toLowerCase()}>
+                    <span className="name">{shorten(o[prop])}</span>
+                </Link>&nbsp;
+                <span className="count">{getObjCounts({ [key]: o }, notes)}</span>
+            </li>
+        );
+    }
+
+    return items;
+}
+
 export function getObjCounts(objType, notes) {
-    let objCount = {};
-    objCount.count = 0;
+    let count = 0;
 
     if (!objType || !notes) {
-        return 'Error: missing objType or notes argument.';
+        throw 'Error: missing objType or notes argument.';
     } else {
         let key = Object.keys(objType)[0];
 
@@ -36,19 +58,19 @@ export function getObjCounts(objType, notes) {
                 if (note[key] && Array.isArray(note[key])) {
                     note[key].filter((tkey) => {
                         if (tkey.id === objType[key].id) {
-                            objCount.count++;
+                            count++;
                         }
                     })
                 }
                 // Notebooks & Labels
                 else if (note[key].id === objType[key].id) {
-                    objCount.count++;
+                    count++;
                 }
             });
         }
     }
 
-    return objCount;
+    return count;
 }
 
 /**
