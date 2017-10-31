@@ -57,39 +57,68 @@ export function addTag(tags, note) {
     }
 }
 
-export function removeTags(notes, removedNote) {
+/**
+ *
+ * @param {Array} removedTags
+ * @param {Object} note
+ * @param {Array} notes
+ */
+export function removeTags(removedTags, note, notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        tagsRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const tags = refToArray(snap.val());
-                let tagsList = [];
+        console.log(removedTags, note, notes);
 
-                tags.forEach((tag) => {
-                    debugger;
-                    let tagCount = getObjCounts({ tag }, notes);
-debugger;
-                    // Remove empty tags
-                    if (tagCount === 0) {
-                        tagsRef.child(tag.id)
-                            .remove()
-                            .then(dispatch(deleteTagsRejectedAction(tag)))
-                            .catch((error) => {
-                                console.error(error);
-                                dispatch(deleteTagsRejectedAction());
-                            });;
-                    } else {
-                        tagsList.push(tag);
-                    }
-                });
+        removedTags.forEach((tag) => {
+            let tagCount = getObjCounts({ tag }, notes);
 
-                dispatch(deleteTagsFulfilledAction(tagsList));
+            if (tagCount === 0) {
+                debugger;
+                tagsRef.child(tag.id)
+                    .remove()
+                    .then(() => {
+                        return tagsRef.once('value').then((snap) => refToArray(snap.val()));
+                    })
+                    .then((tags) => {
+                        debugger;
+                        dispatch(deleteTagsFulfilledAction(tags))
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteTagsRejectedAction());
+                    });
             }
         });
+
+//         tagsRef.once('value', (snap) => {
+//             if (snap.exists()) {
+//                 const tags = refToArray(snap.val());
+//                 let tagsList = [];
+
+//                 tags.forEach((tag) => {
+//                     debugger;
+//                     let tagCount = getObjCounts({ tag }, notes);
+// debugger;
+//                     // Remove empty tags
+//                     if (tagCount === 0) {
+//                         tagsRef.child(tag.id)
+//                             .remove()
+//                             .then(dispatch(deleteTagsRejectedAction(tag)))
+//                             .catch((error) => {
+//                                 console.error(error);
+//                                 dispatch(deleteTagsRejectedAction());
+//                             });
+//                     } else {
+//                         tagsList.push(tag);
+//                     }
+//                 });
+
+//                 dispatch(deleteTagsFulfilledAction(tagsList));
+//             }
+//         });
 	};
 }
 
@@ -103,17 +132,15 @@ export function listenForDeletedTags() {
         notesRef.on('child_removed', (snap) => {
             const note = snap.val();
             let notes = getState().noteData.notes;
-            let noteTags = [];
 
-            // Only bother to run removeTags if the deleted note had some
-            if (note.tags && note.tags.length) {
-                noteTags = note.tags;
+            // Only bother to run removeTags if the deleted note had tags
+            if (note.tags) {
                 // Filter the deleted note out of current notes state
                 notes = notes.filter((n) => {
                     return n.id !== note.id;
                 });
 
-                dispatch(removeTags(notes, noteTags));
+                dispatch(removeTags(refToArray(note.tags), note, notes));
             }
         });
     }

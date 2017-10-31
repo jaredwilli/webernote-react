@@ -20,6 +20,17 @@ export function sortNotes(notes) {
     return notes;
 }
 
+export function compareObjs(a, b) {
+    function fn(otherArray) {
+        return (current) => {
+            return otherArray.filter((other) => {
+                return other.id == current.id && other.label == current.label;
+            }).length == 0;
+        };
+    }
+    return a.filter(fn(b)).concat(b.filter(fn(a)));
+}
+
 /**
  * noteNavItems
  *

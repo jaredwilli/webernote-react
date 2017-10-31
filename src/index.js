@@ -9,7 +9,7 @@ import configureStore from './store/index';
 import { loginAnonymously } from './actions/userActions';
 import App from './App';
 
-import './index.css';
+import './styles/import.css';
 
 import registerServiceWorker from './registerServiceWorker';
 

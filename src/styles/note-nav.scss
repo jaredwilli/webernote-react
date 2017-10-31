@@ -28,42 +28,41 @@
 	overflow-y: auto;
 }
 
-.narrow-nav .hamburger {
-    border-right: 1px solid #000;
-    -webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
-            box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+.narrow-nav {
+    &.drawer-nav .note-nav {
+        box-shadow: -5px 14px 25px #000;
+        background: #fff;
+        border: 1px solid #828c93;
+        border-left: 0;
+        padding: 5px 5px 20px 30px;
+        vertical-align: top;
+        position: fixed;
+        left: -280px;
+        top: 0;
+        width: 250px;
+        height: 100%;
+        z-index: 3;
+        transition: 0.5s; /* slide in/out */
 
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-	padding: 4px 10px;
-}
+        .close {
+            float: right;
+        }
+    }
 
-.narrow-nav .hamburger:hover {
-    background: #E91E63;
-}
+    .hamburger {
+        border-right: 1px solid #000;
+        -webkit-box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+                box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
 
-.narrow-nav.drawer-nav .note-nav {
-    box-shadow: -5px 14px 25px #000;
-	background: #fff;
-    border: 1px solid #828c93;
-    border-left: 0;
-	padding: 5px 5px 20px 30px;
-	vertical-align: top;
-	position: fixed;
-    left: -280px;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    z-index: 3;
-    transition: 0.5s; /* slide in/out */
-}
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px 10px;
 
-.narrow-nav.drawer-nav .note-nav .remove {
-    font-size: 25px;
-	position: absolute;
-	right: 10px;
-	z-index: 2;
+        &:hover {
+            background: #E91E63;
+        }
+    }
 }
 
 .note-nav > div {
@@ -93,7 +92,7 @@
 }
 
 .note-nav li > div {
-	background: url('../img/arrow.png') no-repeat 1px 2px;
+	background: url('./img/arrow.png') no-repeat 1px 2px;
     color: #068dcc;
 	text-decoration: none;
     padding: 0 0 0 14px;

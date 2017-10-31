@@ -1,3 +1,5 @@
+@import './_common';
+
 /* Helpers */
 
 .inline-block {
@@ -8,13 +10,29 @@
     display: block !important;
 }
 
-.invisible {
-    visibility: hidden !important;
+.hidden {
+    @include hidden;
 }
 
-.hidden {
-    display: none !important;
-    visibility: hidden !important;
+.invisible {
+    @include invisible;
+}
+
+.visible {
+    @include visible;
+}
+
+.truncate {
+    @include truncate;
+}
+
+/* Clear backdrop for modals and popovers */
+.cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .facebook {
@@ -37,10 +55,3 @@
     border-color: #373737 !important;
 }
 
-
-.truncate {
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
