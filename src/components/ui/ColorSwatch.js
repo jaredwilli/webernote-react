@@ -5,19 +5,19 @@ import { Swatch } from 'react-color/lib/components/common';
 
 export const ColorSwatch = ({ hover, color, onClick, onSwatchHover }) => {
 	const hoverSwatch = {
+		boxShadow: '0 0 5px 2px rgba(0, 0, 0, 0.25)',
+		outline: '2px solid #fff',
 		position: 'relative',
 		zIndex: '2',
-		outline: '2px solid #fff',
-		boxShadow: '0 0 5px 2px rgba(0,0,0,0.25)'
 	};
 
 	const styles = reactCSS(
 		{
 			default: {
 				swatch: {
-					width: '25px',
-					height: '25px',
-					fontSize: '0'
+					fontSize: '0',
+					width: '22px',
+					height: '22px',
 				}
 			},
 			hover: {

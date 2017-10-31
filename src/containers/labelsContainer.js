@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import { GithubPicker } from 'react-color';
+import { ColorPicker } from '../components/ui/ColorPicker';
 import CloseBtn from '../components/ui/CloseBtn';
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
@@ -88,7 +88,7 @@ class LabelsContainer extends React.PureComponent {
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
 
-                    <GithubPicker color={this.state.background}
+                    <ColorPicker color={this.state.background}
                         onChangeComplete={this.editLabel}
                         colors={colors}
                         triangle="top-right" />
