@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { createNewTag, getTagCount } from '../common/noteHelpers';
+import { createNewTag, getObjCounts } from '../common/noteHelpers';
 import { refToArray, uniq } from '../common/helpers';
 
 export function getTags() {
@@ -70,10 +70,11 @@ export function removeTags(notes) {
                 let tagsList = [];
 
                 tags.forEach((tag) => {
-                    let tagCount = getTagCount(tag, notes);
+                    let tagCount = getObjCounts({ tag }, notes);
+
                     // Remove empty tags
-                    if (tagCount.count === 0) {
-                        tagsRef.child(tagCount.tag.id)
+                    if (tagCount === 0) {
+                        tagsRef.child(tag.id)
                             .remove()
                             .then(dispatch(deleteTagsRejectedAction(tag)))
                             .catch((error) => {

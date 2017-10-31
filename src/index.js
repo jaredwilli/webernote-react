@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import configureStore from './store/index';
-import { listenForAuth, loginAnonymously } from './actions/userActions';
+import { loginAnonymously } from './actions/userActions';
 import App from './App';
 
 import './index.css';

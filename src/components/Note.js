@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import CloseBtn from './ui/CloseBtn';
 import { formatDate, shorten } from '../common/helpers';
 import { sortNotes, getTags } from '../common/noteHelpers';
 
@@ -23,9 +24,7 @@ function Note(props) {
         <li className={(note.isEditing) ? 'note selected' : 'note'}
             key={note.id} id={note.id}
             onClick={(e) => props.selectNote(e, note)}>
-            <span className="remove delete-note Select-clear"
-                onClick={() => props.deleteNote(note)}>×
-            </span>
+            <CloseBtn onClick={() => props.deleteNote(note)} />
             {note.label ? <div className="note-label" style={{background: note.label.hex}}></div> : ''}
             {note.title ? <h2 className="title">{shorten(note.title, 80)}</h2> : ''}
             <div className="note-details">
@@ -40,12 +39,6 @@ function Note(props) {
                             <a href>{note.notebook.name}</a>
                         </span>
                     : ''}
-                    {(note.url) ?
-                        <span className="url">
-                            <FontAwesome name='link' />
-                            <a href={note.url} target="_blank">{shorten(note.url, 80)}</a>
-                        </span>
-                    :  ''}
                     {getTags(note.tags)}
                 </div>
             </div>

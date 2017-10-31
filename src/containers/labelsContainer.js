@@ -102,7 +102,7 @@ class LabelsContainer extends React.PureComponent {
                     style={{background: backgroundColor}}
                     onClick={this.showColorPicker} />
 
-                <CloseBtn onClick={this.removeLabel} />
+                <CloseBtn onClick={() => this.removeLabel(null)} />
 
                 {colorPicker}
             </div>
