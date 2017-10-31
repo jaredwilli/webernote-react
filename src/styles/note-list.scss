@@ -8,6 +8,15 @@
     overflow: hidden;
     overflow-y: auto;
 
+    .filters {
+        .close {
+            display: none;
+        }
+
+        &:hover .close {
+            display: inline-block;
+        }
+    }
     .filter,
     .viewing {
         display: block;

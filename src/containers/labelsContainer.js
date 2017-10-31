@@ -38,8 +38,7 @@ class LabelsContainer extends React.PureComponent {
 
     removeLabel(e) {
         e.preventDefault();
-        const label = {};
-        this.props.editField(label);
+        this.props.editField(null);
     }
 
     editLabel(label) {
@@ -101,8 +100,9 @@ class LabelsContainer extends React.PureComponent {
                 <button className="label-background" type="button"
                     style={{background: backgroundColor}}
                     onClick={this.showColorPicker} />
+                    {/* {(backgroundColor === 'none') ? 'Label' : ''} */}
 
-                <CloseBtn onClick={() => this.removeLabel(null)} />
+                {(backgroundColor !== 'none') ? <CloseBtn onClick={(e) => this.removeLabel(e)} /> : ''}
 
                 {colorPicker}
             </div>

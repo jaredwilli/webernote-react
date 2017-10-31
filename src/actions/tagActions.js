@@ -57,7 +57,7 @@ export function addTag(tags, note) {
     }
 }
 
-export function removeTags(notes) {
+export function removeTags(notes, removedNote) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
@@ -70,8 +70,9 @@ export function removeTags(notes) {
                 let tagsList = [];
 
                 tags.forEach((tag) => {
+                    debugger;
                     let tagCount = getObjCounts({ tag }, notes);
-
+debugger;
                     // Remove empty tags
                     if (tagCount === 0) {
                         tagsRef.child(tag.id)
@@ -100,15 +101,20 @@ export function listenForDeletedTags() {
         const notesRef = database.ref('users/' + user.uid + '/notes');
 
         notesRef.on('child_removed', (snap) => {
+            const note = snap.val();
             let notes = getState().noteData.notes;
-            const n = snap.val();
+            let noteTags = [];
 
-            // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
-            });
+            // Only bother to run removeTags if the deleted note had some
+            if (note.tags && note.tags.length) {
+                noteTags = note.tags;
+                // Filter the deleted note out of current notes state
+                notes = notes.filter((n) => {
+                    return n.id !== note.id;
+                });
 
-            dispatch(removeTags(notes));
+                dispatch(removeTags(notes, noteTags));
+            }
         });
     }
 }

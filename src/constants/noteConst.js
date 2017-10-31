@@ -48,5 +48,6 @@ export const COLORS = [
     { name: 'purple', hex: '#9C27B0', source: 'hex' },
     { name: 'light gray', hex: '#F5F5F5', source: 'hex' },
     { name: 'gray', hex: '#9E9E9E', source: 'hex' },
-    { name: 'dark gray', hex: '#212121', source: 'hex' }
+    { name: 'dark gray', hex: '#212121', source: 'hex' },
+    { name: 'black', hex: '#000000', source: 'hex' }
 ];
