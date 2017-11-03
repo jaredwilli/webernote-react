@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import IconBtn from '../IconBtn';
+import Dropdown from '../ui/Dropdown';
 
 it('renders without crashing', () => {
-    shallow(<IconBtn />);
+    shallow(<Dropdown />);
 });

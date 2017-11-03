@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { createNewTag, getTagCount } from '../common/noteHelpers';
+import { createNewTag, getObjCounts } from '../common/noteHelpers';
 import { refToArray, uniq } from '../common/helpers';
 
 export function getTags() {
@@ -29,65 +29,85 @@ export function addTag(tags, note) {
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        // Make tag list unique
-        tags = uniq(tags);
-        let tagList = [];
+        // Double check this is a new tag
+        if (tags.length === 1 && tags[0].hasOwnProperty('className')) {
+            const tagRef = tagsRef.push();
+            const tag = createNewTag(tagRef.key, tags[0], note);
 
-        // Only add new tags but make full tagList
-        tags.forEach((tag) => {
-            // if no ID push a new tag to the list
-            if (!tag.id && tag.className) {
-                const tagRef = tagsRef.push();
-
-                tag = createNewTag(tagRef.key, tag, note, user);
-
-                tagRef.set(tag)
-                    .then(dispatch(addTagFulfilledAction(tag)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(addTagRejectedAction());
-                    });
-            }
-
-            // push to tagList
-            tagList.push(tag);
-        });
-
-        dispatch(addTagFulfilledAction(tagList));
+            // Add the tag
+            tagRef.set(tag)
+                .then(() => tagsRef.once('value'))
+                .then((tags) => dispatch(addTagFulfilledAction(tags.val())))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(addTagRejectedAction);
+                });
+        }
     }
 }
 
-export function removeTags(notes) {
+/**
+ *
+ * @param {Array} removedTags
+ * @param {Object} note
+ * @param {Array} notes
+ */
+export function removeTags(removedTags, note, notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        tagsRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const tags = refToArray(snap.val());
-                let tagsList = [];
+        console.log(removedTags, note, notes);
 
-                tags.forEach((tag) => {
-                    let tagCount = getTagCount(tag, notes);
-                    // Remove empty tags
-                    if (tagCount.count === 0) {
-                        tagsRef.child(tagCount.tag.id)
-                            .remove()
-                            .then(dispatch(deleteTagsRejectedAction(tag)))
-                            .catch((error) => {
-                                console.error(error);
-                                dispatch(deleteTagsRejectedAction());
-                            });;
-                    } else {
-                        tagsList.push(tag);
-                    }
-                });
+        removedTags.forEach((tag) => {
+            let tagCount = getObjCounts({ tag }, notes);
 
-                dispatch(deleteTagsFulfilledAction(tagsList));
+            if (tagCount === 0) {
+                debugger;
+                tagsRef.child(tag.id)
+                    .remove()
+                    .then(() => {
+                        return tagsRef.once('value').then((snap) => refToArray(snap.val()));
+                    })
+                    .then((tags) => {
+                        debugger;
+                        dispatch(deleteTagsFulfilledAction(tags))
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteTagsRejectedAction());
+                    });
             }
         });
+
+//         tagsRef.once('value', (snap) => {
+//             if (snap.exists()) {
+//                 const tags = refToArray(snap.val());
+//                 let tagsList = [];
+
+//                 tags.forEach((tag) => {
+//                     debugger;
+//                     let tagCount = getObjCounts({ tag }, notes);
+// debugger;
+//                     // Remove empty tags
+//                     if (tagCount === 0) {
+//                         tagsRef.child(tag.id)
+//                             .remove()
+//                             .then(dispatch(deleteTagsRejectedAction(tag)))
+//                             .catch((error) => {
+//                                 console.error(error);
+//                                 dispatch(deleteTagsRejectedAction());
+//                             });
+//                     } else {
+//                         tagsList.push(tag);
+//                     }
+//                 });
+
+//                 dispatch(deleteTagsFulfilledAction(tagsList));
+//             }
+//         });
 	};
 }
 
@@ -99,15 +119,18 @@ export function listenForDeletedTags() {
         const notesRef = database.ref('users/' + user.uid + '/notes');
 
         notesRef.on('child_removed', (snap) => {
+            const note = snap.val();
             let notes = getState().noteData.notes;
-            const n = snap.val();
 
-            // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
-            });
+            // Only bother to run removeTags if the deleted note had tags
+            if (note.tags) {
+                // Filter the deleted note out of current notes state
+                notes = notes.filter((n) => {
+                    return n.id !== note.id;
+                });
 
-            dispatch(removeTags(notes));
+                dispatch(removeTags(refToArray(note.tags), note, notes));
+            }
         });
     }
 }

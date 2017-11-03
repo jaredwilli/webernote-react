@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import NotebooksContainer from '../notebooksContainer';
+import CloseBtn from '../ui/CloseBtn';
 
 it('renders without crashing', () => {
-    shallow(<NotebooksContainer />);
+    shallow(<CloseBtn />);
 });
