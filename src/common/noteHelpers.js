@@ -20,6 +20,13 @@ export function sortNotes(notes) {
     return notes;
 }
 
+/**
+ * compareObjs
+ *
+ * @description Given two arrays of objects, compare them and return the differences.
+ * @param {Array} a
+ * @param {Array} b
+ */
 export function compareObjs(a, b) {
     function fn(otherArray) {
         return (current) => {

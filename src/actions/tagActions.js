@@ -29,31 +29,20 @@ export function addTag(tags, note) {
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        // Make tag list unique
-        tags = uniq(tags);
-        let tagList = [];
+        // Double check this is a new tag
+        if (tags.length === 1 && tags[0].hasOwnProperty('className')) {
+            const tagRef = tagsRef.push();
+            const tag = createNewTag(tagRef.key, tags[0], note);
 
-        // Only add new tags but make full tagList
-        tags.forEach((tag) => {
-            // if no ID push a new tag to the list
-            if (!tag.id && tag.className) {
-                const tagRef = tagsRef.push();
-
-                tag = createNewTag(tagRef.key, tag, note, user);
-
-                tagRef.set(tag)
-                    .then(dispatch(addTagFulfilledAction(tag)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(addTagRejectedAction());
-                    });
-            }
-
-            // push to tagList
-            tagList.push(tag);
-        });
-
-        dispatch(addTagFulfilledAction(tagList));
+            // Add the tag
+            tagRef.set(tag)
+                .then(() => tagsRef.once('value'))
+                .then((tags) => dispatch(addTagFulfilledAction(tags.val())))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(addTagRejectedAction);
+                });
+        }
     }
 }
 

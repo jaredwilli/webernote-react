@@ -60,60 +60,62 @@ export function editNoteNotebook(noteRef, note, obj) {
 export function editNoteTags(noteRef, note, obj) {
     return (dispatch) => {
         const noteTagsRef = noteRef.child('tags');
+        const inputTags = obj.tags;
 
-        // Remove all tags removed from edit input
-        const removedTags = getDeletedTags(obj.tags, note);
+        if (inputTags.length) {
+            inputTags.forEach((tag) => {
+                if (!tag.id) return;
 
-        if (removedTags && removedTags.length) {
-            removedTags.forEach((tag) => {
-                noteTagsRef.child(tag.id).remove()
-                    .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(editNoteRejectedAction());
-                    });
-            });
-        }
+                const noteTagRef = noteTagsRef.child(tag.id);
 
-        // If tags is empty then remove them from note
-        if (!obj.tags) {
-            noteTagsRef.remove()
-                .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
-                .catch((error) => {
-                    console.error(error);
-                    dispatch(editNoteRejectedAction());
-                });
-        } else {
-            // Note has tags
-            obj.tags = uniq(obj.tags);
-
-            // Update existing tags and add new ones
-            obj.tags.forEach((tag) => {
-                // if tag has an ID which it should, set that ref
-                if (tag.id) {
-                    noteRef.child('tags/' + tag.id)
-                        .set(tag)
-                        .then(dispatch(editNoteFulfilledAction(note, obj)))
+                if (obj.type === 'add') {
+                    noteTagRef.set(tag)
+                        .then(() => noteRef.once('value'))
+                        .then((snap) => {
+                            note = snap.val();
+                            debugger;
+                            dispatch(editNoteFulfilledAction(note, {}))
+                        })
                         .catch((error) => {
                             console.error(error);
                             dispatch(editNoteRejectedAction());
                         });
-                } else {
-                    dispatch(editNoteRejectedAction());
+                } else if (obj.type === 'delete') {
+                    noteTagRef.remove()
+                        .then(() => noteRef.once('value'))
+                        .then((snap) => {
+                            note = snap.val();
+                            dispatch(editNoteFulfilledAction(note, {}))
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            dispatch(editNoteRejectedAction());
+                        });
                 }
             });
+        } else {
+            // remove all?
+            debugger;
+            let noteTagRef = noteTagsRef.child(inputTags.id);
+
+            noteTagRef.remove()
+                .then(dispatch(editNoteFulfilledAction(note, { tags: [] })))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(editNoteRejectedAction());
+                });
         }
     }
 }
 
 export function editNoteLabel(noteRef, note, obj) {
     return (dispatch) => {
-
         const noteLabelRef = noteRef.child('label');
 
         if (obj.label && !obj.label.name) {
             noteLabelRef.remove()
-                .then(dispatch(editNoteFulfilledAction(note, obj)))
+                .then(() => { return noteRef.once('value'); })
+                .then((snap) => dispatch(editNoteFulfilledAction(snap.val())))
                 .catch((error) => {
                     console.error(error);
                     dispatch(editNoteRejectedAction());
@@ -132,14 +134,14 @@ export function editNoteLabel(noteRef, note, obj) {
 
 export function editNote(note, obj = null) {
 	return (dispatch, getState) => {
-		dispatch(editNoteRequestedAction());
+		dispatch(editNoteRequestedAction);
 
 		const user = getState().userData.user;
         const notesRef = database.ref('users/' + user.uid + '/notes');
         const noteRef = notesRef.child(note.id);
 
 		if (!note) {
-			dispatch(editNoteRejectedAction());
+			dispatch(editNoteRejectedAction);
 			return;
 		}
 
@@ -164,6 +166,16 @@ export function editNote(note, obj = null) {
 		}
 	};
 }
+
+export function removeNoteTags(note, tags) {
+    return (dispatch, getState) => {
+        dispatch(editNoteRequestedAction);
+
+        const user = getState().userData.user;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
+
+    };
+};
 
 export function deleteNote(note) {
 	return (dispatch, getState) => {

@@ -50,6 +50,7 @@ export const AddNoteFulfilled = 'ADD_NOTE_FULFILLED';
 export const EditNoteRequested = 'EDIT_NOTE_REQUESTED';
 export const EditNoteRejected = 'EDIT_NOTE_REJECTED';
 export const EditNoteFulfilled = 'EDIT_NOTE_FULFILLED';
+export const EditNoteTagsFulfilled = 'EDIT_NOTE_TAGS_FULFILLED';
 
 export const DeleteNoteRequested = 'DELETE_NOTE_REQUESTED';
 export const DeleteNoteRejected = 'DELETE_NOTE_REJECTED';

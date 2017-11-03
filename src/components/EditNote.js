@@ -15,6 +15,7 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editField = this.editField.bind(this);
+        this.focusTitleInput = this.focusTitleInput.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
@@ -37,6 +38,11 @@ class EditNote extends React.Component {
         if (nextProps.selectedNote) {
             this.setBottomHeight();
         }
+    }
+
+    // Explicitly focus the text input using the raw DOM API
+    focusTitleInput() {
+        this.titleInput.focus();
     }
 
     setBottomHeight() {
@@ -85,7 +91,8 @@ class EditNote extends React.Component {
                         <input type="text" className="title" name="title" placeholder="Enter title..."
                             value={selectedNote.title}
                             autoFocus={true}
-                            onChange={(e) => this.editNote(e)} />
+                            onChange={(e) => this.editNote(e)}
+                            ref={(input) => {this.titleInput = input}} />
                         <NotebooksContainer
                             canAddNotebook={true}
                             editField={(notebook) => this.editField({ notebook: notebook })} />
@@ -101,7 +108,7 @@ class EditNote extends React.Component {
                     <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
-                            editField={(tags) => this.editField({ tags: tags })} />
+                            editField={(tags) => this.editField(tags)} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description"

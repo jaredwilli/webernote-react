@@ -103,17 +103,15 @@ export default function noteReducer(state = {}, action) {
             });
 
             newState.notes = state.notes;
-
+debugger;
             if (action.obj && action.obj.notebook) {
                 note.notebook = action.obj.notebook
             }
 
-            if (action.obj && action.obj.tags) {
-                note.tags = action.obj.tags;
-            } else {
-                note.tags = (note.tags) ? note.tags.slice() : [];
-            }
+            newState.note.tags = (note.tags) ? note.tags : [];
 
+            console.log(newState.note.tags);
+debugger;
             if (action.obj && action.obj.label) {
                 note.label = action.obj.label
             }

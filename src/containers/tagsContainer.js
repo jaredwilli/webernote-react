@@ -17,30 +17,39 @@ class TagsContainer extends React.PureComponent {
 	}
 
     // TODO: add a minimum character limit for new tags
-	editTags(inputTags) {
+	editTags(tags) {
         const selectedNote = this.props.selectedNote;
-        let removedTags = [];
 
         // Check for new tags to be added
-        if (inputTags.length) {
-            inputTags.forEach((tag) => {
-                if (tag.className) {
-                    this.props.actions.addTag(inputTags, selectedNote);
-                }
+        if (tags.length) {
+            let newTag = tags.filter((tag) => {
+                return tag.hasOwnProperty('className');
             });
+
+            if (newTag.length) {
+                // ADD: new tag
+                this.props.actions.addTag(newTag, selectedNote);
+                this.props.editField({ type: 'add', tags });
+            }
+            else if (selectedNote.tags && selectedNote.tags.length < tags.length) {
+                // ADD: Add existing tag
+                // tags = compareObjs(tags, selectedNote.tags);
+                this.props.editField({ type: 'add', tags });
+            }
+            else if (selectedNote.tags && selectedNote.tags.length > tags.length) {
+                // DELETE: remove tag
+                // tags = compareObjs(tags, selectedNote.tags);
+                this.props.editField({ type: 'delete', tags });
+            }
+            else {
+                console.log('Whats this?');
+                debugger;
+            }
         }
-
-        // Check for tags to be removed
-        if (inputTags.length < selectedNote.tags.length) {
-            removedTags = compareObjs(inputTags, selectedNote.tags);
-
-            this.props.actions.removeTags(removedTags, selectedNote, this.props.notes);
-            this.props.editField(removedTags, selectedNote);
-        } else {
-            // Edit the notes tags
-            this.props.editField(inputTags, selectedNote);
-            // Get tags again to update the state
-            this.props.actions.getTags();
+        else {
+            // DELETE: All tags on selectedNote
+            tags = compareObjs(tags, selectedNote.tags);
+            this.props.editField({ type: 'delete', tags });
         }
 	}
 
@@ -51,7 +60,7 @@ class TagsContainer extends React.PureComponent {
         if (tags) {
             tagOptions = tags;
         }
-
+debugger;
 		return (
 			<Creatable
 				className="tags"
