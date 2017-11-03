@@ -66,8 +66,9 @@ export function editNoteTags(noteRef, note, obj) {
 
         if (removedTags && removedTags.length) {
             removedTags.forEach((tag) => {
-                noteTagsRef.child(tag.id).remove()
-                    .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
+                noteTagsRef.child(tag.id)
+                    .remove()
+                    .then(dispatch(editNoteFulfilledAction(note, obj) ))
                     .catch((error) => {
                         console.error(error);
                         dispatch(editNoteRejectedAction());
@@ -89,6 +90,8 @@ export function editNoteTags(noteRef, note, obj) {
 
             // Update existing tags and add new ones
             obj.tags.forEach((tag) => {
+                delete tag.count;
+
                 // if tag has an ID which it should, set that ref
                 if (tag.id) {
                     noteRef.child('tags/' + tag.id)

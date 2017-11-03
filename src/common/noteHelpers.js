@@ -28,7 +28,11 @@ export function compareObjs(a, b) {
             }).length == 0;
         };
     }
-    return a.filter(fn(b)).concat(b.filter(fn(a)));
+    return {
+        difference: a.filter(fn(b)).concat(b.filter(fn(a))),
+        a: a.filter(fn(b)),
+        b: b.filter(fn(a))
+    };
 }
 
 /**
@@ -50,7 +54,7 @@ export function noteNavItems(obj, notes) {
                     {(key === 'label') ? <div className="note-label" style={{background: o.hex}} /> : ''}
                     <span className="name">{shorten(o[prop])}</span>
                 </Link>&nbsp;
-                <span className="count">{getObjCounts({ [key]: o }, notes)}</span>
+                <span className="count">{o.count}</span>
             </li>
         );
     }
@@ -80,12 +84,14 @@ export function getObjCounts(objType, notes) {
                 }
 
                 // Tags
-                if (note[key] && Array.isArray(note[key])) {
-                    note[key].forEach((tkey) => {
-                        if (tkey.id === objType[key].id) {
-                            count++;
-                        }
-                    })
+                if (key === 'tags' && note[key]) {
+                    if (note[key].length) {
+                        note[key].forEach((tkey) => {
+                            if (tkey.id === objType[key].id) {
+                                count++;
+                            }
+                        });
+                    }
                 }
                 // Notebooks & Labels
                 else if (note[key].id === objType[key].id) {
@@ -93,8 +99,8 @@ export function getObjCounts(objType, notes) {
                 }
             });
         }
+        return count;
     }
-    return count;
 }
 
 /**
@@ -122,6 +128,39 @@ export function getTags(noteTags) {
         </div>
 
     );
+}
+
+/**
+ * getTagCount
+ *
+ * @description
+ * Get the total count for notes that have each tag assigned to them. If a tag has zero notes it should remove the tag from the tags bucket, so need to trigger a removeTag event.
+ *
+ * @param {Object} tag
+ * @param {Array} notes
+ * @returns {Object} obj with tag name and note count using it
+ */
+export function getTagCount(tag, notes) {
+    let count = 0;
+
+    // iterate over notes
+    if (notes.length) {
+        notes.forEach((n) => {
+            if (!n.tags) return;
+
+            // iterate over note tags
+            n.tags.forEach((t) => {
+                if (tag.label === t.label) {
+                    count++;
+                }
+            });
+        });
+    }
+
+    return {
+        tag: tag,
+        count: count
+    };
 }
 
 /**
@@ -188,6 +227,7 @@ export function createNewTag(refId, tag, note) {
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
+    tag.count = 1;
 
     return tag;
 }

@@ -112,7 +112,7 @@ export default function tagReducer(state = {}, action) {
                 success: 'Deleted tags'
             });
 
-            newState.tags = tags;
+            newState.tags = refToArray(tags);
             return newState;
         }
 

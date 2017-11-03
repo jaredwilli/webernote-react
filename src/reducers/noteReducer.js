@@ -109,9 +109,7 @@ export default function noteReducer(state = {}, action) {
             }
 
             if (action.obj && action.obj.tags) {
-                note.tags = action.obj.tags;
-            } else {
-                note.tags = (note.tags) ? note.tags.slice() : [];
+                note.tags = refToArray(action.obj.tags);
             }
 
             if (action.obj && action.obj.label) {

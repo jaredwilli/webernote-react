@@ -19,38 +19,29 @@ class TagsContainer extends React.PureComponent {
     // TODO: add a minimum character limit for new tags
 	editTags(inputTags) {
         const selectedNote = this.props.selectedNote;
-        let removedTags = [];
+        let tagCompare = compareObjs(inputTags, selectedNote.tags);
 
         // Check for new tags to be added
         if (inputTags.length) {
-            inputTags.forEach((tag) => {
-                if (tag.className) {
-                    this.props.actions.addTag(inputTags, selectedNote);
-                }
-            });
-        }
-
-        // Check for tags to be removed
-        if (inputTags.length < selectedNote.tags.length) {
-            removedTags = compareObjs(inputTags, selectedNote.tags);
-
-            this.props.actions.removeTags(removedTags, selectedNote, this.props.notes);
-            this.props.editField(removedTags, selectedNote);
+            this.props.actions.editTags({
+                type: 'add_tag',
+                tags: tagCompare.difference
+            }, selectedNote);
         } else {
-            // Edit the notes tags
-            this.props.editField(inputTags, selectedNote);
-            // Get tags again to update the state
-            this.props.actions.getTags();
+            this.props.actions.editTags({
+                type: 'remove_tag',
+                tags: tagCompare.difference
+            }, this.props.notes);
         }
+
+        // Edit the notes tags
+        this.props.editField(inputTags, selectedNote);
+        // Get tags again to update the state
+        this.props.actions.getTags();
 	}
 
 	render() {
         const { selectedNote, tags } = this.props;
-        let tagOptions;
-
-        if (tags) {
-            tagOptions = tags;
-        }
 
 		return (
 			<Creatable
@@ -59,7 +50,7 @@ class TagsContainer extends React.PureComponent {
 				multi
 				noResultsText="Click to add tag..."
 				value={selectedNote.tags}
-				options={tagOptions}
+				options={tags}
 				onChange={(e) => this.editTags(e)}
 			/>
 		);
@@ -68,12 +59,11 @@ class TagsContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
 	const newState = {
-        user: state.userData.user,
 		notes: state.noteData.notes,
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote
 	};
-	// console.log('STATE: ', state, newState);
+	console.log('STATE: ', state, newState);
 
 	return newState;
 }
