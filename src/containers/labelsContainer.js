@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import { TwitterPicker } from 'react-color';
+import { ColorPicker } from '../components/ui/ColorPicker';
+import CloseBtn from '../components/ui/CloseBtn';
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 
@@ -37,32 +38,23 @@ class LabelsContainer extends React.PureComponent {
 
     removeLabel(e) {
         e.preventDefault();
-        const label = {};
-        this.props.editLabel(label);
+        this.props.editField(null);
     }
 
-    editLabel(color) {
+    editLabel(label) {
         const labels = this.props.labels;
         let labelExists = [];
+        label = COLORS.filter((color) => {
+            return color.hex.toLowerCase() === label.hex.toLowerCase()
+        })[0];
 
         this.setState({
             displayColorPicker: false
         });
 
-        if (color) {
-            let label = {};
-            label.hex = color.hex;
-
-            COLORS.forEach((c) => {
-                if (c.hex === label.hex) {
-                    label.name = c.name;
-                }
-            });
-
+        if (label) {
             if (labels) {
-                labelExists = labels.filter((l) => {
-                    return l.hex === color.hex;
-                });
+                labelExists = labels.filter((l) => l.hex === label.hex);
             }
 
             if (!labelExists.length) {
@@ -71,7 +63,8 @@ class LabelsContainer extends React.PureComponent {
                 label = labelExists[0];
             }
 
-            this.props.editLabel(label);
+            this.props.editField(label);
+            this.props.actions.getLabels();
         }
     }
 
@@ -94,7 +87,7 @@ class LabelsContainer extends React.PureComponent {
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
 
-                    <TwitterPicker color={this.state.background}
+                    <ColorPicker color={this.state.background}
                         onChangeComplete={this.editLabel}
                         colors={colors}
                         triangle="top-right" />
@@ -107,10 +100,9 @@ class LabelsContainer extends React.PureComponent {
                 <button className="label-background" type="button"
                     style={{background: backgroundColor}}
                     onClick={this.showColorPicker} />
+                    {/* {(backgroundColor === 'none') ? 'Label' : ''} */}
 
-                <span className="remove Select-clear"
-                    onClick={this.removeLabel}>×
-                </span>
+                {(backgroundColor !== 'none') ? <CloseBtn onClick={(e) => this.removeLabel(e)} /> : ''}
 
                 {colorPicker}
             </div>

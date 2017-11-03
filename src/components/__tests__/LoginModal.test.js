@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import TagsContainer from '../tagsContainer';
+import LoginModal from '../modals/LoginModal';
 
 it('renders without crashing', () => {
-    shallow(<TagsContainer />);
+    shallow(<LoginModal />);
 });

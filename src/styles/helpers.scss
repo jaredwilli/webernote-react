@@ -1,54 +1,57 @@
+@import './_common';
+
 /* Helpers */
 
-.truncate {
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.inline-block {
+    display: inline-block !important;
 }
 
-.invisible {
-    visibility: hidden !important;
+.block {
+    display: block !important;
 }
 
 .hidden {
-    display: none !important;
-    visibility: hidden !important;
+    @include hidden;
+}
+
+.invisible {
+    @include invisible;
+}
+
+.visible {
+    @include visible;
+}
+
+.truncate {
+    @include truncate;
+}
+
+/* Clear backdrop for modals and popovers */
+.cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .facebook {
     background: #3a589a !important;
     border-color: #2e457b !important;
 }
+
 .google {
     background: #df4a33 !important;
     border-color: #b93d2a !important;
 }
+
 .twitter {
     background: #51aaf1 !important;
     border-color: #4594d0 !important;
 }
+
 .github {
     background: #444444 !important;
     border-color: #373737 !important;
 }
 
-
-.x-button {
-    background: none;
-    border: 0;
-    color: #999;
-    font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
-    line-height: 1;
-    cursor: pointer;
-    padding: 0 3px;
-    margin-left: 1px;
-    float: right;
-    display: inline-block;
-    font-size: 18px;
-    line-height: 1;
-}
-
-.x-button:hover {
-    color: #D0021B;
-}

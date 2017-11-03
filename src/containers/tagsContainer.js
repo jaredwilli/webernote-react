@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
+import { compareObjs } from '../common/noteHelpers';
 import * as tagActions from '../actions/tagActions';
 
 class TagsContainer extends React.PureComponent {
@@ -16,27 +17,31 @@ class TagsContainer extends React.PureComponent {
 	}
 
     // TODO: add a minimum character limit for new tags
-	editTags(tags) {
+	editTags(inputTags) {
         const selectedNote = this.props.selectedNote;
+        let removedTags = [];
 
         // Check for new tags to be added
-        if (tags.length) {
-            tags.forEach((tag) => {
+        if (inputTags.length) {
+            inputTags.forEach((tag) => {
                 if (tag.className) {
-                    this.props.actions.addTag(tags, selectedNote);
+                    this.props.actions.addTag(inputTags, selectedNote);
                 }
             });
         }
 
         // Check for tags to be removed
-        if (tags.length < selectedNote.tags.length) {
-            this.props.actions.removeTags(this.props.notes);
-        }
+        if (inputTags.length < selectedNote.tags.length) {
+            removedTags = compareObjs(inputTags, selectedNote.tags);
 
-        // Edit the notes tags
-        this.props.editTags(tags, selectedNote);
-        // Get tags again to update the state
-        this.props.actions.getTags();
+            this.props.actions.removeTags(removedTags, selectedNote, this.props.notes);
+            this.props.editField(removedTags, selectedNote);
+        } else {
+            // Edit the notes tags
+            this.props.editField(inputTags, selectedNote);
+            // Get tags again to update the state
+            this.props.actions.getTags();
+        }
 	}
 
 	render() {
