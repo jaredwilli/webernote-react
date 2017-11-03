@@ -27,20 +27,20 @@ const devConfig = {
 };
 
 // Authorization config (not used?)
-/* const authConfig = {
+const authConfig = {
     apiKey: "AIzaSyDWX6KwRN0tmGLi6-4CFgZYfVzWIZtiyYs",
     authDomain: "webernote-auth.firebaseapp.com",
     databaseURL: "https://webernote-auth.firebaseio.com",
     projectId: "webernote-auth",
     storageBucket: "webernote-auth.appspot.com",
     messagingSenderId: "567445181045"
-}; */
+};
 
 let config, providers = {};
 
 // Initialize the app based on the environment to use the associated config settings
 if (env === 'development') {
-    config = devConfig;
+    config = authConfig;
     firebase.initializeApp(config);
     providers.fbProvider = new firebase.auth.FacebookAuthProvider();
 }
@@ -55,7 +55,7 @@ else if (env === 'production') {
 }
 else if (env === 'test') {
     // TODO: Test environment is just pointing to the devConfig
-    config = devConfig;
+    config = authConfig;
     firebase.initializeApp(config);
     providers.fbProvider = new firebase.auth.FacebookAuthProvider();
 }

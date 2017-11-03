@@ -149,15 +149,12 @@ export function loginUser(provider) {
 }
 
 export function loginAnonymously() {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(loginAnonymousRequestedAction());
 
-        let userState = getState().userData.user;
         let anonUserRef, userRef;
 
-        console.log('userState: loginAnonymously: ', userState); // to test the double login issue
-
-        auth.signInAnonymously()
+        return auth.signInAnonymously()
             .then((user) => {
                 // Set up anonUserRef and userRefs to be the same
                 anonUserRef = database.ref('users/' + user.uid);
@@ -208,6 +205,7 @@ export function listenForAuth() {
             if (anonUser) {
                 anonUserRef = database.ref('users/' + anonUser.uid);
             }
+console.log(user);
 
             if (user) {
                 userRef = database.ref('users/' + user.uid);

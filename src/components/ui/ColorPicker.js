@@ -89,7 +89,7 @@ export const ColorPicker = ({ width, colors, onChangeComplete, onSwatchHover, tr
         'hide-triangle': triangle === 'hide',
         'top-left-triangle': triangle === 'top-left',
         'top-right-triangle': triangle === 'top-right',
-        'bottom-left-triangle': triangle == 'bottom-left',
+        'bottom-left-triangle': triangle === 'bottom-left',
         'bottom-right-triangle': triangle === 'bottom-right',
     });
 
