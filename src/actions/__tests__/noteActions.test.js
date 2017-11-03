@@ -12,7 +12,7 @@ describe('Note Actions', () => {
     });
 
     it('should have fetchMock', () => {
-        expect(fetchMock).toBeDefined();
+        expect(fetchMock).toBeDefined()
     });
     // it('handles getNotes success', () => {
     //     const store = mockStore();
