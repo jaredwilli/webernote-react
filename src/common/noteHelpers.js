@@ -1,6 +1,9 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { shorten } from './helpers.js';
 
 /**
  * sortNotes
@@ -17,91 +20,81 @@ export function sortNotes(notes) {
     return notes;
 }
 
-/**
- * getNotebookCount
- *
- * @param {Object} notebook
- * @param {Array} notes
- * @returns {Object} obj with notebook name and note count using it
- */
-export function getNotebookCount(notebook, notes) {
-    let count = 0;
-
-    // iterate over notes
-    if (notes.length) {
-        notes.forEach((n) => {
-            if (!n.notebook) return;
-
-            if (n.notebook.name === notebook.name) {
-                count++;
-            }
-        });
+export function compareObjs(a, b) {
+    function fn(otherArray) {
+        return (current) => {
+            return otherArray.filter((other) => {
+                return other.id === current.id && other.label === current.label;
+            }).length === 0;
+        };
     }
-
-    return {
-        notebook: notebook,
-        count: count
-    };
+    return a.filter(fn(b)).concat(b.filter(fn(a)));
 }
 
 /**
- * getTagCount
+ * noteNavItems
  *
- * @description
- * Get the total count for notes that have each tag assigned to them. If a tag has zero notes it should remove the tag from the tags bucket, so need to trigger a removeTag event.
- *
- * @param {Object} tag
- * @param {Array} notes
- * @returns {Object} obj with tag name and note count using it
+ * @description Builds out the left nav bar menu items for notebooks, tags, labels.
+ * @param {Object} obj
+ * @param {Object} notes
  */
-export function getTagCount(tag, notes) {
+export function noteNavItems(obj, notes) {
+    const key = Object.keys(obj)[0];
+    let prop = (key === 'tags') ? 'label' : 'name';
+    let items = '';
+
+    if (obj[key] && obj[key].length) {
+        items = obj[key].map((o, i) =>
+            <li key={i} id={o.id}>
+                <Link to={'/' + key + '/' + o[prop].toLowerCase()}>
+                    {(key === 'label') ? <div className="note-label" style={{background: o.hex}} /> : ''}
+                    <span className="name">{shorten(o[prop])}</span>
+                </Link>&nbsp;
+                <span className="count">{getObjCounts({ [key]: o }, notes)}</span>
+            </li>
+        );
+    }
+
+    return items;
+}
+
+/**
+ * getObjectCounts
+ *
+ * @description Get the number of notebooks, tags, and labels that each note has.
+ * @param {Object} objType
+ * @param {Object} notes
+ */
+export function getObjCounts(objType, notes) {
     let count = 0;
 
-    // iterate over notes
-    if (notes.length) {
-        notes.forEach((n) => {
-            if (!n.tags) return;
+    if (!objType || !notes) {
+        return count;
+    } else {
+        let key = Object.keys(objType)[0];
 
-            // iterate over note tags
-            n.tags.forEach((t) => {
-                if (tag.label === t.label) {
+        if (notes && notes.length) {
+            notes.forEach((note) => {
+                if (!note[key]) {
+                    return;
+                }
+
+                // Tags
+                if (note[key] && Array.isArray(note[key])) {
+                    note[key].forEach((tkey) => {
+                        if (tkey.id === objType[key].id) {
+                            count++;
+                        }
+                    })
+                }
+                // Notebooks & Labels
+                else if (note[key].id === objType[key].id) {
                     count++;
                 }
             });
-        });
+        }
     }
-
-    return {
-        tag: tag,
-        count: count
-    };
-}
-
-/**
- * getLabelCount
- *
- * @param {Object} label
- * @param {Array} notes
- * @returns {Object} obj with label name and note count using it
- */
-export function getLabelCount(label, notes) {
-    let count = 0;
-
-    // iterate over notes
-    if (notes.length) {
-        notes.forEach((n) => {
-            if (!n.label) return;
-
-            if (n.label.hex === label.hex) {
-                count++;
-            }
-        });
-    }
-
-    return {
-        label: label,
-        count: count
-    };
+    return count;
 }
 
 /**

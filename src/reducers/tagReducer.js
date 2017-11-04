@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes.js';
-import { refToArray } from '../common/helpers.js';
+import * as types from '../constants/actionTypes';
+import { refToArray } from '../common/helpers';
 
 export default function tagReducer(state = {}, action) {
     switch(action.type) {
@@ -21,14 +21,14 @@ export default function tagReducer(state = {}, action) {
         }
 
         case types.GetTagsFulfilled: {
-            const tags = refToArray(action.tags);
+            const tags = action.tags;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got tags'
             });
 
-            newState.tags = tags;
+            newState.tags = refToArray(tags);
             return newState;
         }
 
@@ -84,7 +84,7 @@ export default function tagReducer(state = {}, action) {
                 success: 'Added tag'
             });
 
-            newState.tags = tags;
+            newState.tags = refToArray(tags);
             return newState;
         }
 
@@ -112,7 +112,7 @@ export default function tagReducer(state = {}, action) {
                 success: 'Deleted tags'
             });
 
-            newState.tags = tags;
+            newState.tags = refToArray(tags);
             return newState;
         }
 

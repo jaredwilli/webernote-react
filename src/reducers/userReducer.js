@@ -1,7 +1,8 @@
-import * as types from '../constants/actionTypes.js';
-import { refToArray } from '../common/helpers.js';
+import * as types from '../constants/actionTypes';
+import { refToArray } from '../common/helpers';
 
 export default function userReducer(state = {}, action) {
+
     switch(action.type) {
 
         // *** GET USERS
@@ -21,15 +22,15 @@ export default function userReducer(state = {}, action) {
         }
 
         case types.GetUsersFulfilled: {
-            const users = refToArray(action.users);
+            const users = action.users;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Got users'
             });
 
-            newState.users = state.users || []
-            newState.users = users;
+            newState.users = state.users;
+            newState.users = refToArray(users);
             return newState;
         }
 
@@ -85,8 +86,8 @@ export default function userReducer(state = {}, action) {
                 success: 'Added user'
             });
 
-            newState.users = state.users || [];
-            newState.users.push(user);
+            newState.users = state.users;
+            newState.users.concat(refToArray(user));
             newState.user = user;
             return newState;
         }
@@ -115,17 +116,16 @@ export default function userReducer(state = {}, action) {
                 success: 'Edited user'
             });
 
-            if (action.obj.userbook) {
-                user.userbook = action.obj.userbook
+            newState.selectedUser = user;
+
+            if (action.obj.userNotebook) {
+                newState.selectedUser.userNotebook = action.obj.userNotebook
             }
 
             if (action.obj.tags) {
-                user.tags = action.obj.tags;
-            } else {
-                user.tags = (user.tags) ? user.tags.slice() : [];
+                newState.selectedUser.tags = refToArray(action.obj.tags);
             }
 
-            newState.selectedUser = user;
             return newState;
         }
 
