@@ -38,6 +38,43 @@ class TagsContainer extends React.PureComponent {
         this.props.editField(tags, selectedNote);
         // Get tags again to update the state
         this.props.actions.getTags();
+    }
+
+    addTags(tags) {
+        const selectedNote = this.props.selectedNote;
+
+        // Check for new tags to be added
+        if (tags.length) {
+            tags.forEach((tag) => {
+                if (tag.className) {
+                    this.props.actions.addTag(tags, selectedNote);
+                }
+            });
+        }
+
+        // Check for tags to be removed
+        if (tags.length < selectedNote.tags.length) {
+            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
+        }
+
+        // Edit the notes tags
+        this.props.editField(tags, selectedNote);
+        // Get tags again to update the state
+        this.props.actions.getTags();
+    }
+
+    removeTags(tags) {
+        const selectedNote = this.props.selectedNote;
+
+        // Check for tags to be removed
+        if (tags.length < selectedNote.tags.length) {
+            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
+        }
+
+        // Edit the notes tags
+        this.props.editField(tags, selectedNote);
+        // Get tags again to update the state
+        this.props.actions.getTags();
 	}
 
 	render() {
