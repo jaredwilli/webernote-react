@@ -31,13 +31,13 @@
         "valid-jsdoc": "warn",
         "eqeqeq": "warn",
         "no-loop-func": "warn",
-        "camelcase": 1,                 // require camel case names
-        "eol-last": 1,                  // enforce newline at the end of file, with no multiple empty lines
-        "no-trailing-spaces": 1,        // disallow trailing whitespace at the end of lines
-        "quotes": 0,                    // specify whether double or single quotes should be used
-        "key-spacing": 1,               // enforces spacing between keys and values in object literal properties
-        "space-infix-ops": 1,           // require spaces around operators
-        "max-len": 0                    // specify the maximum length of a line in your program (off by default)
+        "camelcase": 1, // require camel case names
+        "eol-last": 1, // enforce newline at the end of file, with no multiple empty lines
+        "no-trailing-spaces": 1, // disallow trailing whitespace at the end of lines
+        "quotes": 0, // specify whether double or single quotes should be used
+        "key-spacing": 1, // enforces spacing between keys and values in object literal properties
+        "space-infix-ops": 1, // require spaces around operators
+        "max-len": 0 // specify the maximum length of a line in your program (off by default)
     }
 }
 
