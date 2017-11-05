@@ -17,7 +17,6 @@ class NotesContainer extends React.PureComponent {
 
 		this.state = {
             notes: this.props.notes,
-            containerStyle: {},
             filteredNotes: this.props.filteredNotes,
             selectedNote: this.props.selectedNote,
             filterType: 'Title',
@@ -42,30 +41,6 @@ class NotesContainer extends React.PureComponent {
             });
         }
     }
-
-    componentDidUpdate() {
-
-    }
-
-    // componentDidMount() {
-    //     window.addEventListener('resize', this.setAppHeight, false);
-    // }
-
-    // componentWillUnmount() {
-    //     window.addEventListener('resize', this.setAppHeight, false);
-    // }
-
-    // Set the notes-container height style based on the window height
-    // setAppHeight() {
-    //     let windowHeight = window.innerHeight,
-    //         container = document.querySelector('.notes-container');
-
-    //     if (container) {
-    //         this.setState({
-    //             containerStyle: {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'}
-    //         });
-    //     }
-    // }
 
 	deleteNote(note) {
         // I might not want to auto select first note on delete
@@ -92,23 +67,13 @@ class NotesContainer extends React.PureComponent {
 			);
         }
 
-        // let containerStyle = this.state.containerStyle || {};
-        // debugger;
-        // if (!containerStyle.hasOwnProperty('height')) {
-        //     let windowHeight = window.innerHeight,
-        //         container = document.querySelector('.notes-container');
-
-        //     if (container) {
-        //         containerStyle = {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'};
-        //     }
-        // }
-
         return (
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
-                <NoteList notes={notes}
+                <NoteList
+                    notes={notes}
                     addNote={this.props.addNote}
                     showLoginModal={this.props.showLoginModal}
-                    deleteNote={note => this.deleteNote(note)}
+                    deleteNote={this.deleteNote}
                     filterNotes={this.props.actions.filterNotes} />
 
                 <EditNote notes={notes} />

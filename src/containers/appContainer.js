@@ -9,12 +9,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NotesContainer from './notesContainer';
 import ModalContainer from './modalContainer';
 
+import WelcomeMsg from '../components/WelcomeMsg';
+import LoginOut from '../components/LoginOut';
 import Toolbar from '../components/Toolbar';
 import NoteTypes from '../components/NoteTypes';
 import NoteNav from '../components/NoteNav';
-
-import UserPhoto from '../components/UserPhoto';
-import IconBtn from '../components/ui/IconBtn';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -37,49 +36,33 @@ class AppContainer extends React.PureComponent {
 		this.showLoginModal = this.showLoginModal.bind(this);
 
         this.state = {
-            selectedNote: '',
-            notes: [],
             user: this.props.user,
+            selectedNote: '',
+            notes: {},
             showNoteNav: true,
             showModal: false
-        }
-    }
-
-    shouldComponentUpdate(nextProps, prevState) {
-        if (nextProps.user && prevState.user) {
-            return nextProps.user.uid !== prevState.user.uid;
-        }
-        return true;
-    }
-
-    componentWillUpdate(nextProps) {
-        if (nextProps.user !== '') {
-            this.setState({
-                user: nextProps.user
-            }, this.updateData);
-        }
+        };
     }
 
     // Handle keyboard shortcuts
     componentDidMount() {
+        this.props.actions.getNotes(this.state.user);
+
+        this.props.actions.listenForDeletedNotebook();
+        this.props.actions.listenForDeletedTags();
+        this.props.actions.listenForDeletedLabels();
+
         Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
         Mousetrap.bind(['command+b'], (e) => this.toggleNoteNav(e));
     }
 
     componentWillUnmount() {
-        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
-        Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
-    }
-
-    updateData() {
-        this.props.actions.getNotes(this.state.user);
-        this.props.actions.getNotebooks(this.state.user);
-        this.props.actions.getTags(this.state.user);
-        this.props.actions.getLabels(this.state.user);
-
         this.props.actions.listenForDeletedNotebook();
         this.props.actions.listenForDeletedTags();
         this.props.actions.listenForDeletedLabels();
+
+        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
+        Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
     }
 
     toggleNoteNav(e) {
@@ -132,71 +115,35 @@ class AppContainer extends React.PureComponent {
     render() {
         let { user } = this.props;
 
-        let loginOut = '';
-        let avatarStyle = {
-            border: '1px solid rgba(51, 51, 51, 0.50)'
-        };
-        let iconBtnStyle = {
-	        verticalAlign: 'bottom'
-        };
-
-        // Setup login/out and user meta block
-        if (user && !user.isAnonymous) {
-            loginOut = (
-                <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
-
-                    <span className="user-meta">
-                        <UserPhoto imgSrc={user.photo}
-                            size={20}
-                            style={avatarStyle} />
-                        <span className="username">
-                            {user.displayName}
-                        </span>
-                    </span>
-                    <button className="logout" onClick={(e) => this.logout()}>Logout</button>
-                </div>
-            );
-        } else if (user && user.isAnonymous) {
-            loginOut = (
-                <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
-
-                    <div className="user-meta">
-                        <UserPhoto size={20}
-                            style={avatarStyle} />
-                        <span className="username">
-                            {user.displayName}
-                        </span>
-                    </div>
-                    <button className="login" onClick={this.showLoginModal}>Login</button>
-                </div>
-            );
+        if (!user.notes) {
+            return <WelcomeMsg addNote={this.addNote} showLoginModal={this.showLoginModal} />
         }
 
         return (
             <MuiThemeProvider>
                 <div className="full-wrapper">
                     <header>
-                        <div className="loginout">
-                            {loginOut}
-                        </div>
+                        <LoginOut user={user}
+                            logout={this.logout}
+                            showLoginModal={this.showLoginModal}
+                            goToGithub={this.goToGithub} />
 
                         <h1><Link to="/">Webernote<sup>TM</sup></Link></h1>
                         <span className="tagline">Real-time note taking. Increase your productivity!</span>
                     </header>
 
                     <div className="wrapper">
-                        <Toolbar addNote={this.addNote} actions={this.props.actions} />
+                        <Toolbar addNote={this.addNote}  />
 
                         <nav className="note-types">
-                            <NoteTypes />
+                            <NoteTypes user={user} />
                         </nav>
 
                         <div className="main">
-                            {(this.state.showNoteNav) ? <NoteNav show="wide" /> : '' }
+                            {(this.state.showNoteNav) && <NoteNav show="wide" />}
 
-                            <NotesContainer showLoginModal={this.showLoginModal}
+                            <NotesContainer
+                                showLoginModal={this.showLoginModal}
                                 addNote={this.addNote} />
                         </div>
                     </div>
@@ -210,8 +157,7 @@ class AppContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user,
-        notes: state.noteData.notes
+        user: state.userData.user
     };
     // console.log('STATE: ', state, newState);
 
@@ -219,7 +165,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = Object.assign(userActions, noteActions, notebookActions, tagActions, labelActions, modalActions);
+    const actions = Object.assign({},
+        userActions, noteActions, notebookActions,
+        tagActions, labelActions, modalActions
+    );
 
     return {
         actions: bindActionCreators(actions, dispatch)
