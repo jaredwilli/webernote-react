@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import configureStore from './store/index';
 import App from './App';
 
+import './import.css';
+
 import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore;
