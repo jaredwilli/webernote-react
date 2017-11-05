@@ -83,7 +83,7 @@ class NotebooksContainer extends React.PureComponent {
                 addNotebook: true
             });
         } else {
-            const notebook = getSelectedNotebook(e.target, this.props.notebooks);
+            const notebook = getSelectedNotebook(e, this.props.notebooks);
 
             this.setState({
                 addNotebook: false,

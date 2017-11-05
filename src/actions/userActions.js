@@ -194,8 +194,6 @@ export function logoutUser() {
 }
 
 export function listenForAuth() {
-    // listenForAuth();
-
     return (dispatch) => {
         let userRef, anonUserRef,
             anonUser = null;
@@ -207,6 +205,7 @@ export function listenForAuth() {
             if (anonUser) {
                 anonUserRef = database.ref('users/' + anonUser.uid);
             }
+console.log(user);
 
             if (user) {
                 userRef = database.ref('users/' + user.uid);

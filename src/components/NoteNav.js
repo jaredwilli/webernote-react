@@ -7,25 +7,18 @@ import CloseBtn from './ui/CloseBtn';
 
 import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 
-// TODO: no need for all the actions
-import * as noteActions from '../actions/noteActions';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
-class NoteNav extends React.PureComponent {
+class NoteNav extends React.Component {
     constructor(props) {
         super(props);
 
         this.toggleDrawer = this.toggleDrawer.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
-        // TODO: change this expand stuff
         this.state = {
-            notebooks: this.props.user.notebooks,
-            labels: this.props.user.labels,
-            notes: this.props.user.notes,
-            tags: this.props.user.tags,
             showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
@@ -49,7 +42,7 @@ class NoteNav extends React.PureComponent {
     }
 
     render() {
-        let { notes, notebooks, tags, labels } = this.state;
+        let { notes, notebooks, tags, labels } = this.props;
 
         if (!notes) {
             return <div className="loading"></div>
@@ -64,7 +57,6 @@ class NoteNav extends React.PureComponent {
         }
 
         // If this is the narrow menu, do things different
-        // TODO: Make the noteNavItems a pure function
         if (this.props.show === 'narrow') {
             return (
                 <div className={this.props.show + '-nav drawer-nav'}>
@@ -75,11 +67,11 @@ class NoteNav extends React.PureComponent {
                     <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
 
                     <nav className="nav-col note-nav" style={drawerMenuStyles}>
-                        {this.state.drawerOpen &&
+                        {this.state.drawerOpen ?
                             <CloseBtn onClick={(e) => this.setState({ drawerOpen: false })} />
-                        }
+                        : ''}
 
-                        {(notebooks && notebooks.length) &&
+                        {(notebooks && notebooks.length) ?
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
@@ -92,62 +84,9 @@ class NoteNav extends React.PureComponent {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        : ''}
 
-                        {(tags && tags.length) &&
-                            <div className="tags-nav">
-                                <ul className="tags top-nav-item">
-                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                        <div className="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                        <ul className="tags">
-                                            {noteNavItems({ tags }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-
-                        {(labels && labels.length) &&
-                            <div className="labels-nav">
-                                <ul className="labels top-nav-item">
-                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                        <div className="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                        <ul className="labels">
-                                            {noteNavItems({ label: labels }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-                    </nav>
-                </div>
-            );
-        }
-
-        // TODO: fix the way i do the hamby nav and regular left nav
-        let hideLeftNav = 'hidden';
-        if (hasNotesAndOneOtherData(notes, notebooks, tags, labels)) {
-            hideLeftNav = '';
-        }
-
-        return (
-            <div className="left sidebar-nav">
-                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
-                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
-                        {(notebooks && notebooks.length) &&
-                            <div className="notebooks-nav">
-                                <ul className="notebooks top-nav-item">
-                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div className="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
-                                        <ul className="notebooks-list">
-                                            {noteNavItems({ notebook: notebooks }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-
-                        {(tags && tags.length) &&
+                        {(tags && tags.length) ?
                             <div className="tags-nav">
                                 <ul className="tags top-nav-item">
                                     <li className={(this.state.expandTags) ? 'expanded' : ''}>
@@ -158,9 +97,9 @@ class NoteNav extends React.PureComponent {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        : ''}
 
-                        {(labels && labels.length) &&
+                        {(labels && labels.length) ?
                             <div className="labels-nav">
                                 <ul className="labels top-nav-item">
                                     <li className={(this.state.expandLabels) ? 'expanded' : ''}>
@@ -171,7 +110,59 @@ class NoteNav extends React.PureComponent {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        : ''}
+                    </nav>
+                </div>
+            );
+        }
+
+        let hideLeftNav = 'hidden';
+        if (hasNotesAndOneOtherData(this.props)) {
+            hideLeftNav = '';
+        }
+
+        return (
+            <div className="left sidebar-nav">
+                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
+                        {(notebooks && notebooks.length) ?
+                            <div className="notebooks-nav">
+                                <ul className="notebooks top-nav-item">
+                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
+                                        <div className="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <ul className="notebooks-list">
+                                            {noteNavItems({ notebook: notebooks }, notes)}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(tags && tags.length) ?
+                            <div className="tags-nav">
+                                <ul className="tags top-nav-item">
+                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
+                                        <div className="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <ul className="tags">
+                                            {noteNavItems({ tags: tags }, notes)}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
+
+                        {(labels && labels.length) ?
+                            <div className="labels-nav">
+                                <ul className="labels top-nav-item">
+                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
+                                        <div className="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <ul className="labels">
+                                            {noteNavItems({ label: labels }, notes)}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        : ''}
                     </nav>
                 </div>
             </div>
@@ -181,7 +172,10 @@ class NoteNav extends React.PureComponent {
 
 function mapStateToProps(state) {
     const newState = {
-        user: state.userData.user
+        notes: state.noteData.notes,
+        notebooks: state.notebookData.notebooks,
+        tags: state.tagData.tags,
+        labels: state.labelData.labels
     };
     // console.log('STATE: ', state, newState);
 
@@ -189,7 +183,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let actions = Object.assign({}, noteActions, notebookActions, tagActions, labelActions);
+    let actions = Object.assign({}, notebookActions, tagActions, labelActions);
 
     return {
         actions: bindActionCreators(actions, dispatch)

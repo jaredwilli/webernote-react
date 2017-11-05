@@ -29,6 +29,7 @@ export default function userReducer(state = {}, action) {
                 success: 'Got users'
             });
 
+            newState.users = state.users;
             newState.users = refToArray(users);
             return newState;
         }
@@ -57,10 +58,6 @@ export default function userReducer(state = {}, action) {
                 success: 'Got user'
             });
 
-            user.notes = refToArray(user.notes);
-            user.notebooks = refToArray(user.notebooks);
-            user.tags = refToArray(user.tags);
-            user.labels = refToArray(user.labels);
             newState.user = user;
             return newState;
         }
@@ -89,8 +86,8 @@ export default function userReducer(state = {}, action) {
                 success: 'Added user'
             });
 
+            newState.users = state.users;
             newState.users.concat(refToArray(user));
-            // TODO: write a selector to get the user from users
             newState.user = user;
             return newState;
         }
@@ -111,7 +108,6 @@ export default function userReducer(state = {}, action) {
             });
         }
 
-        // TODO: when i actually use this for something create a selector for selectedUser
         case types.EditUserFulfilled: {
             let user = action.user;
 
@@ -149,7 +145,6 @@ export default function userReducer(state = {}, action) {
             });
         }
 
-        // TODO: update the users state here
         case types.DeleteUserFulfilled: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -173,9 +168,9 @@ export default function userReducer(state = {}, action) {
             });
         }
 
-        // TODO: create a selector for selectedUser
         case types.SelectUserFulfilled: {
             const user = action.user;
+            user.isEditing = true;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -187,8 +182,6 @@ export default function userReducer(state = {}, action) {
         }
 
         // *** LOGIN USER
-
-        // TODO: create other action types for Requested and FulFilled
         case types.LoginUserRejected: {
             return Object.assign({}, state, {
                 inProgress: false,
@@ -212,7 +205,6 @@ export default function userReducer(state = {}, action) {
             });
         }
 
-        // TODO: set the user to offline and time of last login
         case types.LogoutUserFulfilled: {
             return Object.assign({}, state, {
                 inProgress: false,
