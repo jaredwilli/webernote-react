@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import NotebookContainer from '../containers/notebooksContainer';
-
-import FilterSearch from './FilterSearch';
-import FilterByNotebook from './FilterByNotebook';
-
+import WelcomeMsg from './WelcomeMsg';
 import Note from './Note';
+import CloseBtn from './ui/CloseBtn';
 
 import * as noteActions from '../actions/noteActions';
+
+// import Notebooks from './Notebooks';
+// import Tags from './Tags';
+// import Labels from './Labels';
 
 class NoteList extends Component {
     constructor(props, context) {
@@ -18,13 +20,14 @@ class NoteList extends Component {
 
         this.selectNote = this.selectNote.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
-        this.filterNotes = this.filterNotes.bind(this);
-        this.clearFilters = this.clearFilters.bind(this);
 
         this.state = {
             filterType: 'Title',
             searchTerm: '',
-			notebookFilter: ''
+			notebookFilter: {
+				name: 'All notebooks',
+				id: 'all_notebooks'
+			}
         };
     }
 
@@ -39,22 +42,19 @@ class NoteList extends Component {
         }, () => this.props.filterNotes());
     }
 
-    // TODO: refactor this to be a pure function
     filterNotes(filter) {
-        debugger;
         if (filter) {
             this.setState(filter, () => {
+                let filterVals = {};
+
                 if (filter.filterType || filter.searchTerm) {
-                    this.props.filterNotes({
-                        type: this.state.filterType,
-                        term: filter.searchTerm
-                    });
+                    filterVals.type = this.state.filterType;
+                    filterVals.term = filter.searchTerm;
                 } else if (filter.notebookFilter) {
-                    this.props.filterNotes({
-                        notebook: filter.notebookFilter
-                    });
+                    filterVals.notebook = filter.notebookFilter;
                 }
 
+                this.props.filterNotes(filterVals);
             });
         } else {
             this.clearFilters();
@@ -73,19 +73,51 @@ class NoteList extends Component {
     render() {
         let { notes, notebooks } = this.props;
 
+        if (!notes.length) {
+            return (
+                <WelcomeMsg addNote={this.props.addNote}
+                    showLoginModal={this.props.showLoginModal} />
+            );
+        }
+
+        let filtersText = '';
+
+        if (notes.length) {
+            filtersText = (
+                <div className="filters">
+                    <div className="filter">
+                        <label>Search type:</label>
+                        <select name="filterType" className="filter-type"
+                            value={this.state.filterType}
+                            onChange={(e) => this.filterNotes({ filterType: e.target.value })}>
+                            <option>Title</option>
+                            <option>Description</option>
+                            <option>Url</option>
+                        </select>
+
+                        <input type="text" name="search" placeholder="Search" className="search"
+                            value={this.state.searchTerm}
+                            onChange={(e) => this.filterNotes((e.target.value.length) ? { searchTerm: e.target.value } : undefined)} />
+
+                        <CloseBtn onClick={() => this.filterNotes()} />
+                    </div>
+                    {(notebooks) ?
+                        <div className="viewing">
+                            <span className="viewtext">
+                                Viewing <span className="count">{notes.length}</span> notes from
+                            </span>
+                            <NotebookContainer
+                                filterByNotebook={(e) => this.filterNotes({ notebookFilter: e.name })}
+                                canAddNotebook={false} />
+                        </div>
+                    : ''}
+                </div>
+            );
+        }
+
         return (
             <div className="middle list-col note-list">
-                <FilterSearch
-                    filterType={this.state.filterType}
-                    searchTerm={this.state.searchTerm}
-                    filterNotes={this.filterNotes}
-                    clearFilters={this.clearFilters} />
-
-                <FilterByNotebook
-                    notebookFilter={this.state.notebookFilter}
-                    notebooks={notebooks}
-                    count={this.props.notes.length}
-                    filterNotes={this.filterNotes} />
+                {filtersText}
 
                 <div className="notes">
                     <Note notes={notes}

@@ -94,7 +94,7 @@
 }
 
 .note-nav li > div {
-	// background: url('./img/arrow.png') no-repeat 1px 2px;
+	background: url('../img/arrow.png') no-repeat 1px 2px;
     color: #068dcc;
 	text-decoration: none;
     padding: 0 0 0 14px;
@@ -154,11 +154,9 @@
 /* Media Queries */
 
 @media screen and (max-width: 820px) {
-    .main .sidebar-nav {
-        height: 0;
+    .main .wide-nav {
         display: none;
     }
-
     .toolbar .narrow-nav,
     .toolbar .narrow-nav .hamburger {
         display: inline-block;

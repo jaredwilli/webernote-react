@@ -216,23 +216,22 @@ export function createNewNotebook(refId, notebook) {
  * @param {Object} e event object from the onChange event of notebook select menu
  * @param {Object} notebooks the current list of notebooks
  */
-export function getSelectedNotebook(target, notebooks) {
-    debugger;
-    if (!target.value || target.value === 'All Notebooks') {
-        return {
-            name: target.value,
-            id: 'all_notebooks'
-        };
+export function getSelectedNotebook(e, notebooks) {
+    let notebookId = '';
+
+    if (e.target.value === 'All Notebooks') {
+        return { name: e.target.value, id: 'all_notebooks' };
     }
 
     // Find the value of the selected notebook from the select menu options
-    for (let child of target.children) {
-        if (child.value === target.value) {
-            return notebooks.filter((nb) => {
-                return nb.id === child.id;
+    for (let notebook of e.target.children) {
+        if (notebook.value === e.target.value) {
+            notebookId = notebooks.filter(function(book) {
+                return book.id === notebook.id;
             })[0];
         }
     }
+    return notebookId;
 }
 
 /**
@@ -262,21 +261,14 @@ export function filterData(data, filters) {
     return data;
 }
 
-/**
- * hasNotesAndOneOtherData
- *
- * @description used to determine of the NoteNav component should show or not.
- *
- * TODO: must refactor this to be more composable
- * @param {Object} props
- */
-export function hasNotesAndOneOtherData(notes, notebooks, tags, labels) {
+
+export function hasNotesAndOneOtherData(props) {
     // has 1+ notes
-    if (notes && notes.length) {
+    if (props && props.notes && props.notes.length) {
         // has 1+ notebook or tags or label
-        if ((notebooks && notebooks.length) ||
-            (tags && tags.length) ||
-            (labels && labels.length)) {
+        if ((props.notebooks && props.notebooks.length) ||
+            (props.tags && props.tags.length) ||
+            (props.labels && props.labels.length)) {
             return true;
         }
     }

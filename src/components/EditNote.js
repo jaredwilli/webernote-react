@@ -61,7 +61,6 @@ class EditNote extends React.Component {
         this.props.actions.getNotes();
     }
 
-    // TODO: refactor editField to be pure
     editField(field) {
         this.props.actions.editNote(this.props.selectedNote, field);
 
