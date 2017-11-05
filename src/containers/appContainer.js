@@ -29,12 +29,6 @@ class AppContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.goToGithub = this.goToGithub.bind(this);
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-		this.addNote = this.addNote.bind(this);
-		this.showLoginModal = this.showLoginModal.bind(this);
-
         this.state = {
             user: this.props.user,
             selectedNote: '',
@@ -65,18 +59,18 @@ class AppContainer extends React.PureComponent {
         Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
     }
 
-    toggleNoteNav(e) {
+    toggleNoteNav = (e) =>  {
         e.preventDefault();
         this.setState({
             showNoteNav: !this.state.showNoteNav
         });
     }
 
-    goToGithub() {
+    goToGithub = () =>  {
         window.open(URLS.GITHUB_REPO);
     }
 
-    showLoginModal() {
+    showLoginModal = () => {
         this.props.actions.showModal(MODAL_TYPES.LOGIN_MODAL, {
             dialogStyle: { height: 'auto', width: '300px' },
             onClose: () => this.props.actions.hideModal(),
@@ -87,7 +81,7 @@ class AppContainer extends React.PureComponent {
         });
     }
 
-    showSettingsModal() {
+    showSettingsModal = () =>  {
         this.props.actions.showModal(MODAL_TYPES.SETTINGS_MODAL, {
             dialogStyle: { height: 'auto', width: '80%' },
             onClose: () => this.props.actions.hideModal(),
@@ -98,11 +92,11 @@ class AppContainer extends React.PureComponent {
         });
     }
 
-    login(provider) {
+    login = (provider) => {
         this.props.actions.loginUser(provider);
     }
 
-    logout() {
+    logout = () => {
         this.props.actions.logoutUser();
     }
 
