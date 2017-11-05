@@ -24,10 +24,8 @@
         "no-this-before-super": "warn",
         "no-undef": "warn",
         "no-unreachable": "warn",
-        "no-unused-vars": "warn",
         "constructor-super": "warn",
         "valid-typeof": "warn",
-        "no-comma-dangle": "warn",
         "no-debugger": "warn",
         "no-extra-semi": "warn",
         "valid-jsdoc": "warn",
@@ -36,11 +34,9 @@
         "camelcase": 1,                 // require camel case names
         "eol-last": 1,                  // enforce newline at the end of file, with no multiple empty lines
         "no-trailing-spaces": 1,        // disallow trailing whitespace at the end of lines
-        "quotes": 1,                    // specify whether double or single quotes should be used
+        "quotes": 0,                    // specify whether double or single quotes should be used
         "key-spacing": 1,               // enforces spacing between keys and values in object literal properties
         "space-infix-ops": 1,           // require spaces around operators
-        "no-space-before-semi": 1,      // disallow space before semicolon
-        "spaced-line-comment": 1,       // require or disallow a space immediately following the // in a line comment (off by default)
         "max-len": 0                    // specify the maximum length of a line in your program (off by default)
     }
 }

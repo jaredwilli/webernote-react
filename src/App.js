@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import AppContainer from './containers/appContainer';
 import { listenForAuth } from './actions/userActions';
 
-import './index.css';
+import './styles/import.scss';
 
 class App extends React.PureComponent {
     constructor(props) {
