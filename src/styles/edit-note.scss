@@ -290,6 +290,7 @@ button:focus,
 
 @media all and (max-width: 690px) {
     .edit-col {
+        border-top: 5px solid #fff;
         flex: 10 1;
     }
     .edit-col .add-notebook .new-notebook {
@@ -311,7 +312,7 @@ button:focus,
         flex-direction: column;
     }
     .edit-note .bottom {
-        height: 74.1%;
+        height: 54.1%;
     }
     .edit-note .url {
         padding: 5px;

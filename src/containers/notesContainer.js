@@ -13,7 +13,6 @@ class NotesContainer extends React.PureComponent {
 		super(props);
 
 		this.deleteNote = this.deleteNote.bind(this);
-		// this.setAppHeight = this.setAppHeight.bind(this);
 
 		this.state = {
             notes: this.props.notes,
@@ -49,6 +48,7 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
+        // TODO: refactor the way notes are filtered so that state has the correct notes list
         let { filteredNotes } = this.props;
         let notes;
 
