@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes';
-import { refToArray } from '../common/helpers';
+import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function noteReducer(state = {}, action) {
     switch(action.type) {

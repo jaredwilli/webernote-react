@@ -2,6 +2,5 @@
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
     "prettier.jsxBracketSameLine": true,
-    "prettier.useTabs": false,
-    "trailing.comma": "none"
+    "prettier.useTabs": false
 }

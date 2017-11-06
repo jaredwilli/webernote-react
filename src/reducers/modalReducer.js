@@ -5,7 +5,7 @@ const initialModalState = {
     props: {}
 };
 
-export default function modalReducer(state = initialModalState, action) {
+function modalReducer(state = initialModalState, action) {
     switch (action.type) {
 
         case ShowModal: {
@@ -32,3 +32,5 @@ export default function modalReducer(state = initialModalState, action) {
 
     }
 }
+
+export default modalReducer;

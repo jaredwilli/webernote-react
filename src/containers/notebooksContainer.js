@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import CloseBtn from '../components/ui/CloseBtn';
 import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 
@@ -111,7 +110,7 @@ class NotebooksContainer extends React.PureComponent {
             this.props.actions.removeNotebook(this.props.notes);
         }
         // Edit notebook selection
-        this.props.editField(notebook);
+        this.props.editNotebook(notebook);
         // get notebooks again to update the state
         this.props.actions.getNotebooks();
     }
@@ -169,7 +168,9 @@ class NotebooksContainer extends React.PureComponent {
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
 
-                        <CloseBtn onClick={(e) => this.setState({ addNotebook: false })} />
+                        <span className="remove Select-clear"
+                            onClick={(e) => this.setState({ addNotebook: false })}>×
+                        </span>
                     </span>
                 );
             }

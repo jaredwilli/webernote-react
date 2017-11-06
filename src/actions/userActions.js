@@ -108,23 +108,24 @@ export function loginUser(provider) {
         dispatch(loginUserRequestedAction);
 
         const anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
-        let anonUserRef, userRef;
+        // let anonUserRef, userRef;
 
         // Set the anonUserRef here if can
-        if (anonUser && anonUser.isAnonymous) {
-            anonUserRef = database.ref('users/' + anonUser.uid);
-        }
+        // if (anonUser && anonUser.isAnonymous) {
+        //     anonUserRef = database.ref('users/' + anonUser.uid);
+        // }
 
         // Delete the anonymous user auth then signIn with fb credentials
         anonUser.delete()
             .then(() => {
+                debugger;
                 auth.signInWithPopup(PROVIDERS[provider])
                     .then((result) => {
-                        let user = result.user;
+                        // let user = result.user;
 
                         // Set the userRef here
-                        userRef = database.ref('users/' + user.uid);
-                        dispatch(doesUserExist(user, userRef, anonUserRef));
+                        // userRef = database.ref('users/' + user.uid);
+                        // dispatch(doesUserExist(user, userRef, anonUserRef));
                     })
                     .catch((error) => {
                         console.error(error);
@@ -149,13 +150,17 @@ export function loginUser(provider) {
 }
 
 export function loginAnonymously() {
-    return (dispatch) => {
-        dispatch(loginAnonymousRequestedAction());
+    return (dispatch, getState) => {
+        dispatch(loginAnonymousRequestedAction);
 
-        let anonUserRef, userRef;
+        let anonUserRef, userRef,
+            userState = getState().userData.user;
 
-        return auth.signInAnonymously()
+        console.log('userState: loginAnonymously: ', userState); // to test the double login issue
+
+        auth.signInAnonymously()
             .then((user) => {
+                // debugger;
                 // Set up anonUserRef and userRefs to be the same
                 anonUserRef = database.ref('users/' + user.uid);
                 userRef = anonUserRef;
@@ -205,7 +210,6 @@ export function listenForAuth() {
             if (anonUser) {
                 anonUserRef = database.ref('users/' + anonUser.uid);
             }
-console.log(user);
 
             if (user) {
                 userRef = database.ref('users/' + user.uid);

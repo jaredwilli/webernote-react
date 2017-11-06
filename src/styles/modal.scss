@@ -37,21 +37,13 @@
     background: #fff;
     border-radius: 2px;
     box-sizing: border-box;
+    cursor: default;
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    max-width: auto;
-    padding: 10px;
-	height: 90%;
-	width: 25%;
     outline: 0;
-    cursor: default;
-
-    .close {
-        float: right;
-    }
-}
-
-.modal-header {
-
+    max-width: auto;
+	width: 25%;
+	height: 90%;
+	padding: 10px;
 }

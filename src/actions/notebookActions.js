@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { getObjCounts, createNewNotebook } from '../common/noteHelpers.js';
+import { getNotebookCount, createNewNotebook } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
 export function getNotebooks() {
@@ -54,13 +54,13 @@ export function removeNotebook(notes) {
                 let notebooksList = [];
 
                 notebooks.forEach((notebook) => {
-                    let notebookCount = getObjCounts({ notebook }, notes);
+                    let notebookCount = getNotebookCount(notebook, notes);
 
                     // Remove empty notebooks
-                    if (notebookCount === 0) {
-                        notebooksRef.child(notebook.id)
+                    if (notebookCount.count === 0) {
+                        notebooksRef.child(notebookCount.notebook.id)
                             .remove()
-                            .then(dispatch(deleteNotebookFulfilledAction(notebooks)))
+                            .then(dispatch(deleteNotebookFulfilledAction(notebooks, { notebook: [] }) ))
                             .catch((error) => {
                                 console.error(error);
                                 dispatch(deleteNotebookRejectedAction());
