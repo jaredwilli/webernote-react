@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes';
-import { refToArray } from '../common/helpers';
+import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function notebookReducer(state = {}, action) {
 	switch (action.type) {
@@ -20,14 +20,14 @@ export default function notebookReducer(state = {}, action) {
 		}
 
 		case types.GetNotebooksFulfilled: {
-			let notebooks = action.notebooks;
+			let notebooks = refToArray(action.notebooks);
 
 			const newState = Object.assign({}, state, {
 				inProgress: false,
 				success: 'Got notebooks'
 			});
 
-			newState.notebooks = refToArray(notebooks);
+			newState.notebooks = notebooks;
 			return newState;
 		}
 
@@ -55,8 +55,8 @@ export default function notebookReducer(state = {}, action) {
 				success: 'Added notebook'
 			});
 
-			newState.notebooks = state.notebooks;
-			newState.notebooks.concat(refToArray(notebook));
+			newState.notebooks = state.notebooks || [];
+			newState.notebooks.push(notebook);
 
 			return newState;
 		}
@@ -85,7 +85,7 @@ export default function notebookReducer(state = {}, action) {
                 success: 'Deleted notebook'
             });
 
-            newState.notebooks = refToArray(notebooks);
+            newState.notebooks = notebooks;
             return newState;
         }
 

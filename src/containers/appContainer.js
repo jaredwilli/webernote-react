@@ -14,7 +14,7 @@ import NoteTypes from '../components/NoteTypes';
 import NoteNav from '../components/NoteNav';
 
 import UserPhoto from '../components/UserPhoto';
-import IconBtn from '../components/ui/IconBtn';
+import IconBtn from '../components/IconBtn';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -144,8 +144,7 @@ class AppContainer extends React.PureComponent {
         if (user && !user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
-
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     <span className="user-meta">
                         <UserPhoto imgSrc={user.photo}
                             size={20}
@@ -160,8 +159,7 @@ class AppContainer extends React.PureComponent {
         } else if (user && user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
-
+                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
                     <div className="user-meta">
                         <UserPhoto size={20}
                             style={avatarStyle} />

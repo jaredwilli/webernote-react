@@ -31,23 +31,3 @@
 .btn-group button:hover i {
     color: #fff;
 }
-
-.close {
-	background: none;
-	border: 0;
-    color: #333;
-	text-shadow: 0 1px 0 #fff;
-	font-size: 18px;
-    font-weight: normal;
-    font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial";
-	line-height: 1;
-	padding: 0 3px;
-	cursor: pointer;
-    opacity: 0.5;
-    outline: 0;
-}
-
-.close:hover {
-    color: #D0021B;
-    opacity: 1;
-}

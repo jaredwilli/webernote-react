@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes';
-import { refToArray } from '../common/helpers';
+import * as types from '../constants/actionTypes.js';
+import { refToArray } from '../common/helpers.js';
 
 export default function labelReducer(state = {}, action) {
 	switch (action.type) {
@@ -20,14 +20,14 @@ export default function labelReducer(state = {}, action) {
 		}
 
 		case types.GetLabelsFulfilled: {
-			let labels = action.labels;
+			let labels = refToArray(action.labels);
 
 			const newState = Object.assign({}, state, {
 				inProgress: false,
 				success: 'Got labels'
 			});
 
-			newState.labels = refToArray(labels);
+			newState.labels = labels;
 			return newState;
 		}
 
@@ -56,7 +56,7 @@ export default function labelReducer(state = {}, action) {
 			});
 
 			newState.labels = state.labels || [];
-			newState.labels.concat(refToArray(label));
+			newState.labels.push(label);
 			return newState;
 		}
 
@@ -84,7 +84,7 @@ export default function labelReducer(state = {}, action) {
                 success: 'Deleted label'
             });
 
-            newState.labels = refToArray(labels);
+            newState.labels = labels;
             return newState;
         }
 

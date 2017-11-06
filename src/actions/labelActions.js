@@ -1,7 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { getObjCounts } from '../common/noteHelpers.js';
+import { getLabelCount } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
 export function getLabels() {
@@ -54,11 +54,10 @@ export function removeLabel(notes) {
                 let labelsList = [];
 
                 labels.forEach((label) => {
-                    let labelCount = getObjCounts({ label }, notes);
-
+                    let labelCount = getLabelCount(label, notes);
                     // Remove empty labels
-                    if (labelCount === 0) {
-                        labelsRef.child(label.id)
+                    if (labelCount.count === 0) {
+                        labelsRef.child(labelCount.label.id)
                             .remove()
                             .then(dispatch(deleteLabelFulfilledAction(label)))
                             .catch((error) => {
@@ -91,6 +90,7 @@ export function listenForDeletedLabels() {
             notes = notes.filter((note) => {
                 return note.id !== n.id;
             });
+
             dispatch(removeLabel(notes));
         });
     }

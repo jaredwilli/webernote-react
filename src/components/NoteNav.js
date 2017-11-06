@@ -1,11 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import CloseBtn from './ui/CloseBtn';
-
-import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+import { getNotebookCount, getTagCount, getLabelCount, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+import { shorten } from '../common/helpers.js';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
@@ -48,12 +47,54 @@ class NoteNav extends React.Component {
             return <div className="loading"></div>
         }
 
-        let coverStyles = { display: 'none' };
-        let drawerMenuStyles = {};
+        // NOTEBOOKS MENU
+        let notebookItems = '';
+        if (notebooks && notebooks.length) {
+            notebookItems = notebooks.map((notebook) =>
+                <li key={notebook.id} id={notebook.id}>
+                    <Link to={`/notebooks/${notebook.name.toLowerCase()}`}>
+                        <span className="name">{shorten(notebook.name)}</span>
+                    </Link>&nbsp;
+                    <span className="count">{getNotebookCount(notebook, notes).count}</span>
+                </li>
+            );
+        }
+
+        // TAGS MENU
+        let tagItems = '';
+        if (tags && tags.length) {
+            tagItems = tags.map((tag) =>
+                <li key={tag.value} value={tag.value}>
+                    <Link to={`/tags/${tag.label.toLowerCase()}`}>
+                        <span className="name">{shorten(tag.label, 80)}</span>
+                    </Link>&nbsp;
+                    <span className="count">{getTagCount(tag, notes).count}</span>
+                </li>
+            );
+        }
+
+        // LABELS MENU
+        let labelItems = '';
+        if (labels && labels.length) {
+            labelItems = labels.map((label) =>
+                <li key={label.id} id={label.id}>
+                    <Link to={`/labels/${label.name.toLowerCase()}`}>
+                        <div className="note-label" style={{background: label.hex}} />
+                        <span className="name">{label.name}</span>
+                    </Link>&nbsp;
+                    <span className="count">{getLabelCount(label, notes).count}</span>
+                </li>
+            );
+        }
+
+        let coverStyles = {
+            display: 'none'
+        };
+        let drawMenuStyles = {};
 
         if (this.state.drawerOpen) {
             coverStyles = { display: 'inline-block' };
-            drawerMenuStyles = { left: '-15px' };
+            drawMenuStyles = { left: '-15px' };
         }
 
         // If this is the narrow menu, do things different
@@ -66,20 +107,21 @@ class NoteNav extends React.Component {
 
                     <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
 
-                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
-                        {this.state.drawerOpen ?
-                            <CloseBtn onClick={(e) => this.setState({ drawerOpen: false })} />
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
+                        {this.state.drawerOpen ? <span className="remove Select-clear"
+                                onClick={(e) => this.setState({ drawerOpen: false })}>×
+                            </span>
                         : ''}
 
                         {(notebooks && notebooks.length) ?
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div className="expandNotebooks" onClick={this.toggleExpanded}>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>
                                             Notebooks
                                         </div>
                                         <ul className="notebooks-list">
-                                            {noteNavItems({ notebook: notebooks }, notes)}
+                                            {notebookItems}
                                         </ul>
                                     </li>
                                 </ul>
@@ -90,9 +132,9 @@ class NoteNav extends React.Component {
                             <div className="tags-nav">
                                 <ul className="tags top-nav-item">
                                     <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                        <div className="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
                                         <ul className="tags">
-                                            {noteNavItems({ tags: tags }, notes)}
+                                            {tagItems}
                                         </ul>
                                     </li>
                                 </ul>
@@ -103,9 +145,9 @@ class NoteNav extends React.Component {
                             <div className="labels-nav">
                                 <ul className="labels top-nav-item">
                                     <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                        <div className="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
                                         <ul className="labels">
-                                            {noteNavItems({ label: labels }, notes)}
+                                            {labelItems}
                                         </ul>
                                     </li>
                                 </ul>
@@ -124,14 +166,14 @@ class NoteNav extends React.Component {
         return (
             <div className="left sidebar-nav">
                 <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
-                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
+                    <nav className="nav-col note-nav" style={drawMenuStyles}>
                         {(notebooks && notebooks.length) ?
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div className="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
+                                        <div id="expandNotebooks" onClick={this.toggleExpanded}>Notebooks</div>
                                         <ul className="notebooks-list">
-                                            {noteNavItems({ notebook: notebooks }, notes)}
+                                            {notebookItems}
                                         </ul>
                                     </li>
                                 </ul>
@@ -142,9 +184,9 @@ class NoteNav extends React.Component {
                             <div className="tags-nav">
                                 <ul className="tags top-nav-item">
                                     <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                        <div className="expandTags" onClick={this.toggleExpanded}>Tags</div>
+                                        <div id="expandTags" onClick={this.toggleExpanded}>Tags</div>
                                         <ul className="tags">
-                                            {noteNavItems({ tags: tags }, notes)}
+                                            {tagItems}
                                         </ul>
                                     </li>
                                 </ul>
@@ -155,9 +197,9 @@ class NoteNav extends React.Component {
                             <div className="labels-nav">
                                 <ul className="labels top-nav-item">
                                     <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                        <div className="expandLabels" onClick={this.toggleExpanded}>Labels</div>
+                                        <div id="expandLabels" onClick={this.toggleExpanded}>Labels</div>
                                         <ul className="labels">
-                                            {noteNavItems({ label: labels }, notes)}
+                                            {labelItems}
                                         </ul>
                                     </li>
                                 </ul>
