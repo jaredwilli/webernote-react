@@ -22,7 +22,7 @@ export function getUsers() {
 
 export function getUser(user, userRef) {
     return (dispatch) => {
-        dispatch(getUserRequestedAction);
+        dispatch(getUserRequestedAction());
 
         userRef.once('value', (snap) => {
             user = snap.val();
@@ -31,14 +31,14 @@ export function getUser(user, userRef) {
         })
         .catch((error) => {
             console.error(error.message);
-            dispatch(getUserRejectedAction);
+            dispatch(getUserRejectedAction());
         });
     }
 }
 
 export function addUser(user, userRef, anonUserRef) {
     return (dispatch) => {
-        dispatch(addUserRequestedAction);
+        dispatch(addUserRequestedAction());
 
         // Set user function
         function setUser(user, userRef, mergedUser) {
@@ -52,12 +52,12 @@ export function addUser(user, userRef, anonUserRef) {
                     })
                     .catch((error) => {
                         console.error(error);
-                        dispatch(addUserRejectedAction);
+                        dispatch(addUserRejectedAction());
                     });
                 })
                 .catch((error) => {
                     console.error(error);
-                    dispatch(addUserRejectedAction);
+                    dispatch(addUserRejectedAction());
                 });
         }
 
@@ -69,7 +69,8 @@ export function addUser(user, userRef, anonUserRef) {
             mergeAnonUser(userRef, anonUserRef)
                 .then((mergedUser) => {
                     // remove anonUser
-                    anonUserRef.remove()
+                    anonUserRef
+                        .remove()
                         .then(() => setUser(user, userRef, mergedUser))
                         .catch((error) => {
                             console.error(error);
@@ -77,7 +78,7 @@ export function addUser(user, userRef, anonUserRef) {
                 })
                 .catch((error) => {
                     console.error(error.message);
-                    dispatch(loginUserRejectedAction);
+                    dispatch(loginUserRejectedAction());
                 });
         }
     }
@@ -98,42 +99,43 @@ export function doesUserExist(user, userRef, anonUserRef) {
         })
         .catch((error) => {
             console.error(error);
-            dispatch(loginAnonymousRejectedAction);
+            dispatch(loginAnonymousRejectedAction());
         });
     }
 }
 
 export function loginUser(provider) {
     return (dispatch) => {
-        dispatch(loginUserRequestedAction);
+        dispatch(loginUserRequestedAction());
 
         const anonUser = (auth.currentUser && auth.currentUser.isAnonymous) ? auth.currentUser : null;
-        // let anonUserRef, userRef;
+        let anonUserRef, userRef;
 
         // Set the anonUserRef here if can
-        // if (anonUser && anonUser.isAnonymous) {
-        //     anonUserRef = database.ref('users/' + anonUser.uid);
-        // }
+        if (anonUser && anonUser.isAnonymous) {
+            anonUserRef = database.ref('users/' + anonUser.uid);
+        }
 
         // Delete the anonymous user auth then signIn with fb credentials
         anonUser.delete()
             .then(() => {
-                debugger;
                 auth.signInWithPopup(PROVIDERS[provider])
                     .then((result) => {
-                        // let user = result.user;
+                        let user = result.user;
 
                         // Set the userRef here
-                        // userRef = database.ref('users/' + user.uid);
-                        // dispatch(doesUserExist(user, userRef, anonUserRef));
+                        userRef = database.ref('users/' + user.uid);
+                        dispatch(doesUserExist(user, userRef, anonUserRef));
                     })
                     .catch((error) => {
                         console.error(error);
-                        dispatch(loginUserRejectedAction);
+                        dispatch(loginUserRejectedAction());
                     });
             })
             .catch((error) => {
-                console.error(error);
+                // for incorrect login credentials error: https://goo.gl/vVkn9X
+                console.error(error, error.message);
+
                 if (error.code === 'auth/requires-recent-login') {
                     // The user's credential is too old. She needs to sign in again.
                     auth.signOut()
@@ -150,17 +152,13 @@ export function loginUser(provider) {
 }
 
 export function loginAnonymously() {
-    return (dispatch, getState) => {
-        dispatch(loginAnonymousRequestedAction);
+    return (dispatch) => {
+        dispatch(loginAnonymousRequestedAction());
 
-        let anonUserRef, userRef,
-            userState = getState().userData.user;
+        let anonUserRef, userRef;
 
-        console.log('userState: loginAnonymously: ', userState); // to test the double login issue
-
-        auth.signInAnonymously()
+        return auth.signInAnonymously()
             .then((user) => {
-                // debugger;
                 // Set up anonUserRef and userRefs to be the same
                 anonUserRef = database.ref('users/' + user.uid);
                 userRef = anonUserRef;
@@ -169,14 +167,14 @@ export function loginAnonymously() {
             })
             .catch((error) => {
                 console.error(error.code, error.message);
-                dispatch(loginAnonymousRejectedAction);
+                dispatch(loginAnonymousRejectedAction());
             });
     }
 }
 
 export function logoutUser() {
     return (dispatch) => {
-        dispatch(logoutUserRequestedAction);
+        dispatch(logoutUserRequestedAction());
 
         const user = auth.currentUser;
 
@@ -193,7 +191,7 @@ export function logoutUser() {
             })
             .catch((error) => {
                 console.error(error.code, error.message);
-                dispatch(logoutUserRejectedAction);
+                dispatch(logoutUserRejectedAction());
             });
     }
 }
@@ -216,7 +214,7 @@ export function listenForAuth() {
                 anonUserRef = (!anonUserRef && user.isAnonymous) ? userRef : anonUserRef;
                 dispatch(doesUserExist(user, userRef, anonUserRef));
             } else {
-                dispatch(loginAnonymously);
+                dispatch(loginAnonymously());
             }
         });
     }
