@@ -66,7 +66,8 @@ export function editNoteTags(noteRef, note, obj) {
 
         if (removedTags && removedTags.length) {
             removedTags.forEach((tag) => {
-                noteTagsRef.child(tag.id).remove()
+                noteTagsRef.child(tag.id)
+                    .remove()
                     .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
                     .catch((error) => {
                         console.error(error);
@@ -77,7 +78,8 @@ export function editNoteTags(noteRef, note, obj) {
 
         // If tags is empty then remove them from note
         if (!obj.tags) {
-            noteTagsRef.remove()
+            noteTagsRef
+                .remove()
                 .then(dispatch(editNoteFulfilledAction(note, { tags: [] }) ))
                 .catch((error) => {
                     console.error(error);
@@ -112,7 +114,8 @@ export function editNoteLabel(noteRef, note, obj) {
         const noteLabelRef = noteRef.child('label');
 
         if (obj.label && !obj.label.name) {
-            noteLabelRef.remove()
+            noteLabelRef
+                .remove()
                 .then(dispatch(editNoteFulfilledAction(note, obj)))
                 .catch((error) => {
                     console.error(error);
@@ -256,7 +259,7 @@ export function filterNotes(filter) {
             .then((notes) => dispatch(filterNotesFulfilledAction(notes, filter)))
             .catch((error) => {
                 console.error(error);
-                dispatch(filterNotesRejectedAction);
+                dispatch(filterNotesRejectedAction());
             })
 	};
 }

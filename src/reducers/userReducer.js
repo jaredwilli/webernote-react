@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes.js';
-import { refToArray } from '../common/helpers.js';
+import * as types from '../constants/actionTypes';
+import { refToArray } from '../common/helpers';
 
 export default function userReducer(state = {}, action) {
     switch(action.type) {

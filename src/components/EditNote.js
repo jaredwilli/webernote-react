@@ -1,7 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import * as noteActions from '../actions/noteActions';
 
@@ -15,9 +15,6 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editField = this.editField.bind(this);
-        // this.editNotebook = this.editNotebook.bind(this);
-        // this.editTags = this.editTags.bind(this);
-        // this.editLabel = this.editLabel.bind(this);
 
         this.state = {
             selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
@@ -112,7 +109,7 @@ class EditNote extends React.Component {
                             onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer
                             canAddNotebook={true}
-                            editNotebook={(notebook) => this.editField({ notebook: notebook })} />
+                            editField={(notebook) => this.editField({ notebook: notebook })} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url" placeholder="http://"
@@ -120,12 +117,12 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
-                        <LabelsContainer editLabel={(color) => this.editField({ label: color })} />
+                        <LabelsContainer editField={(color) => this.editField({ label: color })} />
                     </div>
                     <div className="mid">
                         <TagsContainer
                             noteTags={selectedNote.tags}
-                            editTags={(tags) => this.editField({ tags: tags })} />
+                            editField={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
                         <textarea className="description" name="description"

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
+import CloseBtn from './ui/CloseBtn';
 import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
@@ -98,9 +99,7 @@ class NoteList extends Component {
                             value={this.state.searchTerm}
                             onChange={(e) => this.filterNotes((e.target.value.length) ? { searchTerm: e.target.value } : undefined)} />
 
-                        <span className="remove clear-filters Select-clear"
-                            onClick={() => this.filterNotes()}>×
-                        </span>
+                        <CloseBtn onClick={() => this.filterNotes()} />
                     </div>
                     {(notebooks) ?
                         <div className="viewing">
