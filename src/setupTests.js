@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import 'jest-enzyme';
 
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
@@ -17,6 +18,13 @@ configure({ adapter: new Adapter() });
 
 export const mockStore = configureMockStore([thunk]);
 export const store = mockStore();
+
+const localStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn()
+};
+global.localStorage = localStorageMock
 
 // export const mockDatabase = new firebaseMock.MockFirebase();
 // export const mockAuth = new firebaseMock.MockFirebase();

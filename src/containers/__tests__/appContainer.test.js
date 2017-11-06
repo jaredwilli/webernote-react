@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 
 import AppContainer from '../appContainer';
 
-it('renders without crashing', () => {
-    shallow(<AppContainer />);
+describe('AppContainer', () => {
+    it('renders without crashing', () => {
+        shallow(<AppContainer />);
+    });
+
+
 });
