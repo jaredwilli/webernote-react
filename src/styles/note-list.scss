@@ -187,8 +187,8 @@
     header > span {
         display: none;
     }
-    .note-list {
-        .delete-note {
+    .note-list .notes {
+        .close {
             display: inline-block;
         }
         .note-label {
