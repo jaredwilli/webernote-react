@@ -2,7 +2,11 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 // import fetchMock from 'fetch-mock';
-// import firebaseMock from 'firebase-mock';
+
+import firebase, { TEST_URL } from 'firebase';
+import FirebaseServer from 'firebase-server';
+import detect from 'detect-port';
+import * as data from './mocking/webernote-dev-export';
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
@@ -26,23 +30,27 @@ const localStorageMock = {
 };
 global.localStorage = localStorageMock
 
-// export const mockDatabase = new firebaseMock.MockFirebase();
-// export const mockAuth = new firebaseMock.MockFirebase();
-// export const mockSdk = new firebaseMock.MockFirebaseSdk(path => {
-//     return (path) ? mockDatabase.child(path) : mockDatabase;
-// }, () => mockAuth);
 
-// const firebase = mockSdk.initializeApp(); // can take a path arg to database url
+// ##########################
 
+// Initialize Firebase Server
 
-// export function renderComponent(ComponentClass, props = {}, state = {}) {
-//     const componentInstance =  TestUtils.renderIntoDocument(
-//         <Provider store={store}>
-//             <ComponentClass {...props} />
-//         </Provider>
-//     );
+// ##########################
 
-//     return $(ReactDOM.findDOMNode(componentInstance));
-// }
+export async function startFirebaseTestServer() {
+    const portNumber = 5000;
+    const port = await detect(portNumber);
+    let server;
 
-// export default firebase;
+    if (port === portNumber) {
+        server = new FirebaseServer(portNumber, TEST_URL, data);
+    }
+
+    firebase.initializeApp({
+        databaseURL: 'ws://localhost.firebaseio.test:5000'
+    });
+
+    const ref = firebase.app().database().ref();
+    const database = firebase.app().database();
+    return { server, databse, ref };
+}

@@ -3,67 +3,28 @@
  * of the app that can be used by anyone.
  */
 import * as firebase from 'firebase';
+import config from './config';
+// import mockFirebase from './firebase-mock'
 
-export const env = process.env.NODE_ENV;
+export const ENV = process.env.NODE_ENV;
+export const TEST_URL = process.env.MOCK_FIREBASE_DB_URL;
 
-// Production config
-const prodConfig = {
-    apiKey: 'AIzaSyCmj24j_yyktraJeSZTwjZuS5VltNxhirY',
-	authDomain: 'webernote-7f700.firebaseapp.com',
-	databaseURL: 'https://webernote-7f700.firebaseio.com',
-	projectId: 'webernote-7f700',
-	storageBucket: '',
-	messagingSenderId: '1065841426702'
+// Initialize firebase with the environment config settings
+export const firebaseApp = firebase.initializeApp(
+    (ENV === 'production') ? config.firebase_config_prod :
+    (ENV === 'development') ? config.firebase_config_dev :
+    (ENV === 'test') ? config.firebase_config_test :
+        config.firebase_config_auth
+);
+
+export const database = firebaseApp.database()
+export const auth = firebaseApp.auth();
+
+export const PROVIDERS = {
+    fbProvider: new firebaseApp.auth.FacebookAuthProvider(),
+    gProvider: new firebaseApp.auth.GoogleAuthProvider(),
+    twProvider: new firebaseApp.auth.TwitterAuthProvider(),
+    ghProvider: new firebaseApp.auth.GithubAuthProvider()
 };
-
-// Development config
-const devConfig = {
-    apiKey: "AIzaSyD1y7RymxIkyR4ol0bOh9_m9kemsmh_Eq4",
-    authDomain: "webernote-dev.firebaseapp.com",
-    databaseURL: "https://webernote-dev.firebaseio.com",
-    projectId: "webernote-dev",
-    storageBucket: "webernote-dev.appspot.com",
-    messagingSenderId: "383968252512"
-};
-
-// Authorization config (not used?)
-const authConfig = {
-    apiKey: "AIzaSyDWX6KwRN0tmGLi6-4CFgZYfVzWIZtiyYs",
-    authDomain: "webernote-auth.firebaseapp.com",
-    databaseURL: "https://webernote-auth.firebaseio.com",
-    projectId: "webernote-auth",
-    storageBucket: "webernote-auth.appspot.com",
-    messagingSenderId: "567445181045"
-};
-
-let config, providers = {};
-
-// Initialize the app based on the environment to use the associated config settings
-if (env === 'development') {
-    config = devConfig; // use either devConfig or authConfig for testing/development
-    firebase.initializeApp(config);
-    providers.fbProvider = new firebase.auth.FacebookAuthProvider();
-}
-else if (env === 'production') {
-    config = prodConfig;
-    firebase.initializeApp(config);
-
-    providers.fbProvider = new firebase.auth.FacebookAuthProvider();
-    providers.gProvider = new firebase.auth.GoogleAuthProvider();
-    providers.twProvider = new firebase.auth.TwitterAuthProvider();
-    providers.ghProvider = new firebase.auth.GithubAuthProvider();
-}
-else if (env === 'test') {
-    // TODO: use either devConfig or authConfig for testing/development
-    config = authConfig;
-    firebase.initializeApp(config);
-    providers.fbProvider = new firebase.auth.FacebookAuthProvider();
-}
-
-const initFirebase = firebase.initializeApp(config, 'AUTH');
-
-export const database = initFirebase.database();
-export const auth = firebase.auth();
-export const PROVIDERS = providers;
 
 export default firebase;

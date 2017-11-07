@@ -1,11 +1,16 @@
-
-import { store } from '../../setupTests';
+import { store, startFirebaseTestServer } from '../../setupTests';
 import { database, auth, PROVIDERS } from '../../data/firebase';
 
 import * as actions from '../userActions';
 import userReducer from '../../reducers/userReducer';
 
 describe('User Actions', () => {
+    let ref;
+
+    beforeAll(async () => {
+        ({ ref } = await startFirebaseTestServer());
+    });
+
     const users = {
         "abc1234": {
             "uid": "abc1234",
