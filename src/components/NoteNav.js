@@ -49,7 +49,6 @@ class NoteNav extends React.Component {
             return <div className="loading"></div>
         }
 
-
         let coverStyles = { display: 'none' };
         let drawerMenuStyles = {};
 

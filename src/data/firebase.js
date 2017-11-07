@@ -40,7 +40,7 @@ let config, providers = {};
 
 // Initialize the app based on the environment to use the associated config settings
 if (env === 'development') {
-    config = authConfig; // use either devConfig or authConfig for testing/development
+    config = devConfig; // use either devConfig or authConfig for testing/development
     firebase.initializeApp(config);
     providers.fbProvider = new firebase.auth.FacebookAuthProvider();
 }
@@ -54,7 +54,7 @@ else if (env === 'production') {
     providers.ghProvider = new firebase.auth.GithubAuthProvider();
 }
 else if (env === 'test') {
-    // TODO: Test environment is just pointing to the devConfig
+    // TODO: use either devConfig or authConfig for testing/development
     config = authConfig;
     firebase.initializeApp(config);
     providers.fbProvider = new firebase.auth.FacebookAuthProvider();
