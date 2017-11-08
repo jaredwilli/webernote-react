@@ -12,10 +12,10 @@ class LabelsContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.showColorPicker = this.showColorPicker.bind(this);
         this.editLabel = this.editLabel.bind(this);
         this.removeLabel = this.removeLabel.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.showColorPicker = this.showColorPicker.bind(this);
 
         this.state = {
             displayColorPicker: false
@@ -30,23 +30,21 @@ class LabelsContainer extends React.PureComponent {
 
     showColorPicker(e) {
         e.preventDefault();
-
         this.setState({
             displayColorPicker: !this.state.displayColorPicker
         });
     }
 
+    // TODO: Need to make this work and remove labels
     removeLabel(e) {
         e.preventDefault();
-        this.props.editField(null);
+        this.props.editField({});
     }
 
     editLabel(label) {
-        const labels = this.props.labels;
+        const { labels } = this.props;
         let labelExists = [];
-        label = COLORS.filter((color) => {
-            return color.hex.toLowerCase() === label.hex.toLowerCase()
-        })[0];
+        label = COLORS.filter((color) => color.hex.toLowerCase() === label.hex.toLowerCase())[0];
 
         this.setState({
             displayColorPicker: false
@@ -69,7 +67,7 @@ class LabelsContainer extends React.PureComponent {
     }
 
     render() {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
         let backgroundColor = 'none';
         let colorPicker = '';
         let colors = [];
@@ -96,13 +94,13 @@ class LabelsContainer extends React.PureComponent {
         }
 
         return (
-            <div className="label-picker">
+            <div className="label-picker" style={{ background: backgroundColor }}>
                 <button className="label-background" type="button"
-                    style={{background: backgroundColor}}
-                    onClick={this.showColorPicker} />
-                    {/* {(backgroundColor === 'none') ? 'Label' : ''} */}
+                    onClick={this.showColorPicker}>
+                    Color
+                </button>
 
-                {(backgroundColor !== 'none') ? <CloseBtn onClick={(e) => this.removeLabel(e)} /> : ''}
+                {(backgroundColor !== 'none') && <CloseBtn onClick={this.removeLabel} />}
 
                 {colorPicker}
             </div>
