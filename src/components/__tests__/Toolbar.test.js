@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import Toolbar from '../Toolbar';
 
-it('renders without crashing', () => {
-    shallow(<Toolbar />);
+describe('Toolbar', () => {
+
+    it('renders without crashing', () => {
+        shallow(<Toolbar />);
+    });
 });

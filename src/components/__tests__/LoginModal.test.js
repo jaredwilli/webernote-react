@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import LoginModal from '../modals/LoginModal';
 
-it('renders without crashing', () => {
-    shallow(<LoginModal />);
+describe('LoginModal', () => {
+
+    it('renders without crashing', () => {
+        shallow(<LoginModal />);
+    });
 });

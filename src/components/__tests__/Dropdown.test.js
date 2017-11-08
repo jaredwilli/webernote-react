@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import Dropdown from '../ui/Dropdown';
 
-it('renders without crashing', () => {
-    shallow(<Dropdown />);
+describe('Dropdown component', () => {
+
+    it('renders without crashing', () => {
+        shallow(<Dropdown />);
+    });
 });

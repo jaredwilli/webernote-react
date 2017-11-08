@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import NoteTypes from '../NoteTypes';
 
-it('renders without crashing', () => {
-    shallow(<NoteTypes />);
+describe('NoteTypes', () => {
+
+    it('renders without crashing', () => {
+        shallow(<NoteTypes />);
+    });
 });

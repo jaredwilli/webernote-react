@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import AddNote from '../AddNote';
 
-it('renders without crashing', () => {
-    shallow(<AddNote />);
+describe('AddNote component', () => {
+
+    it('renders without crashing', () => {
+        shallow(<AddNote />);
+    });
 });

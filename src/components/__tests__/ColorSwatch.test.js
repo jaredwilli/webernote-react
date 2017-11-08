@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import NavDrawer from '../ui/NavDrawer';
+import ColorSwatch from '../ui/ColorSwatch';
 
-describe('NavDrawer', () => {
+describe('ColorSwatch', () => {
 
     it('renders without crashing', () => {
-        shallow(<NavDrawer />);
+        shallow(<ColorSwatch />);
     });
 });

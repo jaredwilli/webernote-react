@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,7 +15,7 @@ import SecondaryMenu from '../components/SecondaryMenu';
 
 import { MENU_ITEMS } from '../constants/menu';
 
-class Toolbar extends Component {
+class Toolbar extends React.Component {
     constructor(props) {
         super(props);
 

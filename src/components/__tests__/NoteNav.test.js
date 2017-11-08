@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import NoteNav from '../NoteNav';
 
-it('renders without crashing', () => {
-    shallow(<NoteNav />);
+describe('NoteNav', () => {
+
+    it('renders without crashing', () => {
+        shallow(<NoteNav />);
+    });
 });

@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import UserPhoto from '../UserPhoto';
 
-it('renders without crashing', () => {
-    shallow(<UserPhoto />);
+describe('UserPhoto', () => {
+
+    it('renders without crashing', () => {
+        shallow(<UserPhoto />);
+    });
 });
