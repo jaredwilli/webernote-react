@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
-import { shorten } from '../common/helpers.js';
-
-import CloseBtn from './ui/CloseBtn';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
@@ -49,73 +46,6 @@ class NoteNav extends React.Component {
             return <div className="loading"></div>
         }
 
-
-        let coverStyles = { display: 'none' };
-        let drawerMenuStyles = {};
-
-        if (this.state.drawerOpen) {
-            coverStyles = { display: 'inline-block' };
-            drawerMenuStyles = { left: '-15px' };
-        }
-
-        // If this is the narrow menu, do things different
-        if (this.props.show === 'narrow') {
-            return (
-                <div className={this.props.show + '-nav drawer-nav'}>
-                    <div className="hamburger" onClick={this.toggleDrawer}>
-                        <i className="fa fa-bars"></i>
-                    </div>
-
-                    <div className="cover" onClick={this.toggleDrawer} style={coverStyles} />
-
-                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
-                        {this.state.drawerOpen && <CloseBtn onClick={this.setState({ drawerOpen: false })} />}
-
-                        {(notebooks && notebooks.length > 0) &&
-                            <div className="notebooks-nav">
-                                <ul className="notebooks top-nav-item">
-                                    <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
-                                        <div className="expandNotebooks" onClick={this.toggleExpanded}>
-                                            Notebooks
-                                        </div>
-                                        <ul className="notebooks-list">
-                                            {noteNavItems({ notebook: notebooks }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-
-                        {(tags && tags.length > 0) &&
-                            <div className="tags-nav">
-                                <ul className="tags top-nav-item">
-                                    <li className={(this.state.expandTags) ? 'expanded' : ''}>
-                                        <div className="expandTags" onClick={this.toggleExpanded}>Tags</div>
-                                        <ul className="tags">
-                                            {noteNavItems({ tags }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-
-                        {(labels && labels.length > 0) &&
-                            <div className="labels-nav">
-                                <ul className="labels top-nav-item">
-                                    <li className={(this.state.expandLabels) ? 'expanded' : ''}>
-                                        <div className="expandLabels" onClick={this.toggleExpanded}>Labels</div>
-                                        <ul className="labels">
-                                            {noteNavItems({ label: labels }, notes)}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-                    </nav>
-                </div>
-            );
-        }
-
         let hideLeftNav = 'hidden';
         if (hasNotesAndOneOtherData(this.props)) {
             hideLeftNav = '';
@@ -124,7 +54,7 @@ class NoteNav extends React.Component {
         return (
             <div className="left sidebar-nav">
                 <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
-                    <nav className="nav-col note-nav" style={drawerMenuStyles}>
+                    <nav className="nav-col note-nav">
                         {(notebooks && notebooks.length > 0) &&
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">

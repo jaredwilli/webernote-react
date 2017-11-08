@@ -13,7 +13,6 @@ class NotesContainer extends React.PureComponent {
 		super(props);
 
 		this.deleteNote = this.deleteNote.bind(this);
-		// this.setAppHeight = this.setAppHeight.bind(this);
 
 		this.state = {
             notes: this.props.notes,
@@ -43,30 +42,6 @@ class NotesContainer extends React.PureComponent {
         }
     }
 
-    componentDidUpdate() {
-
-    }
-
-    // componentDidMount() {
-    //     window.addEventListener('resize', this.setAppHeight, false);
-    // }
-
-    // componentWillUnmount() {
-    //     window.addEventListener('resize', this.setAppHeight, false);
-    // }
-
-    // Set the notes-container height style based on the window height
-    // setAppHeight() {
-    //     let windowHeight = window.innerHeight,
-    //         container = document.querySelector('.notes-container');
-
-    //     if (container) {
-    //         this.setState({
-    //             containerStyle: {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'}
-    //         });
-    //     }
-    // }
-
 	deleteNote(note) {
         // I might not want to auto select first note on delete
         // this.props.actions.resetSelectedNote();
@@ -91,17 +66,6 @@ class NotesContainer extends React.PureComponent {
 				<div className="no-data"></div>
 			);
         }
-
-        // let containerStyle = this.state.containerStyle || {};
-        // debugger;
-        // if (!containerStyle.hasOwnProperty('height')) {
-        //     let windowHeight = window.innerHeight,
-        //         container = document.querySelector('.notes-container');
-
-        //     if (container) {
-        //         containerStyle = {height: windowHeight - 100 - (windowHeight % container.offsetHeight) + 'px'};
-        //     }
-        // }
 
         return (
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>

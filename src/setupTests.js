@@ -2,10 +2,15 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 // import fetchMock from 'fetch-mock';
-// import firebaseMock from 'firebase-mock';
+
+// import firebase, { TEST_URL } from 'firebase';
+// import FirebaseServer from 'firebase-server';
+// import detect from 'detect-port';
+// import * as data from './mocking/webernote-dev-export';
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import 'jest-enzyme';
 
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
@@ -18,23 +23,22 @@ configure({ adapter: new Adapter() });
 export const mockStore = configureMockStore([thunk]);
 export const store = mockStore();
 
-// export const mockDatabase = new firebaseMock.MockFirebase();
-// export const mockAuth = new firebaseMock.MockFirebase();
-// export const mockSdk = new firebaseMock.MockFirebaseSdk(path => {
-//     return (path) ? mockDatabase.child(path) : mockDatabase;
-// }, () => mockAuth);
+const localStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn()
+};
+global.localStorage = localStorageMock
 
-// const firebase = mockSdk.initializeApp(); // can take a path arg to database url
 
+// ##########################
 
-// export function renderComponent(ComponentClass, props = {}, state = {}) {
-//     const componentInstance =  TestUtils.renderIntoDocument(
-//         <Provider store={store}>
-//             <ComponentClass {...props} />
-//         </Provider>
-//     );
+// Initialize Firebase Server
 
-//     return $(ReactDOM.findDOMNode(componentInstance));
-// }
+// ##########################
 
-// export default firebase;
+let sequentialConnectionId = 0;
+
+export function newServerUrl(port = 5000) {
+    return 'ws://dummy' + (sequentialConnectionId++) + '.firebaseio.test:' + port;
+}
