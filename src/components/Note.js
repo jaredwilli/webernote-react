@@ -7,13 +7,7 @@ import { formatDate, shorten } from '../common/helpers';
 import { sortNotes, getTags } from '../common/noteHelpers';
 
 function Note(props) {
-    const notes = props.notes;
-
-    if (!notes) {
-        return (
-            <div className="note loading">Loading...</div>
-        );
-    }
+    const { notes } = props;
 
     if (notes.length === 0) {
         return (
@@ -43,12 +37,6 @@ function Note(props) {
                             <a href>{note.notebook.name}</a>
                         </span>
                     }
-                    {(note.url) ?
-                        <span className="url">
-                            <FontAwesome name='link' />
-                            <a href={note.url} target="_blank">{shorten(note.url, 80)}</a>
-                        </span>
-                    :  ''}
                     {getTags(note.tags)}
                 </div>
             </div>

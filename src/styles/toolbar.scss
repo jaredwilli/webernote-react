@@ -2,12 +2,25 @@
 
 .toolbar {
     background: #03A9F4;
-	display: block;
+    display: block;
+    position: relative;
     width: 100%;
 }
 
+.nav-drawer,
 .toolbar nav {
-    display: block;
+    display: inline-block;
+}
+
+.nav-drawer {
+    background: none;
+    position: relative;
+
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
 }
 
 .toolbar ul {

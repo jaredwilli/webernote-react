@@ -1,60 +1,87 @@
-import { store, startFirebaseTestServer } from '../../setupTests';
-import { database, auth, PROVIDERS } from '../../data/firebase';
+import firebase from 'firebase';
+import FirebaseServer from 'firebase-server';
+
+import { firebaseTest, databaseTest, auth } from '../../data/firebase';
+import { store, newServerUrl } from '../../setupTests';
 
 import * as actions from '../userActions';
 import userReducer from '../../reducers/userReducer';
 
 describe('User Actions', () => {
-    let ref;
+    let server;
 
-    beforeAll(async () => {
-        ({ ref } = await startFirebaseTestServer());
-    });
+    afterEach(function() {
+		if (server) {
+			server.close();
+			server = null;
+		}
+	});
 
     const users = {
         "abc1234": {
             "uid": "abc1234",
-            "displayName": null,
+            "displayName": 'guest',
             "photoURL": null,
             "email": null,
             "isAnonymous": true
         }
     };
 
-    const user = {
+    const anonUser = {
         "uid": "1234",
-        "displayName": null,
+        "displayName": 'guest',
         "photoURL": null,
         "email": null,
         "isAnonymous": true,
     };
 
+    const usersRef = databaseTest.ref('users');
 
     // NOTE: the async/await here for the signIn promise
-    it('dispatches getUsers() action succes', async () => {
-        database.ref('users').once = jest.fn(() => {
-            return Promise.resolve(users);
+    it('should dispatch GET USERS() action success', async () => {
+        firebaseTest.once = jest.fn(() => {
+            return Promise.resolve(anonUser);
         });
 
         await store.dispatch(actions.getUsers());
 
-        // expect(store.getActions()).toEqual([
-        //     { "type": "GET_USERS_REQUESTED", users: users }
-        // ]);
+        expect(store.getActions()).toEqual([
+            { type: 'GET_USERS_REQUESTED' }
+        ]);
+
+        databaseTest.ref('users').once('value', (snap) => {
+            expect(snap.val()).toEqual(null);
+        });
+    });
+
+    it('should dispatch GET USER() action success', async () => {
+        const userRef = databaseTest.ref('users/' + anonUser.uid);
+
+        firebaseTest.once = jest.fn(() => {
+            return Promise.resolve(anonUser);
+        });
+
+        await store.dispatch(actions.getUser(anonUser, userRef));
+
+        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}]
+    );
+
+        databaseTest.ref('users').once('value', (snap) => {
+            expect(snap.val()).toEqual(null);
+        });
     });
 
     // NOTE: the async/await here for the signIn promise
-    it('dispatches loginAnonymously() action succes', async () => {
+    it('dispatches loginAnonymously() to login user to dispatch getUser() action', async () => {
         // Mock the firebase signIn method as a jest mock
         auth.signInAnonymously = jest.fn(() => {
-            return Promise.resolve(user);
+            return Promise.resolve(anonUser);
         });
 
         await store.dispatch(actions.loginAnonymously());
 
-        expect(store.getActions()).toEqual([
-            { "type": "LOGIN_ANONYMOUS_REQUESTED" }
-        ]);
+        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}, {"type": "LOGIN_ANONYMOUS_REQUESTED"}]
+    );
     });
 
 });

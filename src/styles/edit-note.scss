@@ -115,8 +115,10 @@
         flex: 1;
     }
 
-    .add-notebook .remove {
-        margin-top: 4px;
+    .add-notebook .close {
+        position: absolute;
+        right: 4px;
+        top: 5px;
     }
 
     .cancel-new {

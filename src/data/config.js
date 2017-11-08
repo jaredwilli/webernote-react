@@ -32,8 +32,7 @@ const config = {
     // Testing config
     firebase_config_test: {
         apiKey: 'fake-api-key-for-testing-purposes-only',
-        databaseURL: 'localhost.firebaseio.test:5000',
-        debug: true
+        databaseURL: 'localhost.firebaseio.test:5000'
     },
     firebase_providers: [
         'facebook.com',

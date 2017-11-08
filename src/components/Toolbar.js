@@ -10,6 +10,7 @@ import * as labelActions from '../actions/labelActions';
 
 import AddNote from './AddNote';
 import NoteNav from '../components/NoteNav';
+import NavDrawer from '../components/ui/NavDrawer';
 import SecondaryMenu from '../components/SecondaryMenu';
 
 import { MENU_ITEMS } from '../constants/menu';
@@ -74,16 +75,16 @@ class Toolbar extends Component {
 
         return (
             <div className="toolbar">
+                <NavDrawer />
+
                 <nav>
                     <ul>
-                        <NoteNav show="narrow" />
-
                         {menuItems}
-
-                        <li className="new-note">
-                            <AddNote addNote={this.props.addNote} />
-                        </li>
                     </ul>
+
+                    <div className="new-note">
+                        <AddNote addNote={this.props.addNote} />
+                    </div>
                 </nav>
             </div>
         );
