@@ -9,7 +9,7 @@ import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
 import AddNote from './AddNote';
-import NoteNav from '../components/NoteNav';
+// import NoteNav from '../components/NoteNav';
 import NavDrawer from '../components/ui/NavDrawer';
 import SecondaryMenu from '../components/SecondaryMenu';
 

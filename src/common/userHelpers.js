@@ -1,5 +1,5 @@
 // user helper functions
-import { auth } from '../data/firebase.js';
+// import { auth } from '../data/firebase.js';
 import { deepMerge } from './helpers';
 
 /**

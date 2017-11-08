@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
-import { shorten } from '../common/helpers.js';
-
-import HambyBtn from './ui/HambyBtn';
-import CloseBtn from './ui/CloseBtn';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
