@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { MENU_ITEMS } from '../../constants/menu';
-import SecondaryMenu from '../SecondaryMenu';
+import SecondaryMenu from '../ui/SecondaryMenu';
 
 describe('SecondaryMenu', () => {
 

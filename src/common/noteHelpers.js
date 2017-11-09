@@ -10,14 +10,12 @@ import {Link} from 'react-router-dom';
  *
  * @param {Array} notes
  */
-export function sortNotes(notes) {
-    notes.sort((a, b) => {
-        let aDate = a.created_date; // (a.modified_date !== '') ? a.modified_date : a.created_date;
-        let bDate = b.created_date; // (b.modified_date !== '') ? b.modified_date : b.created_date;
-
-        return new Date(aDate).getTime() - new Date(bDate).getTime();
-    }).reverse();
-    return notes;
+export const sortNotes = (notes, sort) => {
+    notes = notes.sort((a, b) =>
+        new Date(a[sort.sortBy || 'created_date']).getTime() -
+        new Date(b[sort.sortBy || 'created_date']).getTime()
+    );
+    return (sort.order === 'desc') ? notes.reverse() : notes;
 }
 
 export function compareObjs(a, b) {
@@ -48,7 +46,7 @@ export function noteNavItems(obj, notes) {
             <li key={i} id={o.id}>
                 <Link to={'/' + key + '/' + o[prop].toLowerCase()}>
                     {(key === 'label') ? <div className="note-label" style={{background: o.hex}} /> : ''}
-                    <span className="name">{shorten(o[prop])}</span>
+                    <span className="name">{shorten(o[prop], 25)}</span>
                 </Link>&nbsp;
                 <span className="count">{getObjCounts({ [key]: o }, notes)}</span>
             </li>

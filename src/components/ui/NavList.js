@@ -1,15 +1,18 @@
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 
 import FontAwesome from 'react-fontawesome';
+import {noteNavItems} from '../../common/noteHelpers';
 
 class NavList extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            openMenu: false
+            expandMenu: {
+                notebooks: true,
+                tags: true,
+                labels: true
+            }
         };
     }
 
@@ -23,39 +26,42 @@ class NavList extends React.Component {
 		});
 	};
 
-	handleNestedListToggle = (item) => {
-		this.setState({
-			openMenu: item.state.openMenu
-		});
-	};
+    handleClick = (e, item) => {
+        debugger;
+    };
+
+    toggleExpanded = (e, type) => {
+        let current = {
+            ...this.state.expandMenu
+        };
+
+        current[type] = !this.state.expandMenu[type];
+        this.setState({
+            current
+        });
+    }
 
 	render() {
-        const { menuItems, type } = this.props;
+        const { notes, menuItems, type } = this.props;
 
         if (!menuItems) {
-            return <div></div>;
+            return <div className="empty hidden"></div>;
         }
 
-        const items = menuItems.forEach((item) => {
-            <ListItem key={item.id}
-                primaryText={item.name}
-                onClick={item.onClick} />
-        });
-
-		return (
-			<div className={type + '-nav nav-list'}>
-                <List>
-                    {items}
-                    <ListItem
-                        key={1}
-                        primaryText={type}
-                        leftIcon={<FontAwesome type={type} />}
-                        openMenu={this.state.openMenu}
-                        onNestedListToggle={this.handleNestedListToggle}
-                        nestedItems={items}
-                    />
-                </List>
-			</div>
+        return (
+			<div className={type + '-nav'}>
+                <ul className={type + ' top-nav-item'}>
+                    <li className={(this.state.expandMenu[type]) ? 'expanded' : ''}>
+                        <FontAwesome name="note" />
+                        <div className="expandable" onClick={(e) => this.toggleExpanded(e, type)}>
+                            {type}
+                        </div>
+                        <ul className={type}>
+                            {noteNavItems({ [type]: menuItems }, notes)}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 		);
 	}
 }

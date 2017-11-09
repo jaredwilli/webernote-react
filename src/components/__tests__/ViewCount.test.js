@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ViewCount from '../ViewCount';
+import ViewCount from '../ui/ViewCount';
 
 describe('ViewCount', () => {
     const notes = [];

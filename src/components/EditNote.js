@@ -9,6 +9,8 @@ import NotebooksContainer from '../containers/notebooksContainer';
 import TagsContainer from '../containers/tagsContainer';
 import LabelsContainer from '../containers/labelsContainer';
 
+import '../styles/edit-note.css';
+
 class EditNote extends React.Component {
     constructor(props) {
         super(props);

@@ -13,7 +13,7 @@ import Toolbar from '../components/Toolbar';
 import NoteTypes from '../components/NoteTypes';
 import NoteNav from '../components/NoteNav';
 
-import UserPhoto from '../components/UserPhoto';
+import UserPhoto from '../components/ui/UserPhoto';
 import IconBtn from '../components/ui/IconBtn';
 
 import * as userActions from '../actions/userActions';

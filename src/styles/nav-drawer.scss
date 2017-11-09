@@ -14,8 +14,16 @@
     &:hover {
         background: #E91E63;
     }
-}
 
+    .list-item > div > div {
+        color: blue;
+        font-size: 14px;
+        text-transform: capitalize;
+        position: relative;
+        margin-left: 0px;
+        padding: 5px 5px 5px 22px;
+    }
+}
 
 /* Media Queries */
 

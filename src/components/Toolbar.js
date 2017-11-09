@@ -8,10 +8,10 @@ import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
-import AddNote from './AddNote';
 // import NoteNav from '../components/NoteNav';
 import NavDrawer from '../components/ui/NavDrawer';
-import SecondaryMenu from '../components/SecondaryMenu';
+import SecondaryMenu from '../components/ui/SecondaryMenu';
+import AddNote from './ui/AddNote';
 
 import { MENU_ITEMS } from '../constants/menu';
 
@@ -64,11 +64,11 @@ class Toolbar extends React.Component {
             return (
                 <li key={key} onMouseLeave={() => this.showDropdown(key)}>
                     <a className={key} onMouseEnter={() => this.showDropdown(key)}>{key}</a>
-                    {this.state[key] ?
+                    {this.state[key] &&
                         <div onMouseLeave={() => this.showDropdown(key)} className={key + '-dropdown'}>
                             <SecondaryMenu items={items} actions={this.props.actions} />
                         </div>
-                    : ''}
+                    }
                 </li>
             );
         });
@@ -77,15 +77,15 @@ class Toolbar extends React.Component {
             <div className="toolbar">
                 <NavDrawer />
 
-                <nav>
+                <nav className="file-menu">
                     <ul>
                         {menuItems}
                     </ul>
-
-                    <div className="new-note">
-                        <AddNote addNote={this.props.addNote} />
-                    </div>
                 </nav>
+
+                <div className="new-note">
+                    <AddNote addNote={this.props.addNote} />
+                </div>
             </div>
         );
     }

@@ -7,6 +7,8 @@ import { showModal, hideModal } from '../../actions/modalActions';
 import Modal from '../ui/Modal';
 import LoginButtons from '../ui/LoginButtons';
 
+import '../../styles/login.css';
+
 class LoginModal extends React.Component {
     constructor(props) {
         super(props);

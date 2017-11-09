@@ -3,10 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
 import SearchFilter from './SearchFilter';
-import ViewCount from './ViewCount';
+import ViewCount from './ui/ViewCount';
 import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
@@ -30,7 +29,11 @@ class NoteList extends Component {
 			notebookFilter: {
 				name: 'All notebooks',
 				id: 'all_notebooks'
-			}
+            },
+            sort: {
+                order: 'desc',
+                sortBy: 'created_date'
+            }
         };
     }
 
@@ -107,6 +110,7 @@ class NoteList extends Component {
 
                 <div className="notes">
                     <Note notes={notes}
+                        sort={this.state.sort}
                         selectNote={(e, note) => this.selectNote(e, note)}
                         deleteNote={(note) => this.deleteNote(note)} />
                 </div>
