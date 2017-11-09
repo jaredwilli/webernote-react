@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SearchFilter from '../ui/SearchFilter';
+import SearchFilter from '../../SearchFilter';
 
 describe('SearchFilter', () => {
     const notes = [];
