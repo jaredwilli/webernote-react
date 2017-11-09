@@ -1,83 +1,63 @@
 import React from 'react';
-import MobileTearSheet from '../../../MobileTearSheet';
 import { List, ListItem } from 'material-ui/List';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ContentSend from 'material-ui/svg-icons/content/send';
 import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
 
-export default class ListExampleNested extends React.Component {
-	state = {
-		open: false
+import FontAwesome from 'react-fontawesome';
+
+class NavList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            openMenu: false
+        };
+    }
+
+    state = {
+		openMenu: false
 	};
 
 	handleToggle = () => {
 		this.setState({
-			open: !this.state.open
+			openMenu: !this.state.open
 		});
 	};
 
 	handleNestedListToggle = (item) => {
 		this.setState({
-			open: item.state.open
+			openMenu: item.state.openMenu
 		});
 	};
 
 	render() {
+        const { menuItems, type } = this.props;
+
+        if (!menuItems) {
+            return <div></div>;
+        }
+
+        const items = menuItems.forEach((item) => {
+            <ListItem key={item.id}
+                primaryText={item.name}
+                onClick={item.onClick} />
+        });
+
 		return (
-			<div>
-				<MobileTearSheet>
-					<List>
-						<Subheader>Nested List Items</Subheader>
-						<ListItem
-							primaryText="Inbox"
-							leftIcon={<ContentInbox />}
-							initiallyOpen={true}
-							primaryTogglesNestedList={true}
-							nestedItems={[
-								<ListItem
-									key={1}
-									primaryText="Starred"
-									leftIcon={<ActionGrade />}
-								/>,
-								<ListItem
-									key={2}
-									primaryText="Sent Mail"
-									leftIcon={<ContentSend />}
-									disabled={true}
-									nestedItems={[
-										<ListItem
-											key={1}
-											primaryText="Drafts"
-											leftIcon={<ContentDrafts />}
-										/>
-									]}
-								/>,
-								<ListItem
-									key={3}
-									primaryText="Inbox"
-									leftIcon={<ContentInbox />}
-									open={this.state.open}
-									onNestedListToggle={
-										this.handleNestedListToggle
-									}
-									nestedItems={[
-										<ListItem
-											key={1}
-											primaryText="Drafts"
-											leftIcon={<ContentDrafts />}
-										/>
-									]}
-								/>
-							]}
-						/>
-					</List>
-				</MobileTearSheet>
+			<div className={type + '-nav nav-list'}>
+                <List>
+                    {items}
+                    <ListItem
+                        key={1}
+                        primaryText={type}
+                        leftIcon={<FontAwesome type={type} />}
+                        openMenu={this.state.openMenu}
+                        onNestedListToggle={this.handleNestedListToggle}
+                        nestedItems={items}
+                    />
+                </List>
 			</div>
 		);
 	}
 }
 
-export default class ListExampleNested;
+export default NavList;

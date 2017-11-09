@@ -49,7 +49,7 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-        let { filteredNotes } = this.props;
+        const { filteredNotes } = this.props;
         let notes;
 
         if (filteredNotes && filteredNotes.length) {
@@ -69,7 +69,8 @@ class NotesContainer extends React.PureComponent {
 
         return (
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
-                <NoteList notes={notes}
+                <NoteList
+                    notes={notes}
                     addNote={this.props.addNote}
                     showLoginModal={this.props.showLoginModal}
                     deleteNote={note => this.deleteNote(note)}

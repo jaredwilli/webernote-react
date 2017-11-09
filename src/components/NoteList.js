@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import NotebookContainer from '../containers/notebooksContainer';
 import WelcomeMsg from './WelcomeMsg';
-import CloseBtn from './ui/CloseBtn';
+import SearchFilter from './SearchFilter';
+import ViewCount from './ViewCount';
 import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
@@ -20,6 +21,8 @@ class NoteList extends Component {
 
         this.selectNote = this.selectNote.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
+        this.filterNotes = this.filterNotes.bind(this);
+        this.clearFilters = this.clearFilters.bind(this);
 
         this.state = {
             filterType: 'Title',
@@ -56,8 +59,6 @@ class NoteList extends Component {
 
                 this.props.filterNotes(filterVals);
             });
-        } else {
-            this.clearFilters();
         }
     }
 
@@ -71,53 +72,36 @@ class NoteList extends Component {
     }
 
     render() {
-        let { notes, notebooks } = this.props;
+        const { notes, notebooks } = this.props;
 
         if (!notes.length) {
             return (
-                <WelcomeMsg addNote={this.props.addNote}
+                <WelcomeMsg
+                    addNote={this.props.addNote}
                     showLoginModal={this.props.showLoginModal} />
-            );
-        }
-
-        let filtersText = '';
-
-        if (notes.length) {
-            filtersText = (
-                <div className="filters">
-                    <div className="filter">
-                        <label>Search type:</label>
-                        <select name="filterType" className="filter-type"
-                            value={this.state.filterType}
-                            onChange={(e) => this.filterNotes({ filterType: e.target.value })}>
-                            <option>Title</option>
-                            <option>Description</option>
-                            <option>Url</option>
-                        </select>
-
-                        <input type="text" name="search" placeholder="Search" className="search"
-                            value={this.state.searchTerm}
-                            onChange={(e) => this.filterNotes((e.target.value.length) ? { searchTerm: e.target.value } : undefined)} />
-
-                        <CloseBtn onClick={() => this.filterNotes()} />
-                    </div>
-                    {(notebooks) ?
-                        <div className="viewing">
-                            <span className="viewtext">
-                                Viewing <span className="count">{notes.length}</span> notes from
-                            </span>
-                            <NotebookContainer
-                                filterByNotebook={(e) => this.filterNotes({ notebookFilter: e.name })}
-                                canAddNotebook={false} />
-                        </div>
-                    : ''}
-                </div>
             );
         }
 
         return (
             <div className="middle list-col note-list">
-                {filtersText}
+                <div className="filters">
+                    <div className="filter">
+                        <SearchFilter
+                            notes={notes}
+                            filterType={this.state.filterType}
+                            searchTerm={this.state.searchTerm}
+                            onChange={this.filterNotes}
+                            clearFilters={this.clearFilters} />
+                    </div>
+
+                    <div className="viewing">
+                        <ViewCount
+                            notes={notes}
+                            notebooks={notebooks}
+                            notebookFilter={this.state.notebookFilter}
+                            onChange={this.filterNotes} />
+                    </div>
+                </div>
 
                 <div className="notes">
                     <Note notes={notes}

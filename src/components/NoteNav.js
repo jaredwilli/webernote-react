@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
 
+import NavList from './ui/NavList';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
@@ -17,7 +18,6 @@ class NoteNav extends React.Component {
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
-            showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
             expandLabels: true,
@@ -43,9 +43,10 @@ class NoteNav extends React.Component {
         let { notes, notebooks, tags, labels } = this.props;
 
         if (!notes) {
-            return <div className="loading"></div>
+            return <div className="no-notes"></div>;
         }
 
+        // Hide the note nav unless there are at least one type of taxonomy applied to a note
         let hideLeftNav = 'hidden';
         if (hasNotesAndOneOtherData(this.props)) {
             hideLeftNav = '';
@@ -53,7 +54,17 @@ class NoteNav extends React.Component {
 
         return (
             <div className="left sidebar-nav">
-                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                <div className={hideLeftNav + ' wide-nav drawer-nav animate'}>
+                    {/* {(notebooks && notebooks.length > 0) &&
+                        <NavList menuItems={notebooks} type="notebooks" />
+                    }
+                    {(tags && tags.length > 0) &&
+                        <NavList menuItems={tags} type="tags" />
+                    }
+                    {(labels && labels.length > 0) &&
+                        <NavList menuItems={labels} type="labels" />
+                    } */}
+
                     <nav className="nav-col note-nav">
                         {(notebooks && notebooks.length > 0) &&
                             <div className="notebooks-nav">

@@ -10,6 +10,29 @@ export function isObject(item) {
 }
 
 /**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+export function createChainedFunction(...funcs: []) {
+    return funcs.filter(func => func != null).reduce(
+        (acc, func) => {
+            console.log(typeof func === 'function', 'Error: invalid Argument Type, must only provide functions, undefined, or null.'
+            );
+
+            return function chainedFunction(...args) {
+                acc.apply(this, args);
+                func.apply(this, args);
+            };
+        }, () => {}
+    );
+}
+
+/**
  * mergeDeep
  *
  * @param {*} target object to merge data into

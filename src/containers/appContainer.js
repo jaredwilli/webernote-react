@@ -194,9 +194,10 @@ class AppContainer extends React.PureComponent {
                         </nav>
 
                         <div className="main">
-                            {(this.state.showNoteNav) ? <NoteNav show="wide" /> : '' }
+                            {(this.state.showNoteNav) && <NoteNav />}
 
-                            <NotesContainer showLoginModal={this.showLoginModal}
+                            <NotesContainer
+                                showLoginModal={this.showLoginModal}
                                 addNote={this.addNote} />
                         </div>
                     </div>
