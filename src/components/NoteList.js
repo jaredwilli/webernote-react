@@ -94,13 +94,15 @@ class NoteList extends Component {
                             clearFilters={this.clearFilters} />
                     </div>
 
-                    <div className="viewing">
-                        <ViewCount
-                            notes={notes}
-                            notebooks={notebooks}
-                            notebookFilter={this.state.notebookFilter}
-                            onChange={this.filterNotes} />
-                    </div>
+                    {(notebooks && notebooks.length > 0) &&
+                        <div className="viewing">
+                            <ViewCount
+                                notes={notes}
+                                notebooks={notebooks}
+                                notebookFilter={this.state.notebookFilter}
+                                onChange={this.filterNotes} />
+                        </div>
+                    }
                 </div>
 
                 <div className="notes">
