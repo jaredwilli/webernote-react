@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Note from '../Note';
 
-describe('', () => {
+describe('Notes', () => {
     const notes = [];
 
     it('renders without crashing', () => {

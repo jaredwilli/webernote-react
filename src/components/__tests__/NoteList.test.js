@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import NoteList from '../NoteList';
 
-it('renders without crashing', () => {
-    shallow(<NoteList />);
+describe('NoteList', () => {
+
+    it('renders without crashing', () => {
+        shallow(<NoteList />);
+    });
 });

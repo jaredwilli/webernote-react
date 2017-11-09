@@ -42,8 +42,9 @@ export function addUser(user, userRef, anonUserRef) {
 
         // Set user function
         function setUser(user, userRef, mergedUser) {
+            debugger;
             user = createUser(user, mergedUser);
-
+debugger;
             userRef.set(user)
                 .then(() => {
                     userRef.once('value', (snap) => {

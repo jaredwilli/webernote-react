@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import WelcomeMsg from '../WelcomeMsg';
 
-it('renders without crashing', () => {
-    shallow(<WelcomeMsg />);
+describe('WelcomeMsg', () => {
+
+    it('renders without crashing', () => {
+        shallow(<WelcomeMsg />);
+    });
 });

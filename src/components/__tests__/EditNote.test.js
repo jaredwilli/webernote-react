@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 
 import EditNote from '../EditNote';
 
-it('renders without crashing', () => {
-    shallow(<EditNote />);
+describe('EditNote component', () => {
+
+    it('renders without crashing', () => {
+        shallow(<EditNote />);
+    });
 });
+

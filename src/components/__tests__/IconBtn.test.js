@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import IconBtn from '../ui/IconBtn';
 
-it('renders without crashing', () => {
-    shallow(<IconBtn />);
+describe('IconBtn', () => {
+
+    it('renders without crashing', () => {
+        shallow(<IconBtn />);
+    });
 });

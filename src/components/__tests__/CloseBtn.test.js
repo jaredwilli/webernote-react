@@ -3,6 +3,9 @@ import { shallow } from 'enzyme';
 
 import CloseBtn from '../ui/CloseBtn';
 
-it('renders without crashing', () => {
-    shallow(<CloseBtn />);
+describe('CloseBtn component', () => {
+
+    it('renders without crashing', () => {
+        shallow(<CloseBtn />);
+    });
 });
