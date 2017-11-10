@@ -14,7 +14,7 @@
     overflow-y: auto;
 
     .list-item > div > div {
-        color: $link-color;
+        color: $blue-link;
         font-size: 14px;
         text-transform: capitalize;
         position: relative;
@@ -93,7 +93,7 @@
 
     li > div {
         background: url('../img/arrow.png') no-repeat 1px 2px;
-        color: $link-color;
+        color: $blue-link;
         text-decoration: none;
         padding: 0 0 0 14px;
         line-height: 16px;
@@ -103,7 +103,7 @@
     li > a {
         border: 0;
         box-shadow: none;
-        color: $link-color;
+        color: $blue-link;
         font-weight: normal;
     }
 

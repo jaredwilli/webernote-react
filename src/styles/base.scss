@@ -1,3 +1,5 @@
+@import '_common.scss'
+
 /* Base Element Styles */
 
 ::-webkit-scrollbar {
@@ -32,12 +34,12 @@ body {
 }
 
 a {
-    color: #E91E63;
+    color: $pink;
     text-decoration: none;
-}
 
-a:hover {
-    color: #03A9F4;
+    &:hover {
+        color: $blue;
+    }
 }
 
 h1, h2, h3, h4, h5 {
@@ -72,7 +74,9 @@ img {
     width: auto\9; /* ie8 */
 }
 
-.menu, ol, ul {
+.menu,
+ol,
+ul {
     padding: 0 0 0 10px;
 }
 
@@ -82,21 +86,25 @@ ul {
     padding: 0;
 }
 
-nav { display: inline-block; }
-
-nav ul,
-nav li {
+nav {
     display: inline-block;
-    width: auto;
-}
 
-ul ul { margin-left: 20px; }
+    ul,
+    li {
+        display: inline-block;
+        width: auto;
+    }
 
-nav a {
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 4px 0;
+    ul ul {
+        margin-left: 20px;
+    }
+
+    a {
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        padding: 4px 0;
+    }
 }
 
 header {
@@ -105,28 +113,6 @@ header {
     margin: 0;
     width: 100%;
     height: 28px;
-}
-
-table {
-	width: 100%;
-}
-
-th {
-	color: #fff;
-	text-shadow: 1px 1px 1px #5f9e2b;
-	height: 30px;
-}
-
-td {
-	background: #bdcad4;
-	color: #000;
-    width: 45%;
-	min-width: 100px;
-    vertical-align: top;
-}
-
-td:first-child {
-	width: 15%;
 }
 
 sup {
