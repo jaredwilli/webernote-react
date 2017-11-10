@@ -1,19 +1,7 @@
 /* TOOLBAR NAV */
 
-.nav-drawer,
 .toolbar nav {
     display: inline-block;
-}
-
-.nav-drawer {
-    background: none;
-    position: relative;
-
-    .close {
-        position: absolute;
-        right: 10px;
-        top: 5px;
-    }
 }
 
 .toolbar {

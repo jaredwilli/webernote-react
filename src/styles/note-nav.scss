@@ -1,5 +1,3 @@
-@import '_common.scss';
-
 /* NOTE NAV */
 
 .sidebar-nav {
@@ -19,17 +17,12 @@
         text-transform: capitalize;
         position: relative;
         margin-left: 0px;
-        padding: 5px 5px 5px 22px !important;
+        padding: 5px 5px 5px 22px;
     }
-
 }
 
 .wide-nav .note-nav {
     display: inline-block;
-}
-
-.wide-nav.hidden {
-    display: none;
 }
 
 .narrow-nav.drawer-nav .note-nav {
