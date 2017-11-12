@@ -2,7 +2,8 @@
 # Webernote app
 
 [![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=master)](https://travis-ci.org/jaredwilli/webernote-react)
-
+[![Test Coverage](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/test_coverage)](https://codeclimate.com/github/jaredwilli/webernote-react/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/maintainability)](https://codeclimate.com/github/jaredwilli/webernote-react/maintainability)
 
 #### Overview
 
