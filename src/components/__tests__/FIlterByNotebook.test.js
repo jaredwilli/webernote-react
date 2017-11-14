@@ -16,11 +16,11 @@ describe('FilterByNotebook', () => {
             notebooks={notebooks} />);
     });
 
-    it('it has 2 options as children the menu', () => {
-        const wrapper = shallow(<FilterByNotebook
-            notes={notes}
-            notebookFilter={notebookFilter}
-            notebooks={notebooks} />);
-        // console.log(wrapper);
-    });
+    // it('it has 2 options as children the menu', () => {
+    //     const wrapper = shallow(<FilterByNotebook
+    //         notes={notes}
+    //         notebookFilter={notebookFilter}
+    //         notebooks={notebooks} />);
+    //     // console.log(wrapper);
+    // });
 });
