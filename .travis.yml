@@ -6,10 +6,10 @@ node_js:
 cache:
     directories: node_modules
 script:
-    npm test -- --coverage
+    npm test
     npm run build
-# after_script:
-    # COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls#
+after_script:
+    COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls#
 deploy:
     provider: surge
     project: ./build

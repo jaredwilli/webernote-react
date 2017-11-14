@@ -2,19 +2,21 @@ import React from 'react';
 import FilterByNotebook from '../FilterByNotebook';
 
 function ViewCount(props) {
-    if (!props.notes || !props.notes.length ||
-        !props.notebooks || !props.notebooks.length) {
+    const { notes, notebooks } = props;
+
+    if (!notes || !notes.length ||
+        !notebooks || !notebooks.length) {
         return <div className="empty hidden"></div>;
     }
 
     return (
         <span className="viewtext">
-            Viewing <span className="count">{props.notes.length}</span>&nbsp;
+            Viewing <span className="count">{notes.length}</span>&nbsp;
             <span className="notes-from">notes from</span>
 
             <FilterByNotebook
-                notes={props.notes}
-                notebooks={props.notebooks}
+                notes={notes}
+                notebooks={notebooks}
                 notebookFilter={props.notebookFilter}
                 onChange={props.onChange} />
         </span>
