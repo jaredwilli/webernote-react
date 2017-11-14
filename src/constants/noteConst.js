@@ -1,5 +1,11 @@
 /* Note constants */
 
+export const PLURALS = {
+    notes: 'note',
+    notebooks: 'notebook',
+    tags: 'tag',
+    labels: 'label'
+}
 export const DATA_TYPES = [
     'notes',
     'notebooks',

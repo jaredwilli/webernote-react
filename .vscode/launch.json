@@ -1,15 +1,19 @@
 {
-    // Full configuration list found here:
-    // https://github.com/Microsoft/vscode-chrome-debug#other-optional-launch-config-fields
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"type": "chrome",
-			"request": "attach",
-			"name": "Attach to Remote",
-			"address": "localhost",
-			"port": 9222,
-			"webRoot": "${workspaceRoot}"
-		}
-	]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
 }

@@ -27,7 +27,7 @@ class Toolbar extends React.Component {
             edit: false,
             view: false,
             note: false,
-            tools: false,
+            tools: true,
             help: false
         }
     }

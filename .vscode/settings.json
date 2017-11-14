@@ -1,57 +1,351 @@
 {
-    "debug.allowBreakpointsEverywhere": true,
-    "debug.inlineValues": true,
+	// Debug
+	"debug.allowBreakpointsEverywhere": true,
+	"debug.inlineValues": true,
 
-    "files.autoSave": "onFocusChange",
+	// Files
+	"files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 100,
     "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
+	"files.trimTrailingWhitespace": true,
+	"files.associations": {
+		// "*": "javascript",
+		".scss": "sass",
+		".sass": "sass",
+		".css": "css",
+		"*.yaml": "yaml",
+		"*.sh": "shellscript",
+		"*.php": "php",
+		".ackrc": "shellscript",
+		".aliases": "shellscript",
+		".brew": "shellscript",
+		".bash_profile": "shellscript",
+		".bash_prompt": "shellscript",
+		".bashrc": "shellscript",
+		".CFUserTextEncoding": "shellscript",
+		".curlrc": "shellscript",
+		".editorconfig": "shellscript",
+		".exports": "shellscript",
+		".extra": "shellscript",
+		".functions": "shellscript",
+		".gdbinit": "shellscript",
+		".gitattributes": "shellscript",
+		".gitconfig": "shellscript",
+		".gitignore": "shellscript",
+		".gvimrc": "shellscript",
+		".hgignore": "shellscript",
+		".hushlogin": "shellscript",
+		".inputrc": "shellscript",
+		".mkshrc": "shellscript",
+		".macos": "shellscript",
+		".node_repl_history": "shellscript",
+		".osx": "shellscript",
+		".profile": "shellscript",
+		".screenrc": "shellscript",
+		".tmux.conf": "shellscript",
+		".viminfo": "shellscript",
+		".vimrc": "shellscript",
+		".wgetrc": "shellscript",
+		".yarnrc": "shellscript",
+		".zsh": "shellscript",
+		".zlogin": "shellscript"
+	},
 
-    "editor.cursorStyle": "line-thin",
-    "editor.wordWrap": "on",
-    "editor.wordWrapColumn": 80,
-    "editor.wrappingIndent": "indent",
-    "editor.minimap.enabled": true,
-    "editor.snippetSuggestions": "top",
-    "editor.tabCompletion": true,
-    "editor.multiCursorModifier": "ctrlCmd",
+	// Editor
+	"editor.fontFamily": "Hasklig, Cousine, Menlo, Monaco,  monospace",
+	"editor.cursorStyle": "line-thin",
+	//  - 'off' (disable wrapping),
+    //  - 'on' (viewport wrapping),
+    //  - 'wordWrapColumn' (wrap at `editor.wordWrapColumn`) or
+    //  - 'bounded' (wrap at minimum of viewport and `editor.wordWrapColumn`).
+    "editor.wordWrap": "bounded",
+	"editor.wordWrapColumn": 80,
+	"editor.wrappingIndent": "indent",
+	"editor.minimap.enabled": true,
+	"editor.snippetSuggestions": "inline", // top
+	"editor.tabCompletion": true,
+	"editor.multiCursorModifier": "ctrlCmd",
+	"editor.fontSize": 14,
+	// Controls the delay in ms after which quick suggestions will show up
+	"editor.quickSuggestionsDelay": 1,
+	// Controls if suggestions should automatically show up while typing
+	"editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": false
+	},
 
-    "editor.fontSize": 14,
-    "window.zoomLevel": 0,
-    "workbench.commandPalette.history": 250,
-    "css.lint.duplicateProperties": "warning",
-    "html.format.endWithNewline": true,
+	// Window
+	"window.zoomLevel": 0,
+	"window.restoreWindows": "all",
 
-    // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
-    "search.exclude": {
+	"css.lint.duplicateProperties": "warning",
 
-    },
+	"html.format.endWithNewline": true,
 
-    "window.restoreWindows": "all",
-    "workbench.fontAliasing": "default",
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.commandPalette.preserveInput": true,
-    "workbench.settings.openDefaultSettings": false,
-    "workbench.iconTheme": "material-icon-theme",
+	// NewFile
+	// Default file extension to be used when no file is open.
+	"newFile.defaultFileExtension": ".js",
 
-    "prettier.tabWidth": 4,
-    "prettier.singleQuote": true,
-    "prettier.useTabs": true,
-    "prettier.jsxBracketSameLine": true,
-    "prettier.jsonEnable": [
-        "json",
-        "javascript",
-        "sass",
-        "css",
-        "html"
-    ],
+	// SCSS
+	// Allows to display errors.
+	"scss.showErrors": false,
 
-    "workbench.colorTheme": "Blackboard",
-    "workbench.statusBar.visible": true,
-    "[javascriptreact]": {
+	// VersionLens
 
-    },
-    "javascript.validate.enable": false,
-    "eslint.enable": true,
-    "typescript.check.npmIsInstalled": false,
-    "emmet.showExpandedAbbreviation": "never"
+	// Token for making basic read only github api requests.
+	// When no token is provided then access to the github api is
+	// rate limited to 60 requests every 10 minutes or so.
+	"versionlens.github.accessToken":
+		"d4037e82a63e54cbf660062e342c47bfb6a702e9",
+
+	// Search
+	// Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
+	"search.exclude": {
+		"**/.git": true,
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/tmp": true,
+		"**/build": true
+	},
+
+	// Workbench
+	"workbench.commandPalette.history": 0,
+	"workbench.fontAliasing": "default",
+	"workbench.startupEditor": "newUntitledFile",
+	"workbench.commandPalette.preserveInput": true,
+	"workbench.settings.openDefaultSettings": true,
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "Blackboard",
+	"workbench.statusBar.visible": true,
+	"workbench.colorCustomizations": {
+		"activityBarBadge.background": "#FF7042",
+		"list.activeSelectionForeground": "#FF7042",
+		"list.inactiveSelectionForeground": "#FF7042",
+		"list.highlightForeground": "#FF7042",
+		"scrollbarSlider.activeBackground": "#FF704250",
+		"editorSuggestWidget.highlightForeground": "#FF7042",
+		"textLink.foreground": "#FF7042",
+		"progressBar.background": "#FF7042",
+		"pickerGroup.foreground": "#FF7042",
+		"tab.activeBorder": "#FF7042"
+	},
+
+	// Prettier
+	// Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+	"prettier.eslintIntegration": true,
+	"prettier.tabWidth": 4,
+	"prettier.singleQuote": true,
+	"prettier.useTabs": true,
+	"prettier.jsxBracketSameLine": true,
+	"prettier.jsonEnable": ["json", "javascript", "sass", "css", "html"],
+
+	// JavaScript React
+	"[javascriptreact]": {},
+
+	// eslint
+	"eslint.enable": true,
+	"eslint.autoFixOnSave": true,
+	"eslint.packageManager": "yarn",
+
+	// Emmet
+	"emmet.showExpandedAbbreviation": "never",
+	"emmet.showAbbreviationSuggestions": false,
+
+	// Bracket pair colorizer
+	// Ensure that an opening brackets color does not match a previous brackets color
+	"bracketPairColorizer.forceUniqueOpeningColor": true,
+	// Define paired characters and their shared color group
+	"bracketPairColorizer.consecutivePairColors": [
+		"()",
+		"[]",
+		"{}",
+		["Gold", "Orchid", "LightSkyBlue"],
+		"Red"
+	],
+	// Define paired characters and their color groups
+	"bracketPairColorizer.independentPairColors": [
+		["()", ["Gold", "Orchid", "LightSkyBlue"], "Red"],
+		["[]", ["Gold", "Orchid", "LightSkyBlue"], "Red"],
+		["{}", ["Gold", "Orchid", "LightSkyBlue"], "Red"]
+	],
+
+	// VSCode Exports Autocomplete
+	"vscode-exports-autocomplete.enable": "enable",
+	// set this to a higher value if 'on paste' is too aggressive for you
+	"vscode-exports-autocomplete.minimumWordLengthToImportOnPaste": 1,
+	// set this to false when you're annoyed by the stuff you get from your npm modules*
+	"vscode-exports-autocomplete.enableNpmDependencies": true,
+	// set this to true when you prefer spaces around curly braces
+	"vscode-exports-autocomplete.addSpacingAroundCurlyBraces": true,
+	// string to be used when indenting, default is two spaces
+	"vscode-exports-autocomplete.indentationOverride": "",
+
+	// Node module intellisense
+
+	// Scans builtin modules as well
+	"node-module-intellisense.scanBuiltinModules": true,
+	// Scans devDependencies as well
+	"node-module-intellisense.scanDevDependencies": true,
+	// Scans file modules as well
+	"node-module-intellisense.scanFileModules": true,
+	/**
+     * Scans alternative module paths (eg. Search on ${workspcaceRoot}/lib).
+     * Useful when using packages like (https://www.npmjs.com/package/app-module-path)
+     * to manage require paths folder.
+     */
+	"node-module-intellisense.modulePaths": [],
+	// File module extensions
+	"node-module-intellisense.fileModuleExtensions": [
+		".js",
+		".jsx",
+		".vue",
+		".json"
+	],
+
+	// Bracket colorizer
+	"bracketPairColorizer.forceUniqueOpeningColor": true,
+	"bracketPairColorizer.forceIterationColorCycle": true,
+
+	// Git project manager
+	"gitProjectManager.baseProjectsFolders": [
+		"/Users/jaredw/Sites/_play/react/webernote",
+		"/Users/jaredw/Sites/_play/react/playground"
+	],
+
+	// TODO Highlight
+	"todohighlight.isEnable": true,
+	"todohighlight.isCaseSensitive": true,
+	"todohighlight.keywords": [
+		"DEBUG:",
+		"REVIEW:",
+		{
+			"text": "NOTE:",
+			"backgroundColor": "#dafa0c",
+			"color": "#000",
+			"overviewRulerColor": "grey"
+		},
+		{
+			"text": "FIXME:",
+			"backgroundColor": "#ff62be",
+			"color": "#fff",
+			"isWholeLine": false
+		},
+		{
+			"text": "HACK:",
+			"backgroundColor": "#ffab00",
+			"color": "#000",
+			"isWholeLine": false
+		},
+		{
+			"text": "TODO:",
+			"backgroundColor": "rgba(0, 0, 0, 0.2)",
+			"border": "1px solid #000",
+			"color": "red",
+			//NOTE: using borderRadius along with `border` or you will see nothing change
+			"borderRadius": "2px"
+		}
+	],
+	// highlight `TODO:`,`FIXME:` or content between parentheses
+	// "todohighlight.keywordsPattern": "TODO:|FIXME:|\\(([^)]+)\\)",
+	"todohighlight.defaultStyle": {
+		"color": "#000",
+		"backgroundColor": "#E91E63",
+		"border": "1px solid #000",
+		"borderRadius": "2px",
+		"cursor": "pointer",
+		"isWholeLine": false
+	},
+	"todohighlight.include": ["**/*.js", "**/*.json", "**/*.html", "**/*.scss"],
+	"todohighlight.exclude": [
+		"**/node_modules/**",
+		"**/bower_components/**",
+		"**/dist/**",
+		"**/build/**",
+		"**/.vscode/**",
+		"**/.github/**",
+		"**/_output/**",
+		"**/*.min.*",
+		"**/*.map",
+		"**/.next/**"
+	],
+
+	// Indent rainbow
+	// Defining custom colors instead of default "Rainbow" for dark backgrounds.
+	"indentRainbow.colors": [
+		"rgba(64, 64, 16, 0.3)",
+		"rgba(32, 64, 32, 0.3)",
+		"rgba(64, 32, 64, 0.3)",
+		"rgba(16, 48, 48, 0.3)",
+		"rgba(128, 32, 32, 0.3)"
+	],
+	// The delay in ms until the editor gets updated.
+	"indentRainbow.updateDelay": 10,
+	// The indent color if the number of spaces is not a multiple of "tabSize".
+	"indentRainbow.errorColor": "rgba(128,32,32,0.3)",
+	"indentRainbow.ignoreErrorLanguages": ["markdown", "plaintext"],
+	// Example of regular expression in JSON (note double backslash to escape characters)
+	"indentRainbow.ignoreLinePatterns": [
+		"/.*\\*.*/mg", // lines begining wit *
+		"/.*\\/\\/.*/g" // lines begininning with //
+	],
+
+	// Explorer
+	"explorer.confirmDragAndDrop": false,
+
+	// Material Theme
+	"materialTheme.cache.workbench.settings": {
+		"accent": "Orange",
+		"accentPrevious": "Acid Lime",
+		"themeColours": "Darker High Contrast"
+	},
+
+	// Sync settings
+	"sync.gist": "4c4c165c21db4069b58962bb95dc6910",
+	"sync.lastUpload": "2017-11-07T04:25:51.529Z",
+	"sync.autoDownload": false,
+	"sync.autoUpload": true,
+	"sync.lastDownload": "",
+	"sync.forceDownload": false,
+	"sync.anonymousGist": false,
+	"sync.host": "",
+	"sync.pathPrefix": "",
+	"sync.quietSync": false,
+	"sync.askGistName": false,
+
+	"[shellscript]": {},
+
+	/**
+     * JavaScript Settings
+     */
+
+	// Always include all words from the current document.
+	"javascript.suggest.alwaysAllWords": true,
+	// Complete functions with their parameter signature.
+	"javascript.suggest.useCodeSnippetsOnMethodSuggest": true,
+
+	// JS Validation
+	"javascript.validate.enable": false,
+
+	// JS Format
+	"javascript.format.enable": true,
+
+	// JavaScript Project Config
+	// including unique names from the file in JavaScript suggestion lists.
+	"javascript.nameSuggestions": false,
+
+	// JS Doc
+	"jsDocCompletion.enabled": true,
+
+    // PHP
+    "php.suggest.basic": false,
+
+	// TypeScript
+
+	// Complete functions with their parameter signature.
+	"typescript.useCodeSnippetsOnMethodSuggest": false,
+	// Enable/disable quick suggestions when typing out an import path.
+	"typescript.quickSuggestionsForPaths": false,
+	// Enable/disable auto import suggestions. Requires TypeScript >=2.6.1
+	"typescript.autoImportSuggestions.enabled": false
 }

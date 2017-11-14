@@ -68,7 +68,7 @@ class NotesContainer extends React.PureComponent {
         }
 
         return (
-            <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
+            <div className={(!notes.length) ? 'white notes-container' : 'has-notes notes-container'}>
                 <NoteList
                     notes={notes}
                     addNote={this.props.addNote}

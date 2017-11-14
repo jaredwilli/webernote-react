@@ -241,7 +241,7 @@ export function getDeletedTags(tags, note) {
  *
  * @param {String} refId
  */
-export function createNewNote(refId, user) {
+export function createNewNote(refId) {
     return {
         id: refId,
         isEditing: true,
@@ -262,7 +262,7 @@ export function createNewNote(refId, user) {
  * @param {*} tag
  * @param {*} note
  */
-export function createNewTag(refId, tag, note) {
+export function createNewTag(refId, tag) {
     // no className - not new tag...
     if (!tag.className) return;
     delete tag.className;
@@ -271,6 +271,7 @@ export function createNewTag(refId, tag, note) {
     tag.id = refId;
     tag.value = refId;
     tag.label = tag.label;
+    tag.name = tag.label; // to normalize the types
 
     return tag;
 }
@@ -315,31 +316,6 @@ export function getSelectedNotebook(e, notebooks) {
         }
     }
     return notebookId;
-}
-
-/**
- * filterData
- *
- * @param {Object} user
- * @param {Object} data
- * @param {Object} filter
- */
-export function filterData(data, filters) {
-    if (filters) {
-        let filterKeys = Object.keys(filters);
-        // Loop over the filterKeys
-        filterKeys.forEach((filterKey) => {
-            data = data.filter((d) => {
-                if (d[filterKey] && filters[filterKey].id !== 'all_notebooks') {
-                    // if data has the filter return those with same id
-                    return d[filterKey].id === filters[filterKey].id;
-                }
-                return d;
-            });
-            return data;
-        });
-    }
-    return data;
 }
 
 export function hasNotesAndOneOtherData(props) {

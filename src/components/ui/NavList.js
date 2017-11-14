@@ -1,11 +1,14 @@
 import React from 'react';
 
 import FontAwesome from 'react-fontawesome';
-import {noteNavItems} from '../../common/noteHelpers';
+import NavListItem from './NavListItem';
 
 class NavList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.toggleExpanded = this.toggleExpanded.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
         this.state = {
             expandMenu: {
@@ -16,35 +19,27 @@ class NavList extends React.Component {
         };
     }
 
-    state = {
-		openMenu: false
-	};
 
-	handleToggle = () => {
-		this.setState({
-			openMenu: !this.state.open
-		});
-	};
-
-    handleClick = (e, item) => {
-        debugger;
+	handleClick(e, item) {
+        // debugger;
     };
 
-    toggleExpanded = (e, type) => {
+    toggleExpanded(e, type) {
         let current = {
             ...this.state.expandMenu
         };
 
         current[type] = !this.state.expandMenu[type];
+
         this.setState({
-            current
+            expandMenu: current
         });
     }
 
 	render() {
-        const { notes, menuItems, type } = this.props;
+        const { notes, items, type } = this.props;
 
-        if (!menuItems) {
+        if (!items) {
             return <div className="empty hidden"></div>;
         }
 
@@ -52,13 +47,18 @@ class NavList extends React.Component {
 			<div className={type + '-nav'}>
                 <ul className={type + ' top-nav-item'}>
                     <li className={(this.state.expandMenu[type]) ? 'expanded' : ''}>
-                        <FontAwesome name="note" />
-                        <div className="expandable" onClick={(e) => this.toggleExpanded(e, type)}>
+
+                        <FontAwesome name="times" />
+
+                        <div className="expandable"
+                            onClick={(e) => this.toggleExpanded(e, type)}>
                             {type}
                         </div>
-                        <ul className={type}>
-                            {noteNavItems({ [type]: menuItems }, notes)}
-                        </ul>
+
+                        <NavListItem
+                            items={items}
+                            notes={notes}
+                            type={type} />
                     </li>
                 </ul>
             </div>

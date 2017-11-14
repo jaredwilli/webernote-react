@@ -7,9 +7,12 @@
     flex-flow: row wrap;
     flex: 1;
     position: relative;
-    height: 670px;
-    max-height: 670px;
+    max-height: 590px;
     min-height: 360px;
+
+    &.has-notes {
+        height: 670px;
+    }
 
     &.white {
         background: #fff;
