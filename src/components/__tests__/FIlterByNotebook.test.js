@@ -21,6 +21,6 @@ describe('FilterByNotebook', () => {
             notes={notes}
             notebookFilter={notebookFilter}
             notebooks={notebooks} />);
-        console.log(wrapper);
+        // console.log(wrapper);
     });
 });

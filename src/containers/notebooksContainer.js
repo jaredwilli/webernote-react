@@ -137,7 +137,7 @@ class NotebooksContainer extends React.PureComponent {
             // If can't add notebooks then render the filter notebook menu
             if (this.props.canAddNotebook) {
                 selectNoteBookOption = <option>Select notebook</option>;
-                addNoteBookOption = <option>+Create notebook</option>;
+                addNoteBookOption = <option>Create notebook</option>;
 
                 // If can add notebooks check that selectedNote is set
                 if (selectedNote && selectedNote.notebook) {

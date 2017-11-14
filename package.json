@@ -13,13 +13,10 @@
   "private": true,
   "dependencies": {
     "babel-eslint": "^8.0.2",
-    "bootstrap": "^4.0.0-beta.2",
-    "detect-port": "^1.2.2",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-15": "^1.0.2",
     "enzyme-to-json": "^3.2.2",
     "eslint": "^4.10.0",
-    "faye-websocket": "^0.11.1",
     "firebase": "^4.3.1",
     "history": "^4.7.2",
     "husky": "^0.14.3",
@@ -45,12 +42,10 @@
     "react-rte": "^0.15.0",
     "react-scripts": "1.0.13",
     "react-select": "^1.0.0-rc.10",
-    "react-styleguidist": "^6.0.32",
     "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "sinon": "^4.1.2"
+    "reselect": "^3.0.1"
   },
   "pre-commit": [
     "precommit-msg",
@@ -76,6 +71,7 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "coverage-watch": "react-scripts test --env=jsdom --coverage --watch",
+    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls",
     "eject": "react-scripts eject",
     "deploy": "npm run build surge",
     "styleguide": "styleguidist server",
@@ -86,6 +82,8 @@
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
+    "sinon": "^4.1.2",
+    "coveralls": "^3.0.0",
     "firebase-server": "^0.11.0",
     "git-scripts": "^0.2.1",
     "react-test-renderer": "^15.6.2",

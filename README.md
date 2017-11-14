@@ -1,6 +1,7 @@
 
 # Webernote app
 
+[![Coverage Status](https://coveralls.io/repos/github/jaredwilli/webernote-react/badge.svg)](https://coveralls.io/github/jaredwilli/webernote-react)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/test_coverage)](https://codeclimate.com/github/jaredwilli/webernote-react/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/maintainability)](https://codeclimate.com/github/jaredwilli/webernote-react/maintainability)
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
