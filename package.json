@@ -80,7 +80,7 @@
     "deploy": "npm run build surge",
     "styleguide": "styleguidist server",
     "styleguide-build": "styleguidist build",
-    "surge": "surge -p /Users/jaredw/Sites/_play/react/webernote/build -d webernote-dev.surge.sh",
+    "surge": "surge -p ./build -d webernote-dev.surge.sh",
     "build-react": "react-scripts build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"

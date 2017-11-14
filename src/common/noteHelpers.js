@@ -298,25 +298,28 @@ export function createNewNotebook(refId, notebook) {
 /**
  * getSelectedNotebook
  *
- * @param {Object} e event object from the onChange event of notebook select menu
+ * @param {Object} target the target event object from the onChange event
  * @param {Object} notebooks the current list of notebooks
  */
-export function getSelectedNotebook(e, notebooks) {
-    let notebookId = '';
+export const getSelectedNotebook = (e, notebooks) => {
+    const allOption = {
+        name: 'All Notebooks',
+        id: 'all_notebooks'
+    };
+    const target = e.target;
 
-    if (e.target.value === 'All Notebooks') {
-        return { name: e.target.value, id: 'all_notebooks' };
+    if (target.value === 'All Notebooks') {
+        return allOption;
     }
 
     // Find the value of the selected notebook from the select menu options
-    for (let notebook of e.target.children) {
-        if (notebook.value === e.target.value) {
-            notebookId = notebooks.filter(function(book) {
-                return book.id === notebook.id;
-            })[0];
+    for (let notebook of target.children) {
+        if (notebook.value === target.value) {
+            return notebooks.find((n) => {
+                return notebook.value === n.id;
+            });
         }
     }
-    return notebookId;
 }
 
 /**

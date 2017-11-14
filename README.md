@@ -1,9 +1,13 @@
 
 # Webernote app
 
-[![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=master)](https://travis-ci.org/jaredwilli/webernote-react)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/test_coverage)](https://codeclimate.com/github/jaredwilli/webernote-react/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/maintainability)](https://codeclimate.com/github/jaredwilli/webernote-react/maintainability)
+[![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
+[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)](https://github.com/jaredwilli/webernote-react/issues)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/cdnjs/cdnjs.svg)](https://github.com/jaredwilli/webernote-react/issues)
+[![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/jaredwilli/webernote-react/issues)
+[![Coveralls github](https://img.shields.io/coveralls/github/jekyll/jekyll.svg)](https://github.com/jaredwilli/webernote-react/issues)
 
 #### Overview
 

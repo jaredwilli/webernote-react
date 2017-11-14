@@ -64,8 +64,7 @@ describe('User Actions', () => {
 
         await store.dispatch(actions.getUser(usersMock.userHelpers.anonUser, userRef));
 
-        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}]
-    );
+        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}]);
 
         databaseTest.ref('users').once('value', (snap) => {
             expect(snap.val()).toEqual(null);
@@ -81,8 +80,7 @@ describe('User Actions', () => {
 
         await store.dispatch(actions.loginAnonymously());
 
-        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}, {"type": "LOGIN_ANONYMOUS_REQUESTED"}]
-    );
+        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}, {"type": "LOGIN_ANONYMOUS_REQUESTED"}]);
     });
 
 });

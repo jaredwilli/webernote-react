@@ -24,10 +24,10 @@ class EditNote extends React.Component {
     editNote(e) {
         let { selectedNote } = this.props;
 
+        selectedNote[e.target.name] = e.target.value;
+
         this.setState({
-            selectedNote: {
-                [e.target.name]: e.target.value
-            }
+            selectedNote
         });
 
         this.props.actions.editNote(selectedNote);
@@ -37,31 +37,6 @@ class EditNote extends React.Component {
     editField(field) {
         this.props.actions.editNote(this.props.selectedNote, field);
     }
-
-    // editLabel(label) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { label: label });
-    //     this.props.actions.getNotes();
-    // }
-
-    // editNotebook(notebook) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { notebook: notebook });
-    // }
-
-    // editTags(tags) {
-    //     let note = this.props.selectedNote;
-    //     this.setState({
-    //         selectedNote: note
-    //     });
-    //     this.props.actions.editNote(note, { tags: tags });
-    // }
 
     render() {
         const { selectedNote } = this.props;
@@ -76,19 +51,21 @@ class EditNote extends React.Component {
             <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."
+                        <input type="text" className="title" name="title"
+                            placeholder="Enter title..."
                             value={selectedNote.title}
                             autoFocus={true}
-                            onChange={this.editNote} />
+                            onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer
                             canAddNotebook={true}
                             editField={(notebook) => this.editField({ notebook: notebook })} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://"
+                        <input type="url" className="url" name="url"
+                            placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
-                            onChange={this.editNote} />
+                            onChange={(e) => this.editNote(e)} />
 
                         <LabelsContainer editField={(color) => this.editField({ label: color })} />
                     </div>
@@ -100,7 +77,7 @@ class EditNote extends React.Component {
                     <div className="bottom">
                         <textarea className="description" name="description"
                             value={selectedNote.description}
-                            onChange={this.editNote}>
+                            onChange={(e) => this.editNote(e)}>
                         </textarea>
                     </div>
                 </form>

@@ -18,7 +18,7 @@ class TagsContainer extends React.PureComponent {
 
     // TODO: add a minimum character limit for new tags
 	editTags(tags) {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
 
         // Check for new tags to be added
         if (tags.length) {
@@ -41,7 +41,7 @@ class TagsContainer extends React.PureComponent {
     }
 
     addTags(tags) {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
 
         // Check for new tags to be added
         if (tags.length) {
@@ -64,11 +64,11 @@ class TagsContainer extends React.PureComponent {
     }
 
     removeTags(tags) {
-        const selectedNote = this.props.selectedNote;
+        const { notes, selectedNote } = this.props;
 
         // Check for tags to be removed
         if (tags.length < selectedNote.tags.length) {
-            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
+            this.props.actions.removeTags(notes, compareObjs(tags, selectedNote.tags));
         }
 
         // Edit the notes tags

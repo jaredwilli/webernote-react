@@ -231,8 +231,7 @@ export default function noteReducer(state = {}, action) {
         }
 
         case types.FilterNotesFulfilled: {
-            let notes = refToArray(action.notes);
-            let filter = action.filter;
+            let { notes, filter } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -240,26 +239,23 @@ export default function noteReducer(state = {}, action) {
             });
 
             if (notes) {
-                notes = notes.map((note) => {
+                notes = refToArray(notes).map((note) => {
                     note.tags = refToArray(note.tags);
                     return note;
                 });
             }
 
             // Clear filteredNotes if no filters applied
-            if (!filter) {
-                newState.filteredNotes = null;
-                newState.notes = notes;
-            } else {
+            if (filter) {
                 // Filter by notebook
                 if (filter.notebook) {
-                    newState.filteredNotes = notes.filter((note) => {
-                        return note.notebook && note.notebook.name === filter.notebook;
+                    notes = notes.filter((note) => {
+                        return note.notebook && note.notebook.name === filter.notebook.name;
                     });
                 }
                 else if (filter.term && filter.type) {
                     // filter by field and keyword
-                    newState.filteredNotes = notes.filter((note) => {
+                    notes = notes.filter((note) => {
                         let term = filter.term.toLowerCase(),
                             type = filter.type,
                             typeVal = note[type.toLowerCase()].toLowerCase();
@@ -268,7 +264,7 @@ export default function noteReducer(state = {}, action) {
                     });
                 }
             }
-
+            newState.notes = notes
             newState.selectedNote = '';
             return newState;
         }

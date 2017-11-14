@@ -77,7 +77,7 @@ class NotebooksContainer extends React.PureComponent {
 
     selectNotebook(e) {
         // Handle New Notebook selection
-        if (e.target.name === 'notebook' && e.target.value === '+Create notebook') {
+        if (e.target.name === 'notebook' && e.target.value === 'Create notebook') {
             // will have to make new component for notebook select and new notebook input
             this.setState({
                 addNotebook: true
