@@ -57,23 +57,27 @@ export function addTag(tags, note) {
     }
 }
 
-export function removeTags(notes, deletedTags) {
+export function removeTags(notes, deletedTags = []) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        deletedTags.forEach((tag) => {
-            let notesWithTag;
-            notes.forEach((note) => {
-                notesWithTag = note.tags.filter((t) => {
-                    return (t.id === tag.id) ? t : '';
-                });
-            });
+        const notesWithTags = notes.filter(note => note.hasOwnProperty('tags'));
 
-            // Minus 1 because the notes haven't been updated yetcol
-            if (notesWithTag.length - 1 === 0) {
+        const tagsWithCount = (item) => {
+            return notesWithTags.map((note) => {
+                item.count = note.tags.reduce((sum, tag) => (tag.id === item.id) ? sum + 1 : sum, 0);
+                return note;
+            });
+        };
+
+        deletedTags.map(tag => {
+            const tagCount = tagsWithCount(tag);
+
+            // Minus 1 because the notes haven't been updated yet
+            if (tagCount.length - 1 === 0) {
                 tagsRef.child(tag.id)
                     .remove()
                     .then(dispatch(deleteTagsFulfilledAction()))
@@ -100,9 +104,7 @@ export function listenForDeletedTags() {
             // Only bother to run removeTags if the deleted note had some
             if (deletedNote.tags && deletedNote.tags.length) {
                 // Filter the deleted note out of current notes state
-                notes = notes.filter((n) => {
-                    return n.id !== deletedNote.id;
-                });
+                notes = notes.filter((n) => n.id !== deletedNote.id);
 
                 dispatch(removeTags(notes, deletedNote.tags));
             }
