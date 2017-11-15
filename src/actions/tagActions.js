@@ -86,6 +86,7 @@ export function removeTags(notes, deletedTags = []) {
                         dispatch(deleteTagsRejectedAction());
                     });
             }
+            return tag;
         });
 	};
 }
