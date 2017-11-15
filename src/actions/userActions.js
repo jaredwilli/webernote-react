@@ -44,6 +44,9 @@ export function addUser(user, userRef, anonUserRef) {
         const setUser = (user, userRef, mergedUser) => {
             user = createUser(user, mergedUser);
 
+            user.created_date = new Date().getTime();
+            user.last_login = new Date().getTime();
+
             userRef.set(user)
                 .then(() => {
                     userRef.once('value', (snap) => {
