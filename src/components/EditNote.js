@@ -9,6 +9,8 @@ import NotebooksContainer from '../containers/notebooksContainer';
 import TagsContainer from '../containers/tagsContainer';
 import LabelsContainer from '../containers/labelsContainer';
 
+import '../styles/edit-note.css';
+
 class EditNote extends React.Component {
     constructor(props) {
         super(props);
@@ -24,10 +26,10 @@ class EditNote extends React.Component {
     editNote(e) {
         let { selectedNote } = this.props;
 
+        selectedNote[e.target.name] = e.target.value;
+
         this.setState({
-            selectedNote: {
-                [e.target.name]: e.target.value
-            }
+            selectedNote
         });
 
         this.props.actions.editNote(selectedNote);
@@ -68,7 +70,7 @@ class EditNote extends React.Component {
 
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="no-selected-note"></div>
+                <div className="empty"></div>
             );
         }
 
@@ -76,21 +78,31 @@ class EditNote extends React.Component {
             <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."
+                        <input
+                            type="text"
+                            name="title"
+                            className="title"
+                            placeholder="Enter title..."
                             value={selectedNote.title}
                             autoFocus={true}
-                            onChange={this.editNote} />
+                            onChange={(e) => this.editNote(e)} />
                         <NotebooksContainer
                             canAddNotebook={true}
                             editField={(notebook) => this.editField({ notebook: notebook })} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://"
+                        <input
+                            type="url"
+                            name="url"
+                            className="url"
+                            placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
-                            onChange={this.editNote} />
+                            onChange={(e) => this.editNote(e)} />
 
-                        <LabelsContainer editField={(color) => this.editField({ label: color })} />
+                        <LabelsContainer
+                            editField={(color) => this.editField({ label: color })}
+                            removeLabel={this.removeLabel} />
                     </div>
                     <div className="mid">
                         <TagsContainer
@@ -98,9 +110,11 @@ class EditNote extends React.Component {
                             editField={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description"
+                        <textarea
+                            name="description"
+                            className="description"
                             value={selectedNote.description}
-                            onChange={this.editNote}>
+                            onChange={(e) => this.editNote(e)}>
                         </textarea>
                     </div>
                 </form>

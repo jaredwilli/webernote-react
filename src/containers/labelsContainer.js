@@ -5,7 +5,9 @@ import { withRouter } from 'react-router-dom';
 
 import { ColorPicker } from '../components/ui/ColorPicker';
 import CloseBtn from '../components/ui/CloseBtn';
+
 import { COLORS } from '../constants/noteConst';
+
 import * as labelActions from '../actions/labelActions';
 
 class LabelsContainer extends React.PureComponent {
@@ -38,7 +40,7 @@ class LabelsContainer extends React.PureComponent {
     // TODO: Need to make this work and remove labels
     removeLabel(e) {
         e.preventDefault();
-        this.props.editField({});
+        this.props.removeLabel({});
     }
 
     editLabel(label) {
@@ -94,10 +96,11 @@ class LabelsContainer extends React.PureComponent {
         }
 
         return (
-            <div className="label-picker" style={{ background: backgroundColor }}>
+            <div className="label-picker">
                 <button className="label-background" type="button"
+                style={{ background: backgroundColor }}
                     onClick={this.showColorPicker}>
-                    Color
+                    {(backgroundColor === 'none') ? 'Color' : ''}
                 </button>
 
                 {(backgroundColor !== 'none') && <CloseBtn onClick={this.removeLabel} />}

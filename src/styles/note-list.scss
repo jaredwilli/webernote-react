@@ -176,6 +176,7 @@
     }
 }
 
+/* Media Queries */
 
 @media all and (max-width: 990px) {
     .filter label {
@@ -191,11 +192,12 @@
         .close {
             display: inline-block;
         }
-        .note-label {
-            display: none;
-        }
-        .notes .title {
+        .title {
             font-weight: normal;
+        }
+        .note-label,
+        .tags {
+            display: none;
         }
     }
 }

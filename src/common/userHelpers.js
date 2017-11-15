@@ -3,24 +3,6 @@
 import { deepMerge } from './helpers';
 
 /**
- * checkIfUserExists
- *
- * @param {Object} authData
- */
-export function checkIfUserExists(authData, userRef) {
-	return userRef
-		.child('users')
-		.child(authData.uid)
-		.once('value')
-		.then(dataSnapshot => {
-			return Promise.resolve({
-				authData,
-				userExists: dataSnapshot.exists()
-			});
-		});
-}
-
-/**
  *
  * @param {*} oldRef
  * @param {*} newRef
@@ -50,7 +32,6 @@ export function mergeAnonUser(userRef, anonRef) {
     // Promise for getting the user ref data
     let newUser = new Promise((resolve, reject) => {
         if (!userRef) { resolve({}); }
-
         userRef.once('value')
             .then((userSnap) => {
                 resolve(userSnap.val());

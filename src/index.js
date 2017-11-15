@@ -9,9 +9,6 @@ import configureStore from './store/index';
 import { listenForAuth } from './actions/userActions';
 import App from './App';
 
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/css/bootstrap-theme.css';
-
 import './styles/import.css';
 
 import registerServiceWorker from './registerServiceWorker';

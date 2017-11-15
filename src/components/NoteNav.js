@@ -3,7 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { noteNavItems, hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+import { hasNotesAndOneOtherData } from '../common/noteHelpers.js';
+
+import NavList from './ui/NavList';
 
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
@@ -17,7 +19,6 @@ class NoteNav extends React.Component {
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
         this.state = {
-            showBurgerMenu: false,
             expandNotebooks: true,
             expandTags: true,
             expandLabels: true,
@@ -43,9 +44,10 @@ class NoteNav extends React.Component {
         let { notes, notebooks, tags, labels } = this.props;
 
         if (!notes) {
-            return <div className="loading"></div>
+            return <div className="no-notes"></div>;
         }
 
+        // Hide the note nav unless there are at least one type of taxonomy applied to a note
         let hideLeftNav = 'hidden';
         if (hasNotesAndOneOtherData(this.props)) {
             hideLeftNav = '';
@@ -53,9 +55,29 @@ class NoteNav extends React.Component {
 
         return (
             <div className="left sidebar-nav">
-                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                <div className={hideLeftNav + ' wide-nav drawer-nav animate'}>
+
                     <nav className="nav-col note-nav">
                         {(notebooks && notebooks.length > 0) &&
+                            <NavList
+                                menuItems={notebooks}
+                                notes={notes}
+                                type="notebooks" />
+                        }
+                        {(tags && tags.length > 0) &&
+                            <NavList
+                                menuItems={tags}
+                                notes={notes}
+                                type="tags" />
+                        }
+                        {(labels && labels.length > 0) &&
+                            <NavList
+                                menuItems={labels}
+                                notes={notes}
+                                type="labels" />
+                        }
+
+                        {/* {(notebooks && notebooks.length > 0) &&
                             <div className="notebooks-nav">
                                 <ul className="notebooks top-nav-item">
                                     <li className={(this.state.expandNotebooks) ? 'expanded' : ''}>
@@ -66,9 +88,9 @@ class NoteNav extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        } */}
 
-                        {(tags && tags.length > 0) &&
+                        {/* {(tags && tags.length > 0) &&
                             <div className="tags-nav">
                                 <ul className="tags top-nav-item">
                                     <li className={(this.state.expandTags) ? 'expanded' : ''}>
@@ -79,9 +101,9 @@ class NoteNav extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        } */}
 
-                        {(labels && labels.length > 0) &&
+                        {/* {(labels && labels.length > 0) &&
                             <div className="labels-nav">
                                 <ul className="labels top-nav-item">
                                     <li className={(this.state.expandLabels) ? 'expanded' : ''}>
@@ -92,7 +114,7 @@ class NoteNav extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                        }
+                        } */}
                     </nav>
                 </div>
             </div>

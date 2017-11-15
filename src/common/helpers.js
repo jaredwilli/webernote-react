@@ -10,6 +10,29 @@ export function isObject(item) {
 }
 
 /**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+export function createChainedFunction(...funcs: []) {
+    return funcs.filter(func => func != null).reduce(
+        (acc, func) => {
+            console.log(typeof func === 'function', 'Error: invalid Argument Type, must only provide functions, undefined, or null.'
+            );
+
+            return function chainedFunction(...args) {
+                acc.apply(this, args);
+                func.apply(this, args);
+            };
+        }, () => {}
+    );
+}
+
+/**
  * mergeDeep
  *
  * @param {*} target object to merge data into
@@ -52,30 +75,21 @@ export function removeDuplicatesBy(keyFn, array) {
 /**
  * refToArray
  *
- * @description Converts a Firebase Objects of Object to Array of Objects.
+ * @description A HOC that converts an Object of Objects to Array of Objects.
  * @param {Object} snap
  */
-export function refToArray(snap) {
-	let newSnap = [];
-	if (snap) {
-		newSnap = Object.keys(snap).map((s) => {
-			return snap[s];
-		});
-	}
-	return newSnap;
-}
+export const refToArray = (snap) => (snap && Object.keys(snap).length) ?
+    Object.keys(snap).map((s) => snap[s]) :
+    [];
+
 
 /**
  * formatDate
  *
+ * @description A HOC formats timestamps to human readable dates
  * @param {Date} timeStamp
  */
-export function formatDate(timeStamp) {
-	var date = new Date(timeStamp);
-	return (
-		date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-	);
-}
+export const formatDate = (timeStamp) => new Date(timeStamp).getMonth() + 1 + '/' + new Date(timeStamp).getDate() + '/' + new Date(timeStamp).getFullYear();
 
 /**
  * shorten
@@ -85,13 +99,8 @@ export function formatDate(timeStamp) {
  * @param {String} text
  * @param {Number} maxLength
  */
-export function shorten(text, maxLength) {
-	var ret = text;
-	if (ret && ret.length > maxLength) {
-		ret = ret.substr(0, maxLength - 1) + '…';
-	}
-	return ret;
-}
+export const shorten = (text, maxLength) => (text && text.length > maxLength) ? text.substr(0, maxLength - 1) + '…' : text;
+
 
 /**
  * guid

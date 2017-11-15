@@ -1,19 +1,9 @@
+@import './_common.scss';
+
 /* TOOLBAR NAV */
 
-.nav-drawer,
 .toolbar nav {
     display: inline-block;
-}
-
-.nav-drawer {
-    background: none;
-    position: relative;
-
-    .close {
-        position: absolute;
-        right: 10px;
-        top: 5px;
-    }
 }
 
 .toolbar {
@@ -57,7 +47,6 @@
 
     nav > ul > li > div {
         background: #fff;
-        -webkit-box-shadow: 0 0 3px #000;
         box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
         position: absolute;
         top: 30px;
@@ -66,11 +55,11 @@
 
     li > div > div > div {
         width: 100%;
-        margin: 0 !important;
+        margin: 0;
     }
 
     li > div > div > div > div > div {
-        padding: 6px 0 !important;
+        padding: 6px 0;
     }
 
     /* NEW NOTE Styles */
@@ -90,15 +79,15 @@
         }
 
         button {
-            background: none;
             border: 0;
             border-left: 1px solid #000;
             box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.52);
             color: #fff;
             font-size: 14px;
-            padding: 5px 50px 5px 15px;
-            vertical-align: middle;
             line-height: 20px;
+            padding: 5px 50px 5px 15px;
+            width: 130px;
+            vertical-align: middle;
             overflow: hidden;
             cursor: pointer;
 
@@ -124,7 +113,6 @@
     .note-types div.quick-access {
         display: none;
     }
-
 }
 
 @media all and (max-width: 376px) {

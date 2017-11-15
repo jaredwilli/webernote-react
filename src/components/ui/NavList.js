@@ -1,83 +1,69 @@
 import React from 'react';
-import MobileTearSheet from '../../../MobileTearSheet';
-import { List, ListItem } from 'material-ui/List';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
 
-export default class ListExampleNested extends React.Component {
-	state = {
-		open: false
+import FontAwesome from 'react-fontawesome';
+import {noteNavItems} from '../../common/noteHelpers';
+
+class NavList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            expandMenu: {
+                notebooks: true,
+                tags: true,
+                labels: true
+            }
+        };
+    }
+
+    state = {
+		openMenu: false
 	};
 
 	handleToggle = () => {
 		this.setState({
-			open: !this.state.open
+			openMenu: !this.state.open
 		});
 	};
 
-	handleNestedListToggle = (item) => {
-		this.setState({
-			open: item.state.open
-		});
-	};
+    handleClick = (e, item) => {
+        debugger;
+    };
+
+    toggleExpanded = (e, type) => {
+        let current = {
+            ...this.state.expandMenu
+        };
+
+        current[type] = !this.state.expandMenu[type];
+        this.setState({
+            current
+        });
+    }
 
 	render() {
-		return (
-			<div>
-				<MobileTearSheet>
-					<List>
-						<Subheader>Nested List Items</Subheader>
-						<ListItem
-							primaryText="Inbox"
-							leftIcon={<ContentInbox />}
-							initiallyOpen={true}
-							primaryTogglesNestedList={true}
-							nestedItems={[
-								<ListItem
-									key={1}
-									primaryText="Starred"
-									leftIcon={<ActionGrade />}
-								/>,
-								<ListItem
-									key={2}
-									primaryText="Sent Mail"
-									leftIcon={<ContentSend />}
-									disabled={true}
-									nestedItems={[
-										<ListItem
-											key={1}
-											primaryText="Drafts"
-											leftIcon={<ContentDrafts />}
-										/>
-									]}
-								/>,
-								<ListItem
-									key={3}
-									primaryText="Inbox"
-									leftIcon={<ContentInbox />}
-									open={this.state.open}
-									onNestedListToggle={
-										this.handleNestedListToggle
-									}
-									nestedItems={[
-										<ListItem
-											key={1}
-											primaryText="Drafts"
-											leftIcon={<ContentDrafts />}
-										/>
-									]}
-								/>
-							]}
-						/>
-					</List>
-				</MobileTearSheet>
-			</div>
+        const { notes, menuItems, type } = this.props;
+
+        if (!menuItems) {
+            return <div className="empty hidden"></div>;
+        }
+
+        return (
+			<div className={type + '-nav'}>
+                <ul className={type + ' top-nav-item'}>
+                    <li className={(this.state.expandMenu[type]) ? 'expanded' : ''}>
+                        <FontAwesome name="note" />
+                        <div className="expandable" onClick={(e) => this.toggleExpanded(e, type)}>
+                            {type}
+                        </div>
+                        <ul className={type}>
+                            {noteNavItems({ [type]: menuItems }, notes)}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 		);
 	}
 }
 
-export default class ListExampleNested;
+export default NavList;

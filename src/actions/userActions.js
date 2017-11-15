@@ -41,10 +41,9 @@ export function addUser(user, userRef, anonUserRef) {
         dispatch(addUserRequestedAction());
 
         // Set user function
-        function setUser(user, userRef, mergedUser) {
-            debugger;
+        const setUser = (user, userRef, mergedUser) => {
             user = createUser(user, mergedUser);
-debugger;
+
             userRef.set(user)
                 .then(() => {
                     userRef.once('value', (snap) => {
@@ -60,7 +59,7 @@ debugger;
                     console.error(error);
                     dispatch(addUserRejectedAction());
                 });
-        }
+        };
 
         // If user is anonymous just get fetch the data
         if (user.isAnonymous || !anonUserRef) {

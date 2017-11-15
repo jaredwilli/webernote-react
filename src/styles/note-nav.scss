@@ -1,3 +1,5 @@
+@import './_common.scss';
+
 /* NOTE NAV */
 
 .sidebar-nav {
@@ -10,19 +12,24 @@
     border: 1px solid hsl(205, 7%, 54%);
     height: 100%;
     overflow-y: auto;
+
+    .list-item > div > div {
+        color: $blue-link;
+        font-size: 14px;
+        text-transform: capitalize;
+        position: relative;
+        margin-left: 0px;
+        padding: 5px 5px 5px 22px;
+    }
 }
 
 .wide-nav .note-nav {
     display: inline-block;
 }
 
-.wide-nav.hidden {
-    display: none;
-}
-
 .narrow-nav.drawer-nav .note-nav {
+    background: rgb(24, 16, 16);
     box-shadow: -5px 14px 25px #000;
-	background: #fff;
     border: 1px solid #828c93;
     border-left: 0;
 	padding: 5px 5px 20px 30px;
@@ -51,88 +58,89 @@
     min-width: 200px;
     overflow: hidden;
     overflow-y: auto;
-}
 
-.note-nav > div {
-    display: block;
-    margin: 5px 0 0 5px;
-}
+    > div {
+        display: block;
+        margin: 5px 0 0 5px;
 
-.note-nav > div a {
-    text-align: left;
-}
+        a {
+            text-align: left;
+        }
+    }
 
-.note-nav ul {
-	margin-bottom: 10px;
-}
+    ul {
+        margin-bottom: 10px;
 
-.note-nav ul ul {
-    display: none;
-}
+        .expanded ul {
+            display: block;
+        }
+    }
 
-.note-nav ul .expanded ul {
-    display: block;
-}
+    ul ul {
+        display: none;
+    }
 
-.note-nav ul ul li {
-    display: block;
-	margin: 1px 0 0 5px;
-}
 
-.note-nav li > div {
-	background: url('../img/arrow.png') no-repeat 1px 2px;
-    color: #068dcc;
-	text-decoration: none;
-    padding: 0 0 0 14px;
-    line-height: 16px;
-    cursor: pointer;
-}
+    ul ul li {
+        display: block;
+        margin: 1px 0 0 5px;
+    }
 
-.note-nav li > a {
-    border: 0;
-    box-shadow: none;
-    color: #068dcc;
-    font-weight: normal;
-}
+    li > div {
+        background: url('../img/arrow.png') no-repeat 1px 2px;
+        color: $blue-link;
+        text-decoration: none;
+        padding: 0 0 0 14px;
+        line-height: 16px;
+        cursor: pointer;
+    }
 
-.note-nav li > div:hover,
-.note-nav li > a:hover {
-	text-decoration: underline;
-}
+    li > a {
+        border: 0;
+        box-shadow: none;
+        color: $blue-link;
+        font-weight: normal;
+    }
 
-.note-nav li.tag-link > div {
-	background: none;
-}
+    li > div:hover,
+    li > a:hover {
+        text-decoration: underline;
+    }
 
-.note-nav li.expanded > div {
-    background-position: 1px -10px;
-    line-height: 16px;
-}
+    li.tag-link > div {
+        background: none;
+    }
 
-.note-nav li .name {
-    text-transform: capitalize;
-}
+    li.expanded > div {
+        background-position: 1px -10px;
+        line-height: 16px;
+    }
 
-.note-nav li .count {
-	color: #999;
-}
+    li .name {
+        text-transform: capitalize;
+    }
 
-.note-nav li .count:before {
-	content: '(';
-}
+    li .count {
+        color: #999;
 
-.note-nav li .count:after {
-	content: ')';
-}
+        &:before {
+            content: '(';
+        }
 
-.note-nav .note-label {
-	border: 1px solid #d0d0d0;
-    border-radius: 24px;
-    text-transform: capitalize;
-	display: inline-block;
-    vertical-align: middle;
-	margin-right: 5px;
-    padding: 10px;
+        &:after {
+            content: ')';
+        }
+    }
+
+    .note-label {
+        border: 1px solid #d0d0d0;
+        border-radius: 24px;
+        text-transform: capitalize;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        padding: 10px;
+    }
 }
 
 

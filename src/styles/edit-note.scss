@@ -1,3 +1,5 @@
+@import './_common.scss';
+
 /* Edit Note */
 
 .edit-note {
@@ -71,6 +73,7 @@
         display: inline-block;
         position: relative;
         margin: 0 2px 0 0;
+        padding: 5px;
         flex: 2;
     }
 
@@ -144,7 +147,7 @@
 
     .url {
         font-size: 14px;
-        padding: 1px 5px;
+        padding: 5px;
         margin: 0;
         flex: 2;
     }
@@ -161,16 +164,21 @@
             color: #757575;
             cursor: pointer;
         }
+
+        .close {
+            float: right;
+            margin-top: 5px;
+        }
     }
 
     .label-background {
         background: #fff;
-        border: 1px solid rgba(210, 0, 71, 0.45);
-        display: inline-block;
+        border: 0;
         color: #333;
-        padding: 0px 4px;
         font-style: inherit;
-        height: 27px;
+        display: inline-block;
+        padding: 0px 4px;
+        height: 100%;
         width: 50px;
 
         &:hover {
@@ -180,7 +188,7 @@
 
     .label-color-picker {
         position: absolute;
-        left: -233%;
+        left: -313%;
         top: 34px;
         z-index: 1;
     }

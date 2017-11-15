@@ -1,22 +1,14 @@
-/* Import files */
+/**
+ * Import only the files that are necessary for the page always
+ * Other styles are imported into the components they are for specifically
+ */
 
-// Import from node_modules thanks to the --include-path flag in npm script
-// @import 'bootstrap/dist/css/bootstrap.css';
-// @import 'bootstrap/dist/css/bootstrap-theme.css';
-
-@import './_common.scss';
 @import './base.scss';
 @import './helpers.scss';
 @import './buttons.scss';
-@import './modal.scss';
 @import './main.scss';
-@import './login.scss';
-@import './settings.scss';
-@import './welcome-msg.scss';
 @import './toolbar.scss';
 @import './note-types.scss';
 @import './note-nav.scss';
 @import './notes-container.scss';
 @import './note-list.scss';
-@import './edit-note.scss';
-@import './nav-drawer.scss';
