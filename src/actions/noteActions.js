@@ -249,6 +249,7 @@ export function resetSelectedNote() {
 
 export function filterNotes(filter) {
 	return (dispatch, getState) => {
+        dispatch(resetSelectedNote());
         dispatch(filterNotesRequestedAction(filter));
 
         const user = getState().userData.user;

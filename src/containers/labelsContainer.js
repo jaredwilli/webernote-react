@@ -94,10 +94,11 @@ class LabelsContainer extends React.PureComponent {
         }
 
         return (
-            <div className="label-picker" style={{ background: backgroundColor }}>
+            <div className="label-picker">
                 <button className="label-background" type="button"
+                    style={{ background: backgroundColor }}
                     onClick={this.showColorPicker}>
-                    Color
+                    {(backgroundColor === 'none') ? 'Color' : ''}
                 </button>
 
                 {(backgroundColor !== 'none') && <CloseBtn onClick={this.removeLabel} />}

@@ -1,3 +1,5 @@
+@import './_common.scss';
+
 /* Zero Notes */
 
 .zero-notes {
@@ -31,26 +33,25 @@
         }
     }
 
-
     .get-started {
         margin: 20px 0 10px;
     }
 
-    button {
+    .btn-group button {
         color: #fff;
         width: auto;
         margin: 0 5px;
         padding: 0;
         padding-right: 20px;
-    }
 
-    button i {
-        padding: 0 10px;
-        height: 35px;
-        width: 35px;
-        line-height: 35px;
-        margin-right: 10px;
-        text-align: center;
+        i {
+            padding: 0 10px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            margin-right: 10px;
+            text-align: center;
+        }
     }
 
     .create-note {

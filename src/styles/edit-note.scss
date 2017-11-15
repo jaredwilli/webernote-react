@@ -1,3 +1,5 @@
+@import './_common.scss';
+
 /* Edit Note */
 
 .edit-note {
@@ -71,6 +73,7 @@
         display: inline-block;
         position: relative;
         margin: 0 2px 0 0;
+        padding: 5px;
         flex: 2;
     }
 
@@ -80,10 +83,6 @@
         font-size: 14px;
         padding: 0;
         position: relative;
-    }
-
-    .add-notebook {
-        padding-right: 4px;
     }
 
     .notebook,
@@ -115,25 +114,14 @@
         flex: 1;
     }
 
-    .add-notebook .close {
-        position: absolute;
-        right: 4px;
-        top: 5px;
-    }
+    .add-notebook {
+        padding-right: 4px;
 
-    .cancel-new {
-        background: rgba(80, 80, 80, 0.75);
-        border: 1px solid #666c6d;
-        border-radius: 12px;
-        color: #fff;
-        font-size: 10px;
-        font-weight: bold;
-        font-family: 'Helvetica';
-        padding: 1px 5px 3px 5px;
-        vertical-align: top;
-        z-index: 1;
-        right: 0;
-        cursor: pointer;
+        .close {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
     }
 
     .url,
@@ -144,7 +132,7 @@
 
     .url {
         font-size: 14px;
-        padding: 1px 5px;
+        padding: 5px;
         margin: 0;
         flex: 2;
     }
@@ -161,16 +149,22 @@
             color: #757575;
             cursor: pointer;
         }
+
+        .close {
+            float: right;
+            margin-top: 4px;
+        }
     }
 
     .label-background {
         background: #fff;
-        border: 1px solid rgba(210, 0, 71, 0.45);
-        display: inline-block;
+        border: 1px solid #FFF;
+        border-radius: 0;
         color: #333;
-        padding: 0px 4px;
         font-style: inherit;
-        height: 27px;
+        display: inline-block;
+        padding: 0px 4px;
+        height: 100%;
         width: 50px;
 
         &:hover {
@@ -180,7 +174,7 @@
 
     .label-color-picker {
         position: absolute;
-        left: -233%;
+        left: -313%;
         top: 34px;
         z-index: 1;
     }
@@ -201,7 +195,7 @@
     .bottom {
         display: flex;
         flex-direction: column;
-        height: 84.3%;
+        height: 82.7%;
     }
 
     .description {

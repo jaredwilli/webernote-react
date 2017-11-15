@@ -1,3 +1,5 @@
+@import './_common.scss';
+
 /* Notes List */
 
 .note-list {
@@ -56,6 +58,7 @@
 
     .filter-type,
     .viewing .notebook {
+        line-height: 16px;
         height: 22px;
         width: 32%;
     }
@@ -176,6 +179,7 @@
     }
 }
 
+/* Media Queries */
 
 @media all and (max-width: 990px) {
     .filter label {
@@ -191,11 +195,12 @@
         .close {
             display: inline-block;
         }
-        .note-label {
-            display: none;
-        }
-        .notes .title {
+        .title {
             font-weight: normal;
+        }
+        .note-label,
+        .tags {
+            display: none;
         }
     }
 }
