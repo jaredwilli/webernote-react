@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import FilterByNotebook from '../FilterByNotebook';
+import FilterByNotebook from '../FIlterByNotebook';
 import * as mocks from '../../mocking/noteHelpers-mock';
 
 describe('FilterByNotebook', () => {

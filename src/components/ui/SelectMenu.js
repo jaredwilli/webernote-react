@@ -5,8 +5,8 @@ const SelectMenu = (props) => {
         return <div className="empty hidden"></div>;
     }
 
-    const defaultValue = props.defaultValue || 'Choose an option...';
-    let selectedValue = (props.value) ? props.value : defaultValue;
+    const defaultValue = (props.defaultValue) ? props.defaultValue : 'Choose an option...';
+    const selectedValue = (props.value) ? props.value : defaultValue;
 
     return (
         <select

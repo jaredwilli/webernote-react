@@ -4,27 +4,29 @@ import SelectMenu from './ui/SelectMenu';
 import { getSelectedNotebook } from '../common/noteHelpers'
 
 function FilterByNotebook(props) {
+    const { notebooks, notebookFilter, onChange } = props;
+
     // Return nothing if no notebooks
-    if (!props.notebooks || !props.notebooks.length) {
+    if (!notebooks || !notebooks.length) {
         return <div className="empty hidden"></div>;
     }
 
     const getSelectedOption = (e) => ({
-        notebookFilter: getSelectedNotebook(e, props.notebooks)
+        notebookFilter: getSelectedNotebook(e, notebooks)
     });
 
     const defaultValue = 'All Notebooks';
     const defaultOption = <option>{defaultValue}</option>;
 
-    let options = props.notebooks.map((opt) => <option key={opt.id} value={opt.value}>{opt.name}</option>);
+    const options = notebooks.map((opt) => <option key={opt.id} value={opt.value}>{opt.name}</option>);
 
     return (
         <SelectMenu
             name="filterByNotebook"
             className="notebook filterByNotebook select-component"
             defaultValue={defaultValue}
-            value={props.notebookFilter}
-            onChange={(e) => props.onChange(getSelectedOption(e))}>
+            value={notebookFilter.id}
+            onChange={(e) => onChange(getSelectedOption(e))}>
             {defaultOption}
             {options}
         </SelectMenu>

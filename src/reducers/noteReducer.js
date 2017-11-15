@@ -245,16 +245,17 @@ export default function noteReducer(state = {}, action) {
                 });
             }
 
-            // Clear filteredNotes if no filters applied
+            // If there are filters applied
             if (filter) {
                 // Filter by notebook
-                if (filter.notebook) {
+                if (filter.notebook && filter.notebook.id !== 'all_notebooks') {
                     notes = notes.filter((note) => {
                         return note.notebook && note.notebook.name === filter.notebook.name;
                     });
                 }
-                else if (filter.term && filter.type) {
-                    // filter by field and keyword
+
+                // filter by field and keyword
+                if (filter.term && filter.type) {
                     notes = notes.filter((note) => {
                         let term = filter.term.toLowerCase(),
                             type = filter.type,
@@ -264,6 +265,7 @@ export default function noteReducer(state = {}, action) {
                     });
                 }
             }
+
             newState.notes = notes
             newState.selectedNote = '';
             return newState;

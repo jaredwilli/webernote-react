@@ -1,6 +1,6 @@
 import React from 'react';
 // import FilterByNotebook from '../FilterByNotebook';
-import FilterByNotebook from '../FilterByNotebook'
+import FilterByNotebook from '../FIlterByNotebook'
 
 function ViewCount(props) {
     const { notes, notebooks } = props;
