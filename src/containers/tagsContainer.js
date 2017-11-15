@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 
+import { compareObjs } from '../common/noteHelpers';
 import * as tagActions from '../actions/tagActions';
 
 class TagsContainer extends React.PureComponent {
@@ -16,7 +18,7 @@ class TagsContainer extends React.PureComponent {
 
     // TODO: add a minimum character limit for new tags
 	editTags(tags) {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
 
         // Check for new tags to be added
         if (tags.length) {
@@ -29,11 +31,48 @@ class TagsContainer extends React.PureComponent {
 
         // Check for tags to be removed
         if (tags.length < selectedNote.tags.length) {
-            this.props.actions.removeTags(this.props.notes);
+            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
         }
 
         // Edit the notes tags
-        this.props.editTags(tags, selectedNote);
+        this.props.editField(tags, selectedNote);
+        // Get tags again to update the state
+        this.props.actions.getTags();
+    }
+
+    addTags(tags) {
+        const { selectedNote } = this.props;
+
+        // Check for new tags to be added
+        if (tags.length) {
+            tags.forEach((tag) => {
+                if (tag.className) {
+                    this.props.actions.addTag(tags, selectedNote);
+                }
+            });
+        }
+
+        // Check for tags to be removed
+        if (tags.length < selectedNote.tags.length) {
+            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
+        }
+
+        // Edit the notes tags
+        this.props.editField(tags, selectedNote);
+        // Get tags again to update the state
+        this.props.actions.getTags();
+    }
+
+    removeTags(tags) {
+        const { notes, selectedNote } = this.props;
+
+        // Check for tags to be removed
+        if (tags.length < selectedNote.tags.length) {
+            this.props.actions.removeTags(notes, compareObjs(tags, selectedNote.tags));
+        }
+
+        // Edit the notes tags
+        this.props.editField(tags, selectedNote);
         // Get tags again to update the state
         this.props.actions.getTags();
 	}
@@ -78,4 +117,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TagsContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TagsContainer));

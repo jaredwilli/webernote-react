@@ -1,0 +1,862 @@
+{
+  "users" : {
+    "VoY1i6TtD9UkzSUGh5LXWbqEiwK2" : {
+      "created_date" : 1508707192459,
+      "displayName" : "Jared Williams",
+      "email" : "jaredwilli@gmail.com",
+      "isAnonymous" : false,
+      "labels" : {
+        "-Kxm2S02c8dr1COuMJKq" : {
+          "hex" : "#f8e71c",
+          "id" : "-Kxm2S02c8dr1COuMJKq",
+          "name" : "yellow"
+        },
+        "-KxxPTgHcxuDF_dBpjDp" : {
+          "hex" : "#d0021b",
+          "id" : "-KxxPTgHcxuDF_dBpjDp",
+          "name" : "red"
+        },
+        "-KxxPl2pxyIqMt87Xe8p" : {
+          "hex" : "#00b600",
+          "id" : "-KxxPl2pxyIqMt87Xe8p",
+          "name" : "green"
+        },
+        "-Ky8TL2i0janMEbScli9" : {
+          "hex" : "#eb144c",
+          "id" : "-Ky8TL2i0janMEbScli9",
+          "name" : "magenta"
+        }
+      },
+      "last_login" : 1508707192459,
+      "notebooks" : {
+        "-Kx4wbnk9MWkVBBCaTmA" : {
+          "id" : "-Kx4wbnk9MWkVBBCaTmA",
+          "name" : "Features",
+          "value" : "-Kx4wbnk9MWkVBBCaTmA"
+        },
+        "-Kx4wx73oqv5BXvOIP_H" : {
+          "id" : "-Kx4wx73oqv5BXvOIP_H",
+          "name" : "Bugs",
+          "value" : "-Kx4wx73oqv5BXvOIP_H"
+        },
+        "-Kx96y9pV4K03bwrBkZP" : {
+          "id" : "-Kx96y9pV4K03bwrBkZP",
+          "name" : "ES6",
+          "value" : "-Kx96y9pV4K03bwrBkZP"
+        },
+        "-Kx97M6vLzxmcN-fz5DW" : {
+          "id" : "-Kx97M6vLzxmcN-fz5DW",
+          "name" : "React",
+          "value" : "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "-KxAtpupcYnOlpaScu3w" : {
+          "id" : "-KxAtpupcYnOlpaScu3w",
+          "name" : "a",
+          "value" : "-KxAtpupcYnOlpaScu3w"
+        },
+        "-Kxm2ROIKhyWvbaJPWCX" : {
+          "id" : "-Kxm2ROIKhyWvbaJPWCX",
+          "name" : "Interviews",
+          "value" : "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "-KxxPjVkOiGrNqhnjlLc" : {
+          "id" : "-KxxPjVkOiGrNqhnjlLc",
+          "name" : "Improvements",
+          "value" : "-KxxPjVkOiGrNqhnjlLc"
+        },
+        "-KxxPyLDWF2h5huyv0sd" : {
+          "id" : "-KxxPyLDWF2h5huyv0sd",
+          "name" : "Testing",
+          "value" : "-KxxPyLDWF2h5huyv0sd"
+        }
+      },
+      "notes" : {
+        "-Kx4wX2uc5qpDQytM1Io" : {
+          "created_date" : 1508707016969,
+          "description" : "I decided to only try and copy the anonymous user data to the user accounts on initial creation, and not after they already exist. \n\nIt's problematic and not worth the hassle at this time.\n\n",
+          "id" : "-Kx4wX2uc5qpDQytM1Io",
+          "isEditing" : false,
+          "modified_date" : 1508763435333,
+          "notebook" : {
+            "id" : "-Kx4wbnk9MWkVBBCaTmA",
+            "name" : "Features",
+            "value" : "-Kx4wbnk9MWkVBBCaTmA"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          }, {
+            "id" : "-Kx4wdnh_d-QONgy8GpB",
+            "label" : "redux",
+            "value" : "-Kx4wdnh_d-QONgy8GpB"
+          }, {
+            "id" : "-Kx4we5LUg6aYvkTAUzn",
+            "label" : "firebase",
+            "value" : "-Kx4we5LUg6aYvkTAUzn"
+          } ],
+          "title" : "Testing anonymous -> user copy data works",
+          "url" : "http://google.com"
+        },
+        "-Kx4wqKkwfJyA-Va0-kh" : {
+          "created_date" : 1508707100031,
+          "description" : "It's kind of annoying the way that firebase works in many ways to do things around authentication.\n\nIt claims to be easy and worry free but it's really not the case and it quite frankly drives me insane!!!",
+          "id" : "-Kx4wqKkwfJyA-Va0-kh",
+          "isEditing" : false,
+          "modified_date" : 1508707184662,
+          "notebook" : {
+            "id" : "-Kx4wx73oqv5BXvOIP_H",
+            "name" : "Bugs",
+            "value" : "-Kx4wx73oqv5BXvOIP_H"
+          },
+          "tags" : [ {
+            "id" : "-Kx4we5LUg6aYvkTAUzn",
+            "label" : "firebase",
+            "value" : "-Kx4we5LUg6aYvkTAUzn"
+          }, {
+            "id" : "-Kx4x-DUyQD7KBROtRCD",
+            "label" : "bugs",
+            "value" : "-Kx4x-DUyQD7KBROtRCD"
+          } ],
+          "title" : "Mo' notes mo' problems",
+          "url" : ""
+        },
+        "-Kx96u_j5dRSCRGtligh" : {
+          "created_date" : 1508777111007,
+          "description" : "Manuscript for learning es6.",
+          "id" : "-Kx96u_j5dRSCRGtligh",
+          "isEditing" : false,
+          "modified_date" : 1508777152889,
+          "notebook" : {
+            "id" : "-Kx96y9pV4K03bwrBkZP",
+            "name" : "ES6",
+            "value" : "-Kx96y9pV4K03bwrBkZP"
+          },
+          "tags" : [ {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          } ],
+          "title" : "Understanding es6",
+          "url" : "https://github.com/nzakas/understandinges6/tree/master/manuscript"
+        },
+        "-Kx97K9HXFngKpU4PAlL" : {
+          "created_date" : 1508777219841,
+          "description" : "https://github.com/ruanyf/react-demos\n\nhttps://github.com/JedWatson/react-codemirror\n\nhttps://github.com/reactjs/reselect\n\nhttps://github.com/StevenIseki/react-router-redux-example/tree/master/src/selectors\n\nhttps://reacttraining.com/react-router",
+          "id" : "-Kx97K9HXFngKpU4PAlL",
+          "isEditing" : false,
+          "modified_date" : 1508777279579,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          } ],
+          "title" : "React links",
+          "url" : ""
+        },
+        "-KxA6vWHVU2-pkD-uE6O" : {
+          "created_date" : 1508793890961,
+          "description" : "",
+          "id" : "-KxA6vWHVU2-pkD-uE6O",
+          "isEditing" : false,
+          "modified_date" : 1508974359952,
+          "notebook" : {
+            "id" : "-KxAtpupcYnOlpaScu3w",
+            "name" : "a",
+            "value" : "-KxAtpupcYnOlpaScu3w"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          }, {
+            "id" : "-Kx4wdnh_d-QONgy8GpB",
+            "label" : "redux",
+            "value" : "-Kx4wdnh_d-QONgy8GpB"
+          }, {
+            "id" : "-Kx4we5LUg6aYvkTAUzn",
+            "label" : "firebase",
+            "value" : "-Kx4we5LUg6aYvkTAUzn"
+          } ],
+          "title" : "Now the filtering works for note list",
+          "url" : ""
+        },
+        "-KxKsQK7metc2fkDJdnQ" : {
+          "created_date" : 1508974376281,
+          "description" : "",
+          "id" : "-KxKsQK7metc2fkDJdnQ",
+          "isEditing" : false,
+          "modified_date" : 1509394406171,
+          "tags" : [ {
+            "id" : "-Kx4wdnh_d-QONgy8GpB",
+            "label" : "redux",
+            "value" : "-Kx4wdnh_d-QONgy8GpB"
+          } ],
+          "title" : "Material Design Color Chart",
+          "url" : "http://htmlcolorcodes.com/color-chart/material-design-color-chart/"
+        },
+        "-Kxm2NO2-yew7jAPTT9K" : {
+          "created_date" : 1509447013953,
+          "description" : "Hi Jared,\n \nIt was lovely speaking with you today.\n \nPlease see information below on next steps for the interview process. \n \nWhen you get a chance please send along your:\n \nResume\nAvailability for a 45-minute interview. We do interviews Monday-Friday between 10am-4pm PST. We don’t do interviews on Wednesdays. Please provide 3 dates of availability.\n \nHere's an overview of what to expect for your interview:\nThe conversation will last around 45 minutes with an engineer from the Front-End team. You will need access to a computer and you’ll be entering into a collaborative document where you and the interviewer can code together. Feel free to answer the questions in the language that you feel most comfortable with, although choosing a language that is going to assist in getting to an optimal solution in the most speedy and efficient manner is key. It's also important that you think outloud and provide a narrative as you work through the questions so our engineer has insight into your thought process. \n \nThe primary technical focus throughout our interview process will be JavaScript, HTML and CSS. We strongly encourage you to have a full understanding of the following techniques (although not limited to): algorithms, design patterns, data structures, recursions, binary tree questions. Additionally, please reacquaint yourself with the core Computer Science concepts & general software engineering skills (study the basics) and topics related to the scale of our environment. \n \nPlease be prepared to talk about exciting projects you worked on. Please also prepare any questions you have before the interview and also be ready to answer why you are interested in Facebook and what you might like to work on - Your excitement about Facebook goes a long way!\n \nFacebook Bootcamp:\nhttps://www.facebook.com/photo.php?v=10150411360573109\n \nFacebook Engineering and Open Source:\nhttps://code.facebook.com\nhttps://code.facebook.com/projects\n \nFacebook News and Statistics:\nhttp://newsroom.fb.com\n \nReact:\nhttp://facebook.github.io/react\nhttp://facebook.github.io/react/blog/2013/06/05/why-react.html\n \nSome additional links our engineers found helpful:\nLearn JavaScript | MDN\nVideo: Douglas Crockford, \"Advanced JavaScript”\nEloquent JavaScript\nLearning Advanced JavaScript\nJavaScript Garden\n \nBooks to Read:\nThe Algorithm Design Manual by Steve S. Skiena\nProgramming Pearls, 2nd Edition\nIntroduction to algorithms Third Addition\n \nThanks,\n Sinead\n ",
+          "id" : "-Kxm2NO2-yew7jAPTT9K",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#f8e71c",
+            "id" : "-Kxm2S02c8dr1COuMJKq",
+            "name" : "yellow"
+          },
+          "modified_date" : 1509447022609,
+          "notebook" : {
+            "id" : "-Kxm2ROIKhyWvbaJPWCX",
+            "name" : "Interviews",
+            "value" : "-Kxm2ROIKhyWvbaJPWCX"
+          },
+          "tags" : {
+            "-Kx4wdRTFiQ4AbO9R4dT" : {
+              "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+              "label" : "react",
+              "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            "-Kxm3Amw32aO9eO5WHqS" : {
+              "id" : "-Kxm3Amw32aO9eO5WHqS",
+              "label" : "facebook",
+              "value" : "-Kxm3Amw32aO9eO5WHqS"
+            },
+            "-Kxm3CyG_g2OWMA_kaac" : {
+              "id" : "-Kxm3CyG_g2OWMA_kaac",
+              "label" : "jobs",
+              "value" : "-Kxm3CyG_g2OWMA_kaac"
+            }
+          },
+          "title" : "Facebook interview stuff",
+          "url" : ""
+        },
+        "-KxxPGvgNA4npmDPX1TP" : {
+          "created_date" : 1509637567193,
+          "description" : "Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarative rather than imperative, and application state flows through pure functions. Contrast with object oriented programming, where application state is usually shared and colocated with methods in objects.\n\nFunctional programming is a programming paradigm, meaning that it is a way of thinking about software construction based on some fundamental, defining principles (listed above). Other examples of programming paradigms include object oriented programming and procedural programming.\n\nFunctional code tends to be more concise, more predictable, and easier to test than imperative or object oriented code — but if you’re unfamiliar with it and the common patterns associated with it, functional code can also seem a lot more dense, and the related literature can be impenetrable to newcomers.\n",
+          "id" : "-KxxPGvgNA4npmDPX1TP",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#d0021b",
+            "id" : "-KxxPTgHcxuDF_dBpjDp",
+            "name" : "red"
+          },
+          "modified_date" : 1509637639597,
+          "notebook" : {
+            "id" : "-Kxm2ROIKhyWvbaJPWCX",
+            "name" : "Interviews",
+            "value" : "-Kxm2ROIKhyWvbaJPWCX"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          }, {
+            "id" : "-KxxPT4DjB2MfbF3v93R",
+            "label" : "development",
+            "value" : "-KxxPT4DjB2MfbF3v93R"
+          } ],
+          "title" : "Functional Programming ",
+          "url" : "https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0"
+        },
+        "-KxxPf7WvvG5ioDPg3wI" : {
+          "created_date" : 1509637670413,
+          "description" : "",
+          "id" : "-KxxPf7WvvG5ioDPg3wI",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#00b600",
+            "id" : "-KxxPl2pxyIqMt87Xe8p",
+            "name" : "green"
+          },
+          "modified_date" : 1509637690724,
+          "notebook" : {
+            "id" : "-KxxPjVkOiGrNqhnjlLc",
+            "name" : "Improvements",
+            "value" : "-KxxPjVkOiGrNqhnjlLc"
+          },
+          "tags" : {
+            "-Kx4wdRTFiQ4AbO9R4dT" : {
+              "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+              "label" : "react",
+              "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+            }
+          },
+          "title" : "Focus input with ref in react",
+          "url" : "https://stackoverflow.com/questions/28889826/react-set-focus-on-input-after-render?rq=1"
+        },
+        "-KxxPpcOVB9tY49gcwZj" : {
+          "created_date" : 1509637713413,
+          "description" : "",
+          "id" : "-KxxPpcOVB9tY49gcwZj",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#00b600",
+            "id" : "-KxxPl2pxyIqMt87Xe8p",
+            "name" : "green"
+          },
+          "modified_date" : 1509637723715,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "tags" : {
+            "-Kx4wdRTFiQ4AbO9R4dT" : {
+              "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+              "label" : "react",
+              "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+            }
+          },
+          "title" : "React Lifecycle methods ",
+          "url" : "https://developmentarc.gitbooks.io/react-indepth/content/life_cycle/introduction.html"
+        },
+        "-KxxPvV5vA1aILWM9ITT" : {
+          "created_date" : 1509637737458,
+          "description" : "Also:\n\nhttps://medium.com/netscape/testing-a-react-redux-app-using-jest-and-enzyme-b349324803a9\n\nhttp://arnaudbenard.com/redux-mock-store/",
+          "id" : "-KxxPvV5vA1aILWM9ITT",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#00b600",
+            "id" : "-KxxPl2pxyIqMt87Xe8p",
+            "name" : "green"
+          },
+          "modified_date" : 1509637778624,
+          "notebook" : {
+            "id" : "-KxxPyLDWF2h5huyv0sd",
+            "name" : "Testing",
+            "value" : "-KxxPyLDWF2h5huyv0sd"
+          },
+          "tags" : [ {
+            "id" : "-KxxQ-J6i6CQ5d0Sbggb",
+            "label" : "unit testing",
+            "value" : "-KxxQ-J6i6CQ5d0Sbggb"
+          }, {
+            "id" : "-KxxQ-d0Ccr6jcwbLJ-i",
+            "label" : "testing",
+            "value" : "-KxxQ-d0Ccr6jcwbLJ-i"
+          }, {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          }, {
+            "id" : "-KxxQ05ObD46s_RNuZ4q",
+            "label" : "jest",
+            "value" : "-KxxQ05ObD46s_RNuZ4q"
+          } ],
+          "title" : "Testing with Jest",
+          "url" : "http://facebook.github.io/jest/docs/en/tutorial-react.html"
+        },
+        "-Ky-StAx9BGrygJ6jNDF" : {
+          "created_date" : 1509688840872,
+          "description" : "Great resource even if it's a bit old",
+          "id" : "-Ky-StAx9BGrygJ6jNDF",
+          "isEditing" : false,
+          "modified_date" : 1509688879849,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "title" : "React cheatsheet",
+          "url" : "https://gist.github.com/monicao/243958d7498ed9fabe78"
+        },
+        "-Ky-VbwFjDRz9S3dIXf6" : {
+          "created_date" : 1509689556667,
+          "description" : "Good testing redux store post\n\n",
+          "id" : "-Ky-VbwFjDRz9S3dIXf6",
+          "isEditing" : false,
+          "modified_date" : 1509698051950,
+          "title" : "React redux store mocking and treating",
+          "url" : "https://www.netguru.co/tips/flawless-react/redux-testing-with-the-jest-framework-part-1"
+        },
+        "-Ky0016V4suieUS13DiP" : {
+          "created_date" : 1509698053544,
+          "description" : "https://github.com/Babazon/React-Redux-Firebase-Boilerplate-WithFoundation/blob/master/app/tests/actions/actions.test.jsx\n\nHttps://Github.Com/Jedfonner/Firebase-Functions-Jest/Tree/Master/Email-Users",
+          "id" : "-Ky0016V4suieUS13DiP",
+          "isEditing" : false,
+          "modified_date" : 1509698471474,
+          "tags" : [ {
+            "id" : "-Ky0038Z03BKpJAqMs48",
+            "label" : "https://github.com/jedfonner/firebase-functions-jest/tree/master/email-users",
+            "value" : "-Ky0038Z03BKpJAqMs48"
+          } ],
+          "title" : "Firebase-functions for testing with jest",
+          "url" : ""
+        },
+        "-Ky1NK20ZnTDJ9YBfcYF" : {
+          "created_date" : 1509720936478,
+          "description" : "",
+          "id" : "-Ky1NK20ZnTDJ9YBfcYF",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-Ky6UDL1nnXrHfDE9gTK" : {
+          "created_date" : 1509806630029,
+          "description" : "Great info for redux",
+          "id" : "-Ky6UDL1nnXrHfDE9gTK",
+          "isEditing" : false,
+          "modified_date" : 1509811207333,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdnh_d-QONgy8GpB",
+            "label" : "redux",
+            "value" : "-Kx4wdnh_d-QONgy8GpB"
+          } ],
+          "title" : "10 tips for better redux apps",
+          "url" : "https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44"
+        },
+        "-Ky6kdhsniv4ODgN28C9" : {
+          "created_date" : 1509811198394,
+          "description" : "",
+          "id" : "-Ky6kdhsniv4ODgN28C9",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-Ky6khZQ35IeGqkuCQxH" : {
+          "created_date" : 1509811214172,
+          "description" : "React tips that are very useful",
+          "id" : "-Ky6khZQ35IeGqkuCQxH",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#d0021b",
+            "id" : "-KxxPTgHcxuDF_dBpjDp",
+            "name" : "red"
+          },
+          "modified_date" : 1509811253384,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "tags" : [ {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          } ],
+          "title" : "6 things I wish I knew about react",
+          "url" : "https://engineering.opsgenie.com/i-wish-i-knew-these-before-diving-into-react-301e0ee2e488"
+        },
+        "-Ky7-BjmQGNswiHOTFVw" : {
+          "created_date" : 1509815274035,
+          "description" : "",
+          "id" : "-Ky7-BjmQGNswiHOTFVw",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#d0021b",
+            "id" : "-KxxPTgHcxuDF_dBpjDp",
+            "name" : "red"
+          },
+          "modified_date" : 1509815293209,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "tags" : {
+            "-Ky7-LwMw6bRmmIBLkmY" : {
+              "id" : "-Ky7-LwMw6bRmmIBLkmY",
+              "label" : "performance",
+              "value" : "-Ky7-LwMw6bRmmIBLkmY"
+            }
+          },
+          "title" : "React perf with chrome devtools",
+          "url" : "https://reactjs.org/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab"
+        },
+        "-Ky8D6dkptr8UPgrzCOi" : {
+          "created_date" : 1509835700395,
+          "description" : "",
+          "id" : "-Ky8D6dkptr8UPgrzCOi",
+          "isEditing" : false,
+          "modified_date" : 1509835729673,
+          "title" : "Tips for writing react components",
+          "url" : "https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8"
+        },
+        "-Ky8DMAHqg9EuOxg4336" : {
+          "created_date" : 1509835763981,
+          "description" : "",
+          "id" : "-Ky8DMAHqg9EuOxg4336",
+          "isEditing" : false,
+          "modified_date" : 1509835785852,
+          "notebook" : {
+            "id" : "-Kx97M6vLzxmcN-fz5DW",
+            "name" : "React",
+            "value" : "-Kx97M6vLzxmcN-fz5DW"
+          },
+          "title" : "The dao of immutability",
+          "url" : "https://medium.com/javascript-scene/the-dao-of-immutability-9f91a70c88cd"
+        },
+        "-Ky8TH90ACwkFFoeom7C" : {
+          "created_date" : 1509839938208,
+          "description" : "Must read post",
+          "id" : "-Ky8TH90ACwkFFoeom7C",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#eb144c",
+            "id" : "-Ky8TL2i0janMEbScli9",
+            "name" : "magenta"
+          },
+          "modified_date" : 1509839963172,
+          "notebook" : {
+            "id" : "-Kxm2ROIKhyWvbaJPWCX",
+            "name" : "Interviews",
+            "value" : "-Kxm2ROIKhyWvbaJPWCX"
+          },
+          "tags" : [ {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          } ],
+          "title" : "10 javascript interview questions i need to know",
+          "url" : "https://medium.com/javascript-scene/10-interview-questions-every-javascript-developer-should-know-6fa6bdf5ad95"
+        },
+        "-KyB511MX4kNk8USr6fA" : {
+          "created_date" : 1509883911752,
+          "description" : "Great post",
+          "id" : "-KyB511MX4kNk8USr6fA",
+          "isEditing" : false,
+          "modified_date" : 1509883963366,
+          "notebook" : {
+            "id" : "-Kx96y9pV4K03bwrBkZP",
+            "name" : "ES6",
+            "value" : "-Kx96y9pV4K03bwrBkZP"
+          },
+          "tags" : [ {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          } ],
+          "title" : "Factory functions",
+          "url" : "https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1"
+        },
+        "-KyB5aXspZixSNLX0Dm-" : {
+          "created_date" : 1509884061288,
+          "description" : "This is a great series post on developing composable software",
+          "id" : "-KyB5aXspZixSNLX0Dm-",
+          "isEditing" : false,
+          "modified_date" : 1509884174820,
+          "notebook" : {
+            "id" : "-Kx96y9pV4K03bwrBkZP",
+            "name" : "ES6",
+            "value" : "-Kx96y9pV4K03bwrBkZP"
+          },
+          "tags" : [ {
+            "id" : "-KxxPT4DjB2MfbF3v93R",
+            "label" : "development",
+            "value" : "-KxxPT4DjB2MfbF3v93R"
+          }, {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          }, {
+            "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+            "label" : "react",
+            "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+          }, {
+            "id" : "-Kx4wdnh_d-QONgy8GpB",
+            "label" : "redux",
+            "value" : "-Kx4wdnh_d-QONgy8GpB"
+          }, {
+            "id" : "-KyB5oLwpH_eRhO20PbN",
+            "label" : "es6",
+            "value" : "-KyB5oLwpH_eRhO20PbN"
+          } ],
+          "title" : "Composing software - multi part series of posts",
+          "url" : "https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea"
+        },
+        "-KyBYlGlP3vjg1QV6AUU" : {
+          "created_date" : 1509891708039,
+          "description" : "This is a series of posts for interviewing and mastering all the things that frontend developers face during interview process.\n",
+          "id" : "-KyBYlGlP3vjg1QV6AUU",
+          "isEditing" : false,
+          "label" : {
+            "hex" : "#d0021b",
+            "id" : "-KxxPTgHcxuDF_dBpjDp",
+            "name" : "red"
+          },
+          "modified_date" : 1509891759096,
+          "notebook" : {
+            "id" : "-Kxm2ROIKhyWvbaJPWCX",
+            "name" : "Interviews",
+            "value" : "-Kxm2ROIKhyWvbaJPWCX"
+          },
+          "tags" : [ {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          } ],
+          "title" : "Master the JavaScript Interview Series",
+          "url" : "https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36"
+        },
+        "-KyBZK4LNQvKP37hk5DK" : {
+          "created_date" : 1509891854700,
+          "description" : "https://medium.com/javascript-scene/the-two-pillars-of-javascript-pt-2-functional-programming-a63aa53a41a4",
+          "id" : "-KyBZK4LNQvKP37hk5DK",
+          "isEditing" : true,
+          "modified_date" : 1509892009194,
+          "notebook" : {
+            "id" : "-Kx96y9pV4K03bwrBkZP",
+            "name" : "ES6",
+            "value" : "-Kx96y9pV4K03bwrBkZP"
+          },
+          "tags" : [ {
+            "id" : "-Kx970GnXYPtkvRlt_yc",
+            "label" : "javascript",
+            "value" : "-Kx970GnXYPtkvRlt_yc"
+          } ],
+          "title" : "Two pillars of JavaScript - 2 parts",
+          "url" : "https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3"
+        }
+      },
+      "online" : false,
+      "photo" : "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/22554716_10154757547142041_8680927862424130825_n.jpg?oh=3d20b440e888c21916f28e3036f33d3b&oe=5A6BF768",
+      "role" : "",
+      "tags" : {
+        "-Kx4wdRTFiQ4AbO9R4dT" : {
+          "id" : "-Kx4wdRTFiQ4AbO9R4dT",
+          "label" : "react",
+          "value" : "-Kx4wdRTFiQ4AbO9R4dT"
+        },
+        "-Kx4wdnh_d-QONgy8GpB" : {
+          "id" : "-Kx4wdnh_d-QONgy8GpB",
+          "label" : "redux",
+          "value" : "-Kx4wdnh_d-QONgy8GpB"
+        },
+        "-Kx4we5LUg6aYvkTAUzn" : {
+          "id" : "-Kx4we5LUg6aYvkTAUzn",
+          "label" : "firebase",
+          "value" : "-Kx4we5LUg6aYvkTAUzn"
+        },
+        "-Kx4x-DUyQD7KBROtRCD" : {
+          "id" : "-Kx4x-DUyQD7KBROtRCD",
+          "label" : "bugs",
+          "value" : "-Kx4x-DUyQD7KBROtRCD"
+        },
+        "-Kx970GnXYPtkvRlt_yc" : {
+          "id" : "-Kx970GnXYPtkvRlt_yc",
+          "label" : "javascript",
+          "value" : "-Kx970GnXYPtkvRlt_yc"
+        },
+        "-Kxm3Amw32aO9eO5WHqS" : {
+          "id" : "-Kxm3Amw32aO9eO5WHqS",
+          "label" : "facebook",
+          "value" : "-Kxm3Amw32aO9eO5WHqS"
+        },
+        "-Kxm3CyG_g2OWMA_kaac" : {
+          "id" : "-Kxm3CyG_g2OWMA_kaac",
+          "label" : "jobs",
+          "value" : "-Kxm3CyG_g2OWMA_kaac"
+        },
+        "-KxxPT4DjB2MfbF3v93R" : {
+          "id" : "-KxxPT4DjB2MfbF3v93R",
+          "label" : "development",
+          "value" : "-KxxPT4DjB2MfbF3v93R"
+        },
+        "-KxxQ-J6i6CQ5d0Sbggb" : {
+          "id" : "-KxxQ-J6i6CQ5d0Sbggb",
+          "label" : "unit testing",
+          "value" : "-KxxQ-J6i6CQ5d0Sbggb"
+        },
+        "-KxxQ-d0Ccr6jcwbLJ-i" : {
+          "id" : "-KxxQ-d0Ccr6jcwbLJ-i",
+          "label" : "testing",
+          "value" : "-KxxQ-d0Ccr6jcwbLJ-i"
+        },
+        "-KxxQ05ObD46s_RNuZ4q" : {
+          "id" : "-KxxQ05ObD46s_RNuZ4q",
+          "label" : "jest",
+          "value" : "-KxxQ05ObD46s_RNuZ4q"
+        },
+        "-Ky7-LwMw6bRmmIBLkmY" : {
+          "id" : "-Ky7-LwMw6bRmmIBLkmY",
+          "label" : "performance",
+          "value" : "-Ky7-LwMw6bRmmIBLkmY"
+        },
+        "-KyB5oLwpH_eRhO20PbN" : {
+          "id" : "-KyB5oLwpH_eRhO20PbN",
+          "label" : "es6",
+          "value" : "-KyB5oLwpH_eRhO20PbN"
+        }
+      },
+      "uid" : "VoY1i6TtD9UkzSUGh5LXWbqEiwK2"
+    },
+    "QhtyHJHxT6Zm9WMyGf8xFVCzcmn2" : {
+      "created_date" : 1509660186345,
+      "displayName" : "guest",
+      "email" : "",
+      "isAnonymous" : true,
+      "last_login" : 1509660186345,
+      "notebooks" : {
+        "-Kxyl3y1iFLpzJtQmlP-" : {
+          "id" : "-Kxyl3y1iFLpzJtQmlP-",
+          "name" : "Notebook",
+          "value" : "-Kxyl3y1iFLpzJtQmlP-"
+        }
+      },
+      "notes" : {
+        "-Kxyl-Fxsu_g-zauxZHf" : {
+          "created_date" : 1509660296258,
+          "description" : "Watch",
+          "id" : "-Kxyl-Fxsu_g-zauxZHf",
+          "isEditing" : false,
+          "modified_date" : 1509660308864,
+          "notebook" : {
+            "id" : "-Kxyl3y1iFLpzJtQmlP-",
+            "name" : "Notebook",
+            "value" : "-Kxyl3y1iFLpzJtQmlP-"
+          },
+          "tags" : {
+            "-Kxyl2pLajb26g_p1kL2" : {
+              "id" : "-Kxyl2pLajb26g_p1kL2",
+              "label" : "cool",
+              "value" : "-Kxyl2pLajb26g_p1kL2"
+            }
+          },
+          "title" : "This is responsive almost 100%",
+          "url" : ""
+        },
+        "-Kxyl73E7VizaT1HS84m" : {
+          "created_date" : 1509660328212,
+          "description" : "",
+          "id" : "-Kxyl73E7VizaT1HS84m",
+          "isEditing" : true,
+          "modified_date" : 1509660333961,
+          "tags" : {
+            "-Kxyl2pLajb26g_p1kL2" : {
+              "id" : "-Kxyl2pLajb26g_p1kL2",
+              "label" : "cool",
+              "value" : "-Kxyl2pLajb26g_p1kL2"
+            }
+          },
+          "title" : "Isn't that neat?",
+          "url" : ""
+        }
+      },
+      "online" : true,
+      "photo" : "",
+      "role" : "",
+      "tags" : {
+        "-Kxyl2pLajb26g_p1kL2" : {
+          "id" : "-Kxyl2pLajb26g_p1kL2",
+          "label" : "cool",
+          "value" : "-Kxyl2pLajb26g_p1kL2"
+        }
+      },
+      "uid" : "QhtyHJHxT6Zm9WMyGf8xFVCzcmn2"
+    },
+    "aXwCxphKrDY08aXyBI3rUE28LGv1" : {
+      "created_date" : 1509900584303,
+      "displayName" : "guest",
+      "email" : "",
+      "isAnonymous" : true,
+      "last_login" : 1509900584303,
+      "notebooks" : {
+        "-KyC4f4UMIWwLNraG0Bf" : {
+          "id" : "-KyC4f4UMIWwLNraG0Bf",
+          "name" : "react",
+          "value" : "-KyC4f4UMIWwLNraG0Bf"
+        }
+      },
+      "notes" : {
+        "-KyC4dG9WRSSmZIBdzi4" : {
+          "created_date" : 1509900588145,
+          "description" : "",
+          "id" : "-KyC4dG9WRSSmZIBdzi4",
+          "isEditing" : true,
+          "modified_date" : 1509900598337,
+          "notebook" : {
+            "id" : "-KyC4f4UMIWwLNraG0Bf",
+            "name" : "react",
+            "value" : "-KyC4f4UMIWwLNraG0Bf"
+          },
+          "title" : "this still works?",
+          "url" : "http://webernote.surge.sh/"
+        }
+      },
+      "online" : true,
+      "photo" : "",
+      "role" : "",
+      "uid" : "aXwCxphKrDY08aXyBI3rUE28LGv1"
+    },
+    "q8sRy8kcmYUlw3hUZo8sYuddMhA2" : {
+      "created_date" : 1509573833524,
+      "displayName" : "guest",
+      "email" : "",
+      "isAnonymous" : true,
+      "last_login" : 1509573833524,
+      "notes" : {
+        "-KxtbAiY5CRDnMIZJloX" : {
+          "created_date" : 1509573835656,
+          "description" : "",
+          "id" : "-KxtbAiY5CRDnMIZJloX",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-KxtbBwnkjBqGC5EY3MM" : {
+          "created_date" : 1509573840664,
+          "description" : "",
+          "id" : "-KxtbBwnkjBqGC5EY3MM",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-KxtbCYSqLqYWCwbsLIF" : {
+          "created_date" : 1509573843138,
+          "description" : "",
+          "id" : "-KxtbCYSqLqYWCwbsLIF",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-KxtbCf-TJL6tkioBLyh" : {
+          "created_date" : 1509573843621,
+          "description" : "",
+          "id" : "-KxtbCf-TJL6tkioBLyh",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-KxtbCiilAD7zeNrWzWR" : {
+          "created_date" : 1509573843859,
+          "description" : "",
+          "id" : "-KxtbCiilAD7zeNrWzWR",
+          "isEditing" : false,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        },
+        "-KxtbCm1WN1h5oyLFiXv" : {
+          "created_date" : 1509573844071,
+          "description" : "",
+          "id" : "-KxtbCm1WN1h5oyLFiXv",
+          "isEditing" : true,
+          "modified_date" : "",
+          "title" : "",
+          "url" : ""
+        }
+      },
+      "online" : true,
+      "photo" : "",
+      "role" : "",
+      "uid" : "q8sRy8kcmYUlw3hUZo8sYuddMhA2"
+    }
+  }
+}

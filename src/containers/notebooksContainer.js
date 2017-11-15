@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
+import CloseBtn from '../components/ui/CloseBtn';
 import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 
@@ -39,34 +41,23 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     addNotebook(e) {
-        const { notebooks } = this.props;
-        let notebookExists = [];
+        const { notebooks = [] } = this.props;
+        let notebook = {
+            name: e.target.value
+        };
 
-        this.setState({
-            addNotebook: false
-        });
-
-        if (e.target.value !== '') {
+        if (notebook.name !== '') {
             this.setState({
                 addNotebook: false
             });
 
-            let notebook = {
-                name: e.target.value
-            };
+            let exists = notebooks.find(n => n.name === notebook.name);
 
-            if (notebooks) {
-                notebookExists = notebooks.filter((n) => {
-                    return n.name === notebook.name;
-                });
-            }
-
-            // If not exists add it otherwise use existing
-            if (!notebookExists.length) {
-                // Add the notebook
+            // Add the notebook
+            if (!exists) {
                 this.props.actions.addNotebook(notebook);
             } else {
-                notebook = notebookExists[0];
+                notebook = exists;
             }
 
             this.updateNotebook(notebook);
@@ -75,7 +66,7 @@ class NotebooksContainer extends React.PureComponent {
 
     selectNotebook(e) {
         // Handle New Notebook selection
-        if (e.target.name === 'notebook' && e.target.value === '+Create notebook') {
+        if (e.target.name === 'notebook' && e.target.value === 'Create notebook') {
             // will have to make new component for notebook select and new notebook input
             this.setState({
                 addNotebook: true
@@ -109,7 +100,7 @@ class NotebooksContainer extends React.PureComponent {
             this.props.actions.removeNotebook(this.props.notes);
         }
         // Edit notebook selection
-        this.props.editNotebook(notebook);
+        this.props.editField(notebook);
         // get notebooks again to update the state
         this.props.actions.getNotebooks();
     }
@@ -135,7 +126,7 @@ class NotebooksContainer extends React.PureComponent {
             // If can't add notebooks then render the filter notebook menu
             if (this.props.canAddNotebook) {
                 selectNoteBookOption = <option>Select notebook</option>;
-                addNoteBookOption = <option>+Create notebook</option>;
+                addNoteBookOption = <option>Create notebook</option>;
 
                 // If can add notebooks check that selectedNote is set
                 if (selectedNote && selectedNote.notebook) {
@@ -163,14 +154,11 @@ class NotebooksContainer extends React.PureComponent {
                 return (
                     <span className="add-notebook">
                         <input type="text" name="notebook" className="new-notebook"
-                            autoFocus={true}
                             placeholder="Notebook name"
                             onBlur={this.addNotebook}
                             onKeyDown={this.keyPress} />
 
-                        <span className="remove Select-clear"
-                            onClick={(e) => this.setState({ addNotebook: false })}>×
-                        </span>
+                        <CloseBtn onClick={(e) => this.setState({ addNotebook: false })} />
                     </span>
                 );
             }
@@ -210,4 +198,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotebooksContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NotebooksContainer));

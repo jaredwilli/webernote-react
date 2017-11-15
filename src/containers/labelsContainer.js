@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
-import { TwitterPicker } from 'react-color';
+import { ColorPicker } from '../components/ui/ColorPicker';
+import CloseBtn from '../components/ui/CloseBtn';
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 
@@ -10,10 +12,10 @@ class LabelsContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.showColorPicker = this.showColorPicker.bind(this);
         this.editLabel = this.editLabel.bind(this);
         this.removeLabel = this.removeLabel.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.showColorPicker = this.showColorPicker.bind(this);
 
         this.state = {
             displayColorPicker: false
@@ -28,40 +30,29 @@ class LabelsContainer extends React.PureComponent {
 
     showColorPicker(e) {
         e.preventDefault();
-
         this.setState({
             displayColorPicker: !this.state.displayColorPicker
         });
     }
 
+    // TODO: Need to make this work and remove labels
     removeLabel(e) {
         e.preventDefault();
-        const label = {};
-        this.props.editLabel(label);
+        this.props.editField({});
     }
 
-    editLabel(color) {
-        const labels = this.props.labels;
+    editLabel(label) {
+        const { labels } = this.props;
         let labelExists = [];
+        label = COLORS.filter((color) => color.hex.toLowerCase() === label.hex.toLowerCase())[0];
 
         this.setState({
             displayColorPicker: false
         });
 
-        if (color) {
-            let label = {};
-            label.hex = color.hex;
-
-            COLORS.forEach((c) => {
-                if (c.hex === label.hex) {
-                    label.name = c.name;
-                }
-            });
-
+        if (label) {
             if (labels) {
-                labelExists = labels.filter((l) => {
-                    return l.hex === color.hex;
-                });
+                labelExists = labels.filter((l) => l.hex === label.hex);
             }
 
             if (!labelExists.length) {
@@ -70,12 +61,13 @@ class LabelsContainer extends React.PureComponent {
                 label = labelExists[0];
             }
 
-            this.props.editLabel(label);
+            this.props.editField(label);
+            this.props.actions.getLabels();
         }
     }
 
     render() {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
         let backgroundColor = 'none';
         let colorPicker = '';
         let colors = [];
@@ -93,7 +85,7 @@ class LabelsContainer extends React.PureComponent {
                 <div className="label-color-picker">
                     <div className="cover" onClick={this.handleClose} />
 
-                    <TwitterPicker color={this.state.background}
+                    <ColorPicker color={this.state.background}
                         onChangeComplete={this.editLabel}
                         colors={colors}
                         triangle="top-right" />
@@ -104,12 +96,12 @@ class LabelsContainer extends React.PureComponent {
         return (
             <div className="label-picker">
                 <button className="label-background" type="button"
-                    style={{background: backgroundColor}}
-                    onClick={this.showColorPicker} />
+                    style={{ background: backgroundColor }}
+                    onClick={this.showColorPicker}>
+                    {(backgroundColor === 'none') ? 'Color' : ''}
+                </button>
 
-                <span className="remove Select-clear"
-                    onClick={this.removeLabel}>×
-                </span>
+                {(backgroundColor !== 'none') && <CloseBtn onClick={this.removeLabel} />}
 
                 {colorPicker}
             </div>
@@ -134,4 +126,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LabelsContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LabelsContainer));

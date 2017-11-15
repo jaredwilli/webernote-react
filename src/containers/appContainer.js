@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Mousetrap from 'mousetrap';
-import ReactLoading from 'react-loading';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import NotesContainer from './notesContainer';
@@ -15,7 +14,7 @@ import NoteTypes from '../components/NoteTypes';
 import NoteNav from '../components/NoteNav';
 
 import UserPhoto from '../components/UserPhoto';
-import IconBtn from '../components/IconBtn';
+import IconBtn from '../components/ui/IconBtn';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -25,9 +24,7 @@ import * as labelActions from '../actions/labelActions';
 import * as modalActions from '../actions/modalActions';
 
 import { MODAL_TYPES } from '../constants/modalTypes';
-import { URLS } from '../constants/menuConst';
-
-import '../App.css';
+import { URLS } from '../constants/menu';
 
 class AppContainer extends React.PureComponent {
     constructor(props) {
@@ -107,6 +104,17 @@ class AppContainer extends React.PureComponent {
         });
     }
 
+    showSettingsModal() {
+        this.props.actions.showModal(MODAL_TYPES.SETTINGS_MODAL, {
+            dialogStyle: { height: 'auto', width: '80%' },
+            onClose: () => this.props.actions.hideModal(),
+            onSave: (options) => {
+                this.saveSettings(options);
+                this.props.actions.hideModal();
+            }
+        });
+    }
+
     login(provider) {
         this.props.actions.loginUser(provider);
     }
@@ -122,7 +130,7 @@ class AppContainer extends React.PureComponent {
 	}
 
     render() {
-        let { user, notes } = this.props;
+        let { user } = this.props;
 
         let loginOut = '';
         let avatarStyle = {
@@ -136,7 +144,8 @@ class AppContainer extends React.PureComponent {
         if (user && !user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
+                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
+
                     <span className="user-meta">
                         <UserPhoto imgSrc={user.photo}
                             size={20}
@@ -151,7 +160,8 @@ class AppContainer extends React.PureComponent {
         } else if (user && user.isAnonymous) {
             loginOut = (
                 <div className="user-menu">
-                    <IconBtn onclick={this.goToGithub} style={iconBtnStyle} />
+                    <IconBtn onclick={this.goToGithub} iconClass="github" style={iconBtnStyle} />
+
                     <div className="user-meta">
                         <UserPhoto size={20}
                             style={avatarStyle} />
@@ -173,11 +183,11 @@ class AppContainer extends React.PureComponent {
                         </div>
 
                         <h1><Link to="/">Webernote<sup>TM</sup></Link></h1>
-                        <span>Real-time note taking. Increase your productivity!</span>
+                        <span className="tagline">Real-time note taking. Increase your productivity!</span>
                     </header>
 
                     <div className="wrapper">
-                        <Toolbar addNote={this.addNote} />
+                        <Toolbar addNote={this.addNote} actions={this.props.actions} />
 
                         <nav className="note-types">
                             <NoteTypes />

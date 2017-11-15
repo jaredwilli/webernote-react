@@ -1,0 +1,65 @@
+@import './_common.scss';
+
+/* Notes Container styles  */
+
+.notes-container {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1;
+    height: 670px;
+    max-height: 670px;
+    min-height: 360px;
+    position: relative;
+}
+
+.notes-container.white {
+    background: #fff;
+}
+
+.notes-container .nav-col,
+.notes-container .list-col,
+.notes-container .edit-col {
+    display: inline-block;
+    flex: 1 100%;
+}
+
+.notes-container .nav-col {
+    flex: 1;
+}
+
+.notes-container .list-col {
+    flex: 3;
+}
+
+.notes-container .edit-col {
+    display: flex;
+    flex: 3;
+}
+
+/* Media Queries */
+
+@media all and (max-width: 690px) {
+    .notes-container {
+        .list-col.note-list .filters {
+            display: none;
+            height: 0;
+        }
+        .edit-col {
+            flex: 10 1;
+        }
+    }
+}
+
+@media all and (max-width: 540px) {
+    .notes-container {
+        flex-direction: row;
+        height: 425px;
+    }
+    .notes-container .list-col {
+        flex: 1 0 100%;
+        height: 30%;
+    }
+    .note-list .notes .note-details {
+        display: none;
+    }
+}

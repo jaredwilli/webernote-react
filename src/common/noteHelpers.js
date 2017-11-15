@@ -2,6 +2,9 @@
 import _ from 'lodash';
 import React from 'react';
 
+import { shorten } from './helpers.js';
+import {Link} from 'react-router-dom';
+
 /**
  * sortNotes
  *
@@ -15,6 +18,82 @@ export function sortNotes(notes) {
         return new Date(aDate).getTime() - new Date(bDate).getTime();
     }).reverse();
     return notes;
+}
+
+export function compareObjs(a, b) {
+    function fn(otherArray) {
+        return (current) => {
+            return otherArray.filter((other) => {
+                return other.id === current.id && other.label === current.label;
+            }).length === 0;
+        };
+    }
+    return a.filter(fn(b)).concat(b.filter(fn(a)));
+}
+
+/**
+ * noteNavItems
+ *
+ * @description Builds out the left nav bar menu items for notebooks, tags, labels.
+ * @param {Object} obj
+ * @param {Object} notes
+ */
+export function noteNavItems(obj, notes) {
+    const key = Object.keys(obj)[0];
+    let prop = (key === 'tags') ? 'label' : 'name';
+    let items = '';
+
+    if (obj[key] && obj[key].length) {
+        items = obj[key].map((o, i) =>
+            <li key={i} id={o.id}>
+                <Link to={'/' + key + '/' + o[prop].toLowerCase()}>
+                    {(key === 'label') ? <div className="note-label" style={{background: o.hex}} /> : ''}
+                    <span className="name">{shorten(o[prop])}</span>
+                </Link>&nbsp;
+                <span className="count">{getObjCounts({ [key]: o }, notes)}</span>
+            </li>
+        );
+    }
+    return items;
+}
+
+/**
+ * getObjectCounts
+ *
+ * @description Get the number of notebooks, tags, and labels that each note has.
+ * @param {Object} objType
+ * @param {Object} notes
+ */
+export function getObjCounts(objType, notes) {
+    let count = 0;
+
+    if (!objType || !notes) {
+        return count;
+    } else {
+        let key = Object.keys(objType)[0];
+
+        if (notes && notes.length) {
+            notes.forEach((note) => {
+                if (!note[key]) {
+                    return;
+                }
+
+                // Tags
+                if (note[key] && Array.isArray(note[key])) {
+                    note[key].forEach((tkey) => {
+                        if (tkey.id === objType[key].id) {
+                            count++;
+                        }
+                    })
+                }
+                // Notebooks & Labels
+                else if (note[key].id === objType[key].id) {
+                    count++;
+                }
+            });
+        }
+    }
+    return count;
 }
 
 /**
@@ -165,7 +244,7 @@ export function getDeletedTags(tags, note) {
  * @param {String} refId
  */
 export function createNewNote(refId, user) {
-    const newNote = {
+    return {
         id: refId,
         isEditing: true,
         title: '',
@@ -176,7 +255,6 @@ export function createNewNote(refId, user) {
         created_date: new Date().getTime(),
         modified_date: ''
     };
-    return newNote;
 }
 
 /**
@@ -220,25 +298,28 @@ export function createNewNotebook(refId, notebook) {
 /**
  * getSelectedNotebook
  *
- * @param {Object} e event object from the onChange event of notebook select menu
+ * @param {Object} target the target event object from the onChange event
  * @param {Object} notebooks the current list of notebooks
  */
-export function getSelectedNotebook(e, notebooks) {
-    let notebookId = '';
+export const getSelectedNotebook = (e, notebooks) => {
+    const allOption = {
+        name: 'All Notebooks',
+        id: 'all_notebooks'
+    };
+    const target = e.target;
 
-    if (e.target.value === 'All Notebooks') {
-        return { name: e.target.value, id: 'all_notebooks' };
+    if (target.value === 'All Notebooks') {
+        return allOption;
     }
 
     // Find the value of the selected notebook from the select menu options
-    for (let notebook of e.target.children) {
-        if (notebook.value === e.target.value) {
-            notebookId = notebooks.filter(function(book) {
-                return book.id === notebook.id;
-            })[0];
+    for (let notebook of target.children) {
+        if (notebook.value === target.value) {
+            return notebooks.find((n) => {
+                return notebook.value === n.id;
+            });
         }
     }
-    return notebookId;
 }
 
 /**
@@ -260,14 +341,11 @@ export function filterData(data, filters) {
                 }
                 return d;
             });
-
             return data;
         });
     }
-
     return data;
 }
-
 
 export function hasNotesAndOneOtherData(props) {
     // has 1+ notes

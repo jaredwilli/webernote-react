@@ -1,0 +1,237 @@
+// Disclaimer - I did not write most of these, but I am glad someone did!
+
+/************************************
+ * Variables
+ ************************************/
+
+$blue-link: #068dcc;
+
+$blue: #03A9F4;
+$pink: #E91E63;
+
+
+
+/************************************
+ * Cool Mixins Bro!
+ ************************************/
+
+
+/* Border Radius
+  ========================================================================== */
+
+@mixin border-radius($radius) {
+    background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+    -webkit-border-radius: $radius;
+            border-radius: $radius;
+}
+
+/* Opacity
+  ========================================================================== */
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); // IE8
+}
+
+/* Text overflow
+  ========================================================================== */
+
+@mixin truncate($truncation-boundary: 250px) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Absolute positioned
+  ========================================================================== */
+
+@mixin abs-pos($top: auto, $right: auto, $bottom: auto, $left: auto) {
+    position: absolute;
+    bottom: $bottom;
+    right: $right;
+    left: $left;
+    top: $top;
+}
+
+/* Font Size
+  ========================================================================== */
+
+@mixin font-size($sizeValue: 12) {
+    font-size: $sizeValue + px; // fallback for old browsers
+    font-size: (0.125 * $sizeValue) + rem;
+}
+
+/* Cross browser inline block
+  ========================================================================== */
+
+@mixin inline-block() {
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+    zoom: 1;
+}
+
+/* Placeholder
+  ========================================================================== */
+
+@mixin input-placeholder($color: #999) {
+    &::-webkit-input-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &.placeholder { @content; }
+}
+/* Usage:
+@include input-placeholder {
+    color: $grey;
+} */
+
+/* CSS Triangle
+  ========================================================================== */
+
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+    @include pseudo($pos: $position);
+    width: 0;
+    height: 0;
+    @if $round {
+        border-radius: 3px;
+    }
+    @if $direction == down {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+        margin-top: 0 - round( $size / 2.5 );
+    } @else if $direction == up {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+        margin-bottom: 0 - round( $size / 2.5 );
+    } @else if $direction == right {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+        margin-right: -$size;
+    } @else if  $direction == left {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+        margin-left: -$size;
+    }
+}
+
+/* Media Queries
+  ========================================================================== */
+
+// TODO: Need to change these to be the sizes I need for the app
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px
+);
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+/* Usage
+.selector {
+    width: 100px;
+
+    @include mq('tablet-wide') {
+        padding-top: 4rem;
+        font-size: 2.4rem;
+    }
+} */
+
+/* Hidden & Visible
+  ========================================================================== */
+
+@mixin hidden {
+	display: none;
+	visibility: hidden;
+}
+
+@mixin invisible {
+	visibility: hidden;
+}
+
+@mixin visible($state: 'inline-block') {
+	display: unquote($state);
+	visibility: visible;
+}
+
+/* Spin animation
+  ========================================================================== */
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* @font-face
+  ========================================================================== */
+
+@mixin font-face($name, $filePath, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $name;
+        src: url('{$filePath}.woff2') format('woff2'),
+             url('{$filePath}.woff') format('woff');
+		font-style: $style;
+		font-weight: $weight;
+	}
+}
+
+/*
+  ========================================================================== */
+
+
+
+/**
+ * Functions
+ */
+
+/* Color map lookup
+  ========================================================================== */
+
+@function c($colour, $value: 'base') {
+    @if map-has-key($colours, $colour) {
+        $colour: map-get($colours, $colour);
+        $colourVal: map-get($colour, $value);
+        @return $colourVal;
+    } @else {
+        @warn 'Colour name #{$colour} not found in $colours.';
+    }
+}
+
+
+
+  /* Map deep get
+  ========================================================================== */
+
+// http://css-tricks.com/snippets/sass/deep-getset-maps/
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
+}
+
+

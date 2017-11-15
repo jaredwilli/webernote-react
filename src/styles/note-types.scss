@@ -1,0 +1,39 @@
+@import './_common.scss';
+
+/* NOTE TYPES */
+
+.note-types {
+	background: #e8eef2;
+	border: solid #B8CDE0;
+	border-width: 1px 0;
+	display: block;
+	padding: 2px 6px;
+	width: 100%;
+}
+
+.note-types ul {
+    list-style: none;
+}
+
+.note-types li {}
+
+.note-types li a {
+    color: #068dcc;
+    padding: 0 5px;
+    margin: 1px;
+}
+
+.note-types li a:hover,
+.note-types li a.active {
+	background: #068dcc;
+	border: 1px solid rgb(118, 158, 218);
+	-webkit-border-radius: 2px;
+			border-radius: 2px;
+	color: #fff;
+	margin: 0;
+}
+
+.note-types .quick-access {
+    display: inline-block;
+	margin-left: 5px;
+}

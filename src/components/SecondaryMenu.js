@@ -5,15 +5,15 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-import * as noteActions from '../actions/noteActions';
-import * as notebookActions from '../actions/notebookActions';
-import * as tagActions from '../actions/tagActions';
-import * as labelActions from '../actions/labelActions';
+// import * as noteActions from '../actions/noteActions';
+// import * as notebookActions from '../actions/notebookActions';
+// import * as tagActions from '../actions/tagActions';
+// import * as labelActions from '../actions/labelActions';
 
 function SecondaryMenu(props) {
+    let { items } = props || [];
     let { actions } = props;
 
-    let items = props.items || [];
     let width = props.width || 256;
     let desktop = props.desktop || true;
     let style = props.style || {
@@ -22,38 +22,36 @@ function SecondaryMenu(props) {
         float: 'left'
     };
 
-    const performAction = (e, action) => {
-        console.log('performAction: ', action);
+    const handleClick = (e, item) => {
+        let { secondary, command, action, options, url } = item.config;
+        console.log('handleClick: ', secondary, command, action, options, url);
 
-        if (action.url) {
-            props.goToUrl(action.url);
+        if (action && action in actions) {
+            action = actions[action];
+        }
+        console.log(action);
+
+
+        debugger;
+        if (item.config.url) {
+            props.goToUrl(item.config.url);
         } else {
-            action();
+            // action();
         }
     }
 
-    const buildMenuItem = (item, v) => {
-        let action = null;
-
-        if (item.action && item.action in actions) {
-            action = actions[item.action];
-        }
-
-        if (item.url) {
-            action = { url: item.url };
-        }
-
-        return <MenuItem key={v}
+    const buildMenuItem = (item, i) => {
+        return <MenuItem key={i}
             primaryText={item.text}
-            secondaryText={item.secondary}
-            onClick={(e) => performAction(e, action)} />
+            secondaryText={item.config.secondary}
+            onClick={(e) => handleClick(e, item)} />
     }
 
-    items = items.map((item, v) =>
-        (item.text === 'divider') ?
-            <Divider key={v} /> :
-            buildMenuItem(item, v)
-    );
+    items = items.map((item, i) => {
+        return (item.text === 'divider') ?
+            <Divider key={i} /> :
+            buildMenuItem(item, i)
+    });
 
     return (
         <div className="secondary-dropdown">

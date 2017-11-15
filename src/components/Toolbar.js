@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,14 +9,13 @@ import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
 
 import AddNote from './AddNote';
-import NoteNav from '../components/NoteNav';
+// import NoteNav from '../components/NoteNav';
+import NavDrawer from '../components/ui/NavDrawer';
 import SecondaryMenu from '../components/SecondaryMenu';
 
-import { FILE, EDIT, VIEW, NOTE, TOOLS, HELP } from '../constants/menuConst';
+import { MENU_ITEMS } from '../constants/menu';
 
-import '../styles/toolbar.css';
-
-class Toolbar extends Component {
+class Toolbar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -48,8 +47,8 @@ class Toolbar extends Component {
         window.open(url);
     }
 
-    showDropdown(e) {
-        let type = e.target.className;
+    showDropdown(key) {
+        let type = key;
 
         this.resetState();
         this.setState({
@@ -58,72 +57,34 @@ class Toolbar extends Component {
     }
 
     render() {
+        const menuItems = Object.keys(MENU_ITEMS).map((menu) => {
+            let items = MENU_ITEMS[menu],
+                key = menu.toLowerCase();
+
+            return (
+                <li key={key} onMouseLeave={() => this.showDropdown(key)}>
+                    <a className={key} onMouseEnter={() => this.showDropdown(key)}>{key}</a>
+                    {this.state[key] ?
+                        <div onMouseLeave={() => this.showDropdown(key)} className={key + '-dropdown'}>
+                            <SecondaryMenu items={items} actions={this.props.actions} />
+                        </div>
+                    : ''}
+                </li>
+            );
+        });
+
         return (
             <div className="toolbar">
+                <NavDrawer />
+
                 <nav>
                     <ul>
-                        <NoteNav show="narrow" />
-
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="file" onMouseEnter={this.showDropdown}>File</a>
-                            {this.state.file ?
-                                <div onMouseLeave={this.showDropdown} className="file-dropdown">
-                                    <SecondaryMenu items={FILE}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="edit" onMouseEnter={this.showDropdown}>Edit</a>
-                            {this.state.edit ?
-                                <div className="edit-dropdown">
-                                    <SecondaryMenu items={EDIT}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="view" onMouseEnter={this.showDropdown}>View</a>
-                            {this.state.view ?
-                                <div className="view-dropdown">
-                                    <SecondaryMenu items={VIEW}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="note" onMouseEnter={this.showDropdown}>Note</a>
-                            {this.state.note ?
-                                <div className="view-dropdown">
-                                    <SecondaryMenu items={NOTE}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="tools" onMouseEnter={this.showDropdown}>Tools</a>
-                            {this.state.tools ?
-                                <div className="tools-dropdown">
-                                    <SecondaryMenu items={TOOLS}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-                        <li onMouseLeave={this.showDropdown}>
-                            <a className="help" onMouseEnter={this.showDropdown}>Help</a>
-                            {this.state.help ?
-                                <div className="help-dropdown">
-                                    <SecondaryMenu items={HELP}
-                                        goToUrl={this.goToUrl}
-                                        actions={this.props.actions} />
-                                </div>
-                            : ''}
-                        </li>
-
-                        <li className="new-note">
-                            <AddNote addNote={this.props.addNote} />
-                        </li>
+                        {menuItems}
                     </ul>
+
+                    <div className="new-note">
+                        <AddNote addNote={this.props.addNote} />
+                    </div>
                 </nav>
             </div>
         );
