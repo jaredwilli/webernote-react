@@ -78,14 +78,14 @@ export default function notebookReducer(state = {}, action) {
         }
 
         case types.DeleteNotebookFulfilled: {
-            const notebooks = action.notebooks;
+            const { notebook, notebooks } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
                 success: 'Deleted notebook'
             });
 
-            newState.notebooks = notebooks;
+            newState.notebooks = notebooks.filter(n => n.id !== notebook.id);
             return newState;
         }
 

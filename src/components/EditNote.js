@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import * as noteActions from '../actions/noteActions';
 
-import NotebooksContainer from '../containers/notebooksContainer';
+import NotebookSelect from './NotebookSelect';
 import TagsContainer from '../containers/tagsContainer';
 import LabelsContainer from '../containers/labelsContainer';
 
@@ -17,12 +17,24 @@ class EditNote extends React.Component {
         this.editField = this.editField.bind(this);
 
         this.state = {
-            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
+            label: {},
+            tags: [],
+            notebook: {
+                id: 'select_notebook',
+                name: 'Select notebook'
+            }
         };
     }
 
+    componentWillReceiveProps(nextProps, prevProps) {
+        debugger;
+        if (nextProps.selectedNote) {
+            debugger;
+        }
+    }
+
     editNote(e) {
-        let { selectedNote } = this.props;
+        const { selectedNote } = this.props;
 
         selectedNote[e.target.name] = e.target.value;
 
@@ -35,7 +47,10 @@ class EditNote extends React.Component {
     }
 
     editField(field) {
-        this.props.actions.editNote(this.props.selectedNote, field);
+        debugger;
+        this.setState(field, () => {
+            this.props.actions.editNote(this.props.selectedNote, field);
+        });
     }
 
     render() {
@@ -56,9 +71,10 @@ class EditNote extends React.Component {
                             value={selectedNote.title}
                             autoFocus={true}
                             onChange={(e) => this.editNote(e)} />
-                        <NotebooksContainer
+                        <NotebookSelect
                             canAddNotebook={true}
-                            editField={(notebook) => this.editField({ notebook: notebook })} />
+                            editField={(notebook) => this.editField(notebook)}
+                            selectedNotebook={this.state.notebook} />
                     </div>
                     <div className="mid">
                         <input type="url" className="url" name="url"

@@ -41,36 +41,27 @@ export function addNotebook(notebook) {
     }
 }
 
-export function removeNotebook(notes) {
+export function removeNotebook(notebooks, notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
         const user = getState().userData.user;
         const notebooksRef = database.ref('users/' + user.uid + '/notebooks');
 
-        notebooksRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const notebooks = refToArray(snap.val());
-                let notebooksList = [];
+        // Get the count of notes that have the notebook
+        notebooks.map(notebook => {
+            let count = notes.reduce((sum, note) => {
+                return (note.notebook.id === notebook.id) ? sum + 1 : sum;
+            }, 0);
 
-                notebooks.forEach((notebook) => {
-                    let notebookCount = getObjCounts({ notebook }, notes);
-
-                    // Remove empty notebooks
-                    if (notebookCount === 0) {
-                        notebooksRef.child(notebook.id)
-                            .remove()
-                            .then(dispatch(deleteNotebookFulfilledAction(notebooks)))
-                            .catch((error) => {
-                                console.error(error);
-                                dispatch(deleteNotebookRejectedAction());
-                            });
-                    } else {
-                        notebooksList.push(notebook);
-                    }
-                });
-
-                dispatch(deleteNotebookFulfilledAction(notebooksList));
+            if (count === 0) {
+                notebooksRef.child(notebook.id)
+                    .remove()
+                    .then(dispatch(deleteNotebookFulfilledAction(notebook, notebooks)))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteNotebookRejectedAction());
+                    });
             }
         });
 	};
@@ -138,6 +129,6 @@ function deleteNotebookRejectedAction() {
     return { type: types.DeleteNotebookRejected };
 }
 
-function deleteNotebookFulfilledAction(notebooks) {
-    return { type: types.DeleteNotebookFulfilled, notebooks };
+function deleteNotebookFulfilledAction(notebook, notebooks) {
+    return { type: types.DeleteNotebookFulfilled, notebook, notebooks };
 }
