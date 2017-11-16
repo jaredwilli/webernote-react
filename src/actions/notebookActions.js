@@ -54,9 +54,7 @@ export function removeNotebook(notes) {
 
             notebooks.forEach(notebook => {
                 const type = 'notebook';
-                const notebookCount = compose(
-                    notesWithType(type),
-                    typeWithCount(notebook, type, notesWithType(notes, type));
+                const notebookCount = typeWithCount(notebook, type, notesWithType(notes, type));
 
                 // Remove empty notebooks
                 if (notebookCount === 0) {
