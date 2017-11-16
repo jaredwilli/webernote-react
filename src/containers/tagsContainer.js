@@ -78,12 +78,7 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { selectedNote, tags } = this.props;
-        let tagOptions;
-
-        if (tags) {
-            tagOptions = tags;
-        }
+        const { selectedNote, tags = [] } = this.props;
 
 		return (
 			<Creatable
@@ -92,9 +87,8 @@ class TagsContainer extends React.PureComponent {
 				multi
 				noResultsText="Click to add tag..."
 				value={selectedNote.tags}
-				options={tagOptions}
-				onChange={(e) => this.editTags(e)}
-			/>
+				options={tags}
+				onChange={(e) => this.editTags(e)} />
 		);
 	}
 }

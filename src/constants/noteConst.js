@@ -13,6 +13,13 @@ export const NOTE_PROPS = [
     'label'
 ];
 
+export const PLURALS = {
+    notes: 'note',
+    notebooks: 'notebook',
+    tags: 'tag',
+    labels: 'label'
+};
+
 export const TAXONOMIES = [
     'notebooks',
     'tags',

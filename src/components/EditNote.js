@@ -26,13 +26,6 @@ class EditNote extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps, prevProps) {
-        debugger;
-        if (nextProps.selectedNote) {
-            debugger;
-        }
-    }
-
     editNote(e) {
         const { selectedNote } = this.props;
 
@@ -47,7 +40,6 @@ class EditNote extends React.Component {
     }
 
     editField(field) {
-        debugger;
         this.setState(field, () => {
             this.props.actions.editNote(this.props.selectedNote, field);
         });
