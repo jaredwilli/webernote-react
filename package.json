@@ -42,6 +42,7 @@
     "react-rte": "^0.15.0",
     "react-scripts": "1.0.13",
     "react-select": "^1.0.0-rc.10",
+    "react-styleguidist": "^6.0.33",
     "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
     "redux-thunk": "^2.2.0",
@@ -54,7 +55,7 @@
   ],
   "git": {
     "scripts": {
-      "pre-push": "npm run build && npm run surge"
+      "pre-push": "npm run build && npm run surge-dev"
     }
   },
   "lint-staged": {
@@ -73,10 +74,11 @@
     "coverage-watch": "react-scripts test --env=jsdom --coverage --watch",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls",
     "eject": "react-scripts eject",
-    "deploy": "npm run build surge",
+    "deploy": "npm run build surge-prod",
     "styleguide": "styleguidist server",
     "styleguide-build": "styleguidist build",
-    "surge": "surge -p ./build -d webernote-dev.surge.sh",
+    "surge-dev": "surge -p $HOME/Sites/webernote-react/build -d webernote-dev.surge.sh",
+    "surge-prod": "surge -p $HOME/Sites/webernote-react/build -d webernote.surge.sh",
     "build-react": "react-scripts build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
