@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import SelectMenu from '../components/ui//SelectMenu';
-import CloseBtn from '../components/ui/CloseBtn';
+import AddNotebook from './AddNotebook';
+import SelectMenu from './ui/SelectMenu';
+
 import { getSelectedNotebook } from '../common/noteHelpers.js';
 import * as notebookActions from '../actions/notebookActions';
 
@@ -49,9 +50,8 @@ class NotebookSelect extends React.Component {
             // Check if exists
             const exists = notebooks.find(n => n.name === notebook.name);
 
-            // If not exists add it - otherwise use existing
+            // Add the notebook
             if (!exists) {
-                // Add the notebook
                 this.props.actions.addNotebook(notebook);
             }
 
@@ -73,19 +73,18 @@ class NotebookSelect extends React.Component {
 
     updateNotebook(notebook) {
         const { notes, notebooks } = this.props;
-        const notesWithType = notes.filter(note => note.hasOwnProperty('notebook'));
 
         this.toggleAddState();
 
         // Check if need to remove a notebook
         if (notebooks.length) {
-            this.props.actions.removeNotebook(notebooks, notesWithType);
+            this.props.actions.removeNotebook(notes);
         }
 
         // Edit notebook selection
         this.props.editField({ notebook });
         // get notebooks again to update the state
-        // this.props.actions.getNotebooks();
+        this.props.actions.getNotebooks();
     }
 
     render() {
@@ -100,21 +99,15 @@ class NotebookSelect extends React.Component {
         // Create the list of options
         const options = notebooks.map(notebook => <option key={notebook.id} value={notebook.id}>{notebook.name}</option>);
 
-        if (this.state.addNotebook) {
+        if (this.state.addNotebook || !notebooks.length) {
             return (
-                <span className="add-notebook">
-                    <input type="text" name="notebook" className="new-notebook"
-                        placeholder="Notebook name"
-                        onBlur={this.addNotebook}
-                        onKeyDown={this.keyPress} />
-
-                    {(notebooks && notebooks.length > 0) &&
-                        <CloseBtn onClick={(e) => this.toggleAddState(e)} />
-                    }
-                </span>
+                <AddNotebook
+                    notebooks={notebooks}
+                    addNotebook={this.addNotebook}
+                    keyPress={this.keyPress}
+                    toggleAddState={this.toggleAddState} />
             );
         }
-
 
         return (
             <span className="select-notebook">

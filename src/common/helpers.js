@@ -55,9 +55,7 @@ export function removeDuplicatesBy(keyFn, array) {
  * @description Converts a Firebase Objects of Object to Array of Objects.
  * @param {Object} snap
  */
-export const refToArray = (snap) => (snap && Object.keys(snap).length) ?
-    Object.keys(snap).map((s) => snap[s]) :
-    [];
+export const refToArray = (snap) => (snap && Object.keys(snap).length) ? Object.keys(snap).map((s) => snap[s]) : [];
 
 /**
  * formatDate

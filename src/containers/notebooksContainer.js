@@ -95,9 +95,11 @@ class NotebooksContainer extends React.PureComponent {
     }
 
     updateNotebook(notebook) {
+        const { notes, notebooks } = this.props;
+
         // Check if need to remove a notebook
-        if (this.props.notebooks) {
-            this.props.actions.removeNotebook(this.props.notes);
+        if (notebooks) {
+            this.props.actions.removeNotebook(notebooks, notes);
         }
         // Edit notebook selection
         this.props.editField(notebook);

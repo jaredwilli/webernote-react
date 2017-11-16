@@ -1,6 +1,7 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
+import { notesWithType, tagsWithCount } from '../common/highOrderFuncs'
 import { createNewTag } from '../common/noteHelpers';
 import { uniq} from '../common/helpers';
 
@@ -64,18 +65,9 @@ export function removeTags(notes, deletedTags = []) {
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
 
-        const notesWithTags = notes.filter(note => note.hasOwnProperty('tags'));
-
-        const tagsWithCount = (item) => {
-            return notesWithTags.map((note) => {
-                item.count = note.tags.reduce((sum, tag) => (tag.id === item.id) ? sum + 1 : sum, 0);
-                return note;
-            });
-        };
-
         deletedTags.map(tag => {
-            const tagCount = tagsWithCount(tag);
-
+            const tagCount = tagsWithCount(tag, notesWithType(notes, 'tags'));
+            // debugger;
             // Minus 1 because the notes haven't been updated yet
             if (tagCount.length - 1 === 0) {
                 tagsRef.child(tag.id)

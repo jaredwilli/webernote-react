@@ -1,7 +1,8 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { getObjCounts, createNewNotebook } from '../common/noteHelpers.js';
+import { compose, notesWithType, typeWithCount } from '../common/highOrderFuncs';
+import { createNewNotebook } from '../common/noteHelpers.js';
 import { refToArray } from '../common/helpers.js';
 
 export function getNotebooks() {
@@ -41,28 +42,34 @@ export function addNotebook(notebook) {
     }
 }
 
-export function removeNotebook(notebooks, notes) {
+export function removeNotebook(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteNotebookRequestedAction());
 
         const user = getState().userData.user;
         const notebooksRef = database.ref('users/' + user.uid + '/notebooks');
 
-        // Get the count of notes that have the notebook
-        notebooks.map(notebook => {
-            let count = notes.reduce((sum, note) => {
-                return (note.notebook.id === notebook.id) ? sum + 1 : sum;
-            }, 0);
+        notebooksRef.once('value', (snap) => {
+            const notebooks = refToArray(snap.val());
 
-            if (count === 0) {
-                notebooksRef.child(notebook.id)
-                    .remove()
-                    .then(dispatch(deleteNotebookFulfilledAction(notebook, notebooks)))
-                    .catch((error) => {
-                        console.error(error);
-                        dispatch(deleteNotebookRejectedAction());
-                    });
-            }
+            notebooks.forEach(notebook => {
+                const type = 'notebook';
+                const notebookCount = compose(
+                    notesWithType(type),
+                    typeWithCount(notebook, type, notesWithType(notes, type));
+
+                // Remove empty notebooks
+                if (notebookCount === 0) {
+                    notebooksRef.child(notebook.id)
+                        .remove()
+                        .then(() => notebooksRef.once('value'))
+                        .then(snap => dispatch(deleteNotebookFulfilledAction(snap.val())))
+                        .catch(error => {
+                            console.error(error);
+                            dispatch(deleteNotebookRejectedAction());
+                        });
+                }
+            });
         });
 	};
 }

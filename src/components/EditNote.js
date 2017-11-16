@@ -26,6 +26,14 @@ class EditNote extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedNote.notebook) {
+            this.setState({
+                notebook: nextProps.selectedNote.notebook
+            });
+        }
+    }
+
     editNote(e) {
         const { selectedNote } = this.props;
 
@@ -50,7 +58,7 @@ class EditNote extends React.Component {
 
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="no-selected-note"></div>
+                <div className="empty"></div>
             );
         }
 
