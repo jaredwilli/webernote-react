@@ -33,8 +33,8 @@ class EditNote extends React.Component {
         const { selectedNote } = nextProps;
 
         if (selectedNote) {
-            this.setState(notebook => {
-                notebook: (selectedNote.notebook && Object.keys(selectedNote.notebook).length) ?
+            this.setState({
+                notebook: (selectedNote.notebook && Object.keys(selectedNote.notebook).length) ? selectedNote.notebook : this.state.notebook
             });
         }
     }
@@ -44,9 +44,7 @@ class EditNote extends React.Component {
 
         selectedNote[e.target.name] = e.target.value;
 
-        this.setState({
-            selectedNote
-        });
+        this.setState({ selectedNote });
 
         this.props.actions.editNote(selectedNote);
         this.props.actions.getNotes();
