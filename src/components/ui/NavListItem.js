@@ -1,14 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { shorten } from '../../common/helpers.js';
 import { PLURALS } from '../../constants/noteConst';
 
-function NavListItem({ type, notes, items, ...props }) {
-    if (!notes.length || !items.length) {
-        return <div></div>;
-    }
-
+function NavListItem({ type, notes = [], items = [], ...props }) {
     // Set the initial count value and normalize the name
     items = items.map(item => {
         item.name = (item.label) ? item.label : item.name;
@@ -17,6 +12,8 @@ function NavListItem({ type, notes, items, ...props }) {
 
     // Unpluralize the type for notebooks and labels
     type = (type !== 'tags') ? PLURALS[type] : type;
+
+    const notesWithType = (type) => notes.filter(note => note[type] )
 
     // Set the items with the total count of each item from notesWithType
     const itemWithCount = (item) => notesWithType.reduce((sum, note) => {
@@ -35,10 +32,10 @@ function NavListItem({ type, notes, items, ...props }) {
 
         return (itemCount === 0) ? <span className="empty"></span> : (
             <li key={item.id} id={item.id}>
-                <Link to={'/' + type + '/' + item.name.toLowerCase()}>
+                <Link to={`/${type}/${item.name.toLowerCase()}`}>
                     {(type === 'label') &&
                         <div className="note-label" style={{ background: item.hex }} />
-                    }
+                    }\
                     <span className="name">{shorten(item.name, 25)}</span>
                 </Link>&nbsp;
                 <span className="count">
