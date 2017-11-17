@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import IconBtn from '../stateless/IconBtn';
+import IconBtn from '../IconBtn';
 
 describe('IconBtn', () => {
 

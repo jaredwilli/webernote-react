@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SelectMenu from '../ui/SelectMenu';
+import SelectMenu from '../SelectMenu';
 
 describe('SelectMenu', () => {
     const props = {

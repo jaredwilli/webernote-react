@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ViewCount from '../ui/ViewCount';
+import ViewCount from '../ViewCount';
 import * as mocks from '../../mocking/noteHelpers-mock';
 
 describe('ViewCount', () => {
