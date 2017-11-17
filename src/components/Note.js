@@ -1,17 +1,16 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import CloseBtn from './ui/CloseBtn';
+import CloseBtn from './stateless/CloseBtn';
+import TagsList from './TagsList';
 
 import { formatDate, shorten } from '../common/helpers';
-import { sortNotes, getTags } from '../common/noteHelpers';
+import { sortNotes } from '../common/noteHelpers';
 
-function Note(props) {
-    const { notes } = props;
-
+const Note = ({ notes = [], ...props }) => {
     if (notes.length === 0) {
         return (
-            <div className="note"></div>
+            <div className="empty"></div>
         );
     }
 
@@ -37,15 +36,13 @@ function Note(props) {
                             <a href>{note.notebook.name}</a>
                         </span>
                     }
-                    {getTags(note.tags)}
+                    <TagsList tags={note.tags} />
                 </div>
             </div>
         </li>
     );
 
-    return (
-        <ul>{note}</ul>
-    );
+    return <div className="notes"><ul>{note}</ul></div>;
 };
 
 export default Note;

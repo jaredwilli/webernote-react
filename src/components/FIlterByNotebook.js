@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SelectMenu from './ui/SelectMenu';
+import SelectMenu from './stateless/SelectMenu';
 import { getSelectedNotebook } from '../common/noteHelpers'
 
 function FilterByNotebook(props) {

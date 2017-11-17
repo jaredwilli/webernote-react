@@ -78,7 +78,7 @@ class TagsContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { selectedNote, tags } = this.props;
+        const { selectedNote, tags=[] } = this.props;
         let tagOptions;
 
         if (tags) {

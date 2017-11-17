@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { ColorPicker } from '../components/ui/ColorPicker';
-import CloseBtn from '../components/ui/CloseBtn';
+import CloseBtn from '../components/stateless/CloseBtn';
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 

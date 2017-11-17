@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import * as noteActions from '../actions/noteActions';
+import Input from './stateless/Input';
+import Textarea from './stateless/Textarea';
 
-import NotebooksContainer from '../containers/notebooksContainer';
-import TagsContainer from '../containers/tagsContainer';
-import LabelsContainer from '../containers/labelsContainer';
+import NotebookSelect from './NotebookSelect';
+import TagsInput from './TagsInput';
+import LabelPicker from './LabelPicker';
+
+import * as noteActions from '../actions/noteActions';
 
 class EditNote extends React.Component {
     constructor(props) {
@@ -17,12 +20,25 @@ class EditNote extends React.Component {
         this.editField = this.editField.bind(this);
 
         this.state = {
-            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
+            label: {},
+            tags: [],
+            notebook: {
+                id: 'select_notebook',
+                name: 'Select notebook'
+            }
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedNote.notebook) {
+            this.setState({
+                notebook: nextProps.selectedNote.notebook
+            });
+        }
+    }
+
     editNote(e) {
-        let { selectedNote } = this.props;
+        const { selectedNote } = this.props;
 
         selectedNote[e.target.name] = e.target.value;
 
@@ -35,7 +51,9 @@ class EditNote extends React.Component {
     }
 
     editField(field) {
-        this.props.actions.editNote(this.props.selectedNote, field);
+        this.setState(field, () => {
+            this.props.actions.editNote(this.props.selectedNote, field);
+        });
     }
 
     render() {
@@ -43,7 +61,7 @@ class EditNote extends React.Component {
 
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="no-selected-note"></div>
+                <div className="empty"></div>
             );
         }
 
@@ -51,34 +69,44 @@ class EditNote extends React.Component {
             <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title"
+                        <Input
+                            type="text"
+                            name="title"
+                            className="title"
                             placeholder="Enter title..."
-                            value={selectedNote.title}
                             autoFocus={true}
+                            value={selectedNote.title}
                             onChange={(e) => this.editNote(e)} />
-                        <NotebooksContainer
+                        <NotebookSelect
                             canAddNotebook={true}
-                            editField={(notebook) => this.editField({ notebook: notebook })} />
+                            editField={(notebook) => this.editField(notebook)}
+                            selectedNotebook={this.state.notebook} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url"
+                        <input
+                            type="url"
+                            name="url"
+                            className="url"
                             placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
 
-                        <LabelsContainer editField={(color) => this.editField({ label: color })} />
+                        <LabelPicker
+                            editField={(color) => this.editField({ label: color })} />
                     </div>
                     <div className="mid">
-                        <TagsContainer
+                        <TagsInput
                             noteTags={selectedNote.tags}
                             editField={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description"
+                        <Textarea
+                            className="description"
+                            name="description"
                             value={selectedNote.description}
                             onChange={(e) => this.editNote(e)}>
-                        </textarea>
+                        </Textarea>
                     </div>
                 </form>
             </div>

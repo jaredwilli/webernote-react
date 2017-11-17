@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './stateless/Button';
 
 const WelcomeMsg = (props) => {
     return (
@@ -19,15 +20,19 @@ const WelcomeMsg = (props) => {
                 <p>You don't have to create an account to try it out, just click the Add Note button and start typing in the form. Later if you choose to keep using the app login with your Facebook account. Everything you've added will be added to your user account.</p>
 
                 <div className="get-started btn-group">
-                    <button onClick={props.addNote} className="create-note get-started-btn">
+                    <Button
+                        onClick={props.addNote}
+                        className="create-note get-started-btn">
                         <i className="fa fa-file-text"></i>
                         Create A New Note
-                    </button>
+                    </Button>
 
-                    <button onClick={props.showLoginModal} className="login get-started-btn">
+                    <Button
+                        onClick={props.showLoginModal}
+                        className="login get-started-btn">
                         <i className="fa fa-sign-in"></i>
                         Login / Register
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

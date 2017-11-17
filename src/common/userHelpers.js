@@ -111,8 +111,6 @@ export function createUser(user, mergedUser) {
 		displayName: !user.isAnonymous ? user.displayName : 'guest',
 		email: !user.isAnonymous ? user.email : '',
 		photo: !user.isAnonymous ? user.photoURL : '',
-		created_date: new Date().getTime(),
-		last_login: new Date().getTime(),
 		permissions: [],
         role: '',
         notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},

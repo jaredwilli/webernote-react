@@ -3,15 +3,14 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import AddNote from './AddNote';
+import NavDrawer from '../components/ui/NavDrawer';
+import SecondaryMenu from '../components/SecondaryMenu';
+
 import * as noteActions from '../actions/noteActions';
 import * as notebookActions from '../actions/notebookActions';
 import * as tagActions from '../actions/tagActions';
 import * as labelActions from '../actions/labelActions';
-
-import AddNote from './AddNote';
-// import NoteNav from '../components/NoteNav';
-import NavDrawer from '../components/ui/NavDrawer';
-import SecondaryMenu from '../components/SecondaryMenu';
 
 import { MENU_ITEMS } from '../constants/menu';
 
@@ -58,17 +57,21 @@ class Toolbar extends React.Component {
 
     render() {
         const menuItems = Object.keys(MENU_ITEMS).map((menu) => {
-            let items = MENU_ITEMS[menu],
-                key = menu.toLowerCase();
+            const items = MENU_ITEMS[menu];
+            const key = menu.toLowerCase();
 
             return (
                 <li key={key} onMouseLeave={() => this.showDropdown(key)}>
                     <a className={key} onMouseEnter={() => this.showDropdown(key)}>{key}</a>
-                    {this.state[key] ?
-                        <div onMouseLeave={() => this.showDropdown(key)} className={key + '-dropdown'}>
-                            <SecondaryMenu items={items} actions={this.props.actions} />
+
+                    {this.state[key] &&
+                        <div onMouseLeave={() => this.showDropdown(key)}
+                            className={key + '-dropdown'}>
+                            <SecondaryMenu
+                                items={items}
+                                actions={this.props.actions} />
                         </div>
-                    : ''}
+                    }
                 </li>
             );
         });

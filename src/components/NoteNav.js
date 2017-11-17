@@ -40,7 +40,7 @@ class NoteNav extends React.Component {
     }
 
     render() {
-        let { notes, notebooks, tags, labels } = this.props;
+        const { notes, notebooks, tags, labels } = this.props;
 
         if (!notes) {
             return <div className="loading"></div>

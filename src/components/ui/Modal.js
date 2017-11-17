@@ -1,6 +1,5 @@
 import React from 'react';
-
-import CloseBtn from './CloseBtn';
+import CloseBtn from '../stateless/CloseBtn';
 
 class Modal extends React.Component {
 	constructor(props) {

@@ -78,7 +78,7 @@ export function removeTags(notes, deletedTags = []) {
 
             // Minus 1 because the notes haven't been updated yet
             if (tagCount.length - 1 === 0) {
-                tagsRef.child(tag.id)
+                return tagsRef.child(tag.id)
                     .remove()
                     .then(dispatch(deleteTagsFulfilledAction()))
                     .catch((error) => {
@@ -86,6 +86,8 @@ export function removeTags(notes, deletedTags = []) {
                         dispatch(deleteTagsRejectedAction());
                     });
             }
+
+            return deleteTagsRejectedAction();
         });
 	};
 }

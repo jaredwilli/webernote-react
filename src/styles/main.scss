@@ -29,37 +29,44 @@
 
 .loginout {
 	float: right;
-}
 
-.loginout button {
-    background: none;
-    border: 0;
-    color: #03A9F4;
-    font-size: 13px;
-    text-decoration: none;
-    vertical-align: middle;
-    cursor: pointer;
-}
+    button {
+        background: none;
+        border: 0;
+        color: #03A9F4;
+        font-size: 13px;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
 
-.loginout button:hover {
-    color: #E91E63;
-    text-decoration: underline;
+        &:hover {
+            color: #E91E63;
+            text-decoration: underline;
+        }
+    }
 }
 
 .user-meta {
     text-transform: capitalize;
     display: inline-block;
     margin-right: 10px;
+
+    > div,
+    img {
+        width: 22px;
+        vertical-align: middle;
+    }
+
+    .username {
+        margin-left: 5px;
+        padding: 5px 0;
+        vertical-align: middle;
+    }
 }
 
-.user-meta > div,
-.user-meta img {
-    width: 22px;
-    vertical-align: middle;
-}
 
-.user-meta .username {
-    margin-left: 5px;
-	padding: 5px 0;
-	vertical-align: middle;
+@media screen and (max-width: 620px) {
+    .tagline {
+        display: none;
+    }
 }

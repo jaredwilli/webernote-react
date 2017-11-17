@@ -1,11 +1,15 @@
 import React from 'react';
+import Button from './stateless/Button';
 
 function AddNote(props) {
     return (
-        <button id="newNote" className="newNote" onClick={props.addNote}>
+        <Button
+            id="newNote"
+            className="newNote"
+            onClick={props.addNote}>
             Add Note
             <span className="plus">+</span>
-        </button>
+        </Button>
     );
 }
 
