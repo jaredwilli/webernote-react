@@ -18,53 +18,12 @@ class TagsContainer extends React.Component {
 
     // TODO: add a minimum character limit for new tags
 	editTags(tags) {
-        const { selectedNote } = this.props;
-
-        // Check for new tags to be added
-        if (tags.length) {
-            tags.forEach((tag) => {
-                if (tag.className) {
-                    this.props.actions.addTag(tags, selectedNote);
-                }
-            });
-        }
-
-        // Check for tags to be removed
-        if (tags.length < selectedNote.tags.length) {
-            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
-        }
-
-        // Edit the notes tags
-        this.props.editField(tags, selectedNote);
-        // Get tags again to update the state
-        this.props.actions.getTags();
-    }
-
-    addTags(tags) {
-        const { selectedNote } = this.props;
-
-        // Check for new tags to be added
-        if (tags.length) {
-            tags.forEach((tag) => {
-                if (tag.className) {
-                    this.props.actions.addTag(tags, selectedNote);
-                }
-            });
-        }
-
-        // Check for tags to be removed
-        if (tags.length < selectedNote.tags.length) {
-            this.props.actions.removeTags(this.props.notes, compareObjs(tags, selectedNote.tags));
-        }
-
-        // Edit the notes tags
-        this.props.editField(tags, selectedNote);
-        // Get tags again to update the state
-        this.props.actions.getTags();
-    }
-
-    removeTags(tags) {
         const { notes, selectedNote } = this.props;
+
+        // Check for new tags to be added
+        if (tags.length) {
+            tags.map(tag => (tag.className) ? this.props.actions.addTag(tags, selectedNote) : tag);
+        }
 
         // Check for tags to be removed
         if (tags.length < selectedNote.tags.length) {
@@ -75,24 +34,19 @@ class TagsContainer extends React.Component {
         this.props.editField(tags, selectedNote);
         // Get tags again to update the state
         this.props.actions.getTags();
-	}
+    }
 
 	render() {
-        const { selectedNote, tags=[] } = this.props;
-        let tagOptions;
-
-        if (tags) {
-            tagOptions = tags;
-        }
+        const { selectedNote, tags = [] } = this.props;
 
 		return (
 			<Creatable
+				multi
 				className="tags"
 				name="form-field-name"
-				multi
 				noResultsText="Click to add tag..."
+				options={tags}
 				value={selectedNote.tags}
-				options={tagOptions}
 				onChange={(e) => this.editTags(e)}
 			/>
 		);
@@ -101,7 +55,6 @@ class TagsContainer extends React.Component {
 
 function mapStateToProps(state) {
 	const newState = {
-        user: state.userData.user,
 		notes: state.noteData.notes,
 		tags: state.tagData.tags,
 		selectedNote: state.noteData.selectedNote
