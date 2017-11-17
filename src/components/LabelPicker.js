@@ -4,12 +4,14 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { ColorPicker } from './ui/ColorPicker';
+import Cover from './stateless/Cover';
+import Button from './stateless/Button';
 import CloseBtn from './stateless/CloseBtn';
 
 import { COLORS } from '../constants/noteConst';
 import * as labelActions from '../actions/labelActions';
 
-class LabelPicker extends React.PureComponent {
+class LabelPicker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,64 +45,62 @@ class LabelPicker extends React.PureComponent {
     }
 
     editLabel(label) {
-        const { labels } = this.props;
-        let labelExists = [];
-        label = COLORS.filter((color) => color.hex.toLowerCase() === label.hex.toLowerCase())[0];
+        label = COLORS.find(color => color.hex.toLowerCase() === label.hex.toLowerCase());
+
+        const { labels = [] } = this.props;
+        const labelExists = (labels.length) ? labels.find((l) => l.hex === label.hex) : false;
 
         this.setState({
             displayColorPicker: false
         });
 
-        if (label) {
-            if (labels) {
-                labelExists = labels.filter((l) => l.hex === label.hex);
-            }
-
-            if (!labelExists.length) {
-                this.props.actions.addLabel(label);
-            } else {
-                label = labelExists[0];
-            }
-
-            this.props.editField(label);
-            this.props.actions.getLabels();
+        if (!labelExists) {
+            this.props.actions.addLabel(label);
+        } else {
+            label = labelExists;
         }
+
+        this.props.editField(label);
+        this.props.actions.getLabels();
     }
 
     render() {
         const { selectedNote } = this.props;
         let backgroundColor = 'none';
         let colorPicker = '';
-        let colors = [];
-
-        COLORS.forEach((c) => {
-            colors.push(c.hex);
+        const colors = COLORS.map(c => {
+            return c.hex;
         });
 
         if (selectedNote.label) {
             backgroundColor = selectedNote.label.hex;
         }
 
+        // FIXME: make this a popover reusable component
         if (this.state.displayColorPicker) {
             colorPicker = (
                 <div className="label-color-picker">
-                    <div className="cover" onClick={this.handleClose} />
+                    <Cover
+                        onClick={this.handleClose}
+                        isActive={this.state.displayColorPicker} />
 
-                    <ColorPicker color={this.state.background}
-                        onChangeComplete={this.editLabel}
+                    <ColorPicker
                         colors={colors}
-                        triangle="top-right" />
+                        triangle="top-right"
+                        color={this.state.background}
+                        onChangeComplete={this.editLabel} />
                 </div>
             );
         }
 
         return (
             <div className="label-picker">
-                <button className="label-background" type="button"
+                <Button
+                    className="label-background"
                     style={{ background: backgroundColor }}
                     onClick={this.showColorPicker}>
                     {(backgroundColor === 'none') ? 'Color' : ''}
-                </button>
+                </Button>
 
                 {(backgroundColor !== 'none') && <CloseBtn onClick={this.removeLabel} />}
 

@@ -3,7 +3,7 @@ import reactCSS, { handleHover } from 'reactcss';
 
 import { Swatch } from 'react-color/lib/components/common';
 
-export const ColorSwatch = ({ hover, color, onClick, onSwatchHover }) => {
+export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 	const hoverSwatch = {
 		boxShadow: '0 0 5px 2px rgba(0, 0, 0, 0.25)',
 		outline: '2px solid #fff',
@@ -33,8 +33,7 @@ export const ColorSwatch = ({ hover, color, onClick, onSwatchHover }) => {
 				color={color}
 				onClick={onClick}
 				onHover={onSwatchHover}
-				focusStyle={hoverSwatch}
-			/>
+				focusStyle={hoverSwatch} />
 		</div>
 	);
 };

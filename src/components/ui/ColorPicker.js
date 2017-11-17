@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
-import map from 'lodash/map'
 
 import { ColorWrap } from 'react-color/lib/components/common'
 import ColorSwatch from './ColorSwatch'
@@ -96,25 +95,30 @@ export const ColorPicker = ({ width, colors, onChangeComplete, onSwatchHover, tr
     const handleChange = (hex, e) => onChangeComplete({ hex, source: 'hex' }, e);
 
     return (
-        <div style={ styles.card } className={ `color-picker ${ className }` }>
-        <div style={ styles.triangleShadow } />
-        <div style={ styles.triangle } />
-            { map(colors, c => (
+        <div style={styles.card} className={`color-picker ${className}`}>
+        <div style={styles.triangleShadow} />
+        <div style={styles.triangle} />
+            {colors.map(color => (
                 <ColorSwatch
-                    color={ c }
-                    key={ c }
-                    onClick={ handleChange }
-                    onSwatchHover={ onSwatchHover }
+                    color={color}
+                    key={color}
+                    onClick={handleChange}
+                    onSwatchHover={onSwatchHover}
                 />
-            )) }
+            ))}
         </div>
     );
 };
 
 ColorPicker.propTypes = {
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    width: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     colors: PropTypes.arrayOf(PropTypes.string),
-    triangle: PropTypes.oneOf(['hide', 'top-left', 'top-right', 'bottom-left', 'bottom-right']),
+    triangle: PropTypes.oneOf([
+        'hide', 'top-left', 'top-right', 'bottom-left', 'bottom-right'
+    ]),
 };
 
 ColorPicker.defaultProps = {
