@@ -27,27 +27,21 @@ function NavListItem({ type, notes = [], items = [], ...props }) {
         return count;
     });
 
-    const listMenu = (items) => items.map(item => {
-        const itemCount = (type === 'tags') ? tagsWithCount(item) : itemWithCount(item);
-
-        return (itemCount === 0) ? <span className="empty"></span> : (
-            <li key={item.id} id={item.id}>
-                <Link to={`/${type}/${item.name.toLowerCase()}`}>
-                    {(type === 'label') &&
-                        <div className="note-label" style={{ background: item.hex }} />
-                    }\
-                    <span className="name">{shorten(item.name, 25)}</span>
-                </Link>&nbsp;
-                <span className="count">
-                    {(type === 'tags') ? tagsWithCount(item) : itemWithCount(item)}
-                </span>
-            </li>
-        );
-    });
-
     return (
         <ul className={type + '-list'}>
-            {listMenu(items)}
+            {items.map(item =>
+                <li key={item.id} id={item.id}>
+                    {(type === 'label') &&
+                        <div className="note-label" style={{ background: item.hex }} />
+                    }
+                    <Link to={`/${type}/${item.name.toLowerCase()}`}>
+                        <span className="name">{shorten(item.name, 25)}</span>
+                    </Link>&nbsp;
+                    <span className="count">
+                        {(type === 'tags') ? tagsWithCount(item) : itemWithCount(item)}
+                    </span>
+                </li>
+            }
         </ul>
     );
 }

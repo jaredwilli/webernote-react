@@ -30,9 +30,11 @@ class EditNote extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedNote.notebook) {
-            this.setState({
-                notebook: nextProps.selectedNote.notebook
+        const { selectedNote } = nextProps;
+
+        if (selectedNote) {
+            this.setState(notebook => {
+                notebook: (selectedNote.notebook && Object.keys(selectedNote.notebook).length) ?
             });
         }
     }
@@ -65,12 +67,12 @@ class EditNote extends React.Component {
             );
         }
 
+        // FIXME: make this a layout component http://reactpatterns.com/#layout-component
         return (
             <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
                         <Input
-                            type="text"
                             name="title"
                             className="title"
                             placeholder="Enter title..."
@@ -91,7 +93,6 @@ class EditNote extends React.Component {
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
-
                         <LabelPicker
                             editField={(color) => this.editField({ label: color })} />
                     </div>
@@ -102,8 +103,8 @@ class EditNote extends React.Component {
                     </div>
                     <div className="bottom">
                         <Textarea
-                            className="description"
                             name="description"
+                            className="description"
                             value={selectedNote.description}
                             onChange={(e) => this.editNote(e)}>
                         </Textarea>

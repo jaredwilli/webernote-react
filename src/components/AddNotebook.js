@@ -6,7 +6,6 @@ const AddNotebook = ({ notebooks = [], ...props }) => {
     return (
        <span className="add-notebook">
             <Input
-                type="text"
                 name="notebook"
                 className="new-notebook"
                 placeholder="Notebook name"
