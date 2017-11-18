@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LoginModal from '../modals/LoginModal';
+import List from '../List';
 
-describe('LoginModal', () => {
+describe('List component', () => {
 
     it('renders without crashing', () => {
-        shallow(<LoginModal />);
+        shallow(<List />);
     });
 });

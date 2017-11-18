@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { ColorPicker } from './ui/ColorPicker';
+// import Circle from 'react-color'
 import Cover from './stateless/Cover';
 import Button from './stateless/Button';
 import CloseBtn from './stateless/CloseBtn';
@@ -65,12 +66,10 @@ class LabelPicker extends React.Component {
     }
 
     render() {
+        const colors = COLORS.map(color => color.hex);
         const { selectedNote } = this.props;
         let backgroundColor = 'none';
         let colorPicker = '';
-        const colors = COLORS.map(c => {
-            return c.hex;
-        });
 
         if (selectedNote.label) {
             backgroundColor = selectedNote.label.hex;
@@ -84,6 +83,11 @@ class LabelPicker extends React.Component {
                         onClick={this.handleClose}
                         isActive={this.state.displayColorPicker} />
 
+                    {/* <Circle
+                        colors={colors}
+                        triangle="top-right"
+                        color={this.state.background}
+                        onChangeComplete={this.editLabel} /> */}
                     <ColorPicker
                         colors={colors}
                         triangle="top-right"

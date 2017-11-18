@@ -1,7 +1,8 @@
 import React from 'react';
-import Button from './stateless/Button';
+import PropTypes from 'prop-types';
+import Button from './Button';
 
-const WelcomeMsg = (props) => {
+const WelcomeMsg = ({ ...props }) => {
     return (
         <div className="zero-notes">
             <div className="welcome-msg">
@@ -10,10 +11,10 @@ const WelcomeMsg = (props) => {
                 <p>Webernote allows you to create notes and store them instantly in real time. There are various ways to organize your notes. Currently you are able to:</p>
 
                 <ul>
-                    <li>create, edit, and delete notes</li>
-                    <li>create notebooks and add notes to them</li>
-                    <li>select or use a custom colored label to color-code your notes</li>
-                    <li>create and select custom tags to assign to notes</li>
+                    <li>Create, edit, and delete notes,</li>
+                    <li>Create notebooks and add notes to them,</li>
+                    <li>Select or use a custom colored label to color-code your notes,</li>
+                    <li>Create and select custom tags to assign to notes,</li>
                     <li>Plus, mobile-friendly design allows you to take notes anywhere!!</li>
                 </ul>
 
@@ -37,6 +38,11 @@ const WelcomeMsg = (props) => {
             </div>
         </div>
     );
+};
+
+WelcomeMsg.propTypes = {
+    addNote: PropTypes.func.isRequired,
+    showLoginModal: PropTypes.func.isRequired
 };
 
 export default WelcomeMsg;

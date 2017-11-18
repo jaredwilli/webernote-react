@@ -216,19 +216,18 @@ export function getDeletedTags(tags, note) {
  *
  * @param {String} refId
  */
-export function createNewNote(refId, user) {
-    return {
-        id: refId,
-        isEditing: true,
-        title: '',
-        description: '',
-        url: '',
-        notebook: {},
-        tags: [],
-        created_date: new Date().getTime(),
-        modified_date: ''
-    };
-}
+export const createNewNote = (refId) => ({
+    id: refId,
+    title: '',
+    url: '',
+    description: '',
+    isEditing: true,
+    created_date: Date.now(),
+    modified_date: Date.now(),
+    notebook: {},
+    label: {},
+    tags: []
+});
 
 /**
  * Generate a new tag object

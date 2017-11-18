@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import WelcomeMsg from './WelcomeMsg';
+import WelcomeMsg from './stateless/WelcomeMsg';
 import SearchFilter from './SearchFilter';
 import ViewCount from './ViewCount';
 import Note from './Note';
@@ -20,6 +20,7 @@ class NoteList extends Component {
         this.clearFilters = this.clearFilters.bind(this);
 
         this.state = {
+            windowWidth: window.innerWidth,
             filterType: 'Title',
             searchTerm: '',
 			notebookFilter: {
@@ -32,6 +33,20 @@ class NoteList extends Component {
             }
         };
     }
+
+    componentWillMount() {
+        window.addEventListener('resize', this.onWindowResize);
+    }
+
+    // make sure to remove the listener
+    // when the component is not mounted anymore
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onWindowResize);
+    }
+
+    onWindowResize = () => {
+        this.setState({ width: window.innerWidth });
+    };
 
     clearFilters() {
         this.setState({
@@ -48,7 +63,10 @@ class NoteList extends Component {
         if (filter) {
             this.setState(filter, () => {
                 let filterVals = {};
+                const { notebook, type, term } = this.state;
 
+                console.log(notebook, type, term);
+                debugger;
                 if (filter.filterType || filter.searchTerm) {
                     filterVals.type = this.state.filterType;
                     filterVals.term = filter.searchTerm;
@@ -63,7 +81,7 @@ class NoteList extends Component {
         }
     }
 
-    selectNote(e, note) {
+    selectNote(note) {
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }
@@ -74,6 +92,8 @@ class NoteList extends Component {
 
     render() {
         const { notes, notebooks } = this.props;
+        const { width } = this.state;
+        const isMobile = width <= 690;
 
         if (!notes.length) {
             return (
@@ -108,8 +128,9 @@ class NoteList extends Component {
 
                 <Note notes={notes}
                     sort={this.state.sort}
-                    selectNote={(e, note) => this.selectNote(e, note)}
-                    deleteNote={(note) => this.deleteNote(note)} />
+                    selectNote={(e, note) => this.selectNote(note)}
+                    deleteNote={this.deleteNotenote}
+                    isMobile={isMobile} />
             </div>
         );
     }
