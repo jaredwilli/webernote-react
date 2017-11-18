@@ -1,0 +1,72 @@
+@import './_common.scss';
+
+/* STRUCTURE */
+
+.big-loader {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.big-loader .loader {
+    display: inline-block;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    background: #bdcad4;
+    display: flex;
+    flex-direction: row;
+    padding-top: 2px;
+}
+
+.tagline {
+    margin-left: 10px;
+}
+
+.loginout {
+	float: right;
+
+    button {
+        background: none;
+        border: 0;
+        color: #03A9F4;
+        font-size: 13px;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+
+        &:hover {
+            color: #E91E63;
+            text-decoration: underline;
+        }
+    }
+}
+
+.user-meta {
+    text-transform: capitalize;
+    display: inline-block;
+    margin-right: 10px;
+
+    > div,
+    img {
+        width: 22px;
+        vertical-align: middle;
+    }
+
+    .username {
+        margin-left: 5px;
+        padding: 5px 0;
+        vertical-align: middle;
+    }
+}
+
+
+@media screen and (max-width: 620px) {
+    .tagline {
+        display: none;
+    }
+}

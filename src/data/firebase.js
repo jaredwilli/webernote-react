@@ -2,32 +2,35 @@
  * This config file connects to the default firebase instance for the public demo version
  * of the app that can be used by anyone.
  */
-
 import * as firebase from 'firebase';
+import config from './config';
+// import mockFirebase from './firebase-mock'
 
-// Initialize Firebase
-const publicConfig = {
-    apiKey: 'AIzaSyCmj24j_yyktraJeSZTwjZuS5VltNxhirY',
-	authDomain: 'webernote-7f700.firebaseapp.com',
-	databaseURL: 'https://webernote-7f700.firebaseio.com',
-	projectId: 'webernote-7f700',
-	storageBucket: '',
-	messagingSenderId: '1065841426702'
-};
+export const ENV = process.env.NODE_ENV;
+export const TEST_URL = process.env.MOCK_FIREBASE_DB_URL;
 
-firebase.initializeApp(publicConfig);
+// Initialize firebase with the environment config settings
+export const firebaseApp = firebase.initializeApp(
+    (ENV === 'production') ? config.firebase_config_prod : config.firebase_config_dev
+);
+export const firebaseTest = firebase.initializeApp(
+    (ENV === 'test') ? config.firebase_config_test : config.firebase_config_auth,
+    'TEST'
+);
 
-export const database = firebase.database();
+// TODO: Need to figure out how to work out test and auth configs in this
+// export const firebaseApp = firebase.initializeApp(
+//     (ENV === 'production') ? config.firebase_config_prod :
+//     (ENV === 'development') ? config.firebase_config_dev :
+//     (ENV === 'test') ? config.firebase_config_test :
+//         config.firebase_config_auth
+// );
 
-// Initialize FirebaseAuth
-const authConfig = {
-    apiKey: "AIzaSyDWX6KwRN0tmGLi6-4CFgZYfVzWIZtiyYs",
-    authDomain: "webernote-auth.firebaseapp.com",
-    databaseURL: "https://webernote-auth.firebaseio.com",
-    projectId: "webernote-auth",
-    storageBucket: "webernote-auth.appspot.com",
-    messagingSenderId: "567445181045"
-};
+export const database = firebaseApp.database()
+export const auth = firebaseApp.auth();
+
+export const databaseTest = firebaseTest.database()
+export const authTest = firebaseTest.auth();
 
 export const PROVIDERS = {
     fbProvider: new firebase.auth.FacebookAuthProvider(),
@@ -35,10 +38,5 @@ export const PROVIDERS = {
     twProvider: new firebase.auth.TwitterAuthProvider(),
     ghProvider: new firebase.auth.GithubAuthProvider()
 };
-
-export const auth = firebase.auth();
-
-let userDatabase = firebase.initializeApp(authConfig, 'AUTH');
-export const authDatabase = userDatabase.database();
 
 export default firebase;

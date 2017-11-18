@@ -1,0 +1,35 @@
+@import './_common.scss';
+
+/* Login Modal */
+
+.login-modal {
+    .login-with {
+        border: 1px solid #dedede;
+        border-radius: 2px;
+        padding: 20px;
+        margin-top: 10px;
+
+        button {
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            text-align: left;
+            width: 240px;
+            margin: 5px 0;
+            padding: 0;
+
+            i {
+                border-right: 1px solid #000;
+                padding: 0 10px;
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                text-align: center;
+            }
+        }
+
+        .btn-text {
+            padding: 0 10px;
+        }
+    }
+}

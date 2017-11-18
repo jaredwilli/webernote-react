@@ -1,8 +1,8 @@
 import { database } from '../data/firebase';
 import * as types from '../constants/actionTypes';
 
-import { createNewTag, getTagCount } from '../common/noteHelpers';
-import { refToArray, uniq } from '../common/helpers';
+import { createNewTag } from '../common/noteHelpers';
+import { uniq} from '../common/helpers';
 
 export function getTags() {
     return (dispatch, getState) => {
@@ -57,36 +57,36 @@ export function addTag(tags, note) {
     }
 }
 
-export function removeTags(notes) {
+export function removeTags(notes, deletedTags = []) {
 	return (dispatch, getState) => {
 		dispatch(deleteTagsRequestedAction());
 
         const user = getState().userData.user;
         const tagsRef = database.ref('users/' + user.uid + '/tags');
+        const notesWithTags = notes.filter(note => note.hasOwnProperty('tags'));
 
-        tagsRef.once('value', (snap) => {
-            if (snap.exists()) {
-                const tags = refToArray(snap.val());
-                let tagsList = [];
+        const tagsWithCount = (item) => {
+            return notesWithTags.map((note) => {
+                item.count = note.tags.reduce((sum, tag) => (tag.id === item.id) ? sum + 1 : sum, 0);
+                return note;
+            });
+        };
 
-                tags.forEach((tag) => {
-                    let tagCount = getTagCount(tag, notes);
-                    // Remove empty tags
-                    if (tagCount.count === 0) {
-                        tagsRef.child(tagCount.tag.id)
-                            .remove()
-                            .then(dispatch(deleteTagsRejectedAction(tag)))
-                            .catch((error) => {
-                                console.error(error);
-                                dispatch(deleteTagsRejectedAction());
-                            });;
-                    } else {
-                        tagsList.push(tag);
-                    }
-                });
+        deletedTags.map(tag => {
+            const tagCount = tagsWithCount(tag);
 
-                dispatch(deleteTagsFulfilledAction(tagsList));
+            // Minus 1 because the notes haven't been updated yet
+            if (tagCount.length - 1 === 0) {
+                return tagsRef.child(tag.id)
+                    .remove()
+                    .then(dispatch(deleteTagsFulfilledAction()))
+                    .catch((error) => {
+                        console.error(error);
+                        dispatch(deleteTagsRejectedAction());
+                    });
             }
+
+            return deleteTagsRejectedAction();
         });
 	};
 }
@@ -99,15 +99,16 @@ export function listenForDeletedTags() {
         const notesRef = database.ref('users/' + user.uid + '/notes');
 
         notesRef.on('child_removed', (snap) => {
-            let notes = getState().noteData.notes;
-            const n = snap.val();
+            const deletedNote = snap.val();
+            const { tags = [] } = deletedNote;
 
-            // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
-            });
+            // Only bother to run removeTags if the deleted note had some
+            if (tags.length) {
+                // Filter the deleted note out of current notes state
+                const notes = getState().noteData.notes.filter(note => note.id !== deletedNote.id);
 
-            dispatch(removeTags(notes));
+                dispatch(removeTags(notes, tags));
+            }
         });
     }
 }

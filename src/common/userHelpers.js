@@ -1,14 +1,24 @@
 // user helper functions
-import { auth } from '../data/firebase.js';
+// import { auth } from '../data/firebase.js';
 import { deepMerge } from './helpers';
 
-export function listenForAuth() {
-    // // Need to some how pass to getUser here the anonymous user to copy data to existing accounts
-    auth.onAuthStateChanged((user) => {
-        return user;
-    });
+/**
+ * checkIfUserExists
+ *
+ * @param {Object} authData
+ */
+export function checkIfUserExists(authData, userRef) {
+	return userRef
+		.child('users')
+		.child(authData.uid)
+		.once('value')
+		.then(dataSnapshot => {
+			return Promise.resolve({
+				authData,
+				userExists: dataSnapshot.exists()
+			});
+		});
 }
-
 
 /**
  *
@@ -32,10 +42,9 @@ export function copyFbRecord(oldRef, newRef) {
 /**
  * mergeAnonUser
  *
- * @description combine the anonymous user data with the logged in user account data.
- *
- * @param {*} anonRef
+ * @description Combine the anonymous user data with the logged in user account data.
  * @param {*} userRef
+ * @param {*} anonRef
  */
 export function mergeAnonUser(userRef, anonRef) {
     // Promise for getting the user ref data
@@ -91,8 +100,8 @@ export function mergeAnonUser(userRef, anonRef) {
 
 /**
  * createUser
- *
  * @param {Object} user
+ * @param {Object} mergedUser
  */
 export function createUser(user, mergedUser) {
     return {
@@ -102,8 +111,6 @@ export function createUser(user, mergedUser) {
 		displayName: !user.isAnonymous ? user.displayName : 'guest',
 		email: !user.isAnonymous ? user.email : '',
 		photo: !user.isAnonymous ? user.photoURL : '',
-		created_date: new Date().getTime(),
-		last_login: new Date().getTime(),
 		permissions: [],
         role: '',
         notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},
@@ -115,7 +122,6 @@ export function createUser(user, mergedUser) {
 
 /**
  * updateUser
- *
  * @param {*} user
  * @param {*} updatedUser
  */
@@ -129,8 +135,7 @@ export function updateUser(user, updatedUser) {
 
 /**
  * a2z
- *
- * @description Random letter generator from A - Z
+ * @description Random letter generator from A - Z.
  * @param {*} from
  * @param {*} to
  */
@@ -138,7 +143,11 @@ export function a2z(from = 'a', to = 'z') {
 	let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	return a.slice(a.indexOf(from), a.indexOf(to) + 1);
 }
-
+/**
+ * randomVal
+ * @description Generate a random value from an array.
+ * @param {*} arr
+ */
 export function randomVal(arr) {
 	if (typeof arr !== Array) {
 		arr = Object.keys(arr).map(a => {
@@ -147,7 +156,11 @@ export function randomVal(arr) {
 	}
 	return arr[Math.floor(Math.random() * arr.length)];
 }
-
+/**
+ * randomLetter
+ * @description Generate a random letter from a-z using the a2z and randomVal functions.
+ * @param {*} arr
+ */
 export function randomLetter(from = 'a', to = 'z') {
 	return randomVal(a2z(from, to));
 }

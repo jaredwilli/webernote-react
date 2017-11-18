@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes.js';
-import { refToArray } from '../common/helpers.js';
+import * as types from '../constants/actionTypes';
+import { refToArray } from '../common/helpers';
 
 export default function noteReducer(state = {}, action) {
     switch(action.type) {
@@ -231,8 +231,7 @@ export default function noteReducer(state = {}, action) {
         }
 
         case types.FilterNotesFulfilled: {
-            let notes = refToArray(action.notes);
-            let filter = action.filter;
+            let { notes, filter } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -240,37 +239,34 @@ export default function noteReducer(state = {}, action) {
             });
 
             if (notes) {
-                notes = notes.map((note) => {
+                notes = refToArray(notes).map((note) => {
                     note.tags = refToArray(note.tags);
                     return note;
                 });
             }
 
-            // Clear filteredNotes if no filters applied
-            if (!filter) {
-                newState.filteredNotes = null;
-                newState.notes = notes;
-            } else {
+            // If there are filters applied
+            if (filter) {
                 // Filter by notebook
-                if (filter.notebook) {
-                    newState.filteredNotes = notes.filter((note) => {
-                        return note.notebook && note.notebook.name === filter.notebook;
+                if (filter.notebook && filter.notebook.id !== 'all_notebooks') {
+                    notes = notes.filter((note) => {
+                        return note.notebook && note.notebook.name === filter.notebook.name;
                     });
                 }
-                else if (filter.term && filter.type) {
-                    // filter by field and keyword
-                    newState.filteredNotes = notes.filter((note) => {
+
+                // filter by field and keyword
+                if (filter.term && filter.type) {
+                    notes = notes.filter((note) => {
                         let term = filter.term.toLowerCase(),
                             type = filter.type,
                             typeVal = note[type.toLowerCase()].toLowerCase();
 
-                        if (typeVal) {
-                            return typeVal.search(term.toString()) !== -1;
-                        }
+                        return typeVal.search(term.toString()) !== -1;
                     });
                 }
             }
 
+            newState.notes = notes
             newState.selectedNote = '';
             return newState;
         }

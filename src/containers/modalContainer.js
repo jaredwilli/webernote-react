@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import LoginModal from '../components/LoginModal';
-import { MODAL_TYPES } from '../constants/modalTypes';
+import LoginModal from '../components/modals/LoginModal';
+import SettingsModal from '../components/modals/SettingsModal';
 
 const MODAL_COMPONENTS = {
-    LOGIN_MODAL: LoginModal
+    LOGIN_MODAL: LoginModal,
+    SETTINGS_MODAL: SettingsModal
 };
 
 const ModalContainer = ({type, props}) => {
@@ -18,4 +20,4 @@ const ModalContainer = ({type, props}) => {
     return <ModalComponent {...props} />;
 };
 
-export default connect(state => state.modal)(ModalContainer);
+export default withRouter(connect(state => state.modal)(ModalContainer));

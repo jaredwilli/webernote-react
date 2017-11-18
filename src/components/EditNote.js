@@ -1,133 +1,111 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
+
+import Input from './stateless/Input';
+import Textarea from './stateless/Textarea';
+
+import NotebookSelect from './NotebookSelect';
+import TagsInput from './TagsInput';
+import LabelPicker from './LabelPicker';
 
 import * as noteActions from '../actions/noteActions';
-
-import NotebooksContainer from '../containers/notebooksContainer';
-import TagsContainer from '../containers/tagsContainer';
-import LabelsContainer from '../containers/labelsContainer';
-
-import '../styles/edit-note.css';
 
 class EditNote extends React.Component {
     constructor(props) {
         super(props);
 
         this.editNote = this.editNote.bind(this);
-        this.editNotebook = this.editNotebook.bind(this);
-        this.editTags = this.editTags.bind(this);
-        this.editLabel = this.editLabel.bind(this);
+        this.editField = this.editField.bind(this);
 
         this.state = {
-            selectedNote: (this.props.selectedNote) ? this.props.selectedNote : {}
+            label: {},
+            tags: [],
+            notebook: {
+                id: 'select_notebook',
+                name: 'Select notebook'
+            }
         };
     }
 
-    componentDidMount() {
-        window.addEventListener('resize', this.setBottomHeight);
+    componentWillReceiveProps(nextProps) {
+        const { selectedNote } = nextProps;
 
-        if (this.props.selectedNote) {
-            this.setBottomHeight();
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.setBottomHeight);
-    }
-
-    componentWillUpdate(nextProps) {
-        if (nextProps.selectedNote) {
-            this.setBottomHeight();
-        }
-    }
-
-    setBottomHeight() {
-        let containerHeight = document.querySelector('.notes-container').offsetHeight;
-        let bottom = document.querySelector('.edit-note .bottom');
-        if (bottom) {
-            bottom.style.height = containerHeight - bottom.offsetTop - 6 + 'px';
+        if (selectedNote) {
+            this.setState({
+                notebook: (selectedNote.notebook && Object.keys(selectedNote.notebook).length) ? selectedNote.notebook : this.state.notebook
+            });
         }
     }
 
     editNote(e) {
-        let note = this.props.selectedNote;
+        const { selectedNote } = this.props;
 
-        note[e.target.name] = e.target.value;
-        note.modified_date = new Date().getTime();
+        selectedNote[e.target.name] = e.target.value;
 
-        this.setState({
-            selectedNote: note
-        });
+        this.setState({ selectedNote });
 
-        this.props.actions.editNote(note);
+        this.props.actions.editNote(selectedNote);
         this.props.actions.getNotes();
     }
 
-    editLabel(label) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
+    editField(field) {
+        this.setState(field, () => {
+            this.props.actions.editNote(this.props.selectedNote, field);
         });
-        this.props.actions.editNote(note, { label: label });
-        this.props.actions.getNotes();
-    }
-
-    editNotebook(notebook) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
-        });
-        this.props.actions.editNote(note, { notebook: notebook });
-    }
-
-    editTags(tags) {
-        let note = this.props.selectedNote;
-        this.setState({
-            selectedNote: note
-        });
-        this.props.actions.editNote(note, { tags: tags });
     }
 
     render() {
-        const selectedNote = this.props.selectedNote;
+        const { selectedNote } = this.props;
 
         if (!selectedNote || !selectedNote.id) {
             return (
-                <div className="edit-note"></div>
+                <div className="empty"></div>
             );
         }
 
+        // FIXME: make this a layout component http://reactpatterns.com/#layout-component
         return (
             <div className="right edit-col edit-note">
                 <form>
                     <div className="top">
-                        <input type="text" className="title" name="title" placeholder="Enter title..."
-                            value={selectedNote.title}
+                        <Input
+                            name="title"
+                            className="title"
+                            placeholder="Enter title..."
                             autoFocus={true}
+                            value={selectedNote.title}
                             onChange={(e) => this.editNote(e)} />
-                        <NotebooksContainer
+                        <NotebookSelect
                             canAddNotebook={true}
-                            editNotebook={(notebook) => this.editNotebook(notebook)} />
+                            editField={(notebook) => this.editField(notebook)}
+                            selectedNotebook={this.state.notebook} />
                     </div>
                     <div className="mid">
-                        <input type="url" className="url" name="url" placeholder="http://"
+                        <input
+                            type="url"
+                            name="url"
+                            className="url"
+                            placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
-
-                        <LabelsContainer editLabel={(color) => this.editLabel(color)} />
+                        <LabelPicker
+                            editField={(color) => this.editField({ label: color })} />
                     </div>
                     <div className="mid">
-                        <TagsContainer
+                        <TagsInput
                             noteTags={selectedNote.tags}
-                            editTags={(tags) => this.editTags(tags)} />
+                            editField={(tags) => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
-                        <textarea className="description" name="description"
+                        <Textarea
+                            name="description"
+                            className="description"
                             value={selectedNote.description}
                             onChange={(e) => this.editNote(e)}>
-                        </textarea>
+                        </Textarea>
                     </div>
                 </form>
             </div>
@@ -150,4 +128,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditNote));

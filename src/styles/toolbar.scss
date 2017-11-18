@@ -1,0 +1,135 @@
+@import './_common.scss';
+
+/* TOOLBAR NAV */
+
+.nav-drawer,
+.toolbar nav {
+    display: inline-block;
+}
+
+.nav-drawer {
+    background: none;
+    position: relative;
+
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}
+
+.toolbar {
+    background: #03A9F4;
+    display: block;
+    position: relative;
+    width: 100%;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+        width: 100%;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    /* TOOLBAR LINKS */
+
+    a {
+        border-right: 1px solid #000;
+        box-shadow: 1px 0px 0 0 rgba(255, 255, 255, 0.52);
+        color: #fff;
+        text-align: center;
+        text-transform: capitalize;
+        text-decoration: none;
+        display: inline-block;
+        padding: 4px 10px;
+        cursor: pointer;
+
+        &:hover {
+            background: #E91E63;
+            color: #fff;
+        }
+    }
+
+    /* NEW NOTE Styles */
+
+    .new-note {
+        background: #E91E63;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &:hover {
+            background: #FF5722;
+
+            button .plus {
+                border-left: 1px solid rgba(185, 74, 0, 0.5);
+            }
+        }
+
+        button {
+            background: none;
+            border: 0;
+            border-left: 1px solid #000;
+            box-shadow: -1px 0px 0 0 rgba(255, 255, 255, 0.52);
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 50px 5px 15px;
+            vertical-align: middle;
+            line-height: 20px;
+            overflow: hidden;
+            cursor: pointer;
+
+            .plus {
+                background: #03A9F4;
+                border-left: 1px solid rgb(243, 158, 212);
+                box-shadow: -1px 0px 0 0 rgb(0, 0, 0);
+                font-size: 20px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 4px 10px 6px;
+                margin: 0 0 0 10px;
+            }
+        }
+    }
+}
+
+/* Toolbar Dropdown Menus */
+
+.secondary-dropdown {
+    background: #fff;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 30px;
+    width: 200px;
+    z-index: 2;
+
+    > div {
+        margin: 0 !important;
+    }
+
+    > div > div > div {
+        padding: 6px 0 !important;
+    }
+}
+
+
+/* Media Queries */
+
+@media all and (max-width: 6000px) {
+    .note-types div.quick-access {
+        display: none;
+    }
+
+}
+
+@media all and (max-width: 376px) {
+    /* .toolbar ul li {
+        display: none;
+    }*/
+}

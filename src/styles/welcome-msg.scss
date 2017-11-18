@@ -1,0 +1,96 @@
+@import './_common.scss';
+
+/* Zero Notes */
+
+.zero-notes {
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+
+    .welcome-msg {
+        background: #fff;
+        font-size: 16px;
+        text-align: center;
+        width: 55%;
+        margin: 10px auto;
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            font-size: 15px;
+            line-height: 18px;
+            text-align: left;
+            list-style-type: disc;
+            width: 50%;
+            margin: 20px auto;
+        }
+    }
+
+    .get-started {
+        margin: 20px 0 10px;
+    }
+
+    .btn-group button {
+        color: #fff;
+        width: auto;
+        margin: 0 5px;
+        padding: 0;
+        padding-right: 20px;
+
+        i {
+            padding: 0 10px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            margin-right: 10px;
+            text-align: center;
+        }
+    }
+
+    .create-note {
+        background: #e91f63;
+        border: 1px solid #900433;
+    }
+
+    .login {
+        background: #28a745;
+        border: 1px solid #05982d;
+    }
+}
+
+
+/* Media Queries */
+
+@media all and (max-width: 990px) {
+    .zero-notes .welcome-msg {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .zero-notes .welcome-msg {
+        font-size: 14px;
+
+        p {
+            line-height: 20px;
+        }
+    }
+}
+
+@media all and (max-width: 690px) {
+    .zero-notes {
+        .welcome-msg ul {
+            width: 80%;
+        }
+        .get-started-btn {
+            font-size: 12px;
+        }
+    }
+}
