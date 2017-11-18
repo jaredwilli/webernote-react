@@ -2,8 +2,8 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
-import HambyBtn from './HambyBtn';
-import CloseBtn from './CloseBtn';
+import HambyBtn from '../stateless/HambyBtn';
+import CloseBtn from '../stateless/CloseBtn';
 
 class NavDrawer extends React.Component {
 	constructor(props) {

@@ -1,9 +1,9 @@
 // helper functions
 import _ from 'lodash';
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import { shorten } from './helpers.js';
-import {Link} from 'react-router-dom';
 
 /**
  * sortNotes
@@ -181,33 +181,6 @@ export function getLabelCount(label, notes) {
         label: label,
         count: count
     };
-}
-
-/**
- * getTags
- *
- * @param {Object} noteTags
- */
-export function getTags(noteTags) {
-    let tags = '';
-    if (noteTags) {
-        tags = noteTags.map((t) =>
-            <span key={t.id} className="Select-value">
-                <span className="Select-value-label" id="react-select-2--value-">
-                    {t.label}
-                </span>
-            </span>
-        );
-    }
-
-    return (
-        <div className="Select tags Select--multi has-value">
-            <span className="Select-multi-value-wrapper" id="react-select-2--value">
-                {tags}
-            </span>
-        </div>
-
-    );
 }
 
 /**

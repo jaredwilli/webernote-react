@@ -1,7 +1,8 @@
 import React from 'react';
 
-import CloseBtn from './ui/CloseBtn';
-import SelectMenu from './ui/SelectMenu';
+import Input from './stateless/Input';
+import CloseBtn from './stateless/CloseBtn';
+import SelectMenu from './stateless/SelectMenu';
 
 function SearchFilter(props) {
     if (!props.notes || !props.notes.length ) {
@@ -23,7 +24,7 @@ function SearchFilter(props) {
                 <option>Url</option>
             </SelectMenu>
 
-            <input
+            <Input
                 type="text"
                 name="search"
                 className="search"

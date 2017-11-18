@@ -1,6 +1,5 @@
 import React from 'react';
-
-import CloseBtn from './CloseBtn';
+import CloseBtn from '../stateless/CloseBtn';
 
 class Modal extends React.Component {
 	constructor(props) {
@@ -37,9 +36,7 @@ class Modal extends React.Component {
 	}
 
 	render() {
-        const overlayStyle = this.props.overlayStyle ? this.props.overlayStyle : {};
-        const contentStyle = this.props.contentStyle ? this.props.contentStyle : {};
-        const dialogStyle = this.props.dialogStyle ? this.props.dialogStyle : {};
+        const { overlayStyle={}, contentStyle={}, dialogStyle={} } = this.props;
 
 		return (
 			<div className="modal">

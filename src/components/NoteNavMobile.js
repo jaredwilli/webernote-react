@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-NoteNavMobile.propTypes = {
-    show: PropTypes.bool,
-    toggleDrawer: PropTypes.func,
-    coverStyles: PropTypes.object
-
-};
+import Cover from './stateless/Cover';
 
 const NoteNavMobile = (props) => {
     let coverStyles = { display: 'none' };
@@ -19,7 +13,7 @@ const NoteNavMobile = (props) => {
 
     return (
         <div className="narrow-nav drawer-nav">
-            <div className="cover" onClick={props.toggleDrawer} style={coverStyles} />
+            <Cover onClick={props.toggleDrawer} active={coverStyles} />
 
             <nav className="nav-col note-nav" style={drawerMenuStyles}>
                 {props.state.drawerOpen && <CloseBtn onClick={props.setState({ drawerOpen: false })} />}
@@ -67,6 +61,13 @@ const NoteNavMobile = (props) => {
             </nav>
         </div>
     );
+};
+
+NoteNavMobile.propTypes = {
+    show: PropTypes.bool,
+    toggleDrawer: PropTypes.func,
+    coverStyles: PropTypes.object
+
 };
 
 export default NoteNavMobile;

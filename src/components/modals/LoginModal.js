@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { showModal, hideModal } from '../../actions/modalActions';
 
 import Modal from '../ui/Modal';
-import LoginButtons from '../ui/LoginButtons';
+import LoginButtons from '../stateless/LoginButtons';
 
 class LoginModal extends React.Component {
     constructor(props) {

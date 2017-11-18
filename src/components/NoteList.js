@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import WelcomeMsg from './WelcomeMsg';
 import SearchFilter from './SearchFilter';
-import ViewCount from './ui/ViewCount';
+import ViewCount from './ViewCount';
 import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
@@ -106,12 +106,10 @@ class NoteList extends Component {
                     }
                 </div>
 
-                <div className="notes">
-                    <Note notes={notes}
-                        sort={this.state.sort}
-                        selectNote={(e, note) => this.selectNote(e, note)}
-                        deleteNote={(note) => this.deleteNote(note)} />
-                </div>
+                <Note notes={notes}
+                    sort={this.state.sort}
+                    selectNote={(e, note) => this.selectNote(e, note)}
+                    deleteNote={(note) => this.deleteNote(note)} />
             </div>
         );
     }

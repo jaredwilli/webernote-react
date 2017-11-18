@@ -1,5 +1,53 @@
 // note data mocks
 
+export const notesEmptyNote = [
+	{
+		created_date: 1510673839255,
+		description: '',
+		id: '-KyvAMElowTR2Kc8LcUm',
+		isEditing: false,
+		modified_date: '',
+		title: '',
+		url: '',
+		tags: []
+    }
+];
+
+export const notesFullNote = [
+	{
+		id: '-Kyv8RiRx27K1Rgm5eth',
+		title: 'My awesome note',
+		url: 'http://example.com',
+		description: 'Some description text.',
+		created_date: 1510673337295,
+		modified_date: '',
+		isEditing: false,
+		label: {
+			hex: '#D50000',
+			id: '-KyvA7NSkDQQEqqyeLII',
+			name: 'red',
+			source: 'hex'
+		},
+		notebook: {
+			id: '-Kyv9QutSpRXVJmvc-c1',
+			name: 'New notebook',
+			value: '-Kyv9QutSpRXVJmvc-c1'
+		},
+		tags: [
+			{
+				id: '-KyvAO-6BDUfanm5WHno',
+				label: 'react',
+				value: '-KyvAO-6BDUfanm5WHno'
+			},
+			{
+				id: '-KyvAOga95wpmPOz13oU',
+				label: 'redux',
+				value: '-KyvAOga95wpmPOz13oU'
+			}
+		]
+	}
+];
+
 export const notes = [
 	{
 		title: 'test2',
