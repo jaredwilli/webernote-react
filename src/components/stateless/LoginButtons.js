@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-const LoginButtons = (props) => {
+const LoginButtons = ({ props }) => {
     return (
         <div className="modal-body login-with btn-group">
             <Button onClick={() => props.login('fbProvider')}

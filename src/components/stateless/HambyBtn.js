@@ -2,10 +2,11 @@ import React from 'react';
 import Button from './Button';
 import FontAwesome from './FontAwesome'
 
-const HambyBtn = (props) => (
+const HambyBtn = ({ props }) => (
     <Button
         className="hamburger"
-        onClick={props.onClick}>
+        onClick={(event) => props.onClick(event)}
+        {...props}>
         <FontAwesome className="bars" />
     </Button>
 );

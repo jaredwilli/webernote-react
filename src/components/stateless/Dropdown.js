@@ -2,7 +2,7 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-const DropDown = ({ value = 1, items = [], className = 'drodown', autowidth = false, ...props }) => {
+const DropDown = ({ value = 1, items = [], className = 'drodown', autowidth = false, props }) => {
 	const styles = props.styles || {
         width: 200
     };

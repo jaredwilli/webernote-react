@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Cover = ({ isActive = false, ...props }) => {
+const Cover = ({ isActive = false, props }) => {
     const activeClass = (isActive) ? 'inline-block' : 'none';
 
     return (

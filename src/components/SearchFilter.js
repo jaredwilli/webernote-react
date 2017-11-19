@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Input from './stateless/Input';
 import CloseBtn from './stateless/CloseBtn';
 import SelectMenu from './stateless/SelectMenu';
 
-function SearchFilter(props) {
-    if (!props.notes || !props.notes.length ) {
+const SearchFilter = ({ notes = [], ...props }) => {
+    if (!notes.length ) {
         return <div className="empty hidden"></div>;
     }
 
@@ -18,7 +19,7 @@ function SearchFilter(props) {
                 className="filter-type select-component"
                 defaultValue="Title"
                 value={props.filterType}
-                onChange={(e) => props.onChange({ filterType: e.target.value })}>
+                onChange={(event) => props.onChange({ filterType: event.target.value })}>
                 <option>Title</option>
                 <option>Description</option>
                 <option>Url</option>
@@ -30,11 +31,19 @@ function SearchFilter(props) {
                 className="search"
                 placeholder="Search"
                 value={props.searchTerm}
-                onChange={(e) => props.onChange((e.target.value.length) ? { searchTerm: e.target.value } : props.clearFilters())} />
+                onChange={(event) => props.onChange((event.target.value.length) ? { searchTerm: event.target.value } : props.clearFilters())} />
 
             <CloseBtn onClick={() => props.clearFilters()} />
         </span>
     );
+};
+
+SearchFilter.propTypes = {
+    filterType: PropTypes.string,
+    searchTerm: PropTypes.string,
+    clearFilters: PropTypes.func,
+    onChange: PropTypes.func,
+    notes: PropTypes.array
 };
 
 export default SearchFilter;

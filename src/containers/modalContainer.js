@@ -10,7 +10,7 @@ const MODAL_COMPONENTS = {
     SETTINGS_MODAL: SettingsModal
 };
 
-const ModalContainer = ({type, props}) => {
+const ModalContainer = ({ type, props }) => {
     if (!type) {
         return null;
     }

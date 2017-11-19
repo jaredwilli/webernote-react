@@ -1,6 +1,17 @@
 import React from 'react';
 import Button from './Button'
 
-const CloseBtn = ({ style = {}, ...props }) => <Button className="close" style={style} aria-label="Close" onClick={(e) => props.onClick(e)}><span aria-hidden="true">&times;</span></Button>;
+const CloseBtn = ({ style = {}, className = '', props }) => {
+    return (
+        <Button
+            style={style}
+            className={`close ${className}`}
+            aria-label="Close"
+            onClick={(event) => props.onClick(event)}
+            {...props}>
+            <span aria-hidden="true">&times;</span>
+        </Button>
+    );
+}
 
 export default CloseBtn;

@@ -2,9 +2,9 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 
-import AppContainer from '../appContainer';
+import Home from '../Home';
 
-describe('AppContainer', () => {
+describe('Home', () => {
     const anonUser = {
         uid: 'abc123',
         isAnonymous: true,
@@ -14,8 +14,8 @@ describe('AppContainer', () => {
     };
 
     it('allows us to set props', () => {
-        shallow(<AppContainer />);
-        // const wrapper = mount(<AppContainer.WrappedComponent user={anonUser} />);
+        shallow(<Home />);
+        // const wrapper = mount(<Home.WrappedComponent user={anonUser} />);
         // console.log(wrapper.debug());
         // console.log(wrapper.instance());
 
@@ -27,14 +27,14 @@ describe('AppContainer', () => {
 
     // it('simulates click events', () => {
     //     const onButtonClick = sinon.spy();
-    //     const wrapper = mount((<AppContainer onButtonClick={onButtonClick} />));
+    //     const wrapper = mount((<Home onButtonClick={onButtonClick} />));
     //     wrapper.find('button').simulate('click');
     //     expect(onButtonClick).to.have.property('callCount', 1);
     // });
 
     // it('calls componentDidMount', () => {
-    //     sinon.spy(AppContainer.prototype, 'componentDidMount');
-    //     const wrapper = mount(<AppContainer />);
+    //     sinon.spy(Home.prototype, 'componentDidMount');
+    //     const wrapper = mount(<Home />);
     //     expect(Foo.prototype.componentDidMount).to.have.property('callCount', 1);
     //     Foo.prototype.componentDidMount.restore();
     // });

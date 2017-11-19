@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-const Input = ({ type = 'text', ...props }) => {
-    let textInput = null;
+class Input extends Component {
+    focus() {
+        this.el.focus();
+    }
 
     // Using refs to autofocus input
     // https://reactjs.org/docs/refs-and-the-dom.html
+    render() {
+        const { type = 'text' } = this.props;
 
-    return (
-        <span>
-            {props.focus && <input type="text" ref={(input) => { textInput = input; }} />}
+        return (
             <input
                 type={type}
-                value={props.value}
-                {...props} />
-        </span>
-    );
+                value={this.props.value}
+                ref={el => { this.el = el; }}
+                {...this.props} />
+        );
+    }
 }
 
 export default Input;

@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 
 import configureStore from './store/index';
 import { listenForAuth } from './actions/userActions';
-import App from './components/App';
+
+import PageContainer from './containers/pageContainer';
 
 import './styles/import.css';
 
@@ -21,7 +22,7 @@ store.dispatch((dispatch) => {
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <App />
+            <PageContainer page="home" />
         </Router>
     </Provider>,
     document.getElementById('root')

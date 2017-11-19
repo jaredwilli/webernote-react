@@ -67,7 +67,6 @@ NoteNavMobile.propTypes = {
     show: PropTypes.bool,
     toggleDrawer: PropTypes.func,
     coverStyles: PropTypes.object
-
 };
 
 export default NoteNavMobile;

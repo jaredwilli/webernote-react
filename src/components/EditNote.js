@@ -20,6 +20,7 @@ class EditNote extends React.Component {
         this.editField = this.editField.bind(this);
 
         this.state = {
+            title: '',
             label: {},
             tags: [],
             notebook: {
@@ -39,13 +40,14 @@ class EditNote extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.Input.focus();
+    }
+
     editNote(e) {
         const { selectedNote } = this.props;
-
         selectedNote[e.target.name] = e.target.value;
-
         this.setState({ selectedNote });
-
         this.props.actions.editNote(selectedNote);
         this.props.actions.getNotes();
     }
@@ -75,9 +77,8 @@ class EditNote extends React.Component {
                             name="title"
                             className="title"
                             placeholder="Enter title..."
-                            focus={true}
+                            ref={comp => { this.Input = comp; }}
                             value={selectedNote.title}
-                            onClick={this.focusTitleInput}
                             onChange={(e) => this.editNote(e)} />
                         <NotebookSelect
                             canAddNotebook={true}

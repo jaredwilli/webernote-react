@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Button = ({ style = {}, ...props }) => {
+const Button = ({ style = {}, className = '', children = '', props }) => {
     return (
         <button
             type="button"
             style={style}
-            className={props.className + ' btn'}
-            onClick={(e) => props.onClick(e)}
+            className={`btn ${className}`}
+            onClick={(event) => props.onClick(event)}
             {...props}>
-            {props.children}
+            {children}
         </button>
     );
 }

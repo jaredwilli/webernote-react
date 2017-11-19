@@ -81,7 +81,7 @@ class NoteList extends Component {
         }
     }
 
-    selectNote(note) {
+    selectNote(event, note) {
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }
@@ -91,7 +91,7 @@ class NoteList extends Component {
     }
 
     render() {
-        const { notes, notebooks } = this.props;
+        const { notes = [], notebooks = [] } = this.props;
         const { width } = this.state;
         const isMobile = width <= 690;
 
@@ -112,7 +112,7 @@ class NoteList extends Component {
                             filterType={this.state.filterType}
                             searchTerm={this.state.searchTerm}
                             onChange={this.filterNotes}
-                            clearFilters={this.clearFilters} />
+                            clearFilters={() => this.clearFilters()} />
                     </div>
 
                     {(notebooks && notebooks.length > 0) &&
@@ -128,8 +128,8 @@ class NoteList extends Component {
 
                 <Note notes={notes}
                     sort={this.state.sort}
-                    selectNote={(e, note) => this.selectNote(note)}
-                    deleteNote={this.deleteNotenote}
+                    selectNote={(event, note) => this.selectNote(event, note)}
+                    deleteNote={this.deleteNote}
                     isMobile={isMobile} />
             </div>
         );

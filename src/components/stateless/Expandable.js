@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Expandable = ({ ...props }) => {
+const Expandable = ({ props }) => {
     return (
         <div className="expandable"
-            onClick={e => props.onClick(e, props.type)}>
-            {props.type}
+            onClick={(event) => props.onClick(event, props.type)}
+            {...props}>
+            {props.children}
         </div>
     );
 }

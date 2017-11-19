@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TagsList = ({ tags = []}) => {
+const TagsList = ({ tags = [] }) => {
     tags = tags.map((t) =>
         <span key={t.id} className="Select-value">
             <span className="Select-value-label" id="react-select-2--value-">

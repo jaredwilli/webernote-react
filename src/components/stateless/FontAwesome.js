@@ -1,7 +1,7 @@
 import React from 'react'
 
-const FontAwesome = ({ className = 'note', ...props }) => {
-    return <i className={'fa fa-' + className} {...props}></i>;
+const FontAwesome = ({ name = 'note', props }) => {
+    return <i className={'fa fa-' + name} {...props}></i>;
 }
 
 export default FontAwesome;

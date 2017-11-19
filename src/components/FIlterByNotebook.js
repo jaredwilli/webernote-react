@@ -3,11 +3,9 @@ import React from 'react';
 import SelectMenu from './stateless/SelectMenu';
 import { getSelectedNotebook } from '../common/noteHelpers'
 
-function FilterByNotebook(props) {
-    const { notebooks, notebookFilter, onChange } = props;
-
+const FilterByNotebook = ({ notebooks = [], notebookFilter, ...props }) => {
     // Return nothing if no notebooks
-    if (!notebooks || !notebooks.length) {
+    if (!notebooks.length) {
         return <div className="empty hidden"></div>;
     }
 
@@ -26,7 +24,7 @@ function FilterByNotebook(props) {
             className="notebook filterByNotebook select-component"
             defaultValue={defaultValue}
             value={notebookFilter.id}
-            onChange={(e) => onChange(getSelectedOption(e))}>
+            onChange={(e) => props.onChange(getSelectedOption(e))}>
             {defaultOption}
             {options}
         </SelectMenu>
