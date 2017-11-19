@@ -4,7 +4,7 @@
 export const COLORS = [
     { id: 1, name: 'Radicchio', hex: '#AD1457', source: 'hex' },
     { id: 2, name: 'Tangerine', hex: '#F4511E', source: 'hex' },
-    { id: 3, name: 'Citron', hex: '#039BE5', source: 'hex' },
+    { id: 3, name: 'Citron', hex: '#E4C441', source: 'hex' },
     { id: 4, name: 'Basil', hex: '#0B8043', source: 'hex' },
     { id: 5, name: 'Blueberry', hex: '#3F51B5', source: 'hex' },
     { id: 6, name: 'Grape', hex: '#8E24AA', source: 'hex' },
@@ -16,7 +16,7 @@ export const COLORS = [
     { id: 11, name: 'Lavendar', hex: '#7986CB', source: 'hex' },
     { id: 12, name: 'Cocoa', hex: '#795548', source: 'hex' },
 
-    { id: 13, name: 'Tomato', hex: '#F4511E', source: 'hex' },
+    { id: 13, name: 'Tomato', hex: '#D50000', source: 'hex' },
     { id: 14, name: 'Mango', hex: '#F09300', source: 'hex' },
     { id: 15, name: 'Pistachio', hex: '#7CB342', source: 'hex' },
     { id: 16, name: 'Peacock', hex: '#039BE5', source: 'hex' },
@@ -24,9 +24,9 @@ export const COLORS = [
     { id: 18, name: 'Graphite', hex: '#616161', source: 'hex' },
 
     { id: 19, name: 'Flamingo', hex: '#E67C73', source: 'hex' },
-    { id: 20, name: 'Banana', hex: '#F4511E', source: 'hex' },
+    { id: 20, name: 'Banana', hex: '#F6BF26', source: 'hex' },
     { id: 21, name: 'Sage', hex: '#33B679', source: 'hex' },
-    { id: 22, name: 'Cobalt', hex: '#039BE5', source: 'hex' },
+    { id: 22, name: 'Cobalt', hex: '#4285F4', source: 'hex' },
     { id: 23, name: 'Amethyst', hex: '#9E69AF', source: 'hex' },
     { id: 24, name: 'Birch', hex: '#A79B8E', source: 'hex' }
 ];

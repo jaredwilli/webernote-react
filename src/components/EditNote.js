@@ -39,6 +39,10 @@ class EditNote extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.InputComponent.focus();
+    }
+
     editNote(e) {
         const { selectedNote } = this.props;
 
@@ -75,7 +79,7 @@ class EditNote extends React.Component {
                             name="title"
                             className="title"
                             placeholder="Enter title..."
-                            focus={true}
+                            ref={comp => { this.InputComponent = comp; }}
                             value={selectedNote.title}
                             onClick={this.focusTitleInput}
                             onChange={(e) => this.editNote(e)} />

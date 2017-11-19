@@ -128,7 +128,7 @@ class NoteList extends Component {
 
                 <Note notes={notes}
                     sort={this.state.sort}
-                    selectNote={(e, note) => this.selectNote(note)}
+                    selectNote={(note) => this.selectNote(note)}
                     deleteNote={this.deleteNotenote}
                     isMobile={isMobile} />
             </div>
