@@ -225,7 +225,6 @@ export const createNewNote = (refId) => ({
     created_date: Date.now(),
     modified_date: Date.now(),
     notebook: {},
-    label: {},
     tags: []
 });
 

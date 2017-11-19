@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,7 +10,7 @@ import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
 
-class NoteList extends Component {
+class NoteList extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -91,8 +91,8 @@ class NoteList extends Component {
     }
 
     render() {
-        const { notes, notebooks } = this.props;
-        const { width } = this.state;
+        const { notes, notebooks = [] } = this.props;
+        const { filterType, searchTerm, notebookFilter, width } = this.state;
         const isMobile = width <= 690;
 
         if (!notes.length) {
@@ -109,27 +109,28 @@ class NoteList extends Component {
                     <div className="filter">
                         <SearchFilter
                             notes={notes}
-                            filterType={this.state.filterType}
-                            searchTerm={this.state.searchTerm}
+                            filterType={filterType}
+                            searchTerm={searchTerm}
                             onChange={this.filterNotes}
                             clearFilters={this.clearFilters} />
                     </div>
 
-                    {(notebooks && notebooks.length > 0) &&
+                    {(notebooks.length > 0) &&
                         <div className="viewing">
                             <ViewCount
                                 notes={notes}
                                 notebooks={notebooks}
-                                notebookFilter={this.state.notebookFilter}
+                                notebookFilter={notebookFilter}
                                 onChange={this.filterNotes} />
                         </div>
                     }
                 </div>
 
-                <Note notes={notes}
+                <Note
+                    notes={notes}
                     sort={this.state.sort}
                     selectNote={(note) => this.selectNote(note)}
-                    deleteNote={this.deleteNotenote}
+                    deleteNote={(note) => this.deleteNote(note)}
                     isMobile={isMobile} />
             </div>
         );
