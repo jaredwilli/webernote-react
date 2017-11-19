@@ -1,7 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import Mousetrap from 'mousetrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

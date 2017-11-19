@@ -65,7 +65,8 @@ class EditNote extends React.Component {
             );
         }
 
-        // FIXME: make this a layout component http://reactpatterns.com/#layout-component
+        // FIXME: make this a layout component
+        // http://reactpatterns.com/#layout-component
         return (
             <div className="right edit-col edit-note">
                 <form>
@@ -74,8 +75,9 @@ class EditNote extends React.Component {
                             name="title"
                             className="title"
                             placeholder="Enter title..."
-                            autoFocus={true}
+                            focus={true}
                             value={selectedNote.title}
+                            onClick={this.focusTitleInput}
                             onChange={(e) => this.editNote(e)} />
                         <NotebookSelect
                             canAddNotebook={true}

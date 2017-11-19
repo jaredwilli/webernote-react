@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppContainer from './containers/appContainer';
+import AppContainer from '../containers/appContainer';
 
 class App extends React.PureComponent {
     render() {
