@@ -92,7 +92,7 @@ class NoteList extends Component {
 
     render() {
         const { notes = [], notebooks = [] } = this.props;
-        const { width } = this.state;
+        const { filterType, searchTerm, notebookFilter, width, sort } = this.state;
         const isMobile = width <= 690;
 
         if (!notes.length) {
@@ -109,27 +109,28 @@ class NoteList extends Component {
                     <div className="filter">
                         <SearchFilter
                             notes={notes}
-                            filterType={this.state.filterType}
-                            searchTerm={this.state.searchTerm}
+                            filterType={filterType}
+                            searchTerm={searchTerm}
                             onChange={this.filterNotes}
                             clearFilters={() => this.clearFilters()} />
                     </div>
 
-                    {(notebooks && notebooks.length > 0) &&
+                    {(notebooks.length > 0) &&
                         <div className="viewing">
                             <ViewCount
                                 notes={notes}
                                 notebooks={notebooks}
-                                notebookFilter={this.state.notebookFilter}
+                                notebookFilter={notebookFilter}
                                 onChange={this.filterNotes} />
                         </div>
                     }
                 </div>
 
-                <Note notes={notes}
-                    sort={this.state.sort}
-                    selectNote={(event, note) => this.selectNote(event, note)}
-                    deleteNote={this.deleteNote}
+                <Note
+                    notes={notes}
+                    sort={sort}
+                    selectNote={(e, note) => this.selectNote(note)}
+                    deleteNote={this.deleteNotenote}
                     isMobile={isMobile} />
             </div>
         );
