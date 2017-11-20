@@ -6,7 +6,8 @@ import * as firebase from 'firebase';
 import config from './config';
 // import mockFirebase from './firebase-mock'
 
-export const ENV = process.env.NODE_ENV;
+// Set the ENV variable for dev site to use the dev config if NODE_ENV is production but the url has dev in it, otherwise just use whatever the NODE_ENV is as usual.
+export const ENV = (process.env.NODE_ENV === 'production' && window.location.hostname.indexOf('dev') > 0) ? 'development' : process.env.NODE_ENV;
 export const TEST_URL = process.env.MOCK_FIREBASE_DB_URL;
 
 // Initialize firebase with the environment config settings

@@ -149,11 +149,12 @@
         }
 
         .note-label {
-            border: 1px solid #d0d0d0;
-            border-radius: 24px;
+            border-radius: 50%;
             display: inline-block;
             margin-right: 5px;
-            padding: 10px;
+            padding: 2px;
+            width: 18px;
+            height: 18px;
             vertical-align: bottom;
         }
 

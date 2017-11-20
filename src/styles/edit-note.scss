@@ -174,7 +174,8 @@
 
     .label-color-picker {
         position: absolute;
-        left: -313%;
+        width: 0;
+        height: 0;
         top: 34px;
         z-index: 1;
     }
