@@ -18,6 +18,7 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editField = this.editField.bind(this);
+        this.deleteNoteLabel = this.deleteNoteLabel.bind(this);
 
         this.state = {
             label: {},
@@ -60,6 +61,10 @@ class EditNote extends React.Component {
         });
     }
 
+    deleteNoteLabel() {
+        this.props.actions.deleteNoteLabel(this.props.selectedNote);
+    }
+
     render() {
         const { selectedNote } = this.props;
 
@@ -98,7 +103,8 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
                         <LabelPicker
-                            editField={(color) => this.editField({ label: color })} />
+                            editField={(color) => this.editField({ label: color })}
+                            deleteNoteLabel={this.deleteNoteLabel} />
                     </div>
                     <div className="mid">
                         <TagsInput

@@ -8,7 +8,7 @@ const initialState = {};
 
 // Set up Redux DevTools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+debugger;
 const configureStore = createStore(
     rootReducer,
     initialState,

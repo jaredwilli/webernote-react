@@ -20,7 +20,7 @@ describe('Option component', () => {
             text: 'Select Notebook'
         };
         const wrapper = shallow(<Option text={props.text} />);
-        console.log(wrapper.debug());
+        // console.log(wrapper.debug());
         expect(wrapper.text()).toBe('Select Notebook');
     });
 
@@ -30,7 +30,7 @@ describe('Option component', () => {
             text: 'My Test'
         };
         const wrapper = shallow(<Option value={props.value} text={props.text} />);
-        console.log(wrapper.debug());
+        // console.log(wrapper.debug());
         expect(wrapper.text()).toBe('My Test');
     });
 

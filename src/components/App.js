@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import AppContainer from '../containers/appContainer';
+import PageContainer from '../containers/pageContainer';
 
 class App extends React.Component {
     render() {
         return (
             <Provider store={this.props.store}>
                 <Router>
-                    <AppContainer />
+                    <PageContainer page="home" />
                 </Router>
             </Provider>
         );
