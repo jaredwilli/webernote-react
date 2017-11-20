@@ -16,7 +16,7 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "enzyme-to-json": "^3.2.2",
-    "eslint": "^4.10.0",
+    "eslint": "^4.11.0",
     "expect": "^21.2.1",
     "firebase": "^4.6.2",
     "history": "^4.7.2",
@@ -43,7 +43,7 @@
     "react-scripts": "1.0.13",
     "react-select": "^1.0.0-rc.10",
     "redux": "^3.7.2",
-    "redux-logger": "^2.10.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1"
   },
@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
-    "firebase-server": "^0.11.0",
+    "firebase-server": "^0.12.0",
     "git-scripts": "^0.2.1",
     "react-test-renderer": "^15.6.2",
     "redux-devtools": "^3.4.0",
