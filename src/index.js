@@ -1,8 +1,6 @@
 // root container component
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
 import configureStore from './store/index';
 import { listenForAuth } from './actions/userActions';
@@ -19,11 +17,7 @@ store.dispatch((dispatch) => {
 });
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <App />
-        </Router>
-    </Provider>,
+    <App store={store} />,
     document.getElementById('root')
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import PageContainer from '../pageContainer';
 
@@ -8,7 +8,7 @@ function setup() {
         name: 'home'
     };
 
-    const wrapper = mount(<PageContainer {...props} />);
+    const wrapper = shallow(<PageContainer page={props.name} {...props} />);
 
     return {
         props,
@@ -20,7 +20,7 @@ describe('PageContainer', () => {
     it('renders without crashing', () => {
         const { wrapper } = setup();
 
-        console.log(wrapper.debug());
+        // console.log(wrapper.debug());
         // console.log(wrapper.instance().props);
     });
 });

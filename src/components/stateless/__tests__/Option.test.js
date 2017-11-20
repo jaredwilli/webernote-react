@@ -29,9 +29,9 @@ describe('Option component', () => {
             value: 'my-test',
             text: 'My Test'
         };
-        const wrapper = shallow(<Option value={props.value} text={props} />);
+        const wrapper = shallow(<Option value={props.value} text={props.text} />);
         console.log(wrapper.debug());
-        expect(wrapper.text()).toBe('Select Notebook');
+        expect(wrapper.text()).toBe('My Test');
     });
 
 
