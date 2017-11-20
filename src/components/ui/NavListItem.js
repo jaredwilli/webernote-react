@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { shorten } from '../../common/helpers.js';
-import { PLURALS } from '../../constants/noteConst';
+import { PLURALS } from '../../constants/colors';
 
 function NavListItem({ type, notes = [], items = [], ...props }) {
     // Set the initial count value and normalize the name

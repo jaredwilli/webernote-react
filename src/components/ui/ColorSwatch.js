@@ -17,7 +17,8 @@ export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 				swatch: {
 					fontSize: '0',
 					width: '22px',
-					height: '22px',
+                    height: '22px',
+                    borderRadius: '50%'
 				}
 			},
 			hover: {
@@ -33,6 +34,7 @@ export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 				color={color}
 				onClick={onClick}
 				onHover={onSwatchHover}
+                style
 				focusStyle={hoverSwatch} />
 		</div>
 	);

@@ -9,7 +9,7 @@ import Cover from './stateless/Cover';
 import Button from './stateless/Button';
 import CloseBtn from './stateless/CloseBtn';
 
-import { COLORS } from '../constants/noteConst';
+import { COLORS } from '../constants/colors';
 import * as labelActions from '../actions/labelActions';
 
 class LabelPicker extends React.Component {

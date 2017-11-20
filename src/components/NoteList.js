@@ -63,15 +63,13 @@ class NoteList extends React.Component {
         if (filter) {
             this.setState(filter, () => {
                 let filterVals = {};
-                const { notebook, type, term } = this.state;
+                const { notebookFilter, filterType, searchTerm } = this.state;
 
-                console.log(notebook, type, term);
-                debugger;
-                if (filter.filterType || filter.searchTerm) {
-                    filterVals.type = this.state.filterType;
-                    filterVals.term = filter.searchTerm;
-                } else if (filter.notebookFilter) {
-                    filterVals.notebook = filter.notebookFilter;
+                if (filterType || searchTerm) {
+                    filterVals.type = filterType;
+                    filterVals.term = searchTerm;
+                } else if (notebookFilter) {
+                    filterVals.notebook = notebookFilter;
                 }
 
                 this.props.filterNotes(filterVals);

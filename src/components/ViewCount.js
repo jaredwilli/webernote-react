@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterByNotebook from './FIlterByNotebook'
+import FilterByNotebook from './FilterByNotebook'
 
 const ViewCount = ({ notes = [], notebooks = [], ...props }) => {
     if (!notes.length || !notebooks.length) {
