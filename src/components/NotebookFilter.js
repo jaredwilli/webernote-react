@@ -3,7 +3,7 @@ import React from 'react';
 import SelectMenu from './stateless/SelectMenu';
 import { getSelectedNotebook } from '../common/noteHelpers'
 
-function FilterByNotebook(props) {
+function NotebookFilter(props) {
     const { notebooks, notebookFilter, onChange } = props;
 
     // Return nothing if no notebooks
@@ -33,4 +33,4 @@ function FilterByNotebook(props) {
     );
 };
 
-export default FilterByNotebook;
+export default NotebookFilter;
