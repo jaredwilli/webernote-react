@@ -13,7 +13,7 @@ describe('Option component', () => {
     it('should render component with no props', () => {
         const wrapper = shallow(<Option />);
         expect(wrapper.text()).toBe('Select an option...');
-        expect(wrapper.value()).toBeUndefined();
+        expect(wrapper.props().value).toBeUndefined();
     });
 
     it('should render props with only text prop', () => {
@@ -22,7 +22,7 @@ describe('Option component', () => {
         };
         const wrapper = shallow(<Option text={props.text} />);
         expect(wrapper.text()).toBe('Select Notebook');
-        expect(wrapper.value()).toBeUndefined();
+        expect(wrapper.props().value).toBeUndefined();
     });
 
     it('should render component with props value and text', () => {
@@ -32,6 +32,6 @@ describe('Option component', () => {
         };
         const wrapper = shallow(<Option value={props.value} text={props.text} />);
         expect(wrapper.text()).toBe('My Test');
-        expect(wrapper.value()).toBe('my-test');
+        expect(wrapper.props().value).toBe('my-test');
     });
 });
