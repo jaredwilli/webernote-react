@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import Mousetrap from 'mousetrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import DevTools from '../components/stateless/DevTools'
 import NotesContainer from '../containers/notesContainer';
 import ModalContainer from '../containers/modalContainer';
 
@@ -140,8 +139,6 @@ class Home extends React.Component {
 
         return (
             <MuiThemeProvider>
-                {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV ===  'development' && <DevTools />}
-
                 <div className="full-wrapper">
                     <header>
                         <LoginOut
