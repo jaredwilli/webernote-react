@@ -1,9 +1,0 @@
-# Deploy to surge
-
-deployment:
-  production:
-    branch: master
-    commands:
-      # build and deploy!
-      - yarn build
-      - yarn surge-prod
