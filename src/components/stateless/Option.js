@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 export const Option = ({ text = 'Select an option...', ...props }) => {
 
+    console.log(text, props);
     return (
         <option {...props}>
             {text}
@@ -12,7 +13,7 @@ export const Option = ({ text = 'Select an option...', ...props }) => {
 
 Option.propTypes = {
     value: PropTypes.string,
-    text: PropTypes.node
+    text: PropTypes.string
 };
 
 export default Option;

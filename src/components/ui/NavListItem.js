@@ -41,7 +41,7 @@ function NavListItem({ type, notes = [], items = [], ...props }) {
                         {(type === 'tags') ? tagsWithCount(item) : itemWithCount(item)}
                     </span>
                 </li>
-            }
+            )}
         </ul>
     );
 }

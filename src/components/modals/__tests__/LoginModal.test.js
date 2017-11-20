@@ -28,7 +28,7 @@ describe('LoginModal', () => {
     it('renders the correct HTML tags', () => {
         const { wrapper } = setup();
 
-        // console.log(wrapper.debug());
+        console.log(wrapper.debug());
         // console.log(wrapper.instance().props);
 
         // expect(wrapper.find('Button').length).toBe(4);
