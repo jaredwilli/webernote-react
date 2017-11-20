@@ -34,12 +34,4 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn test --coverage
-
-deployment:
-  production:
-    branch: master
-    commands:
-      # build and deploy!
-      - yarn build
-      - yarn surge-prod
+      - run: yarn test

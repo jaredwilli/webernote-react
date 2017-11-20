@@ -8,11 +8,11 @@ cache:
 script:
     npm test
     npm run build
-# deploy:
-#     provider: surge
-#     project: ./build
-#     domain: webernote.surge.sh
-#     skip_cleanup: true
-#     on:
-#         master
-#         build-path
+deploy:
+    provider: surge
+    project: ./build
+    domain: webernote.surge.sh
+    skip_cleanup: true
+    on:
+        master
+        build-path
