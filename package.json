@@ -52,11 +52,7 @@
     "lint",
     "test"
   ],
-  "git": {
-    "scripts": {
-      "pre-push": "npm run build && npm run surge-dev"
-    }
-  },
+
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
       "prettier --single-quote --write",
