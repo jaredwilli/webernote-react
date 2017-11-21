@@ -7,7 +7,7 @@ const PAGES = {
     home: Home
 };
 
-const PageContainer = ({ page = 'home', props }) => {
+const PageContainer = ({ page = 'home', ...props }) => {
     const Handler = PAGES[page];
     return <Handler {...props} />
 };

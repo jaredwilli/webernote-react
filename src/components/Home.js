@@ -63,10 +63,6 @@ class Home extends React.Component {
 
     // Handle keyboard shortcuts
     componentDidMount() {
-        this.setState({
-            isMounted: true
-        });
-
         Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
         Mousetrap.bind(['command+b'], (e) => this.toggleNoteNav(e));
     }
@@ -153,9 +149,7 @@ class Home extends React.Component {
                     <div className="wrapper">
                         <Toolbar addNote={this.addNote} actions={this.props.actions} />
 
-                        <nav className="note-types">
-                            <NoteTypes />
-                        </nav>
+                        <NoteTypes />
 
                         <div className="main">
                             {(this.state.showNoteNav) && <NoteNav show="wide" /> }
