@@ -68,6 +68,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm-run-all -p build-css build-react",
+    "build-start": "yarn global add serve",
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "coverage-watch": "react-scripts test --env=jsdom --coverage --watch",

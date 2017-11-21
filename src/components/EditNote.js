@@ -63,6 +63,7 @@ class EditNote extends React.Component {
 
     deleteNoteLabel() {
         this.props.actions.deleteNoteLabel(this.props.selectedNote);
+        this.props.actions.getNotes();
     }
 
     render() {

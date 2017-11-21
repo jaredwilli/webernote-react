@@ -202,7 +202,7 @@ export function deleteNoteLabel(note) {
         } else {
             noteRef.child('label')
                 .remove()
-                .then(noteRef.once('value'))
+                .then(() => noteRef.once('value'))
                 .then((note) => dispatch(deleteNoteLabelFulfilled(note.val())))
                 .catch((error) => {
                     console.error(error);

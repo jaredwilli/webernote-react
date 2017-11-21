@@ -48,7 +48,7 @@ export function removeLabel(notes) {
         const { user } = getState().userData;
         const labelsRef = database.ref('users/' + user.uid + '/labels');
 
-        notes = (notes && notes.length) ? notes : getState.noteData.notes;
+        notes = notes || getState().noteData.notes;
 
         labelsRef.once('value', (snap) => {
             if (snap.exists()) {

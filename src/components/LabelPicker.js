@@ -33,6 +33,7 @@ class LabelPicker extends React.Component {
     // TODO: Need to make this work and remove labels
     deleteNoteLabel() {
         this.props.deleteNoteLabel(this.props.selectedNote);
+        this.props.actions.removeLabel();
     }
 
     editLabel(label) {
