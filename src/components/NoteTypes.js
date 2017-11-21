@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// import SearchFilter from './SearchFilter';
+
 const NoteTypes = () => {
     return (
         <nav className="note-types">
@@ -20,6 +22,8 @@ const NoteTypes = () => {
                 <div className="quick-access dropzone">
                     <em>For quick access, drag notes, notebooks and tags here</em>
                 </div>
+
+                {/* <SearchFilter /> */}
             </div>
         </nav>
     );

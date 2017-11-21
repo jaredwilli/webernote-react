@@ -2,7 +2,7 @@
  * A class for mocking out firebase methods for testing
  */
 export class Database {
-    // debugger;
+    debugger;
     ref = (path) => {
         if (!this[path]) {
             this[path] = new Reference(path)

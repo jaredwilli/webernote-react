@@ -48,6 +48,7 @@ class LabelPicker extends React.Component {
 
         if (!labelExists) {
             this.props.actions.addLabel(label);
+            this.props.actions.getLabels();
         } else {
             label = labelExists;
         }

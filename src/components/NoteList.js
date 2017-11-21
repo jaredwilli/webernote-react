@@ -34,7 +34,8 @@ class NoteList extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.onWindowResize();
         window.addEventListener('resize', this.onWindowResize);
     }
 
@@ -65,7 +66,7 @@ class NoteList extends React.Component {
                 let filterVals = {};
                 const { notebookFilter, filterType, searchTerm } = this.state;
 
-                if (filterType || searchTerm) {
+                if (filterType && searchTerm) {
                     filterVals.type = filterType;
                     filterVals.term = searchTerm;
                 } else if (notebookFilter) {
@@ -93,12 +94,15 @@ class NoteList extends React.Component {
         const { filterType, searchTerm, notebookFilter, width } = this.state;
         const isMobile = width <= 690;
 
+        // Handle when theres no notes
         if (!notes.length) {
-            return (
-                <WelcomeMsg
-                    addNote={this.props.addNote}
-                    showLoginModal={this.props.showLoginModal} />
-            );
+            if (searchTerm.length === 0 && notebookFilter.id === 'all_notebooks') {
+                return (
+                    <WelcomeMsg
+                        addNote={this.props.addNote}
+                        showLoginModal={this.props.showLoginModal} />
+                );
+            }
         }
 
         return (
@@ -124,12 +128,16 @@ class NoteList extends React.Component {
                     }
                 </div>
 
-                <Note
-                    notes={notes}
-                    sort={this.state.sort}
-                    selectNote={(note) => this.selectNote(note)}
-                    deleteNote={(note) => this.deleteNote(note)}
-                    isMobile={isMobile} />
+                {!notes.length && <div className="empty">No notes to show...</div>}
+
+                {notes.length &&
+                    <Note
+                        notes={notes}
+                        sort={this.state.sort}
+                        selectNote={(note) => this.selectNote(note)}
+                        deleteNote={(note) => this.deleteNote(note)}
+                        isMobile={isMobile} />
+                }
             </div>
         );
     }

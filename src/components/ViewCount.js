@@ -2,7 +2,7 @@ import React from 'react';
 import NotebookFilter from './NotebookFilter'
 
 const ViewCount = ({ notes = [], notebooks = [], ...props }) => {
-    if (!notes.length || !notebooks.length) {
+    if (!notebooks.length) {
         return <div className="empty hidden"></div>;
     }
 
