@@ -110,7 +110,9 @@
                 .close {
                     display: inline-block;
                 }
+
             }
+
         }
 
         h2 {
@@ -119,21 +121,30 @@
         }
 
         a {
-            color: #068dcc;
+            color: $blue;
+
         }
 
         a:hover {
-            color: #E91E63;
+            color: $pink;
         }
 
         .selected {
             background: #ebf1f6;
-            border: 1px solid #e91f63;
+            border: 1px solid $pink;
         }
 
         .close {
             float: right;
             display: none;
+        }
+
+        .external-link {
+            float: right;
+
+            .fa {
+                color: $blue;
+            }
         }
 
         .title {
@@ -193,14 +204,10 @@
         display: none;
     }
     .note-list .notes {
-        .close {
-            display: inline-block;
-        }
         .title {
             font-weight: normal;
         }
-        .note-label,
-        .tags {
+        .note-label {
             display: none;
         }
     }

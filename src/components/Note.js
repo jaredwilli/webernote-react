@@ -18,6 +18,7 @@ const Note = ({ notes = [], isMobile = false, ...props }) => {
             onClick={(e) => props.selectNote(note)}>
 
             {!isMobile && <CloseBtn onClick={(e) => props.deleteNote(note)} />}
+            {(isMobile && note.url) && <a className="external-link" href={note.url} target="_blank"><FontAwesome name='external-link' /></a>}
 
             {note.label && <div className="note-label" style={{ background: note.label.hex }}></div>}
 
@@ -25,7 +26,8 @@ const Note = ({ notes = [], isMobile = false, ...props }) => {
                 {(!isMobile && note.url) &&
                     <a href={note.url} target="_blank">{shorten(note.title, 80)}</a>
                 }
-                {!note.url && shorten(note.title, 80)}
+                {(!isMobile && !note.url) && shorten(note.title, 80)}
+                {(isMobile) && shorten(note.title, 80)}
             </h2>}
 
             <div className="note-details">

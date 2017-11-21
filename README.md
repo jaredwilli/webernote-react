@@ -7,13 +7,13 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![dependencies Status](https://david-dm.org/jaredwilli/webernote-react/status.svg)](https://david-dm.org/jaredwilli/webernote-react)
 
-#### Overview
+### Overview
 
 This app is a side-project I'm developing using React, Redux, ES6, and Firebase as the data store. I have learned a great deal from building this application, now for the third time. The first time I made it with jQuery, the second time with AngularJS.
 
 It is a great example of what a real-world application might be like, which makes it perfect to build it using different technologies that I want to learn or get better with.
 
-#### Installation
+### Installation
 
 The NPM scripts for this project to do various things like build, start the server, etc. are configured to run using [Yarn](https://yarnpkg.com/en/). It is recommended that you install Yarn to take advantage of the benefits of using it instead of NPM.
 
@@ -43,5 +43,6 @@ To view a list of all the runnable NPM commands use:
 This will show various things like coverage, watch-css, different options for prod/dev environments and more.
 
 
+### License
 
 [MIT License](https://opensource.org/licenses/MIT)
