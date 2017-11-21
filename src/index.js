@@ -8,7 +8,7 @@ import App from './components/App';
 
 import './styles/import.css';
 
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore;
 
@@ -21,4 +21,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-registerServiceWorker();
+// registerServiceWorker();
