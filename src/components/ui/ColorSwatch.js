@@ -5,7 +5,6 @@ import { Swatch } from 'react-color/lib/components/common';
 
 export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 	const hoverSwatch = {
-		boxShadow: '0 0 5px 2px rgba(0, 0, 0, 0.25)',
 		outline: '2px solid #fff',
 		position: 'relative',
 		zIndex: '2',
@@ -15,11 +14,15 @@ export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 		{
 			default: {
 				swatch: {
-					fontSize: '0',
-					width: '22px',
-					height: '22px',
-				}
-			},
+                    fontSize: '0',
+                    padding: '2px'
+				},
+                palette: {
+                    borderRadius: '50%',
+                    width: '18px',
+                    height: '18px'
+                }
+            },
 			hover: {
 				swatch: hoverSwatch
 			}
@@ -33,6 +36,7 @@ export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 				color={color}
 				onClick={onClick}
 				onHover={onSwatchHover}
+                style={styles.palette}
 				focusStyle={hoverSwatch} />
 		</div>
 	);

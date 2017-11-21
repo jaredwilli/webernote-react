@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-class NoteTypes extends Component {
-    render() {
-        return (
+const NoteTypes = () => {
+    return (
+        <nav className="note-types">
             <div>
                 <ul>
                     <li>
@@ -21,8 +21,8 @@ class NoteTypes extends Component {
                     <em>For quick access, drag notes, notebooks and tags here</em>
                 </div>
             </div>
-        );
-    }
+        </nav>
+    );
 }
 
 export default NoteTypes;

@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { showModal, hideModal } from '../../actions/modalActions';
-
 import Modal from '../ui/Modal';
 import LoginButtons from '../stateless/LoginButtons';
+
+import { showModal, hideModal } from '../../actions/modalActions';
 
 class LoginModal extends React.Component {
     constructor(props) {

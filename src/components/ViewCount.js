@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterByNotebook from './FIlterByNotebook'
+import NotebookFilter from './NotebookFilter'
 
 const ViewCount = ({ notes = [], notebooks = [], ...props }) => {
     if (!notes.length || !notebooks.length) {
@@ -11,7 +11,7 @@ const ViewCount = ({ notes = [], notebooks = [], ...props }) => {
             Viewing <span className="count">{notes.length}</span>&nbsp;
             <span className="notes-from">notes from</span>
 
-            <FilterByNotebook
+            <NotebookFilter
                 notes={notes}
                 notebooks={notebooks}
                 notebookFilter={props.notebookFilter}

@@ -216,19 +216,17 @@ export function getDeletedTags(tags, note) {
  *
  * @param {String} refId
  */
-export function createNewNote(refId, user) {
-    return {
-        id: refId,
-        isEditing: true,
-        title: '',
-        description: '',
-        url: '',
-        notebook: {},
-        tags: [],
-        created_date: new Date().getTime(),
-        modified_date: ''
-    };
-}
+export const createNewNote = (refId) => ({
+    id: refId,
+    title: '',
+    url: '',
+    description: '',
+    isEditing: true,
+    created_date: Date.now(),
+    modified_date: Date.now(),
+    notebook: {},
+    tags: []
+});
 
 /**
  * Generate a new tag object
@@ -320,13 +318,11 @@ export function filterData(data, filters) {
     return data;
 }
 
-export function hasNotesAndOneOtherData(props) {
+export const hasNotesAndOneOtherData = ({ notes = [], notebooks = [], tags = [], labels = [] }) => {
     // has 1+ notes
-    if (props && props.notes && props.notes.length) {
+    if (notes.length) {
         // has 1+ notebook or tags or label
-        if ((props.notebooks && props.notebooks.length) ||
-            (props.tags && props.tags.length) ||
-            (props.labels && props.labels.length)) {
+        if (notebooks.length || tags.length || labels.length) {
             return true;
         }
     }

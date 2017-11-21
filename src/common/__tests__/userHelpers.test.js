@@ -8,6 +8,10 @@ import * as usersMock from '../../mocking/users-mock';
 import * as utils from '../userHelpers';
 
 describe('User Helper Functions', () => {
+    // Have to mock the date timestamp so it's not always change on me
+    const now = 1482363367071;
+    Date.now = jest.genMockFunction().mockReturnValue(now);
+
     it('creates new user object from new anonUser object', () => {
         let expected = usersMock.userHelpers.anonUserNoData;
         let result = utils.createUser(usersMock.userHelpers.anonUser);

@@ -113,6 +113,8 @@ export function createUser(user, mergedUser) {
 		photo: !user.isAnonymous ? user.photoURL : '',
 		permissions: [],
         role: '',
+        created_date: Date.now(),
+        last_login: Date.now(),
         notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},
         labels: (mergedUser && mergedUser.labels) ? mergedUser.labels : {},
         notes: (mergedUser && mergedUser.notes) ? mergedUser.notes : {},
@@ -150,9 +152,7 @@ export function a2z(from = 'a', to = 'z') {
  */
 export function randomVal(arr) {
 	if (typeof arr !== Array) {
-		arr = Object.keys(arr).map(a => {
-			return arr[a];
-		});
+		arr = Object.keys(arr).map(a => arr[a]);
 	}
 	return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -161,6 +161,4 @@ export function randomVal(arr) {
  * @description Generate a random letter from a-z using the a2z and randomVal functions.
  * @param {*} arr
  */
-export function randomLetter(from = 'a', to = 'z') {
-	return randomVal(a2z(from, to));
-}
+export const randomLetter = (from = 'a', to = 'z') => randomVal(a2z(from, to));
