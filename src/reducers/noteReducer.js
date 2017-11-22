@@ -139,8 +139,7 @@ export default function noteReducer(state = {}, action) {
         }
 
         case types.DeleteNoteFulfilled: {
-            const note = action.note;
-            // const selected = action.selected;
+            const { note } = action;
 
             const newState = Object.assign({}, state, {
                 inProgress: false,
@@ -153,6 +152,37 @@ export default function noteReducer(state = {}, action) {
             });
 
             newState.selectedNote = {};
+            return newState;
+        }
+
+        // *** DELETE NOTE LABEL
+        case types.DeleteNoteLabelRequested: {
+            return Object.assign({}, state, {
+                inProgress: true,
+                error: '',
+                success: ''
+            });
+        }
+
+        case types.DeleteNoteLabelRejected: {
+            return Object.assign({}, state, {
+                inProgress: false,
+                error: 'Error deleting note label'
+            });
+        }
+
+        case types.DeleteNoteLabelFulfilled: {
+            const { note } = action;
+
+            const newState = Object.assign({}, state, {
+                inProgress: false,
+                success: 'Deleted note label'
+            });
+
+            newState.notes = state.notes;
+            // Update the notes list with the modified note
+            newState.notes = newState.notes.map(n => (n.id !== note.id) ? note : n);
+            newState.selectedNote = note;
             return newState;
         }
 

@@ -18,6 +18,7 @@ class EditNote extends React.Component {
 
         this.editNote = this.editNote.bind(this);
         this.editField = this.editField.bind(this);
+        this.deleteNoteLabel = this.deleteNoteLabel.bind(this);
 
         this.state = {
             label: {},
@@ -39,6 +40,10 @@ class EditNote extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.InputComponent.focus();
+    }
+
     editNote(e) {
         const { selectedNote } = this.props;
 
@@ -56,6 +61,11 @@ class EditNote extends React.Component {
         });
     }
 
+    deleteNoteLabel() {
+        this.props.actions.deleteNoteLabel(this.props.selectedNote);
+        this.props.actions.getNotes();
+    }
+
     render() {
         const { selectedNote } = this.props;
 
@@ -65,7 +75,8 @@ class EditNote extends React.Component {
             );
         }
 
-        // FIXME: make this a layout component http://reactpatterns.com/#layout-component
+        // FIXME: make this a layout component
+        // http://reactpatterns.com/#layout-component
         return (
             <div className="right edit-col edit-note">
                 <form>
@@ -74,8 +85,9 @@ class EditNote extends React.Component {
                             name="title"
                             className="title"
                             placeholder="Enter title..."
-                            autoFocus={true}
+                            ref={comp => { this.InputComponent = comp; }}
                             value={selectedNote.title}
+                            onClick={this.focusTitleInput}
                             onChange={(e) => this.editNote(e)} />
                         <NotebookSelect
                             canAddNotebook={true}
@@ -92,7 +104,8 @@ class EditNote extends React.Component {
                             value={selectedNote.url}
                             onChange={(e) => this.editNote(e)} />
                         <LabelPicker
-                            editField={(color) => this.editField({ label: color })} />
+                            editField={(color) => this.editField({ label: color })}
+                            deleteNoteLabel={this.deleteNoteLabel} />
                     </div>
                     <div className="mid">
                         <TagsInput

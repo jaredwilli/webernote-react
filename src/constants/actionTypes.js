@@ -55,6 +55,10 @@ export const DeleteNoteRequested = 'DELETE_NOTE_REQUESTED';
 export const DeleteNoteRejected = 'DELETE_NOTE_REJECTED';
 export const DeleteNoteFulfilled = 'DELETE_NOTE_FULFILLED';
 
+export const DeleteNoteLabelRequested = 'DELETE_NOTE_LABEL_REQUESTED';
+export const DeleteNoteLabelRejected = 'DELETE_NOTE_LABEL_REJECTED';
+export const DeleteNoteLabelFulfilled = 'DELETE_NOTE_LABEL_FULFILLED';
+
 export const SelectNoteRequested = 'SELECT_NOTE_REQUESTED';
 export const SelectNoteRejected = 'SELECT_NOTE_REJECTED';
 export const SelectNoteFulfilled = 'SELECT_NOTE_FULFILLED';

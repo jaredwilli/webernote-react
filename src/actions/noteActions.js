@@ -30,7 +30,7 @@ export function addNote() {
         const notesRef = database.ref('users/' + user.uid + '/notes');
 		const noteRef = notesRef.push();
 
-		let note = createNewNote(noteRef.key, user);
+		const note = createNewNote(noteRef.key, user);
 
         noteRef.set(note)
             .then(dispatch(addNoteFulfilledAction(note)))
@@ -110,7 +110,6 @@ export function editNoteTags(noteRef, note, obj) {
 
 export function editNoteLabel(noteRef, note, obj) {
     return (dispatch) => {
-
         const noteLabelRef = noteRef.child('label');
 
         if (obj.label && !obj.label.name) {
@@ -143,7 +142,6 @@ export function editNote(note, obj = null) {
 
 		if (!note) {
 			dispatch(editNoteRejectedAction());
-			return;
 		}
 
 		if (obj) {
@@ -186,6 +184,29 @@ export function deleteNote(note) {
                 .catch((error) => {
                     console.error(error);
                     dispatch(deleteNoteRejectedAction());
+                });
+        }
+	};
+}
+
+export function deleteNoteLabel(note) {
+	return (dispatch, getState) => {
+		dispatch(deleteNoteLabelRequested());
+
+		const user = getState().userData.user;
+        const notesRef = database.ref('users/' + user.uid + '/notes');
+        const noteRef = notesRef.child(note.id);
+
+        if (!note) {
+            dispatch(deleteNoteLabelRejected());
+        } else {
+            noteRef.child('label')
+                .remove()
+                .then(() => noteRef.once('value'))
+                .then((note) => dispatch(deleteNoteLabelFulfilled(note.val())))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(deleteNoteLabelRejected());
                 });
         }
 	};
@@ -323,7 +344,23 @@ function deleteNoteRejectedAction() {
 }
 
 function deleteNoteFulfilledAction(note) {
-	return { type: types.DeleteNoteFulfilled, note };
+    return { type: types.DeleteNoteFulfilled, note };
+}
+
+/**
+ * Delete Note Label
+ */
+
+function deleteNoteLabelRequested() {
+	return { type: types.DeleteNoteLabelRequested };
+}
+
+function deleteNoteLabelRejected() {
+	return { type: types.DeleteNoteLabelRejected };
+}
+
+function deleteNoteLabelFulfilled(note) {
+	return { type: types.DeleteNoteLabelFulfilled, note };
 }
 
 /**

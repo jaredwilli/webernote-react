@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import WelcomeMsg from './WelcomeMsg';
+import WelcomeMsg from './stateless/WelcomeMsg';
 import SearchFilter from './SearchFilter';
 import ViewCount from './ViewCount';
 import Note from './Note';
 
 import * as noteActions from '../actions/noteActions';
 
-class NoteList extends Component {
+class NoteList extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -20,6 +20,7 @@ class NoteList extends Component {
         this.clearFilters = this.clearFilters.bind(this);
 
         this.state = {
+            windowWidth: window.innerWidth,
             filterType: 'Title',
             searchTerm: '',
 			notebookFilter: {
@@ -32,6 +33,21 @@ class NoteList extends Component {
             }
         };
     }
+
+    componentDidMount() {
+        this.onWindowResize();
+        window.addEventListener('resize', this.onWindowResize);
+    }
+
+    // make sure to remove the listener
+    // when the component is not mounted anymore
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onWindowResize);
+    }
+
+    onWindowResize = () => {
+        this.setState({ width: window.innerWidth });
+    };
 
     clearFilters() {
         this.setState({
@@ -48,12 +64,13 @@ class NoteList extends Component {
         if (filter) {
             this.setState(filter, () => {
                 let filterVals = {};
+                const { notebookFilter, filterType, searchTerm } = this.state;
 
-                if (filter.filterType || filter.searchTerm) {
-                    filterVals.type = this.state.filterType;
-                    filterVals.term = filter.searchTerm;
-                } else if (filter.notebookFilter) {
-                    filterVals.notebook = filter.notebookFilter;
+                if (filterType && searchTerm) {
+                    filterVals.type = filterType;
+                    filterVals.term = searchTerm;
+                } else if (notebookFilter) {
+                    filterVals.notebook = notebookFilter;
                 }
 
                 this.props.filterNotes(filterVals);
@@ -63,7 +80,7 @@ class NoteList extends Component {
         }
     }
 
-    selectNote(e, note) {
+    selectNote(note) {
         this.props.actions.resetSelectedNote();
         this.props.actions.selectNote(note);
     }
@@ -73,14 +90,19 @@ class NoteList extends Component {
     }
 
     render() {
-        const { notes, notebooks } = this.props;
+        const { notes, notebooks = [] } = this.props;
+        const { filterType, searchTerm, notebookFilter, width } = this.state;
+        const isMobile = width <= 690;
 
+        // Handle when theres no notes
         if (!notes.length) {
-            return (
-                <WelcomeMsg
-                    addNote={this.props.addNote}
-                    showLoginModal={this.props.showLoginModal} />
-            );
+            if (searchTerm.length === 0 && notebookFilter.id === 'all_notebooks') {
+                return (
+                    <WelcomeMsg
+                        addNote={this.props.addNote}
+                        showLoginModal={this.props.showLoginModal} />
+                );
+            }
         }
 
         return (
@@ -89,27 +111,33 @@ class NoteList extends Component {
                     <div className="filter">
                         <SearchFilter
                             notes={notes}
-                            filterType={this.state.filterType}
-                            searchTerm={this.state.searchTerm}
+                            filterType={filterType}
+                            searchTerm={searchTerm}
                             onChange={this.filterNotes}
                             clearFilters={this.clearFilters} />
                     </div>
 
-                    {(notebooks && notebooks.length > 0) &&
+                    {(notebooks.length > 0) &&
                         <div className="viewing">
                             <ViewCount
                                 notes={notes}
                                 notebooks={notebooks}
-                                notebookFilter={this.state.notebookFilter}
+                                notebookFilter={notebookFilter}
                                 onChange={this.filterNotes} />
                         </div>
                     }
                 </div>
 
-                <Note notes={notes}
-                    sort={this.state.sort}
-                    selectNote={(e, note) => this.selectNote(e, note)}
-                    deleteNote={(note) => this.deleteNote(note)} />
+                {!notes.length && <div className="empty">No notes to show...</div>}
+
+                {notes.length &&
+                    <Note
+                        notes={notes}
+                        sort={this.state.sort}
+                        selectNote={(note) => this.selectNote(note)}
+                        deleteNote={(note) => this.deleteNote(note)}
+                        isMobile={isMobile} />
+                }
             </div>
         );
     }

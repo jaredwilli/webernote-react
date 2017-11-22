@@ -45,13 +45,14 @@ export function removeLabel(notes) {
 	return (dispatch, getState) => {
 		dispatch(deleteLabelRequestedAction());
 
-        const user = getState().userData.user;
+        const { user } = getState().userData;
         const labelsRef = database.ref('users/' + user.uid + '/labels');
+
+        notes = notes || getState().noteData.notes;
 
         labelsRef.once('value', (snap) => {
             if (snap.exists()) {
                 const labels = refToArray(snap.val());
-                let labelsList = [];
 
                 labels.forEach((label) => {
                     let labelCount = getObjCounts({ label }, notes);
@@ -65,12 +66,8 @@ export function removeLabel(notes) {
                                 console.error(error);
                                 dispatch(deleteLabelRejectedAction());
                             });
-                    } else {
-                        labelsList.push(label);
                     }
                 });
-
-                dispatch(deleteLabelFulfilledAction(labelsList));
             }
         });
 	};
@@ -85,11 +82,11 @@ export function listenForDeletedLabels() {
 
         notesRef.on('child_removed', (snap) => {
             let notes = getState().noteData.notes;
-            const n = snap.val();
+            const note = snap.val();
 
             // Filter the deleted note out of current notes state
-            notes = notes.filter((note) => {
-                return note.id !== n.id;
+            notes = notes.filter((n) => {
+                return n.id !== note.id;
             });
 
             dispatch(removeLabel(notes));

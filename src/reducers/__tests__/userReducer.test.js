@@ -23,8 +23,7 @@ describe('User Reducer', () => {
             },
             "online": true,
             "photo": "",
-            "role": "",
-            "uid": "jET2M9N9ilYGMpMkiQw6ARqk4Vy1"
+            "role": ""
         }
     };
 
@@ -34,10 +33,29 @@ describe('User Reducer', () => {
 
     it('should get the anonymous user', () => {
         expect(userReducer({}, action)).toEqual({
-            "inProgress": false, "success": "Got user",
-            user: action.user
+            "inProgress": false,
+            "success": "Got user",
+            "user": {
+                "created_date": 1509713243577,
+                "displayName": "guest",
+                "email": "",
+                "isAnonymous": true,
+                "last_login": 1509713243577,
+                "notes": {
+                    "-Ky0v-9TbPI7fm7KBOpj": {
+                        "created_date": 1509713249005,
+                        "description": "",
+                        "id": "-Ky0v-9TbPI7fm7KBOpj",
+                        "isEditing": true,
+                        "modified_date": "",
+                        "title": "",
+                        "url": ""
+                    }
+                },
+                "online": true,
+                "photo": "",
+                "role": ""
+            }
         });
     });
-
-
 });

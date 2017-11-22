@@ -1,12 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AppContainer from '../appContainer';
+import List from '../List';
 
-describe('AppContainer', () => {
+describe('List component', () => {
+
     it('renders without crashing', () => {
-        shallow(<AppContainer />);
+        shallow(<List />);
     });
-
-
 });

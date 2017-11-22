@@ -18,6 +18,8 @@ export const userHelpers = {
         photo: '',
         permissions: [],
         role: '',
+        created_date: 1482363367071,
+        last_login: 1482363367071,
         notebooks: {},
         labels: {},
         notes: {},
@@ -30,6 +32,8 @@ export const userHelpers = {
         displayName: '',
         email: '',
         photoURL: '',
+        created_date: 1482363367071,
+        last_login: 1482363367071,
         "notebooks": {
             "notebook1": {
                 "id": "notebook1",
@@ -95,6 +99,8 @@ export const userHelpers = {
         isAnonymous: false,
         displayName: 'Bob Dillon',
         email: 'bob@dillon.com',
+        created_date: 1482363367071,
+        last_login: 1482363367071,
         photoURL: 'https://files.gamebanana.com/img/ico/sprays/awesome_hotdog.png'
     },
 
@@ -107,6 +113,8 @@ export const userHelpers = {
         photo: 'https://files.gamebanana.com/img/ico/sprays/awesome_hotdog.png',
         permissions: [],
         role: '',
+        created_date: 1482363367071,
+        last_login: 1482363367071,
         notebooks: {},
         labels: {},
         notes: {},
@@ -122,6 +130,8 @@ export const userHelpers = {
         photo: 'https://files.gamebanana.com/img/ico/sprays/awesome_hotdog.png',
         permissions: [],
         role: '',
+        created_date: 1482363367071,
+        last_login: 1482363367071,
         "notebooks": {
             "notebook1": {
                 "id": "notebook1",

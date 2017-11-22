@@ -21,8 +21,7 @@ const SecondaryMenu = ({ items = [], width = 256, desktop = true, ...props }) =>
         }
         console.log(action);
 
-
-        debugger;
+        // debugger;
         if (item.config.url) {
             props.goToUrl(item.config.url);
         } else {

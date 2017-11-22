@@ -3,12 +3,10 @@ import React from 'react';
 import Input from './stateless/Input';
 import CloseBtn from './stateless/CloseBtn';
 import SelectMenu from './stateless/SelectMenu';
+import Option from './stateless/Option'
 
 function SearchFilter(props) {
-    if (!props.notes || !props.notes.length ) {
-        return <div className="empty hidden"></div>;
-    }
-
+    // TODO: make the search type a select menu to change the search type
     return (
         <span className="search-filter">
             <label>Search type:</label>
@@ -19,9 +17,9 @@ function SearchFilter(props) {
                 defaultValue="Title"
                 value={props.filterType}
                 onChange={(e) => props.onChange({ filterType: e.target.value })}>
-                <option>Title</option>
-                <option>Description</option>
-                <option>Url</option>
+                <Option text="Title" />
+                <Option text="Description" />
+                <Option text="Url" />
             </SelectMenu>
 
             <Input

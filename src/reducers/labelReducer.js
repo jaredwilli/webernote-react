@@ -48,15 +48,11 @@ export default function labelReducer(state = {}, action) {
 		}
 
 		case types.AddLabelFulfilled: {
-			const label = action.label;
-
 			const newState = Object.assign({}, state, {
 				inProgress: false,
 				success: 'Added label'
-			});
+            });
 
-			newState.labels = state.labels || [];
-			newState.labels.push(label);
 			return newState;
 		}
 

@@ -1,47 +1,48 @@
 
 # Webernote app
 
+[![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=build-path)](https://travis-ci.org/jaredwilli/webernote-react)
 [![Coverage Status](https://coveralls.io/repos/github/jaredwilli/webernote-react/badge.svg)](https://coveralls.io/github/jaredwilli/webernote-react)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/test_coverage)](https://codeclimate.com/github/jaredwilli/webernote-react/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/64627baa4a5c5b0576be/maintainability)](https://codeclimate.com/github/jaredwilli/webernote-react/maintainability)
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![dependencies Status](https://david-dm.org/jaredwilli/webernote-react/status.svg)](https://david-dm.org/jaredwilli/webernote-react)
 
-#### Overview
+### Overview
 
 This app is a side-project I'm developing using React, Redux, ES6, and Firebase as the data store. I have learned a great deal from building this application, now for the third time. The first time I made it with jQuery, the second time with AngularJS.
 
 It is a great example of what a real-world application might be like, which makes it perfect to build it using different technologies that I want to learn or get better with.
 
+### Installation
 
+The NPM scripts for this project to do various things like build, start the server, etc. are configured to run using [Yarn](https://yarnpkg.com/en/). It is recommended that you install Yarn to take advantage of the benefits of using it instead of NPM.
 
-To run this app you simply just clone the repo:
+Install Yarn:
+`brew install yarn`
 
-`git clone git@github.com:jaredwilli/webernote-react.git && cd webernote-react`
+Clone the repo and install the dependencies:
 
-Then install the dependencies:
-
-`npm install`
+```
+git clone git@github.com:jaredwilli/webernote-react.git && cd webernote-react && yarn
+```
 
 Then run the server:
 
-`npm start`
+`yarn start`
 
 The app will be served on `http://localhost:3000/`.
 
 To build the application for deployment run:
 
-`npm run build`
+`yarn build`
 
-The app is deployed using Surge, and a command for pushing it to the Surge domain it is on.
-Actually, currently it is set up to be built and pushed to the Surge domain when doing `git push ...`.
+To view a list of all the runnable NPM commands use:
 
-It's like continuous deployment, cause I can.
+`yarn run`
 
-
-*Credits*:
-- This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-- It uses [Firebase](https://www.firebase.com/) for the data storage.
-- [Surge](https://surge.sh/) for serving the app online in a quick, simple and easy to deploy to way.
+This will show various things like coverage, watch-css, different options for prod/dev environments and more.
 
 
-Copyright 2017-2018 MIT - Jared Williams
+### License
+
+[MIT License](https://opensource.org/licenses/MIT)
