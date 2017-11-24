@@ -1,0 +1,146 @@
+{
+	"users": {
+		"bfL0yylpyfPBjGA4kiZHi0nufeD2": {
+			"created_date": 1509421088743,
+			"displayName": "guest",
+			"email": "",
+			"isAnonymous": true,
+			"labels": {
+				"-KxkVd6nNMKJNfB154_b": {
+					"hex": "#D50000",
+					"id": "-KxkVd6nNMKJNfB154_b",
+					"name": "red",
+					"source": "hex"
+				},
+				"-KxkVtTlVaLo2n1tMorv": {
+					"hex": "#2962FF",
+					"id": "-KxkVtTlVaLo2n1tMorv",
+					"name": "dark blue",
+					"source": "hex"
+				},
+				"-KxkXL_n3DL6V87Z3S6S": {
+					"hex": "#C5CAE9",
+					"id": "-KxkXL_n3DL6V87Z3S6S",
+					"name": "light indigo",
+					"source": "hex"
+				},
+				"-KxkXMG6Ex75SXdws9GL": {
+					"hex": "#F5F5F5",
+					"id": "-KxkXMG6Ex75SXdws9GL",
+					"name": "light gray",
+					"source": "hex"
+				}
+			},
+			"last_login": 1509421088743,
+			"notebooks": {
+				"-KxkVaC-zToFdofZprgB": {
+					"id": "-KxkVaC-zToFdofZprgB",
+					"name": "My Notebook",
+					"value": "-KxkVaC-zToFdofZprgB"
+				},
+				"-KxkVsOtK2Y_YfplxzLf": {
+					"id": "-KxkVsOtK2Y_YfplxzLf",
+					"name": "General",
+					"value": "-KxkVsOtK2Y_YfplxzLf"
+				}
+			},
+			"notes": {
+				"-KxkVVohSw6dXNVSXiCU": {
+					"created_date": 1509421092159,
+					"description":
+						"This is a typical note that has all the fields filled out and should be a good example of a complete note data object.",
+					"id": "-KxkVVohSw6dXNVSXiCU",
+					"isEditing": false,
+					"label": {
+						"hex": "#D50000",
+						"id": "-KxkVd6nNMKJNfB154_b",
+						"name": "red",
+						"source": "hex"
+					},
+					"modified_date": 1509421172278,
+					"notebook": {
+						"id": "-KxkVaC-zToFdofZprgB",
+						"name": "My Notebook",
+						"value": "-KxkVaC-zToFdofZprgB"
+					},
+					"tags": [
+						"-KxkVdzRdq3GXt3jT4ZT": {
+							"id": "-KxkVdzRdq3GXt3jT4ZT",
+							"label": "react",
+							"value": "-KxkVdzRdq3GXt3jT4ZT"
+						},
+						"-KxkVeZI9Fq-pRmzMCRd": {
+							"id": "-KxkVeZI9Fq-pRmzMCRd",
+							"label": "redux",
+							"value": "-KxkVeZI9Fq-pRmzMCRd"
+						}
+					],
+					"title": "Some mock data content for testing the code",
+					"url": "http://google.com"
+				},
+				"-KxkVopqxCQ5yYhxe1eu": {
+					"created_date": 1509421174151,
+					"description": "",
+					"id": "-KxkVopqxCQ5yYhxe1eu",
+					"isEditing": false,
+					"label": {
+						"hex": "#2962FF",
+						"id": "-KxkVtTlVaLo2n1tMorv",
+						"name": "dark blue",
+						"source": "hex"
+					},
+					"modified_date": 1509421181438,
+					"notebook": {
+						"id": "-KxkVsOtK2Y_YfplxzLf",
+						"name": "General",
+						"value": "-KxkVsOtK2Y_YfplxzLf"
+					},
+					"tags": {
+						"-KxkVuWeNDnCsvujMpkm": {
+							"id": "-KxkVuWeNDnCsvujMpkm",
+							"label": "firebase",
+							"value": "-KxkVuWeNDnCsvujMpkm"
+						}
+					},
+					"title": "My notes are awesome",
+					"url": ""
+				},
+				"-KxkVxWXKmSdl-30S8D4": {
+					"created_date": 1509421209715,
+					"description": "",
+					"id": "-KxkVxWXKmSdl-30S8D4",
+					"isEditing": true,
+					"modified_date": 1509421227485,
+					"notebook": {
+						"id": "-KxkVsOtK2Y_YfplxzLf",
+						"name": "General",
+						"value": "-KxkVsOtK2Y_YfplxzLf"
+					},
+					"title": "Another general notebook note",
+					"url": ""
+				}
+			},
+			"online": true,
+			"photo": "",
+			"role": "",
+			"tags": {
+				"-KxkVdzRdq3GXt3jT4ZT": {
+					"id": "-KxkVdzRdq3GXt3jT4ZT",
+					"label": "react",
+					"value": "-KxkVdzRdq3GXt3jT4ZT"
+				},
+				"-KxkVeZI9Fq-pRmzMCRd": {
+					"id": "-KxkVeZI9Fq-pRmzMCRd",
+					"label": "redux",
+					"value": "-KxkVeZI9Fq-pRmzMCRd"
+				},
+				"-KxkVuWeNDnCsvujMpkm": {
+					"id": "-KxkVuWeNDnCsvujMpkm",
+					"label": "firebase",
+					"value": "-KxkVuWeNDnCsvujMpkm"
+				}
+			},
+			"uid": "bfL0yylpyfPBjGA4kiZHi0nufeD2"
+		}
+	}
+}
