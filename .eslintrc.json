@@ -1,24 +1,57 @@
 {
     "parser": "babel-eslint",
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "node": true
-    },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
+    "plugins": ["react"],
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+        "node": true,
+        "jest": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"extends": [
+        "eslint:recommended"
+        // "plugin:react/recommended"
+    ],
     "rules": {
-        "no-const-assign": "warn",
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
-        "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn"
+        // first argument: 0 - silent, 1 - warning, 2 - error
+        "no-with": 2,
+        "no-eval": 2,
+        "no-undef": 1,
+        "no-console": 0,
+        "no-debugger": 1,
+        "valid-typeof": 1,
+        "guard-for-in": 2,
+        "no-extra-semi": 1,
+        "no-unreachable": 2,
+        "no-unused-vars": 1,
+        "no-const-assign": 2,
+        "semi": [2, "always"],
+        "constructor-super": 1,
+        "quotes": [2, "single"],
+        "no-this-before-super": 1,
+        "comma-dangle": [2, "never"],
+        "spaced-comment": [2, "always"],
+        "space-before-function-paren": [2, "never"]
     }
+        // "strict": [2, "safe"],
+        // "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+        // "no-trailing-spaces": 2,
+        // "keyword-spacing": 2,
+        // "vars-on-top": 2,
+        // "no-undefined": 2,
+        // "valid-typeof": 2,
+        // "no-continue": 1,
+        // "no-unused-expressions": 1,
+        // "no-magic-numbers": 1,
+        // "max-len": [1, 80, 4],
+        // "react/prefer-es6-class": 1
 }
+
+
