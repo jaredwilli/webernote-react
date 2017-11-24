@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { shorten } from '../../common/helpers.js';
 import { PLURALS } from '../../constants/colors';
 
@@ -28,7 +29,7 @@ function NavListItem({ type, notes = [], items = [], ...props }) {
     });
 
     return (
-        <ul className={type + '-list'}>
+        <ul className={`${type}-list`}>
             {items.map(item =>
                 <li key={item.id} id={item.id}>
                     {(type === 'label') &&

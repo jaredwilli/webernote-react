@@ -1,5 +1,5 @@
 // user helper functions
-// import { auth } from '../data/firebase.js';
+// import { auth } from '../_data/firebase.js';
 import { deepMerge } from './helpers';
 
 /**
@@ -111,8 +111,10 @@ export function createUser(user, mergedUser) {
 		displayName: !user.isAnonymous ? user.displayName : 'guest',
 		email: !user.isAnonymous ? user.email : '',
 		photo: !user.isAnonymous ? user.photoURL : '',
-		permissions: [],
-        role: '',
+        permissions: (!user.isAnonymous)
+            ? ['basic_app', 'view_users', 'edit_profile', 'delete_profile']
+            : ['basic_app'],
+        role: (!user.isAnonymous) ? 'user' : 'guest',
         created_date: Date.now(),
         last_login: Date.now(),
         notebooks: (mergedUser && mergedUser.notebooks) ? mergedUser.notebooks : {},

@@ -1,10 +1,10 @@
 import React from 'react';
 import assert from 'assert';
 
-import { auth } from '../../data/firebase.js';
+import { auth } from '../../_data/firebase.js';
 import { deepMerge } from '../helpers';
 
-import * as usersMock from '../../mocking/users-mock';
+import * as usersMock from '../../_mocking/users-mock';
 import * as utils from '../userHelpers';
 
 describe('User Helper Functions', () => {

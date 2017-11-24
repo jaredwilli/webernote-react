@@ -1,4 +1,4 @@
-import { database } from '../data/firebase.js';
+import { database } from '../_data/firebase.js';
 import * as types from '../constants/actionTypes.js';
 
 import { createNewNote, getDeletedTags } from '../common/noteHelpers.js';
@@ -216,29 +216,25 @@ export function selectNote(note) {
 	return (dispatch, getState) => {
 		dispatch(selectNoteRequestedAction());
 
-		const user = getState().userData.user;
+		const { user } = getState().userData;
         const notesRef = database.ref('users').child(user.uid + '/notes');
-        const notes = getState().noteData.notes;
+        const { notes } = getState().noteData;
 
         if (!notes || !notes.length) {
             return dispatch(selectNoteRejectedAction());
         }
 
-		note = notes.filter((n) => {
-            return n.id === note.id;
-        })[0];
+		note = notes.find(n => n.id === note.id);
 
-        if (!note) {
-            note = notes[0];
+        if (note) {
+            notesRef.child(note.id + '/isEditing')
+                .set(true)
+                .then(dispatch(selectNoteFulfilledAction(note)))
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(selectNoteRejectedAction());
+                });
         }
-
-        notesRef.child(note.id + '/isEditing')
-			.set(true)
-			.then(dispatch(selectNoteFulfilledAction(note)))
-			.catch((error) => {
-				console.error(error);
-				dispatch(selectNoteRejectedAction());
-			});
 	};
 }
 

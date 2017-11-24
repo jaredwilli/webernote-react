@@ -6,15 +6,15 @@ import { withRouter } from 'react-router-dom';
 import Mousetrap from 'mousetrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import NotesContainer from '../containers/notesContainer';
+import FlexVerticalLayout from '../containers/notesContainer';
 import ModalContainer from '../containers/modalContainer';
 
-import Toolbar from './Toolbar';
-import NoteTypes from './NoteTypes';
+import Toolbar from './shared/toolbar/Toolbar';
+import NoteTypes from './shared/toolbar/NoteTypes';
 import NoteNav from './NoteNav';
 
-import Logo from './stateless/Logo';
-import LoginOut from './LoginOut';
+import Logo from './shared/header/Logo';
+import LoginOut from './shared/header/LoginOut';
 
 import * as userActions from '../actions/userActions';
 import * as noteActions from '../actions/noteActions';
@@ -63,13 +63,13 @@ class Home extends React.Component {
 
     // Handle keyboard shortcuts
     componentDidMount() {
-        Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
-        Mousetrap.bind(['command+b'], (e) => this.toggleNoteNav(e));
+        Mousetrap.bind(['ctrl+n'], (event) => this.addNote(event));
+        Mousetrap.bind(['command+b'], (event) => this.toggleNoteNav(event));
     }
 
     componentWillUnmount() {
-        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
-        Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
+        Mousetrap.unbind(['ctrl+n'], (event) => this.addNote(event));
+        Mousetrap.unbind(['command+b'], (event) => this.toggleNoteNav(event));
     }
 
     updateData() {
@@ -131,7 +131,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { user = {} } = this.props;
+        const { user: {} } = this.props;
 
         return (
             <MuiThemeProvider>
@@ -154,7 +154,7 @@ class Home extends React.Component {
                         <div className="main">
                             {(this.state.showNoteNav) && <NoteNav show="wide" /> }
 
-                            <NotesContainer showLoginModal={this.showLoginModal}
+                            <FlexVerticalLayout showLoginModal={this.showLoginModal}
                                 addNote={this.addNote} />
                         </div>
                     </div>
@@ -166,10 +166,10 @@ class Home extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ userData, noteData }) {
     const newState = {
-        user: state.userData.user,
-        notes: state.noteData.notes
+        user: userData.user,
+        notes: noteData.notes
     };
     // console.log('STATE: ', state, newState);
 

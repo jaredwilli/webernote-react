@@ -43,7 +43,7 @@ class NoteNav extends React.Component {
         const { notes, notebooks, tags, labels } = this.props;
 
         if (!notes) {
-            return <div className="loading"></div>
+            return <div className="loading"></div>;
         }
 
         let hideLeftNav = 'hidden';
@@ -51,9 +51,10 @@ class NoteNav extends React.Component {
             hideLeftNav = '';
         }
 
+        // TODO: Use the NoteList and NoteListItem components to make this better
         return (
             <div className="left sidebar-nav">
-                <div className={hideLeftNav + ' ' + this.props.show + '-nav drawer-nav animate'}>
+                <div className={`${hideLeftNav} wide-nav drawer-nav animate`}>
                     <nav className="nav-col note-nav">
                         {(notebooks && notebooks.length > 0) &&
                             <div className="notebooks-nav">

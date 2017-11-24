@@ -6,7 +6,7 @@ class List extends React.Component {
 		return (
 			<ul>
 				{this.props.items.map((item, index) =>
-				    this.props.itemRenderer(item, index)
+					this.props.itemRenderer(item, index)
 				)}
 			</ul>
 		);
@@ -14,12 +14,12 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-	items: PropTypes.array,
+	items: PropTypes.array
 	// itemRenderer: PropTypes.func.isRequired
 };
 
 List.defaultProps = {
-    items: []
+	items: []
 };
 
 export default List;

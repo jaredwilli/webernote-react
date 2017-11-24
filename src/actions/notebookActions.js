@@ -1,4 +1,4 @@
-import { database } from '../data/firebase';
+import { database } from '../_data/firebase';
 import * as types from '../constants/actionTypes';
 
 import { getObjCounts, createNewNotebook } from '../common/noteHelpers.js';

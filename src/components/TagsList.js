@@ -1,21 +1,26 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const TagsList = ({ tags = []}) => {
-    tags = tags.map(tag =>
-        <span key={tag.id} className="Select-value">
-            <span className="Select-value-label" id={`react-select-2--value-${tag.id}`}>
-                {tag.label}
+const TagsList = ({ tags }) => {
+    return (
+        <div className="Select tags Select--multi has-value">
+            <span id="react-select-2--value"
+                className="Select-multi-value-wrapper">
+                {(tags && tags.length > 0) && tags.map(tag =>
+                    <span key={tag.id} className="Select-value">
+                        <span id={`react-select-2--value-${tag.id}`}
+                            className="Select-value-label">
+                            {tag.label}
+                        </span>
+                    </span>
+                )}
             </span>
-        </span>
+        </div>
     );
+};
 
-  return (
-    <div className="Select tags Select--multi has-value">
-        <span className="Select-multi-value-wrapper" id="react-select-2--value">
-            {tags}
-        </span>
-    </div>
-  )
-}
+TagsList.propTypes = {
+    tags: PropTypes.array
+};
 
 export default TagsList;

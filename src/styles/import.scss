@@ -1,15 +1,12 @@
 /* Import files */
 
-// Import from node_modules thanks to the --include-path flag in npm script
-// @import 'bootstrap/dist/css/bootstrap.css';
-// @import 'bootstrap/dist/css/bootstrap-theme.css';
-
 @import './_common.scss';
 @import './base.scss';
 @import './helpers.scss';
 @import './buttons.scss';
 @import './modal.scss';
 @import './main.scss';
+@import './page-nav.scss';
 @import './login.scss';
 @import './settings.scss';
 @import './welcome-msg.scss';

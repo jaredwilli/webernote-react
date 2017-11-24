@@ -15,9 +15,9 @@ const Note = ({ notes = [], isMobile = false, ...props }) => {
     const note = sortNotes(notes).map(note =>
         <li className={(note.isEditing) ? 'note selected' : 'note'}
             key={note.id} id={note.id}
-            onClick={(e) => props.selectNote(note)}>
+            onClick={(event) => props.selectNote(event, note)}>
 
-            {!isMobile && <CloseBtn onClick={(e) => props.deleteNote(note)} />}
+            {!isMobile && <CloseBtn onClick={() => props.deleteNote(note)} />}
             {(isMobile && note.url) && <a className="external-link" href={note.url} target="_blank"><FontAwesome name='external-link' /></a>}
 
             {note.label && <div className="note-label" style={{ background: note.label.hex }}></div>}

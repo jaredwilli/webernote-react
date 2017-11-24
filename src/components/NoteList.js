@@ -80,9 +80,11 @@ class NoteList extends React.Component {
         }
     }
 
-    selectNote(note) {
-        this.props.actions.resetSelectedNote();
-        this.props.actions.selectNote(note);
+    selectNote(event, note) {
+        if (event.target.className !== 'close') {
+            this.props.actions.resetSelectedNote();
+            this.props.actions.selectNote(note);
+        }
     }
 
     deleteNote(note) {
@@ -92,9 +94,11 @@ class NoteList extends React.Component {
     render() {
         const { notes, notebooks = [] } = this.props;
         const { filterType, searchTerm, notebookFilter, width } = this.state;
+        // TODO: Move this to a higher order component
         const isMobile = width <= 690;
 
         // Handle when theres no notes
+        // TODO: Use the ZeroNotes component here instead once its tested
         if (!notes.length) {
             if (searchTerm.length === 0 && notebookFilter.id === 'all_notebooks') {
                 return (
@@ -134,7 +138,7 @@ class NoteList extends React.Component {
                     <Note
                         notes={notes}
                         sort={this.state.sort}
-                        selectNote={(note) => this.selectNote(note)}
+                        selectNote={(event, note) => this.selectNote(event, note)}
                         deleteNote={(note) => this.deleteNote(note)}
                         isMobile={isMobile} />
                 }

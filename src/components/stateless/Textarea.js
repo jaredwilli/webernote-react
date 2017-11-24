@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const Textarea = ({ ...props }) => (
-    <textarea
-        value={props.value}
-        onChange={(e) => props.onChange(e)}
-        {...props}>
-    </textarea>
+	<textarea
+		value={props.value}
+		onChange={e => props.onChange(e)}
+		{...props}
+	/>
 );
 
 export default Textarea;

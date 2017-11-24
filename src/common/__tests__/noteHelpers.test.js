@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import * as mocks from '../../mocking/noteHelpers-mock';
+import * as mocks from '../../_mocking/noteHelpers-mock';
 import * as funcs from '../noteHelpers';
 
 describe('Note Helper Functions', () => {
