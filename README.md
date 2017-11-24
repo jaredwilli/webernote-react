@@ -1,6 +1,8 @@
 
 # Webernote app
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jaredwilli/webernote-react.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=build-path)](https://travis-ci.org/jaredwilli/webernote-react)
 [![Coverage Status](https://coveralls.io/repos/github/jaredwilli/webernote-react/badge.svg)](https://coveralls.io/github/jaredwilli/webernote-react)
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
