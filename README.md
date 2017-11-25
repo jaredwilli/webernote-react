@@ -1,21 +1,17 @@
 
-# Webernote app
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/jaredwilli/webernote-react.svg)](https://greenkeeper.io/)
+# Welcome to Webernote!!
+---------
 
 [![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=build-path)](https://travis-ci.org/jaredwilli/webernote-react)
-
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
-
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
+[![Greenkeeper badge](https://badges.greenkeeper.io/jaredwilli/webernote-react.svg)](https://greenkeeper.io/)
 [![dependencies Status](https://david-dm.org/jaredwilli/webernote-react/status.svg)](https://david-dm.org/jaredwilli/webernote-react)
 
---------------
+--------
 
-[![License | MIT](https://img.shields.io/npm/l/cross-env.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/LICENSE)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![License:](https://img.shields.io/npm/l/cross-env.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
 [![Roadmap](https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/ROADMAP.md)
 
 
@@ -26,8 +22,25 @@ This app is a side-project I'm developing using React, Redux, ES6, and Firebase 
 
 It is a great example of what a real-world application might be like, which makes it perfect to build it using different technologies that I want to learn or get better with.
 
+## Demo
+-------
+
+![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
+
+You can see that as you change the fields in the edit form, the updates are made everywhere, instantly populating the form rest of the components and filling out the app with some useful UI features and capabilites that you can ultimately operate the application with the more notes you have!
+
+## Responsive Layout
+-------
+
+I wanted to be able to take this app and use it anywhere I was right from on my phone. So, I used flexbox to make the rather complex layout of the columns and the edit form rows and filled in remaining spaces which normally would be a problem, it was quite easy with the use of flexbox.
+
+![webernote-desktop](https://user-images.githubusercontent.com/218374/33228962-3a560da0-d193-11e7-8cd3-43fd7134c04a.gif)
+
+It's not 100% perfect yet. But you can use it, it's functional. I did make some improvements that required some more thought around the UX on mobile, but overall it's pretty usable.
+
+
 ## Install
-------
+-------
 
 Yarn helps to spead things up a bit, but I use npm as well.
 
@@ -41,11 +54,10 @@ yarn
 ```
 
 ## Running Server:
-------
+-------
 `yarn start`
 
 _The app will be served on `(http://localhost:3000/)`.
-It should also open the browser automatically and load the page.
 
 ## Building - Testing - Wathing
 -------
@@ -60,11 +72,11 @@ Yarn build-start
 
 ### Testing
 ```
-yarn test  [-- --jsdom]
-yarn coverage   [--
+yarn test  [-- --jsdom] [--coverage]
+yarn coverage   [--watch]
 ```
 
-### Sass Watching/Building
+### Sass Watching / Building
 ```
 yarn watch-css
 yarn build-css
@@ -76,6 +88,8 @@ yarn build-css
 --------
 
 `yarn run`
+
+
 
 
 ## Prettier Configuration
