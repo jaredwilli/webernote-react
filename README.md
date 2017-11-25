@@ -15,7 +15,6 @@
 
 
 But, yea. coming soon... Twzilr's - 🚁 🚁 🚁 🚁 🚁
-![webernote-mobile](https://user-images.githubusercontent.com/218374/33228966-50cfd75a-d193-11e7-82c4-e5dcbc011dc0.png)
 ![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
 ![webernote-desktop](https://user-images.githubusercontent.com/218374/33228962-3a560da0-d193-11e7-8cd3-43fd7134c04a.gif)
 
