@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '../../stateless/Button';
-import FontAwesome from '../../stateless/FontAwesome'
+import FontAwesome from '../../shared/FontAwesome';
 
 const HambyBtn = (props) => (
     <Button
