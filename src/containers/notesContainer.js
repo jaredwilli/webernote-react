@@ -15,17 +15,29 @@ class NotesContainer extends React.PureComponent {
 		this.deleteNote = this.deleteNote.bind(this);
 
 		this.state = {
-            notes: this.props.notes
+            notes: [],
+            selectedNote: {}
 		};
     }
 
-    componentWillUpdate(nextProps) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.notes) {
+            debugger;
+        }
         if (nextProps.notes !== undefined) {
             this.setState({
                 notes: nextProps.notes
             });
         }
+
+        if (nextProps.selectedNote !== undefined) {
+            this.setState({
+                selectedNote: nextProps.selectedNote
+            });
+        }
     }
+
+    // ,// }
 
 	deleteNote(note) {
         // I might not want to auto select first note on delete
@@ -34,17 +46,12 @@ class NotesContainer extends React.PureComponent {
 	}
 
 	render() {
-        const { notes, selectedNote } = this.props;
-
-        if (!notes) {
-			return (
-				<div className="empty"></div>
-			);
-        }
+        const { notes, selectedNote } = this.state;
 
         return (
             <div className={(!notes.length) ? 'white notes-container' : 'notes-container'}>
-                <NoteList notes={notes}
+                <NoteList
+                    notes={notes}
                     addNote={this.props.addNote}
                     showLoginModal={this.props.showLoginModal}
                     deleteNote={note => this.deleteNote(note)}
@@ -59,7 +66,6 @@ class NotesContainer extends React.PureComponent {
 function mapStateToProps(state) {
 	const newState = {
         notes: state.noteData.notes,
-        filteredNotes: state.noteData.filteredNotes,
 		selectedNote: state.noteData.selectedNote
 	};
 	// console.log('STATE: ', state, newState);

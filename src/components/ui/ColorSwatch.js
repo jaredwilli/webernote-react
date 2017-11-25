@@ -31,7 +31,7 @@ export const ColorSwatch = ({ color, hover, onClick, onSwatchHover }) => {
 	);
 
 	return (
-		<div style={styles.swatch}>
+		<div className="swatch" style={styles.swatch}>
 			<Swatch
 				color={color}
 				onClick={onClick}

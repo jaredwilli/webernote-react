@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import NotebookFilter from '../NotebookFilter';
-import * as mocks from '../../mocking/noteHelpers-mock';
+import * as mocks from '../../_mocking/noteHelpers-mock';
 
 describe('NotebookFilter', () => {
     const notebooks = mocks.notebooks;

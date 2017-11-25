@@ -2,7 +2,7 @@ import React from 'react';
 
 import { deepMerge } from '../helpers';
 
-import * as mocks from '../../mocking/helpers-mock';
+import * as mocks from '../../_mocking/helpers-mock';
 import * as utils from '../helpers';
 
 describe('Helper Functions', () => {

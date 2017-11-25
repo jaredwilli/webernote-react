@@ -1,4 +1,4 @@
-import { database, auth, PROVIDERS } from '../data/firebase.js';
+import { database, auth, PROVIDERS } from '../_data/firebase.js';
 
 import { mergeAnonUser, createUser } from '../common/userHelpers.js';
 import * as types from '../constants/actionTypes.js';
@@ -26,7 +26,6 @@ export function getUser(user, userRef) {
 
         userRef.once('value', (snap) => {
             user = snap.val();
-
             dispatch(getUserFulfilledAction(user));
         })
         .catch((error) => {

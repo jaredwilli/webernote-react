@@ -1,0 +1,32 @@
+@import './_common.scss';
+
+/**
+ * Page tab navigation
+ */
+.page-nav {
+    float: right;
+
+    nav {
+        position: relative;
+    }
+
+    a {
+        background: $blue;
+        border: 1px solid #000;
+        border-radius: 4px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        top: 4px;
+        padding: 2px 8px 10px;
+        margin: 0 5px;
+
+        &:hover,
+        &.active {
+            top: 0;
+            transition: 0.2s;
+        }
+    }
+}

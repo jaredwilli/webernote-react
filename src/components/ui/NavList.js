@@ -42,8 +42,8 @@ class NavList extends React.Component {
 
 
 		return (
-			<div className={type + '-nav'}>
-				<ul className={type + ' top-nav-item'}>
+			<div className={`${type}-nav`}>
+				<ul className={`${type} top-nav-item`}>
 					<li className={this.state.expandMenu[type] ? 'expanded' : ''}>
 						<FontAwesome name="book" />
 

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { ColorPicker } from './ui/ColorPicker';
-import Cover from './stateless/Cover';
+import Cover from './shared/Cover';
 import Button from './stateless/Button';
 import CloseBtn from './stateless/CloseBtn';
 

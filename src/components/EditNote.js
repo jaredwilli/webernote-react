@@ -41,7 +41,9 @@ class EditNote extends React.Component {
     }
 
     componentDidMount() {
-        this.InputComponent.focus();
+        if (this.InputComponent) {
+            this.InputComponent.focus();
+        }
     }
 
     editNote(e) {
@@ -70,9 +72,7 @@ class EditNote extends React.Component {
         const { selectedNote } = this.props;
 
         if (!selectedNote || !selectedNote.id) {
-            return (
-                <div className="empty"></div>
-            );
+            return <div className="empty"></div>;
         }
 
         // FIXME: make this a layout component

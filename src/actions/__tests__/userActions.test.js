@@ -1,10 +1,10 @@
 import firebase from 'firebase';
 import FirebaseServer from 'firebase-server';
 
-import { firebaseTest, databaseTest, auth } from '../../data/firebase';
+import { firebaseTest, databaseTest, auth } from '../../_data/firebase';
 import { store, newServerUrl } from '../../setupTests';
 
-import * as usersMock from '../../mocking/users-mock';
+import * as usersMock from '../../_mocking/users-mock';
 import * as actions from '../userActions';
 import userReducer from '../../reducers/userReducer';
 
