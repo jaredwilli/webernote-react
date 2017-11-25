@@ -14,10 +14,14 @@
 [![roadmap-badge](https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/ROADMAP.md)
 
 
-But, yea. coming soon... Twzilr's - 🚁 🚁 🚁 🚁 🚁
 ![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
+
+### Flexbox Layout
+---
 ![webernote-desktop](https://user-images.githubusercontent.com/218374/33228962-3a560da0-d193-11e7-8cd3-43fd7134c04a.gif)
 
+
+# But, yea. coming soon... Twzilr's - 🚁 🚁 🚁 🚁 🚁
 
 ### Overview
 -------
@@ -27,32 +31,51 @@ This app is a side-project I'm developing using React, Redux, ES6, and Firebase 
 It is a great example of what a real-world application might be like, which makes it perfect to build it using different technologies that I want to learn or get better with.
 
 
-()
-
-
 ### Installation
 -------
 
 The NPM scripts for this project to do various things like build, start the server, etc. are configured to run using [Yarn](https://yarnpkg.com/en/). It is recommended that you install Yarn to take advantage of the benefits of using it instead of NPM.
 
-Install Yarn:
+### Installing & Running:
+------
+
+# I use Yarn, you should too. It's just better...
+
 `brew install yarn`
 
-Clone the repo and install the dependencies:
-
+# Clone && cd && yarn 
 ```
-git clone git@github.com:jaredwilli/webernote-react.git && cd webernote-react && yarn
+git clone git@github.com:jaredwilli/webernote-react.git
+cd webernote-react
+yarn
 ```
 
-Then run the server:
-
+# Running Server:
+------
 `yarn start`
 
-The app will be served on `http://localhost:3000/`.
+_The app will be served on `(http://localhost:3000/)`.
 
-To build the application for deployment run:
+# Building:
 
-`yarn build`
+This is still a Create React App unejected. (Sounds so weird...)
+But there are tons of cool things you can do
+```
+# Building
+yarn build
+Yarn build-start
+
+# Testing
+yarn test  [-- --jsdom]
+yarn coverage   [--
+
+# Sass Watching/Building
+```
+yarn watch-css
+yarn build-css
+```
+
+
 
 To view a list of all the runnable NPM commands use:
 
