@@ -75,14 +75,17 @@ yarn watch-css
 yarn build-css
 ```
 
+### Ahh, just go look in the package.json. Really you can do that, 
+# ORRRRR.....
 
-
-To view a list of all the runnable NPM commands use:
-
+# Get a list of the npm commands and actions you can do
+--------
 `yarn run`
 
-This will show various things like coverage, watch-css, different options for prod/dev environments and more.
+This outputs all the aliases and commands.
 
+
+#### More to come!!
 
 ### License
 -------
