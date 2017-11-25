@@ -2,16 +2,18 @@
 # Webernote app
 
 [![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=build-path)](https://travis-ci.org/jaredwilli/webernote-react)
-[![Coverage Status](https://coveralls.io/repos/github/jaredwilli/webernote-react/badge.svg)](https://coveralls.io/github/jaredwilli/webernote-react)
+
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 [![dependencies Status](https://david-dm.org/jaredwilli/webernote-react/status.svg)](https://david-dm.org/jaredwilli/webernote-react)
 
 --------------
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![License:](https://img.shields.io/npm/l/cross-env.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/LICENSE)
+[![License | MIT](https://img.shields.io/npm/l/cross-env.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![roadmap-badge](https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/ROADMAP.md)
+
+[![Roadmap](https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square)](https://github.com/jaredwilli/webernote-react/blob/master/other/ROADMAP.md)
 
 
 ![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
@@ -37,7 +39,7 @@ Yarn helps to spead things up a bit.
 
 `brew install yarn`
 
-### Clone && cd && yarn 
+### Clone && cd && yarn
 ```
 git clone git@github.com:jaredwilli/webernote-react.git
 cd webernote-react
@@ -50,7 +52,7 @@ yarn
 
 _The app will be served on `(http://localhost:3000/)`.
 
-### Building - Testing - Wathing 
+### Building - Testing - Wathing
 
 This is still a Create React App unejected. (Sounds so weird...)
 But there are tons of cool things you can do
