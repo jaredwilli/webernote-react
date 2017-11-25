@@ -55,7 +55,7 @@
   ],
   "git": {
     "scripts": {
-      "pre-push": "npm run build && npm run surge-dev"
+      "pre-push": "npm run build"
     }
   },
   "lint-staged": {
