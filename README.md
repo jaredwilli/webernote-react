@@ -30,33 +30,27 @@ This app is a side-project I'm developing using React, Redux, ES6, and Firebase 
 
 It is a great example of what a real-world application might be like, which makes it perfect to build it using different technologies that I want to learn or get better with.
 
-
-### Installation
--------
-
-The NPM scripts for this project to do various things like build, start the server, etc. are configured to run using [Yarn](https://yarnpkg.com/en/). It is recommended that you install Yarn to take advantage of the benefits of using it instead of NPM.
-
-### Installing & Running:
+# Setup
 ------
 
-# I use Yarn, you should too. It's just better...
+Yarn helps to spead things up a bit.
 
 `brew install yarn`
 
-# Clone && cd && yarn 
+### Clone && cd && yarn 
 ```
 git clone git@github.com:jaredwilli/webernote-react.git
 cd webernote-react
 yarn
 ```
 
-# Running Server:
+### Running Server:
 ------
 `yarn start`
 
 _The app will be served on `(http://localhost:3000/)`.
 
-# Building:
+### Building - Testing - Wathing 
 
 This is still a Create React App unejected. (Sounds so weird...)
 But there are tons of cool things you can do
@@ -75,10 +69,9 @@ yarn watch-css
 yarn build-css
 ```
 
-### Ahh, just go look in the package.json. Really you can do that, 
-# ORRRRR.....
+***ORRR..... Read the code :)
 
-# Get a list of the npm commands and actions you can do
+### Get a list of the npm commands and actions you can do
 --------
 `yarn run`
 
