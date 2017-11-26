@@ -1,3 +1,5 @@
+// import * as setupTests from '../../setupFiles';
+
 import userReducer from '../userReducer';
 import * as actions from '../../actions/userActions';;
 

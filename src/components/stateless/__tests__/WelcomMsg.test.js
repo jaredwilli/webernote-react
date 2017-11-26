@@ -1,8 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import * as setupTests from '../../../setupFiles';
+
 import WelcomeMsg from '../WelcomeMsg';
 
 function setup() {
+
     const props = {
         testProp: 'testing',
         addNote: jest.fn(() => {

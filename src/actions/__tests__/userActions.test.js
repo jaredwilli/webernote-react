@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import FirebaseServer from 'firebase-server';
 
 import { firebaseTest, databaseTest, auth } from '../../data/firebase';
-import { store, newServerUrl } from '../../setupTests';
+import * as setupTests from '../../setupFiles';
 
 import * as usersMock from '../../mocking/users-mock';
 import * as actions from '../userActions';
@@ -44,9 +44,9 @@ describe('User Actions', () => {
             return Promise.resolve(usersMock.userHelpers.anonUser);
         });
 
-        await store.dispatch(actions.getUsers());
+        await setupTests.store.dispatch(actions.getUsers());
 
-        expect(store.getActions()).toEqual([
+        expect(setupTests.store.getActions()).toEqual([
             { type: 'GET_USERS_REQUESTED' }
         ]);
 
@@ -62,9 +62,9 @@ describe('User Actions', () => {
             return Promise.resolve(usersMock.userHelpers.anonUser);
         });
 
-        await store.dispatch(actions.getUser(usersMock.userHelpers.anonUser, userRef));
+        await setupTests.store.dispatch(actions.getUser(usersMock.userHelpers.anonUser, userRef));
 
-        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}]);
+        expect(setupTests.store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}]);
 
         databaseTest.ref('users').once('value', (snap) => {
             expect(snap.val()).toEqual(null);
@@ -78,9 +78,9 @@ describe('User Actions', () => {
             return Promise.resolve(usersMock.userHelpers.anonUser);
         });
 
-        await store.dispatch(actions.loginAnonymously());
+        await setupTests.store.dispatch(actions.loginAnonymously());
 
-        expect(store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}, {"type": "LOGIN_ANONYMOUS_REQUESTED"}]);
+        expect(setupTests.store.getActions()).toEqual([{"type": "GET_USERS_REQUESTED"}, {"type": "GET_USER_REQUESTED"}, {"type": "LOGIN_ANONYMOUS_REQUESTED"}]);
     });
 
 });

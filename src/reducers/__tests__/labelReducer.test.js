@@ -1,3 +1,5 @@
+// import * as setupTests from '../../setupFiles';
+
 import * as types from '../../actions/labelActions';
 // import { refToArray } from '../../common/helpers';
 

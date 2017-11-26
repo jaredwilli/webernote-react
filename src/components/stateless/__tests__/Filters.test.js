@@ -1,4 +1,5 @@
 import React from 'react';
+import * as setupTests from '../../../setupFiles';
 import { shallow } from 'enzyme';
 
 import Filters from '../Filters';
@@ -18,6 +19,7 @@ describe('Filters component', () => {
         filterNotes: jest.fn(),
         clearFilters: jest.fn()
     };
+
     it('renders without crashing', () => {
         shallow(<Filters {...props} />);
     });

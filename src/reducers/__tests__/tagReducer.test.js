@@ -1,4 +1,7 @@
+// import * as setupTests from '../../setupFiles';
+
 import * as types from '../../actions/tagActions';
+
 // import { refToArray } from '../../common/helpers';
 
 import tagReducer from '../tagReducer';
