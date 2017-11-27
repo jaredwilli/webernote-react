@@ -50,7 +50,11 @@ class NotesContainer extends React.PureComponent {
                     deleteNote={note => this.deleteNote(note)}
                     filterNotes={this.props.actions.filterNotes} />
 
-                {selectedNote && <EditNote notes={notes} />}
+                {selectedNote &&
+                    <EditNote
+                        notes={notes}
+                        selectedNote={selectedNote} />
+                }
             </div>
 		);
 	}
@@ -59,7 +63,6 @@ class NotesContainer extends React.PureComponent {
 function mapStateToProps(state) {
 	const newState = {
         notes: state.noteData.notes,
-        filteredNotes: state.noteData.filteredNotes,
 		selectedNote: state.noteData.selectedNote
 	};
 	// console.log('STATE: ', state, newState);
