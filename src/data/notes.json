@@ -1,0 +1,2005 @@
+{
+    "-Kx4wX2uc5qpDQytM1Io": {
+        "created_date": 1508707016969,
+        "description":
+            "I decided to only try and copy the anonymous user data to the user accounts on initial creation, and not after they already exist. \n\nIt's problematic and not worth the hassle at this time.\n\n",
+        "id": "-Kx4wX2uc5qpDQytM1Io",
+        "isEditing": false,
+        "modified_date": 1508763435333,
+        "notebook": {
+            "id": "-Kx4wbnk9MWkVBBCaTmA",
+            "name": "Features",
+            "value": "-Kx4wbnk9MWkVBBCaTmA"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-Kx4we5LUg6aYvkTAUzn",
+                "label": "firebase",
+                "value": "-Kx4we5LUg6aYvkTAUzn"
+            }
+        ],
+        "title": "Testing anonymous -> user copy data works",
+        "url": "http://google.com"
+    },
+    "-Kx4wqKkwfJyA-Va0-kh": {
+        "created_date": 1508707100031,
+        "description":
+            "It's kind of annoying the way that firebase works in many ways to do things around authentication.\n\nIt claims to be easy and worry free but it's really not the case and it quite frankly drives me insane!!!",
+        "id": "-Kx4wqKkwfJyA-Va0-kh",
+        "isEditing": false,
+        "modified_date": 1508707184662,
+        "notebook": {
+            "id": "-Kx4wx73oqv5BXvOIP_H",
+            "name": "Bugs",
+            "value": "-Kx4wx73oqv5BXvOIP_H"
+        },
+        "tags": [
+            {
+                "id": "-Kx4we5LUg6aYvkTAUzn",
+                "label": "firebase",
+                "value": "-Kx4we5LUg6aYvkTAUzn"
+            },
+            {
+                "id": "-Kx4x-DUyQD7KBROtRCD",
+                "label": "bugs",
+                "value": "-Kx4x-DUyQD7KBROtRCD"
+            }
+        ],
+        "title": "Mo' notes mo' problems",
+        "url": ""
+    },
+    "-Kx96u_j5dRSCRGtligh": {
+        "created_date": 1508777111007,
+        "description": "Manuscript for learning es6.",
+        "id": "-Kx96u_j5dRSCRGtligh",
+        "isEditing": false,
+        "modified_date": 1511004063904,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            }
+        ],
+        "title": "Understanding es6 ",
+        "url":
+            "https://github.com/nzakas/understandinges6/tree/master/manuscript"
+    },
+    "-Kx97K9HXFngKpU4PAlL": {
+        "created_date": 1508777219841,
+        "description":
+            "https://github.com/ruanyf/react-demos\n\nhttps://github.com/JedWatson/react-codemirror\n\nhttps://github.com/reactjs/reselect\n\nhttps://github.com/StevenIseki/react-router-redux-example/tree/master/src/selectors\n\nhttps://reacttraining.com/react-router",
+        "id": "-Kx97K9HXFngKpU4PAlL",
+        "isEditing": false,
+        "modified_date": 1510280055542,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            }
+        ],
+        "title": "React links",
+        "url": "https://github.com/ruanyf/react-demos"
+    },
+    "-KxKsQK7metc2fkDJdnQ": {
+        "created_date": 1508974376281,
+        "description": "",
+        "id": "-KxKsQK7metc2fkDJdnQ",
+        "isEditing": false,
+        "modified_date": 1509394406171,
+        "tags": [
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            }
+        ],
+        "title": "Material Design Color Chart",
+        "url":
+            "http://htmlcolorcodes.com/color-chart/material-design-color-chart/"
+    },
+    "-Kxm2NO2-yew7jAPTT9K": {
+        "created_date": 1509447013953,
+        "description":
+            "Hi Jared,\n \nIt was lovely speaking with you today.\n \nPlease see information below on next steps for the interview process. \n \nWhen you get a chance please send along your:\n \nResume\nAvailability for a 45-minute interview. We do interviews Monday-Friday between 10am-4pm PST. We don’t do interviews on Wednesdays. Please provide 3 dates of availability.\n \nHere's an overview of what to expect for your interview:\nThe conversation will last around 45 minutes with an engineer from the Front-End team. You will need access to a computer and you’ll be entering into a collaborative document where you and the interviewer can code together. Feel free to answer the questions in the language that you feel most comfortable with, although choosing a language that is going to assist in getting to an optimal solution in the most speedy and efficient manner is key. It's also important that you think outloud and provide a narrative as you work through the questions so our engineer has insight into your thought process. \n \nThe primary technical focus throughout our interview process will be JavaScript, HTML and CSS. We strongly encourage you to have a full understanding of the following techniques (although not limited to): algorithms, design patterns, data structures, recursions, binary tree questions. Additionally, please reacquaint yourself with the core Computer Science concepts & general software engineering skills (study the basics) and topics related to the scale of our environment. \n \nPlease be prepared to talk about exciting projects you worked on. Please also prepare any questions you have before the interview and also be ready to answer why you are interested in Facebook and what you might like to work on - Your excitement about Facebook goes a long way!\n \nFacebook Bootcamp:\nhttps://www.facebook.com/photo.php?v=10150411360573109\n \nFacebook Engineering and Open Source:\nhttps://code.facebook.com\nhttps://code.facebook.com/projects\n \nFacebook News and Statistics:\nhttp://newsroom.fb.com\n \nReact:\nhttp://facebook.github.io/react\nhttp://facebook.github.io/react/blog/2013/06/05/why-react.html\n \nSome additional links our engineers found helpful:\nLearn JavaScript | MDN\nVideo: Douglas Crockford, \"Advanced JavaScript”\nEloquent JavaScript\nLearning Advanced JavaScript\nJavaScript Garden\n \nBooks to Read:\nThe Algorithm Design Manual by Steve S. Skiena\nProgramming Pearls, 2nd Edition\nIntroduction to algorithms Third Addition\n \nThanks,\n Sinead\n ",
+        "id": "-Kxm2NO2-yew7jAPTT9K",
+        "isEditing": false,
+        "label": {
+            "hex": "#f8e71c",
+            "id": "-Kxm2S02c8dr1COuMJKq",
+            "name": "yellow"
+        },
+        "modified_date": 1510280091834,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-Kxm3Amw32aO9eO5WHqS",
+                "label": "facebook",
+                "value": "-Kxm3Amw32aO9eO5WHqS"
+            },
+            {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            }
+        ],
+        "title": "Facebook interview stuff",
+        "url": "http://facebook.com"
+    },
+    "-KxxPGvgNA4npmDPX1TP": {
+        "created_date": 1509637567193,
+        "description":
+            "Functional programming is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. \n m\nFunctional programming is declarative rather than imperative, and application state flows through pure functions. Contrast with object oriented programming, where application state is usually shared and colocated with methods in objects.\n\nFunctional programming is a programming paradigm, meaning that it is a way of thinking about software construction based on some fundamental, defining principles (listed above). Other examples of programming paradigms include object oriented programming and procedural programming.\n\nFunctional code tends to be more concise, more predictable, and easier to test than imperative or object oriented code — but if you’re unfamiliar with it and the common patterns associated with it, functional code can also seem a lot more dense, and the related literature can be impenetrable to newcomers.\n",
+        "id": "-KxxPGvgNA4npmDPX1TP",
+        "isEditing": false,
+        "label": {
+            "hex": "#d0021b",
+            "id": "-KxxPTgHcxuDF_dBpjDp",
+            "name": "red"
+        },
+        "modified_date": 1510930929610,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-KxxPT4DjB2MfbF3v93R",
+                "label": "development",
+                "value": "-KxxPT4DjB2MfbF3v93R"
+            }
+        ],
+        "title": "Functional Programming ",
+        "url":
+            "https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0"
+    },
+    "-KxxPf7WvvG5ioDPg3wI": {
+        "created_date": 1509637670413,
+        "description": "",
+        "id": "-KxxPf7WvvG5ioDPg3wI",
+        "isEditing": false,
+        "label": {
+            "hex": "#00b600",
+            "id": "-KxxPl2pxyIqMt87Xe8p",
+            "name": "green"
+        },
+        "modified_date": 1509637690724,
+        "notebook": {
+            "id": "-KxxPjVkOiGrNqhnjlLc",
+            "name": "Improvements",
+            "value": "-KxxPjVkOiGrNqhnjlLc"
+        },
+        "tags": {
+            "-Kx4wdRTFiQ4AbO9R4dT": {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            }
+        },
+        "title": "Focus input with ref in react",
+        "url":
+            "https://stackoverflow.com/questions/28889826/react-set-focus-on-input-after-render?rq=1"
+    },
+    "-KxxPvV5vA1aILWM9ITT": {
+        "created_date": 1509637737458,
+        "description":
+            "Also:\n\nhttps://medium.com/netscape/testing-a-react-redux-app-using-jest-and-enzyme-b349324803a9\n\nhttp://arnaudbenard.com/redux-mock-store/",
+        "id": "-KxxPvV5vA1aILWM9ITT",
+        "isEditing": false,
+        "label": {
+            "hex": "#00b600",
+            "id": "-KxxPl2pxyIqMt87Xe8p",
+            "name": "green"
+        },
+        "modified_date": 1509637778624,
+        "notebook": {
+            "id": "-KxxPyLDWF2h5huyv0sd",
+            "name": "Testing",
+            "value": "-KxxPyLDWF2h5huyv0sd"
+        },
+        "tags": [
+            {
+                "id": "-KxxQ-J6i6CQ5d0Sbggb",
+                "label": "unit testing",
+                "value": "-KxxQ-J6i6CQ5d0Sbggb"
+            },
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            },
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            }
+        ],
+        "title": "Testing with Jest",
+        "url":
+            "http://facebook.github.io/jest/docs/en/tutorial-react.html"
+    },
+    "-Ky-StAx9BGrygJ6jNDF": {
+        "created_date": 1509688840872,
+        "description": "Great resource even if it's a bit old",
+        "id": "-Ky-StAx9BGrygJ6jNDF",
+        "isEditing": false,
+        "label": {
+            "hex": "#FF5722",
+            "id": "-KzArckQTx-1WXehqG6H",
+            "name": "dark orange",
+            "source": "hex"
+        },
+        "modified_date": 1509688879849,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            "-KzCxa2hXrL8eANX2Ood": {
+                "id": "-KzCxa2hXrL8eANX2Ood",
+                "label": "cheatsheet",
+                "value": "-KzCxa2hXrL8eANX2Ood"
+            }
+        },
+        "title": "React cheatsheet",
+        "url":
+            "https://gist.github.com/monicao/243958d7498ed9fabe78"
+    },
+    "-Ky-VbwFjDRz9S3dIXf6": {
+        "created_date": 1509689556667,
+        "description": "Good testing redux store post\n\n",
+        "id": "-Ky-VbwFjDRz9S3dIXf6",
+        "isEditing": false,
+        "label": {
+            "hex": "#FFCDD2",
+            "id": "-KzDqNAY37cdNQnDAqyP",
+            "name": "light red",
+            "source": "hex"
+        },
+        "modified_date": 1511004018546,
+        "notebook": {
+            "id": "-KzDqwF-n4o0VKwKdntB",
+            "name": "Redux",
+            "value": "-KzDqwF-n4o0VKwKdntB"
+        },
+        "tags": [
+            {
+                "id": "-KzDqqUbrAZtTmvFDiKN",
+                "label": "redux",
+                "value": "-KzDqqUbrAZtTmvFDiKN"
+            },
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            }
+        ],
+        "title": "React redux store mocking and testing",
+        "url":
+            "https://www.netguru.co/tips/flawless-react/redux-testing-with-the-jest-framework-part-1"
+    },
+    "-Ky0016V4suieUS13DiP": {
+        "created_date": 1509698053544,
+        "description":
+            "https://github.com/Babazon/React-Redux-Firebase-Boilerplate-WithFoundation/blob/master/app/tests/actions/actions.test.jsx\n\nHttps://Github.Com/Jedfonner/Firebase-Functions-Jest/Tree/Master/Email-Users",
+        "id": "-Ky0016V4suieUS13DiP",
+        "isEditing": false,
+        "label": {
+            "hex": "#64DD17",
+            "id": "-KyLwmLQ1ARNc_n0QUnj",
+            "name": "green",
+            "source": "hex"
+        },
+        "modified_date": 1511003971042,
+        "notebook": {
+            "id": "-KzDqfJf-yGfQCbnQ7we",
+            "name": "Firebase",
+            "value": "-KzDqfJf-yGfQCbnQ7we"
+        },
+        "tags": [
+            {
+                "id": "-KzDq_8N1sZB4CFeB_GR",
+                "label": "firebase",
+                "value": "-KzDq_8N1sZB4CFeB_GR"
+            },
+            {
+                "id": "-KxxQ-J6i6CQ5d0Sbggb",
+                "label": "unit testing",
+                "value": "-KxxQ-J6i6CQ5d0Sbggb"
+            },
+            {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            }
+        ],
+        "title": "Firebase-functions for testing with jest ",
+        "url": ""
+    },
+    "-Ky1NK20ZnTDJ9YBfcYF": {
+        "created_date": 1509720936478,
+        "description": "Yeah",
+        "id": "-Ky1NK20ZnTDJ9YBfcYF",
+        "isEditing": false,
+        "label": {
+            "hex": "#000000",
+            "id": "-KzDqGJUQNiqbKCCgx7A",
+            "name": "black",
+            "source": "hex"
+        },
+        "modified_date": 1511003865791,
+        "notebook": {
+            "id": "-KzDqFIYb0wQCaj-DBZL",
+            "name": "NSFW",
+            "value": "-KzDqFIYb0wQCaj-DBZL"
+        },
+        "title": "Alix lynx",
+        "url": "https://www.pornhub.com/users/alixlynxofficial"
+    },
+    "-Ky6UDL1nnXrHfDE9gTK": {
+        "created_date": 1509806630029,
+        "description": "Great info for redux",
+        "id": "-Ky6UDL1nnXrHfDE9gTK",
+        "isEditing": false,
+        "label": {
+            "hex": "#FFCDD2",
+            "id": "-KzDqNAY37cdNQnDAqyP",
+            "name": "light red",
+            "source": "hex"
+        },
+        "modified_date": 1511003897746,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            }
+        ],
+        "title": "10 tips for better redux apps",
+        "url":
+            "https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44"
+    },
+    "-Ky6kdhsniv4ODgN28C9": {
+        "created_date": 1509811198394,
+        "description": "",
+        "id": "-Ky6kdhsniv4ODgN28C9",
+        "isEditing": false,
+        "modified_date": "",
+        "title": "",
+        "url": ""
+    },
+    "-Ky6khZQ35IeGqkuCQxH": {
+        "created_date": 1509811214172,
+        "description": "React tips that are very useful",
+        "id": "-Ky6khZQ35IeGqkuCQxH",
+        "isEditing": false,
+        "label": {
+            "hex": "#d0021b",
+            "id": "-KxxPTgHcxuDF_dBpjDp",
+            "name": "red"
+        },
+        "modified_date": 1509811253384,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            }
+        ],
+        "title": "6 things I wish I knew about react",
+        "url":
+            "https://engineering.opsgenie.com/i-wish-i-knew-these-before-diving-into-react-301e0ee2e488"
+    },
+    "-Ky7-BjmQGNswiHOTFVw": {
+        "created_date": 1509815274035,
+        "description": "",
+        "id": "-Ky7-BjmQGNswiHOTFVw",
+        "isEditing": false,
+        "label": {
+            "hex": "#d0021b",
+            "id": "-KxxPTgHcxuDF_dBpjDp",
+            "name": "red"
+        },
+        "modified_date": 1509815293209,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-Ky7-LwMw6bRmmIBLkmY": {
+                "id": "-Ky7-LwMw6bRmmIBLkmY",
+                "label": "performance",
+                "value": "-Ky7-LwMw6bRmmIBLkmY"
+            }
+        },
+        "title": "React perf with chrome devtools",
+        "url":
+            "https://reactjs.org/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab"
+    },
+    "-Ky8D6dkptr8UPgrzCOi": {
+        "created_date": 1509835700395,
+        "description": "",
+        "id": "-Ky8D6dkptr8UPgrzCOi",
+        "isEditing": false,
+        "modified_date": 1509835729673,
+        "tags": {
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            }
+        },
+        "title": "Tips for writing react components",
+        "url":
+            "https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8"
+    },
+    "-Ky8DMAHqg9EuOxg4336": {
+        "created_date": 1509835763981,
+        "description": "",
+        "id": "-Ky8DMAHqg9EuOxg4336",
+        "isEditing": false,
+        "modified_date": 1509835785852,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "title": "The dao of immutability",
+        "url":
+            "https://medium.com/javascript-scene/the-dao-of-immutability-9f91a70c88cd"
+    },
+    "-Ky8TH90ACwkFFoeom7C": {
+        "created_date": 1509839938208,
+        "description": "Must read post",
+        "id": "-Ky8TH90ACwkFFoeom7C",
+        "isEditing": false,
+        "label": {
+            "hex": "#eb144c",
+            "id": "-Ky8TL2i0janMEbScli9",
+            "name": "magenta"
+        },
+        "modified_date": 1509839963172,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "10 javascript interview questions i need to know",
+        "url":
+            "https://medium.com/javascript-scene/10-interview-questions-every-javascript-developer-should-know-6fa6bdf5ad95"
+    },
+    "-KyB5aXspZixSNLX0Dm-": {
+        "created_date": 1509884061288,
+        "description":
+            "This is a great series post on developing composable software",
+        "id": "-KyB5aXspZixSNLX0Dm-",
+        "isEditing": false,
+        "modified_date": 1509884174820,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-KxxPT4DjB2MfbF3v93R",
+                "label": "development",
+                "value": "-KxxPT4DjB2MfbF3v93R"
+            },
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            }
+        ],
+        "title": "Composing software - multi part series of posts",
+        "url":
+            "https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea"
+    },
+    "-KyBYlGlP3vjg1QV6AUU": {
+        "created_date": 1509891708039,
+        "description":
+            "This is a series of posts for interviewing and mastering all the things that frontend developers face during interview process.\n",
+        "id": "-KyBYlGlP3vjg1QV6AUU",
+        "isEditing": false,
+        "label": {
+            "hex": "#d0021b",
+            "id": "-KxxPTgHcxuDF_dBpjDp",
+            "name": "red"
+        },
+        "modified_date": 1509891759096,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "Master the JavaScript Interview Series",
+        "url":
+            "https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36"
+    },
+    "-KyBZK4LNQvKP37hk5DK": {
+        "created_date": 1509891854700,
+        "description":
+            "https://medium.com/javascript-scene/the-two-pillars-of-javascript-pt-2-functional-programming-a63aa53a41a4",
+        "id": "-KyBZK4LNQvKP37hk5DK",
+        "isEditing": false,
+        "modified_date": 1509892009194,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "Two pillars of JavaScript - 2 parts",
+        "url":
+            "https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3"
+    },
+    "-KyEtrqw_OA7i1UuI6oV": {
+        "created_date": 1509947833808,
+        "description":
+            "What is a Closure?\nA closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.\nTo use a closure, simply define a function inside another function and expose it. To expose a function, return it or pass it to another function.\nThe inner function will have access to the variables in the outer function scope, even after the outer function has returned.",
+        "id": "-KyEtrqw_OA7i1UuI6oV",
+        "isEditing": false,
+        "modified_date": 1509947874757,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "What is a Closure",
+        "url":
+            "https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36"
+    },
+    "-KyGJFX2LYTacSU2Cjv_": {
+        "created_date": 1509971527831,
+        "description":
+            "This was very helpful in learning how to test async redux actions",
+        "id": "-KyGJFX2LYTacSU2Cjv_",
+        "isEditing": false,
+        "modified_date": 1509971592795,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-Kx4we5LUg6aYvkTAUzn",
+                "label": "firebase",
+                "value": "-Kx4we5LUg6aYvkTAUzn"
+            }
+        ],
+        "title": "Testing async redux actions with jest",
+        "url":
+            "https://blog.echobind.com/testing-async-redux-actions-with-jest-cfbb99dc726b"
+    },
+    "-KyH8aM3_4tC9cMXNaqG": {
+        "created_date": 1509985510711,
+        "description": "",
+        "id": "-KyH8aM3_4tC9cMXNaqG",
+        "isEditing": false,
+        "modified_date": 1509985533386,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-KxxQ-J6i6CQ5d0Sbggb": {
+                "id": "-KxxQ-J6i6CQ5d0Sbggb",
+                "label": "unit testing",
+                "value": "-KxxQ-J6i6CQ5d0Sbggb"
+            }
+        },
+        "title": "Mocking requests with jest",
+        "url":
+            "https://hackernoon.com/api-testing-with-jest-d1ab74005c0a"
+    },
+    "-KyLPRKnK_mKpqVJgb3p": {
+        "created_date": 1510057034224,
+        "description": "Good tips",
+        "id": "-KyLPRKnK_mKpqVJgb3p",
+        "isEditing": false,
+        "modified_date": 1510057081282,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            }
+        ],
+        "title": "Factory functions",
+        "url":
+            "https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1"
+    },
+    "-KyLT55aiLOuZShAkJwI": {
+        "created_date": 1510057991706,
+        "description":
+            "It is also explained in this post\n\nhttps://medium.com/rumors/react-native-redux-and-firebase-for-experts-by-dummies-6376becdd5c8",
+        "id": "-KyLT55aiLOuZShAkJwI",
+        "isEditing": false,
+        "modified_date": 1510058322267,
+        "notebook": {
+            "id": "-KxxPyLDWF2h5huyv0sd",
+            "name": "Testing",
+            "value": "-KxxPyLDWF2h5huyv0sd"
+        },
+        "tags": [
+            {
+                "id": "-Kx4we5LUg6aYvkTAUzn",
+                "label": "firebase",
+                "value": "-Kx4we5LUg6aYvkTAUzn"
+            },
+            {
+                "id": "-KxxQ-J6i6CQ5d0Sbggb",
+                "label": "unit testing",
+                "value": "-KxxQ-J6i6CQ5d0Sbggb"
+            },
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            },
+            {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            },
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            }
+        ],
+        "title": "Firebase and react redux testing",
+        "url":
+            "https://github.com/rmrs/react-native-redux-firebase-patterns/blob/master/__tests__/reducer.js"
+    },
+    "-KyLXBXM5ly2dW_o6d6D": {
+        "created_date": 1510059066642,
+        "description": "",
+        "id": "-KyLXBXM5ly2dW_o6d6D",
+        "isEditing": false,
+        "modified_date": 1510059116830,
+        "notebook": {
+            "id": "-KxxPjVkOiGrNqhnjlLc",
+            "name": "Improvements",
+            "value": "-KxxPjVkOiGrNqhnjlLc"
+        },
+        "tags": [
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            },
+            {
+                "id": "-Kx4we5LUg6aYvkTAUzn",
+                "label": "firebase",
+                "value": "-Kx4we5LUg6aYvkTAUzn"
+            },
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-Kx4wdnh_d-QONgy8GpB",
+                "label": "redux",
+                "value": "-Kx4wdnh_d-QONgy8GpB"
+            }
+        ],
+        "title":
+            "Perhaps consider using redux saga instead of thunk",
+        "url":
+            "https://medium.com/rumors/redux-firebase-and-the-saga-in-between-c2bd5adf6de1"
+    },
+    "-KyLhQeARBER4TdCDzFw": {
+        "created_date": 1510062017059,
+        "description": "",
+        "id": "-KyLhQeARBER4TdCDzFw",
+        "isEditing": false,
+        "modified_date": 1510062037540,
+        "notebook": {
+            "id": "-Kx4wx73oqv5BXvOIP_H",
+            "name": "Bugs",
+            "value": "-Kx4wx73oqv5BXvOIP_H"
+        },
+        "title": "eslint const thing = () => {} syntax error",
+        "url":
+            "https://stackoverflow.com/questions/34966438/eslint-in-class-with-fat-arrow-using-airbnb-rules?noredirect=1&lq=1"
+    },
+    "-KyLwfwndM0s9yWrzrXY": {
+        "created_date": 1510066015947,
+        "description":
+            "Seems like a pretty good tutorial to try out and build for purposes of learning the react router if nothing else. it will be worth a quick little coding exercise.\n\n",
+        "id": "-KyLwfwndM0s9yWrzrXY",
+        "isEditing": false,
+        "modified_date": 1510066107341,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            {
+                "id": "-KyLwp7AzqEUvC6s0tk2",
+                "label": "tutorials",
+                "value": "-KyLwp7AzqEUvC6s0tk2"
+            },
+            {
+                "id": "-KyLwqkY8ChCusZ_CTZe",
+                "label": "auth",
+                "value": "-KyLwqkY8ChCusZ_CTZe"
+            }
+        ],
+        "title": "15 minute create-react-app with authentication",
+        "url":
+            "https://www.sitepoint.com/build-react-app-user-authentication-15-minutes/"
+    },
+    "-KySw1HbyMCckZiAdOpD": {
+        "created_date": 1510183283856,
+        "description":
+            "An in-depth post on higher order components in React.",
+        "id": "-KySw1HbyMCckZiAdOpD",
+        "isEditing": false,
+        "modified_date": 1510183327512,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            },
+            {
+                "id": "-KySw7ynl4A27gCVbQ2V",
+                "label": "components",
+                "value": "-KySw7ynl4A27gCVbQ2V"
+            }
+        ],
+        "title": "Higher order components",
+        "url":
+            "https://medium.com/@franleplant/react-higher-order-components-in-depth-cf9032ee6c3e"
+    },
+    "-KyYfEqNzAeL4h1gwPWs": {
+        "created_date": 1510279562087,
+        "description": "",
+        "id": "-KyYfEqNzAeL4h1gwPWs",
+        "isEditing": false,
+        "modified_date": 1510279569027,
+        "notebook": {
+            "id": "-KyYfKnBsGMfsCAzdaDl",
+            "name": "Development",
+            "value": "-KyYfKnBsGMfsCAzdaDl"
+        },
+        "tags": {
+            "-KyYfL4I5NKAlUobA4Rd": {
+                "id": "-KyYfL4I5NKAlUobA4Rd",
+                "label": "git",
+                "value": "-KyYfL4I5NKAlUobA4Rd"
+            }
+        },
+        "title": "git-tools",
+        "url":
+            "https://github.com/tj/git-extras/tree/b00aacee00066d1168ad79537bf6ea93079f5c73"
+    },
+    "-KyYgW8OLIoTdtb6ja1S": {
+        "created_date": 1510279876286,
+        "description": "",
+        "id": "-KyYgW8OLIoTdtb6ja1S",
+        "isEditing": false,
+        "modified_date": "",
+        "title": "",
+        "url": ""
+    },
+    "-KyYgY6FB9f7ACzXyUwF": {
+        "created_date": 1510279884341,
+        "description": "",
+        "id": "-KyYgY6FB9f7ACzXyUwF",
+        "isEditing": false,
+        "modified_date": 1510279897959,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-Kx4wdRTFiQ4AbO9R4dT": {
+                "id": "-Kx4wdRTFiQ4AbO9R4dT",
+                "label": "react",
+                "value": "-Kx4wdRTFiQ4AbO9R4dT"
+            },
+            "-KxxQ-J6i6CQ5d0Sbggb": {
+                "id": "-KxxQ-J6i6CQ5d0Sbggb",
+                "label": "unit testing",
+                "value": "-KxxQ-J6i6CQ5d0Sbggb"
+            },
+            "-KxxQ-d0Ccr6jcwbLJ-i": {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            },
+            "-KxxQ05ObD46s_RNuZ4q": {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            }
+        },
+        "title": "Testing React Components",
+        "url":
+            "https://nerdblog.pl/post/166842840969/testing-react-components"
+    },
+    "-Kybq4-tYpiNOqa7EIB6": {
+        "created_date": 1510349491565,
+        "description":
+            "Cool random user data json api that can be useful for getting some fake data stuff to build an app for something ",
+        "id": "-Kybq4-tYpiNOqa7EIB6",
+        "isEditing": false,
+        "modified_date": 1510349554966,
+        "notebook": {
+            "id": "-Kybq8IYFYoRsiqMRzqi",
+            "name": "APIs",
+            "value": "-Kybq8IYFYoRsiqMRzqi"
+        },
+        "tags": [
+            {
+                "id": "-Kybq9588vzCp0luB2-u",
+                "label": "api",
+                "value": "-Kybq9588vzCp0luB2-u"
+            },
+            {
+                "id": "-Kybq9kBRoABtqfnvAhf",
+                "label": "tools",
+                "value": "-Kybq9kBRoABtqfnvAhf"
+            },
+            {
+                "id": "-KybqB7A_wyMhQPWKdgf",
+                "label": "data",
+                "value": "-KybqB7A_wyMhQPWKdgf"
+            }
+        ],
+        "title": "Random User Data JSON API ",
+        "url": "https://uinames.com/"
+    },
+    "-KycAQ4RI6O7ZqEzjHhn": {
+        "created_date": 1510355087719,
+        "description":
+            "Great gist with alot of info on detailed points for the causes of reflows and repaints.",
+        "id": "-KycAQ4RI6O7ZqEzjHhn",
+        "isEditing": false,
+        "modified_date": 1510355148770,
+        "notebook": {
+            "id": "-KyYfKnBsGMfsCAzdaDl",
+            "name": "Development",
+            "value": "-KyYfKnBsGMfsCAzdaDl"
+        },
+        "tags": [
+            {
+                "id": "-KycAVXGXaH2HQTIW_hP",
+                "label": "reflow",
+                "value": "-KycAVXGXaH2HQTIW_hP"
+            },
+            {
+                "id": "-Ky7-LwMw6bRmmIBLkmY",
+                "label": "performance",
+                "value": "-Ky7-LwMw6bRmmIBLkmY"
+            }
+        ],
+        "title": "Paul Irish - what causes layout and reflow ",
+        "url":
+            "https://gist.github.com/paulirish/5d52fb081b3570c81e3a"
+    },
+    "-KyvRdGTC5HkWfhwBJzi": {
+        "created_date": 1510678369432,
+        "description":
+            "Situation:No more than one sentence, for example, I was asked to implement a new CRM system across our UK operation.\n\nTask:A summary of what you had to do, how did you go about establishing the outputs of the task?  What would success look like and what were the first steps you needed to take towards delivery.\n\nAction:What hurdles did you have to overcome? What resistance did you face? What did you have to compromise on?\n\nResults:What were the outcomes?  Did you achieve your goal?  Did you miss your goal?  It’s no bad thing to tell a story about how you missed a target, as long as you can demonstrate your learning and how you have / will deal with the same problem again.”",
+        "id": "-KyvRdGTC5HkWfhwBJzi",
+        "isEditing": false,
+        "modified_date": 1510678390103,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": {
+            "-Kxm3CyG_g2OWMA_kaac": {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            }
+        },
+        "title": "Tips on interviewing",
+        "url": ""
+    },
+    "-KyvmJwdgIB1AidEERBp": {
+        "created_date": 1510684053556,
+        "description": "",
+        "id": "-KyvmJwdgIB1AidEERBp",
+        "isEditing": false,
+        "modified_date": "",
+        "title": "",
+        "url": ""
+    },
+    "-KyvmO7CXxrAB9LRMruU": {
+        "created_date": 1510684070680,
+        "description":
+            "First, make sure you have a handle on exactly what the day-to-day responsibilities of the job will be—both now and in the future.\n\n1. What does a typical day look like?\n\n2. What are the most immediate projects that need to be addressed?\n\n3. Can you show me examples of projects I'd be working on?\n\n4. What are the skills and experiences you’re looking for in an ideal candidate?\n\n5. What attributes does someone need to have in order to be really successful in this position?\n\n6. What types of skills is the team missing that you’re looking to fill with a new hire?\n\n7. What are the biggest challenges that someone in this position would face?\n\n9. Is this a new role that has been created?\n\n10. Do you expect the main responsibilities for this position to change in the next six months to a year?\n\n\nTraining and Professional Development\n\nThink of each new job not just as a job, but as the next step on your path to career success. Will this position help you get there?\n\n11. How will I be trained?\n\n12. What training programs are available to your employees?\n\n13. Are there opportunities for advancement or professional development?\n\n14. Would I be able to represent the company at industry conferences?\n\n15. Where is the last person who held this job moving on to?\n\n16. Where have successful employees previously in this position progressed to?\n\n\nYour Performance\n\nMake sure you're setting yourself up for success by learning up front the goals of the position and how your work will be evaluated.\n\n17. What are the most important things you’d like to see someone accomplish in the first 30, 60, and 90 days on the job?\n\n18. What are the performance expectations of this position over the first 12 months?\n\n19. What is the performance review process like here? How often would I be formally reviewed?\n\n20. What metrics or goals will my performance be evaluated against?\n\n\nInterviewer\n\nAsking questions of the interviewer shows that you're interested in him or her as a person—and that's a great way to build rapport.\n\n21. How long have you been with the company?\n\n22. Has your role changed since you've been here?\n\n23. What did you do before this?\n\n24. Why did you come to this company?\n\n25. What’s your favorite part about working here?\n\n\nThe Company\n\nBecause you're not just working for one boss or one department, you're working for the company as a whole.\n\n26. I've read about the company's founding, but can you tell me more about ___?\n\n27. Where do you see this company in the next few years?\n\n28. What can you tell me about your new products or plans for growth?\n\n29. What are the current goals that the company is focused on, and how does this team work to support hitting those goals?\n\n30. What gets you most excited about the company's future?\n\n\nThe Team\n\nThe people you work with day in and day out can really make or break your work life. Ask some questions to uncover whether it's the right team for you.\n\n31. Can you tell me about the team I’ll be working with?\n\n32. Who will I work with most closely?\n\n33. Who will I report to directly?\n\n34. Can you tell me about my direct reports? What are their strengths and the team's biggest challenges?\n\n35. Do you expect to hire more people in this department in the next six months?\n\n36. Which other departments work most closely with this one?\n\n37. What are the common career paths in this department?\n\n\nThe Culture\n\nIs the office buttoned-up conservative or a fly-by-the-seat-of-your-pants kind of place? Learn the subtle, but oh-so-important, aspects of company culture.\n\n38. What is the company and team culture like?\n\n39. How would you describe the work environment here—is the work typically collaborative or more independent?\n\n40. Can you tell me about the last team event you did together?\n\n41. Is there a formal mission statement or company values? (Note: Make sure this isn't Google-able!)\n\n42. What's your favorite office tradition?\n\n43. What do you and the team usually do for lunch?\n\n44. Does anyone on the team hang out outside the office?\n\n45. Do you ever do joint events with other companies or departments?\n\n46. What's different about working here than anywhere else you've worked?\n\n47. How has the company changed since you joined?\n\n\nNext Steps\n\nBefore you leave, make sure the interviewer has all of the information he or she needs and that you're clear on the next steps by asking these questions.\n\n48. Is there anything that concerns you about my background being a fit for this role?\n\n49. What are the next steps in the interview process?\n\n50. Is there anything else I can provide you with that would be helpful?\n\n51. Can I answer any final questions for you?\n\n",
+        "id": "-KyvmO7CXxrAB9LRMruU",
+        "isEditing": false,
+        "modified_date": 1510933073325,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            },
+            {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            }
+        ],
+        "title": "51 Interview Questions to Ask",
+        "url":
+            "https://www.themuse.com/advice/51-interview-questions-you-should-be-asking"
+    },
+    "-KyzUDSbHpPOHdhHGtUG": {
+        "created_date": 1510746154006,
+        "description": "How to compose promises with reduceRight",
+        "id": "-KyzUDSbHpPOHdhHGtUG",
+        "isEditing": false,
+        "modified_date": 1510746230947,
+        "notebook": {
+            "id": "-KyYfKnBsGMfsCAzdaDl",
+            "name": "Development",
+            "value": "-KyYfKnBsGMfsCAzdaDl"
+        },
+        "tags": [
+            {
+                "id": "-Kxm3Amw32aO9eO5WHqS",
+                "label": "facebook",
+                "value": "-Kxm3Amw32aO9eO5WHqS"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            }
+        ],
+        "title": "Functional programming with promises",
+        "url":
+            "https://hackernoon.com/lets-compose-promises-309a63225f8a"
+    },
+    "-KyzrHYwenaK78scHiFG": {
+        "created_date": 1510752463410,
+        "description":
+            "What can I clarify for you about my qualifications?\n\nDo you have any reservations about my qualifications?\n\nHow would you describe the company culture?\n\n\nMention your knack for mentoring and teaching others\ncommunicating well at all levels, \nproblem-solving, \nimproving low team morale.\n\n",
+        "id": "-KyzrHYwenaK78scHiFG",
+        "isEditing": false,
+        "modified_date": 1510989151668,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": {
+            "0": {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            },
+            "-Kxm3CyG_g2OWMA_kaac": {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            },
+            "-KyvpXUugAgAYGAdKwWW": {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            }
+        },
+        "title": "Questions to ask in interviews",
+        "url": ""
+    },
+    "-KyztmELj4o1Q4UNqP4I": {
+        "created_date": 1510753117450,
+        "description":
+            "Responsibility words\n\nAccomplish\nCoordinate\nEffective\nEfficient\nMaintained\nMet the deadline\nOn time\nOrganize\nReorganize\nPractical\nPrepare\nProvide\nResponsible\nSatisfied the client's requests\nSolution\nSupport\n\nPassion words\n\nEnergized\nEnthusiastic\nInterested\nMotivated\nPriority\nWin\n\n\n",
+        "id": "-KyztmELj4o1Q4UNqP4I",
+        "isEditing": false,
+        "modified_date": 1510753673679,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": {
+            "0": {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            },
+            "-KyvpXUugAgAYGAdKwWW": {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            },
+            "-Kz-HzzTpNXnieY0MQe6": {
+                "id": "-Kz-HzzTpNXnieY0MQe6",
+                "label": "words",
+                "value": "-Kz-HzzTpNXnieY0MQe6"
+            }
+        },
+        "title": "Words to use in interviews",
+        "url": ""
+    },
+    "-Kyzv_H5otbdEolk6Nty": {
+        "created_date": 1510753588371,
+        "description":
+            "Leadership words\n\nAccomplish\nBuild\nCoordinate\nDeliver\nDevelop\nI handled that by…\nInitiative\nInnovative\nNegotiated\nPlan\nResolve\nSupervise\n\nOther words\n\nFacilitate\nIdentify\nInitiate\nInitiative\nInnovate\nPrioritize\nPriority\nResearch\nResponsibility\nSolution\nSolve\nSpecialize\nStandardize\nSucceed\nTeach\n",
+        "id": "-Kyzv_H5otbdEolk6Nty",
+        "isEditing": false,
+        "modified_date": 1510754260656,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": {
+            "-Kxm3CyG_g2OWMA_kaac": {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            }
+        },
+        "title": "More words",
+        "url": ""
+    },
+    "-Kz00htcl7Tq9vrXMuFC": {
+        "created_date": 1510771973757,
+        "description":
+            "I had an offer from Liberty Mutual that I turned down. \n$115k + $10k sign on bonus + 10% bonus annually.\n\nI already interviewed with: \nLiberty Mutual, Fitbit, Facebook, Google, Spotify, Chewy, \nTuro, Localytics, EF Education, O'Reilly, Circle, Drizly, \nezCater, LogRocket, Rapid7\n\nIn person interviews with:\nLiberty Mutual, Fitbit, Chewy, Turo, O'Reilly, Drizly, Circle, Rapid7, Lola\n\nPhone interviews with:\nFacebook, Google, Spotify, Localytics, EF Education, Circle, ezCater, LogRocket, Rapid7\n\nAnd possibly pluralinsight, edx, Wayfair, and drift, who I kinda blew off but didn't mean to. \n\nI mean how can anyone manage all this.\nThey all were direct contacts or referrals. ",
+        "id": "-Kz00htcl7Tq9vrXMuFC",
+        "isEditing": false,
+        "modified_date": 1511105354238,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-Kxm3CyG_g2OWMA_kaac",
+                "label": "jobs",
+                "value": "-Kxm3CyG_g2OWMA_kaac"
+            }
+        ],
+        "title": "Companies who I've interviewed with ",
+        "url": ""
+    },
+    "-Kz0VNokOyBtpY4TUDev": {
+        "created_date": 1510780013190,
+        "description": "",
+        "id": "-Kz0VNokOyBtpY4TUDev",
+        "isEditing": false,
+        "modified_date": 1510832272411,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "title": "Firebase mocking and tesstng",
+        "url":
+            "https://github.com/laurenzlong/say-that/blob/master/functions/spec/index.spec.ts"
+    },
+    "-Kz5Rjf2uu1S0_0UbzfZ": {
+        "created_date": 1510862945002,
+        "description":
+            "A post on how to use Higher order components in react to share data\n\n",
+        "id": "-Kz5Rjf2uu1S0_0UbzfZ",
+        "isEditing": false,
+        "modified_date": 1510863074198,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "0": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            "1": {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            "-Kx970GnXYPtkvRlt_yc": {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            "-KySw7ynl4A27gCVbQ2V": {
+                "id": "-KySw7ynl4A27gCVbQ2V",
+                "label": "components",
+                "value": "-KySw7ynl4A27gCVbQ2V"
+            },
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            }
+        },
+        "title": "Higher Order Components",
+        "url":
+            "https://gist.github.com/bradparker/a9b638c02891173ddf3a"
+    },
+    "-Kz5SE_zuU20e0b6fo4n": {
+        "created_date": 1510863075747,
+        "description":
+            "Learning the different react component patterns...\n\n\nI just pretty much wrote that sentence backwards, adding a word before a word over and over, that was weird... wtf is wrong with me.\n\nComponent Types:\nStateless function\nJSX spread attributes\nDestructuring arguments\nConditional rendering\nChildren types\nArray as children\nFunction as children\nRender callback\nChildren pass-through\nProxy component\nStyle component\nEvent switch\nLayout component\nContainer component\nHigher-order component\nState hoisting\nControlled input\n",
+        "id": "-Kz5SE_zuU20e0b6fo4n",
+        "isEditing": false,
+        "modified_date": 1510964997014,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "React patterns",
+        "url": "http://reactpatterns.com/"
+    },
+    "-Kz9eikdwUupgPIdxDaa": {
+        "created_date": 1510933719598,
+        "description": "This is what I need to use",
+        "id": "-Kz9eikdwUupgPIdxDaa",
+        "isEditing": false,
+        "modified_date": 1510933773413,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-KxxPT4DjB2MfbF3v93R",
+                "label": "development",
+                "value": "-KxxPT4DjB2MfbF3v93R"
+            },
+            {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            {
+                "id": "-Kz9eu6N4nJHuJh-Vo_B",
+                "label": "features",
+                "value": "-Kz9eu6N4nJHuJh-Vo_B"
+            }
+        ],
+        "title": "React drag n drop",
+        "url":
+            "https://github.com/atlassian/react-beautiful-dnd/releases/tag/v2.6.0"
+    },
+    "-KzArStcPwuW7yTkc-hJ": {
+        "created_date": 1510953836174,
+        "description":
+            "var items = [{price: 10}, {price: 120}, {price: 1000}];\n\nvar reducers = {\n  totalInDollar: function(state, item) {\n    state.dollars += item.price;\n    return state;\n  },\n  totalInEuros : function(state, item) {\n    return state.euros += item.price * 0.897424392;    \n  },\n  totalInPounds : function(state, item) {\n    return state.pounds += item.price * 0.692688671;    \n  },\n  totalInYen : function(state, item) {\n    return state.yens += item.price * 113.852;    \n  }\n};\n\n\nvar combineTotalPriceReducers = function(reducers) {\n  return function(state, item) {\n    return Object.keys(reducers).reduce(\n      function(nextState, key) {\n        reducers[key](state, item);\n        return state;\n      },\n      {}      \n    );\n  }\n};\n\nvar bigTotalPriceReducer = combineTotalPriceReducers(reducers);\n\nvar initialState = {dollars: 0, euros:0, yens: 0, pounds: 0};\n\nvar totals = items.reduce(bigTotalPriceReducer, initialState);\n\nvar node = document.createElement(\"p\");               \nvar textnode = document.createTextNode(JSON.stringify(totals, undefined, '\\t'));\nnode.appendChild(textnode);  \n\ndocument.getElementById('result').appendChild(node);\n\nconsole.log(JSON.stringify(totals, 2, '\\t'));\n\n\n",
+        "id": "-KzArStcPwuW7yTkc-hJ",
+        "isEditing": false,
+        "modified_date": 1510953878025,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": {
+            "-Kx970GnXYPtkvRlt_yc": {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            "-KzAreVsuHc9iGbqOzKN": {
+                "id": "-KzAreVsuHc9iGbqOzKN",
+                "label": "functional",
+                "value": "-KzAreVsuHc9iGbqOzKN"
+            }
+        },
+        "title": "Advanced use of Reduce ",
+        "url":
+            "https://us12.campaign-archive.com/?u=91c81a54b7387a056b046a2ca&id=827637c617"
+    },
+    "-KzDtqJo-VPk-jaDP_Rr": {
+        "created_date": 1511004791262,
+        "description":
+            "#1. Remove delete note ability for mobile entirely. I keep deleting notes with lots of content that I can't get back cuz real time and all. Huge UX problem",
+        "id": "-KzDtqJo-VPk-jaDP_Rr",
+        "isEditing": false,
+        "modified_date": 1511004966358,
+        "notebook": {
+            "id": "-KzDuDiqdU0ocrMTKz0R",
+            "name": "Goals",
+            "value": "-KzDuDiqdU0ocrMTKz0R"
+        },
+        "title": "Today's goals",
+        "url": ""
+    },
+    "-KzEHMlCDwEznd2OWtZL": {
+        "created_date": 1511011220593,
+        "description":
+            "https://github.com/blainekasten/enzyme-matchers\n\nhttp://airbnb.io/enzyme/docs/api/\nhttps://github.com/airbnb/enzyme/blob/master/docs/api/render.md\n\nhttp://airbnb.io/enzyme/docs/api/mount.html\n\nhttps://facebook.github.io/jest/docs/en/expect.html",
+        "id": "-KzEHMlCDwEznd2OWtZL",
+        "isEditing": false,
+        "modified_date": 1511015478322,
+        "notebook": {
+            "id": "-KxxPyLDWF2h5huyv0sd",
+            "name": "Testing",
+            "value": "-KxxPyLDWF2h5huyv0sd"
+        },
+        "tags": [
+            {
+                "id": "-KzEHQan8ElGg0j2LZub",
+                "label": "enzyme",
+                "value": "-KzEHQan8ElGg0j2LZub"
+            },
+            {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            },
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            }
+        ],
+        "title": "Test references",
+        "url": "https://github.com/blainekasten/enzyme-matchers"
+    },
+    "-KzETNDTVXVAVChe_6Ia": {
+        "created_date": 1511014368193,
+        "description": "Great post on async and await",
+        "id": "-KzETNDTVXVAVChe_6Ia",
+        "isEditing": false,
+        "modified_date": 1511014402213,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            },
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "Understanding async / await",
+        "url":
+            "https://ponyfoo.com/articles/understanding-javascript-async-await"
+    },
+    "-KzFKd7hhzWcGCwMO0CG": {
+        "created_date": 1511028855376,
+        "description": "",
+        "id": "-KzFKd7hhzWcGCwMO0CG",
+        "isEditing": false,
+        "modified_date": 1511028868805,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-KySw7ynl4A27gCVbQ2V": {
+                "id": "-KySw7ynl4A27gCVbQ2V",
+                "label": "components",
+                "value": "-KySw7ynl4A27gCVbQ2V"
+            },
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            "-KzAreVsuHc9iGbqOzKN": {
+                "id": "-KzAreVsuHc9iGbqOzKN",
+                "label": "functional",
+                "value": "-KzAreVsuHc9iGbqOzKN"
+            },
+            "-KzDqqUbrAZtTmvFDiKN": {
+                "id": "-KzDqqUbrAZtTmvFDiKN",
+                "label": "redux",
+                "value": "-KzDqqUbrAZtTmvFDiKN"
+            }
+        },
+        "title": "Understand Higher Order Components ",
+        "url":
+            "https://medium.freecodecamp.org/understanding-higher-order-components-6ce359d761b"
+    },
+    "-KzKBAU2uJqoRvvhB_66": {
+        "created_date": 1511110265205,
+        "description": "Some useful tips for react stuff",
+        "id": "-KzKBAU2uJqoRvvhB_66",
+        "isEditing": false,
+        "modified_date": 1511110326275,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            {
+                "id": "-KyLwp7AzqEUvC6s0tk2",
+                "label": "tutorials",
+                "value": "-KyLwp7AzqEUvC6s0tk2"
+            }
+        ],
+        "title": "TIps for React",
+        "url":
+            "https://hackernoon.com/10-react-mini-patterns-c1da92f068c5"
+    },
+    "-KzKbIPgOiPcit20wPkJ": {
+        "created_date": 1511117370000,
+        "description": "",
+        "id": "-KzKbIPgOiPcit20wPkJ",
+        "isEditing": false,
+        "modified_date": 1511117383133,
+        "notebook": {
+            "id": "-Kxm2ROIKhyWvbaJPWCX",
+            "name": "Interviews",
+            "value": "-Kxm2ROIKhyWvbaJPWCX"
+        },
+        "tags": [
+            {
+                "id": "-KyvpXUugAgAYGAdKwWW",
+                "label": "questions",
+                "value": "-KyvpXUugAgAYGAdKwWW"
+            }
+        ],
+        "title": "Longest consecutive in a string",
+        "url":
+            "http://blog.sodhanalibrary.com/2015/06/longest-consecutive-elements-sequence.html?m=1"
+    },
+    "-KzTgpI5ZjkCltFHW60i": {
+        "created_date": 1511269815515,
+        "description":
+            "/**\n * @private\n * @description Build ordered child object. If snaps's value is an object,\n * it is spread, otherwise it is placed under the \"value\" parameter.\n * @param  {firebase.database.DataSnapshot} snap [description]\n * @return {Object} Child object containing key\n */\nconst buildOrderedChild = (snap) =>\n  isObject(snap.val())\n    ? { key: snap.key, ...snap.val() }\n    : { key: snap.key, value: snap.val() }\n\n\n*\n * @private\n * @description Create a function if not already one\n * @param {Function|Object|Array|String} Callable function or value of return for new function\n */\nexport const createCallable = f => isFunction(f) ? f : () => f\n\n\n\nport const deleteFile = (firebase, { path, dbPath }) =>\n  firebase.storage()\n    .ref(path)\n    .delete()\n    .then(() =>\n      !dbPath\n        ? ({ path })\n        : firebase // Handle option for removing file info from database\n          .database()\n          .ref(dbPath)\n          .remove()\n          .then(() => ({ path, dbPath }))\n    )\n",
+        "id": "-KzTgpI5ZjkCltFHW60i",
+        "isEditing": false,
+        "modified_date": "",
+        "title": "Firebase snippets",
+        "url": ""
+    },
+    "-KzVljLuEbN-xDfRrP24": {
+        "created_date": 1511304656975,
+        "description":
+            "Firebase functions for deleting old users\n\n",
+        "id": "-KzVljLuEbN-xDfRrP24",
+        "isEditing": false,
+        "modified_date": 1511304656975,
+        "notebook": {
+            "id": "-KzVlm1DlAXBI3y7wNZc",
+            "name": "Firebase",
+            "value": "-KzVlm1DlAXBI3y7wNZc"
+        },
+        "tags": [
+            {
+                "id": "-KzDq_8N1sZB4CFeB_GR",
+                "label": "firebase",
+                "value": "-KzDq_8N1sZB4CFeB_GR"
+            },
+            {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            }
+        ],
+        "title": "Firebase functions",
+        "url":
+            "https://github.com/firebase/functions-samples/blob/master/delete-unused-accounts-cron/functions/index.js"
+    },
+    "-KzX7pMiQqK9scrGvrAF": {
+        "created_date": 1511327487058,
+        "description":
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\nhttps://www.pornhub.com/view_video.php?viewkey=ph5859788e0eadf\nhttps://www.pornhub.com/view_video.php?viewkey=ph5715ee1897025",
+        "id": "-KzX7pMiQqK9scrGvrAF",
+        "isEditing": false,
+        "modified_date": 1511327487058,
+        "title": "Ipsum XxX",
+        "url": ""
+    },
+    "-KzYaxTI1O-wfEeVVtJD": {
+        "created_date": 1511352161975,
+        "description": "",
+        "id": "-KzYaxTI1O-wfEeVVtJD",
+        "isEditing": false,
+        "modified_date": 1511352161975,
+        "title": "Change redux store to work like this",
+        "url":
+            "https://engineering.opsgenie.com/a-simple-improvement-for-your-redux-store-4923db87ffa9"
+    },
+    "-KzZBVCjN__5BrqREKX7": {
+        "created_date": 1511362003855,
+        "description":
+            "This is a great example app that uses react-router4 to create a unauth and auth'd section of an app that I can use to learn how to do it for this app.",
+        "id": "-KzZBVCjN__5BrqREKX7",
+        "isEditing": false,
+        "label": {
+            "hex": "#AD1457",
+            "id": "-KzVlnO3XQe6dAoGWRdg",
+            "name": "Radicchio",
+            "source": "hex"
+        },
+        "modified_date": 1511362003855,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-KyLwqkY8ChCusZ_CTZe": {
+                "id": "-KyLwqkY8ChCusZ_CTZe",
+                "label": "auth",
+                "value": "-KyLwqkY8ChCusZ_CTZe"
+            },
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            },
+            "-KzDqqUbrAZtTmvFDiKN": {
+                "id": "-KzDqqUbrAZtTmvFDiKN",
+                "label": "redux",
+                "value": "-KzDqqUbrAZtTmvFDiKN"
+            },
+            "-KzZBjacvlPKaEmbybyh": {
+                "id": "-KzZBjacvlPKaEmbybyh",
+                "label": "router",
+                "value": "-KzZBjacvlPKaEmbybyh"
+            }
+        },
+        "title": "React Router 4 demo app",
+        "url":
+            "https://codepen.io/bradwestfall/project/editor/XWNWge"
+    },
+    "-Kz_iDisvgyaBKBo2jga": {
+        "created_date": 1511387622161,
+        "description": "",
+        "id": "-Kz_iDisvgyaBKBo2jga",
+        "isEditing": false,
+        "label": {
+            "hex": "#E4C441",
+            "id": "-Kz_iIHkw14gZiPxbeSu",
+            "name": "Citron",
+            "source": "hex"
+        },
+        "modified_date": 1511387622161,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": {
+            "-Kx970GnXYPtkvRlt_yc": {
+                "id": "-Kx970GnXYPtkvRlt_yc",
+                "label": "javascript",
+                "value": "-Kx970GnXYPtkvRlt_yc"
+            },
+            "-KyB5oLwpH_eRhO20PbN": {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            },
+            "-KzAreVsuHc9iGbqOzKN": {
+                "id": "-KzAreVsuHc9iGbqOzKN",
+                "label": "functional",
+                "value": "-KzAreVsuHc9iGbqOzKN"
+            }
+        },
+        "title": "Functional programming podcast",
+        "url":
+            "https://egghead.io/lessons/javascript-understand-why-transducers-can-improve-performance"
+    },
+    "-Kzb-QnKnEN-CzVrd3KQ": {
+        "created_date": 1511409171738,
+        "description":
+            "what is he cooking this guy like a turkey???\n\ngettin' basted!!!\n\n\nLOL",
+        "id": "-Kzb-QnKnEN-CzVrd3KQ",
+        "isEditing": false,
+        "modified_date": 1511409171738,
+        "title": "what is he cooking this guy like a turkey???",
+        "url": ""
+    },
+    "-KzdF8CoY2a67XM_wJh4": {
+        "created_date": 1511446842968,
+        "description":
+            "“Time is free, but it's priceless. You can't\nown it, but you can use it. You can't keep\nit, but you can spend it. Once you've lost it\nyou can never get it back.”\n\n-Harvey MacKay \n\n(so use it wisely, ;) <3)",
+        "id": "-KzdF8CoY2a67XM_wJh4",
+        "isEditing": false,
+        "modified_date": 1511446842968,
+        "title": "Time is free quote",
+        "url": ""
+    },
+    "-Kze86d8eOajI_iKdSID": {
+        "created_date": 1511461785431,
+        "description": "kquhdfkjansdkjg\n",
+        "id": "-Kze86d8eOajI_iKdSID",
+        "isEditing": false,
+        "label": {
+            "hex": "#E4C441",
+            "id": "-Kz_iIHkw14gZiPxbeSu",
+            "name": "Citron",
+            "source": "hex"
+        },
+        "modified_date": 1511461785431,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-KyLwqkY8ChCusZ_CTZe",
+                "label": "auth",
+                "value": "-KyLwqkY8ChCusZ_CTZe"
+            }
+        ],
+        "title": "kasdjfkasdfasdfolas",
+        "url": ""
+    },
+    "-KzgpeQk4baI-5MDIHHY": {
+        "created_date": 1511507012411,
+        "description":
+            "function sanitize(strings, ...values) {\n    const dirty = strings.reduce((prev, next, i) => `${prev}${next}${values[i]} || ''}`, '');\n    return DomPurify.sanitize(dirty);\n}\nconst first = 'Wes';\nconst aboutMe = sanitize`I love to do evil <img src=\"http://unsplash.it/100/100?random\" onload=\"alert('you got hacked');\" />`;\n\nconst html = `\n    <h3>${first}</h3>\n    <p>${aboutMe}</p>\n`;\n\nconst bio = document.querySelector('.bio');\nbio.innerHTML = html;",
+        "id": "-KzgpeQk4baI-5MDIHHY",
+        "isEditing": false,
+        "label": {
+            "hex": "#0B8043",
+            "id": "-KzgpjFMiRhB-5QfiIju",
+            "name": "Basil",
+            "source": "hex"
+        },
+        "modified_date": 1511507012411,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            },
+            {
+                "id": "-KzgveRE0DrdGdVu_Dry",
+                "label": "code",
+                "value": "-KzgveRE0DrdGdVu_Dry"
+            },
+            {
+                "id": "-KzgvfZLky-vqs4ayE2b",
+                "label": "snippets",
+                "value": "-KzgvfZLky-vqs4ayE2b"
+            }
+        ],
+        "title": "es6 tricks and tips and snippets",
+        "url": "http://wesbos.com/new-es6-string-methods/"
+    },
+    "-Kzh0Fz47yAFpsp7MgE8": {
+        "created_date": 1511510051373,
+        "description": "",
+        "id": "-Kzh0Fz47yAFpsp7MgE8",
+        "isEditing": false,
+        "modified_date": 1511510051373,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": {
+            "-Kz5Rmu2-cTwHBvj85oA": {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            }
+        },
+        "title": "React chat sample app",
+        "url":
+            "https://github.com/zsolt-nagy/react-boilerplate/tree/react-chat-example"
+    },
+    "-Kzh1Tu0isZwqp7kn-GN": {
+        "created_date": 1511510370536,
+        "description": "",
+        "id": "-Kzh1Tu0isZwqp7kn-GN",
+        "isEditing": false,
+        "label": {
+            "hex": "#AD1457",
+            "id": "-KzVlnO3XQe6dAoGWRdg",
+            "name": "Radicchio",
+            "source": "hex"
+        },
+        "modified_date": 1511510370536,
+        "tags": [
+            {
+                "id": "-KySw7ynl4A27gCVbQ2V",
+                "label": "components",
+                "value": "-KySw7ynl4A27gCVbQ2V"
+            }
+        ],
+        "title": "Examples of real higher order components",
+        "url":
+            "http://rea.tech/reactjs-real-world-examples-of-higher-order-components/"
+    },
+    "-KzhGOvKGNzeptoTRc3W": {
+        "created_date": 1511514283767,
+        "description":
+            "const Render = ({ children, ...props}) => children(props);\n\nconst mapStateToProps = ({\n  currentUser: {\n    firstName,\n    lastName\n  }\n}) => ({ firstName, lastName });\n\nconst ConnectUser = connect(mapStateToProps)(Render);\n",
+        "id": "-KzhGOvKGNzeptoTRc3W",
+        "isEditing": false,
+        "modified_date": 1511514283767,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-Kz5Rmu2-cTwHBvj85oA",
+                "label": "react",
+                "value": "-Kz5Rmu2-cTwHBvj85oA"
+            }
+        ],
+        "title": "more higher order components",
+        "url":
+            "https://reactrocket.com/post/turn-your-hocs-into-render-prop-components/"
+    },
+    "-KziiBObW-T5k35WKTPF": {
+        "created_date": 1511538607745,
+        "description":
+            "HOLY SHIT!!! so many books\nhttps://www.gitbook.com/search?q=functional\n\nMostly adequate guide to functional programming (MUST READ)\nhttps://www.gitbook.com/book/drboolean/mostly-adequate-guide/details\n\nFunctional Light JS (MUST READ)\nhttps://github.com/getify/Functional-Light-JS\n\nDrBoolean\nhttps://github.com/DrBoolean?tab=repositories\n\nFunctional JavaScript Cheatsheet (MUST READ)\nhttp://osteele.com/sources/javascript/functional/\n\n\nPattern matching in JavaSript (MUST)\nhttp://www.bramstein.com/writing/pattern-matching.html\nhttp://www.bramstein.com/writing/advanced-pattern-matching.html\n\nFantasyLand\nhttps://github.com/fantasyland/fantasy-land",
+        "id": "-KziiBObW-T5k35WKTPF",
+        "isEditing": false,
+        "label": {
+            "hex": "#0B8043",
+            "id": "-KzgpjFMiRhB-5QfiIju",
+            "name": "Basil",
+            "source": "hex"
+        },
+        "modified_date": 1511538607745,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-KzAreVsuHc9iGbqOzKN",
+                "label": "functional",
+                "value": "-KzAreVsuHc9iGbqOzKN"
+            },
+            {
+                "id": "-KyB5oLwpH_eRhO20PbN",
+                "label": "es6",
+                "value": "-KyB5oLwpH_eRhO20PbN"
+            }
+        ],
+        "title": "Online books for functional programming",
+        "url": "https://www.gitbook.com/search?q=functional"
+    },
+    "-KziretFIso9U9nOEPlb": {
+        "created_date": 1511541091946,
+        "description":
+            "Article on the rise of functional programming.\n\n\nvar map = (fn) => {\n  return (reducer) => {\n    return (accumulator, input) => {\n      return reducer(accumulator, fn(input));\n    };\n  };\n};\n\nvar filter = (predicate) => {\n  return (reducer) => {\n    return (accumulator, input) => {\n      return predicate(input)?\n               reducer(accumulator, input):\n               accumulator;\n    };\n  };\n};",
+        "id": "-KziretFIso9U9nOEPlb",
+        "isEditing": false,
+        "label": {
+            "hex": "#B39DDB",
+            "id": "-KzjyN5MwfMOj6D33NvK",
+            "name": "Wisteria",
+            "source": "hex"
+        },
+        "modified_date": 1511541091946,
+        "notebook": {
+            "id": "-Kx96y9pV4K03bwrBkZP",
+            "name": "ES6",
+            "value": "-Kx96y9pV4K03bwrBkZP"
+        },
+        "tags": [
+            {
+                "id": "-KzAreVsuHc9iGbqOzKN",
+                "label": "functional",
+                "value": "-KzAreVsuHc9iGbqOzKN"
+            }
+        ],
+        "title":
+            "The rise of Functional Programming will kill Angular 2.0",
+        "url":
+            "http://blog.wolksoftware.com/the-rise-of-functional-programming-and-the-death-of-angularjs"
+    },
+    "-KztD9EU-rVJr-OTM70z": {
+        "created_date": 1511714759647,
+        "description": "Wicked good stuff heah! Jest cheatsheet",
+        "id": "-KztD9EU-rVJr-OTM70z",
+        "isEditing": false,
+        "label": {
+            "hex": "#7CB342",
+            "id": "-KztDG_1u7YFi_vjIgrm",
+            "name": "Pistachio",
+            "source": "hex"
+        },
+        "modified_date": 1511714759647,
+        "notebook": {
+            "id": "-Kx97M6vLzxmcN-fz5DW",
+            "name": "React",
+            "value": "-Kx97M6vLzxmcN-fz5DW"
+        },
+        "tags": [
+            {
+                "id": "-KxxQ05ObD46s_RNuZ4q",
+                "label": "jest",
+                "value": "-KxxQ05ObD46s_RNuZ4q"
+            },
+            {
+                "id": "-KxxQ-d0Ccr6jcwbLJ-i",
+                "label": "testing",
+                "value": "-KxxQ-d0Ccr6jcwbLJ-i"
+            }
+        ],
+        "title": "jest Cheatsheet - awesome!",
+        "url": "https://github.com/sapegin/jest-cheat-sheet"
+    },
+    "-KztHjzYaJtmY5FcLICh": {
+        "created_date": 1511715961494,
+        "description":
+            "var React = require('react');\nvar ReactDOMServer = require('react-dom/server');\nvar CollectionControls = require('./CollectionControls.react');\nvar TweetList = require('./TweetList.react');\nvar Header = require('./Header.react');\n\nvar Collection = React.createClass({\n\n  createHtmlMarkupStringOfTweetList: function () {\n    var htmlString = ReactDOMServer.renderToStaticMarkup(\n      <TweetList tweets={this.props.tweets} />\n    );\n\n    var htmlMarkup = {\n      html: htmlString\n    };\n\n    return JSON.stringify(htmlMarkup);\n  },\n  getListOfTweetIds: function () {\n    return Object.keys(this.props.tweets);\n  },\n\n  getNumberOfTweetsInCollection: function () {\n    return this.getListOfTweetIds().length;\n  },\n\n  render: function () {\n    var numberOfTweetsInCollection =...",
+        "id": "-KztHjzYaJtmY5FcLICh",
+        "isEditing": false,
+        "modified_date": 1511715961494,
+        "title": "Collection component",
+        "url": ""
+    },
+    "-KzuhKzHbhYIuHb4lXyD": {
+        "created_date": 1511739711453,
+        "description": "",
+        "id": "-KzuhKzHbhYIuHb4lXyD",
+        "isEditing": false,
+        "label": {
+            "hex": "#AD1457",
+            "id": "-KzVlnO3XQe6dAoGWRdg",
+            "name": "Radicchio",
+            "source": "hex"
+        },
+        "modified_date": 1511739711453,
+        "notebook": {
+            "id": "-KzuhV-l83dyDuB8EWUn",
+            "name": "Tools",
+            "value": "-KzuhV-l83dyDuB8EWUn"
+        },
+        "tags": {
+            "-Kybq9kBRoABtqfnvAhf": {
+                "id": "-Kybq9kBRoABtqfnvAhf",
+                "label": "tools",
+                "value": "-Kybq9kBRoABtqfnvAhf"
+            },
+            "-KzuhY5ttrFtGM0YwJNE": {
+                "id": "-KzuhY5ttrFtGM0YwJNE",
+                "label": "extensions",
+                "value": "-KzuhY5ttrFtGM0YwJNE"
+            },
+            "-Kzuh_qYDZtO4XjLVqHd": {
+                "id": "-Kzuh_qYDZtO4XjLVqHd",
+                "label": "generators",
+                "value": "-Kzuh_qYDZtO4XjLVqHd"
+            }
+        },
+        "title":
+            "Extensionizer - tool to get started with making a chrome extension",
+        "url":
+            "http://extensionizr.com/!#{\"modules\":[\"hidden-mode\",\"with-bg\",\"with-persistent-bg\",\"no-options\",\"no-override\"],\"boolean_perms\":[],\"match_ptrns\":[]}"
+    },
+    "-KzuzV5Hpfg1HY7Gs1En": {
+        "created_date": 1511744471462,
+        "description":
+            "var test = { level1: { level2: { level3: 'level3' }} };\n\nvar r1 = (((test || {}).level1 || {}).level2 || {}).level3;\nvar r2 = (((test || {}).level1 || {}).level2 || {}).foo;",
+        "id": "-KzuzV5Hpfg1HY7Gs1En",
+        "isEditing": false,
+        "modified_date": 1511744471462,
+        "title": "Snippet",
+        "url": ""
+    },
+    "-KzvNow1o2wTRgvM4KNN": {
+        "created_date": 1511751110423,
+        "description": "",
+        "id": "-KzvNow1o2wTRgvM4KNN",
+        "isEditing": true,
+        "modified_date": 1511751110423,
+        "title": "",
+        "url": ""
+    }
+}
