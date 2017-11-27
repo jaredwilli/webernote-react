@@ -1,5 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as setupTests from '../../setupFiles';
+
 
 import { MENU_ITEMS } from '../../constants/menu';
 import SecondaryMenu from '../SecondaryMenu';

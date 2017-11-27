@@ -9,7 +9,7 @@ const ViewCount = ({ notes = [], notebooks = [], ...props }) => {
     return (
         <span className="viewtext">
             Viewing <span className="count">{notes.length}</span>&nbsp;
-            <span className="notes-from">notes from</span>
+        <span className="notes-from">notes from</span>
 
             <NotebookFilter
                 notes={notes}

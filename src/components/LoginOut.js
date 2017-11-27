@@ -23,7 +23,7 @@ const LoginOut = ({ user = {}, ...props }) => {
                     </span>
                 </span>
 
-                {(!user.isAnonymous) && <Button className="logout" onClick={(e) => props.logout()}> Logout</Button>}
+                {(!user.isAnonymous) && <Button className="logout" onClick={(e) => props.logout()}>Logout</Button>}
 
                 {(user.isAnonymous) && <Button className="login" onClick={(e) => props.showLoginModal(e)}>Login</Button>}
             </div>
