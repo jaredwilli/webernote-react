@@ -30,26 +30,47 @@ class EditNote extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { selectedNote } = nextProps;
+    componentDidMount() {
+        const { notebook = {} } = this.props.selectedNote;
 
-        if (selectedNote) {
+        if (notebook.id !== this.state.notebook.id) {
             this.setState({
-                notebook: (selectedNote.notebook && Object.keys(selectedNote.notebook).length) ? selectedNote.notebook : this.state.notebook
+                notebook: notebook
+            });
+
+            this.InputComponent.el.focus();
+        }
+    }
+
+    componentWillReceiveProps = ({ selectedNote }) => {
+        if (selectedNote && selectedNote.notebook) {
+            this.setState({
+                notebook: selectedNote.notebook
             });
         }
     }
 
-    componentDidMount() {
-        this.InputComponent.focus();
+    componentWillMount(nextProps) {
+        const { notebook = {} } = this.props.selectedNote;
+
+        if (notebook && notebook.id !== this.state.notebook.id) {
+            this.setState({
+                notebook
+            });
+        }
     }
 
-    editNote(e) {
+    componentWillUnmount() {
+        // This is called for example, when changing the filters in notelist
+    }
+
+    editNote(event) {
         const { selectedNote } = this.props;
 
-        selectedNote[e.target.name] = e.target.value;
-
-        this.setState({ selectedNote });
+        selectedNote[event.target.name] = event.target.value;
+        this.setState({
+            selectedNote
+        });
 
         this.props.actions.editNote(selectedNote);
         this.props.actions.getNotes();
@@ -58,6 +79,7 @@ class EditNote extends React.Component {
     editField(field) {
         this.setState(field, () => {
             this.props.actions.editNote(this.props.selectedNote, field);
+            this.props.actions.getNotes();
         });
     }
 
