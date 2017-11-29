@@ -1,0 +1,35 @@
+
+$muted: #636c72;
+$primary: #0275d8;
+$success: #5cb85c;
+$info: #5bc0de;
+$warning: #f0ad4e;
+$danger: #d9534f;
+
+.primary {
+    background: #0275d8;
+}
+
+.success {
+    background: #5cb85c;
+}
+
+.info {
+    background: #5bc0de
+}
+
+.warning {
+    background: #f0ad4e
+}
+
+.danger {
+    color: #d9534f;
+}
+
+.inverse {
+    background: #636c72;
+}
+
+.faded {
+    background: #f7f7f7;
+}

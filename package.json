@@ -74,6 +74,7 @@
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls",
     "eject": "react-scripts eject",
     "deploy": "npm run build surge-prod",
+    "deploy-dev": "npm run build surge-dev",
     "styleguide": "styleguidist server",
     "styleguide-build": "styleguidist build",
     "surge-dev": "surge -p $HOME/Sites/webernote-react/build -d webernote-dev.surge.sh",
