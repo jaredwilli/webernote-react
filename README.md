@@ -25,7 +25,7 @@ It is a great example of what a real-world application might be like, which make
 ## Demo
 -------
 
-![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
+![webernote-desktop](https://user-images.githubusercontent.com/218374/33228962-3a560da0-d193-11e7-8cd3-43fd7134c04a.gif)
 
 You can see that as you change the fields in the edit form, the updates are made everywhere, instantly populating the form rest of the components and filling out the app with some useful UI features and capabilites that you can ultimately operate the application with the more notes you have!
 
@@ -34,7 +34,7 @@ You can see that as you change the fields in the edit form, the updates are made
 
 I wanted to be able to take this app and use it anywhere I was right from on my phone. So, I used flexbox to make the rather complex layout of the columns and the edit form rows and filled in remaining spaces which normally would be a problem, it was quite easy with the use of flexbox.
 
-![webernote-desktop](https://user-images.githubusercontent.com/218374/33228962-3a560da0-d193-11e7-8cd3-43fd7134c04a.gif)
+![webernote-responsive](https://user-images.githubusercontent.com/218374/33228967-50daa694-d193-11e7-9a34-e15beca4cd39.gif)
 
 It's not 100% perfect yet. But you can use it, it's functional. I did make some improvements that required some more thought around the UX on mobile, but overall it's pretty usable.
 
