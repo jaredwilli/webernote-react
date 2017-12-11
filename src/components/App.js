@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import PageContainer from '../containers/pageContainer';
 
-class App extends React.Component {
-    render() {
-        return (
-            <Provider store={this.props.store}>
-                <Router>
-                    <PageContainer page="home" />
-                </Router>
-            </Provider>
-        );
-    }
-}
+const App = (props) => {
+    return (
+        <Provider store={props.store}>
+            <BrowserRouter>
+                <PageContainer page="home" />
+            </BrowserRouter>
+        </Provider>
+    );
+};
 
 App.propTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object
 };
 
 export default App;

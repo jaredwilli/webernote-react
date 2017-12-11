@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Input from './stateless/Input';
 import Textarea from './stateless/Textarea';
@@ -44,10 +45,10 @@ class EditNote extends React.Component {
         this.InputComponent.focus();
     }
 
-    editNote(e) {
+    editNote(event) {
         const { selectedNote } = this.props;
 
-        selectedNote[e.target.name] = e.target.value;
+        selectedNote[event.target.name] = event.target.value;
 
         this.setState({ selectedNote });
 
@@ -88,10 +89,10 @@ class EditNote extends React.Component {
                             ref={comp => { this.InputComponent = comp; }}
                             value={selectedNote.title}
                             onClick={this.focusTitleInput}
-                            onChange={(e) => this.editNote(e)} />
+                            onChange={event => this.editNote(event)} />
                         <NotebookSelect
                             canAddNotebook={true}
-                            editField={(notebook) => this.editField(notebook)}
+                            editField={notebook => this.editField(notebook)}
                             selectedNotebook={this.state.notebook} />
                     </div>
                     <div className="mid">
@@ -102,22 +103,22 @@ class EditNote extends React.Component {
                             placeholder="http://"
                             pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
                             value={selectedNote.url}
-                            onChange={(e) => this.editNote(e)} />
+                            onChange={event => this.editNote(event)} />
                         <LabelPicker
-                            editField={(color) => this.editField({ label: color })}
+                            editField={color => this.editField({ label: color })}
                             deleteNoteLabel={this.deleteNoteLabel} />
                     </div>
                     <div className="mid">
                         <TagsInput
                             noteTags={selectedNote.tags}
-                            editField={(tags) => this.editField({ tags: tags })} />
+                            editField={tags => this.editField({ tags: tags })} />
                     </div>
                     <div className="bottom">
                         <Textarea
                             name="description"
                             className="description"
                             value={selectedNote.description}
-                            onChange={(e) => this.editNote(e)}>
+                            onChange={event => this.editNote(event)}>
                         </Textarea>
                     </div>
                 </form>
@@ -125,6 +126,12 @@ class EditNote extends React.Component {
         );
     }
 }
+
+EditNote.propTypes = {
+    actions: PropTypes.object,
+    selectedNote: PropTypes.object,
+    deleteNoteLabel: PropTypes.func
+};
 
 function mapStateToProps(state) {
     const newState = {

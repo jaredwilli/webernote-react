@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import WelcomeMsg from './stateless/WelcomeMsg';
 import SearchFilter from './SearchFilter';
@@ -136,7 +137,8 @@ class NoteList extends React.Component {
                         sort={this.state.sort}
                         selectNote={(note) => this.selectNote(note)}
                         deleteNote={(note) => this.deleteNote(note)}
-                        isMobile={isMobile} />
+                        isMobile={isMobile}
+                        { ...this.props } />
                 }
             </div>
         );
@@ -158,5 +160,16 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(noteActions, dispatch)
     };
 }
+
+NoteList.propTypes = {
+    notes: PropTypes.array,
+    notebooks: PropTypes.array,
+    notebookFilter: PropTypes.object,
+    actions: PropTypes.object,
+    addNote: PropTypes.func,
+    deleteNote: PropTypes.func,
+    filterNotes: PropTypes.func,
+    showLoginModal: PropTypes.func
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteList));

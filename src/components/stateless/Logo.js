@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 
 const Logo = ({ ...props }) => (
     <div className="logo">
@@ -11,5 +12,9 @@ const Logo = ({ ...props }) => (
         </span>
     </div>
 );
+
+// Logo.propTypes = {
+//     notes: PropTypes.array
+// };
 
 export default Logo;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './stateless/Button';
 
 function AddNote(props) {
@@ -12,5 +13,9 @@ function AddNote(props) {
         </Button>
     );
 }
+
+AddNote.propTypes = {
+    addNote: PropTypes.func.isRequired
+};
 
 export default AddNote;

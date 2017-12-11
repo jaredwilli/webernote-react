@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Mousetrap from 'mousetrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -63,13 +64,13 @@ class Home extends React.Component {
 
     // Handle keyboard shortcuts
     componentDidMount() {
-        Mousetrap.bind(['ctrl+n'], (e) => this.addNote(e));
-        Mousetrap.bind(['command+b'], (e) => this.toggleNoteNav(e));
+        Mousetrap.bind(['ctrl+n'], event => this.addNote(event));
+        Mousetrap.bind(['command+b'], event => this.toggleNoteNav(event));
     }
 
     componentWillUnmount() {
-        Mousetrap.unbind(['ctrl+n'], (e) => this.addNote(e));
-        Mousetrap.unbind(['command+b'], (e) => this.toggleNoteNav(e));
+        Mousetrap.unbind(['ctrl+n'], event => this.addNote(event));
+        Mousetrap.unbind(['command+b'], event => this.toggleNoteNav(event));
     }
 
     updateData() {
@@ -124,8 +125,8 @@ class Home extends React.Component {
         this.props.actions.logoutUser();
     }
 
-    addNote(e) {
-        e.preventDefault();
+    addNote(event) {
+        event.preventDefault();
 		this.props.actions.resetSelectedNote();
 		this.props.actions.addNote();
     }
@@ -165,6 +166,11 @@ class Home extends React.Component {
         );
     }
 }
+
+Home.propTypes = {
+    actions: PropTypes.object,
+    user: PropTypes.object
+};
 
 function mapStateToProps(state) {
     const newState = {
