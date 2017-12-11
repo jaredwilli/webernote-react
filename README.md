@@ -3,6 +3,7 @@
 
 [![Build Status](https://travis-ci.org/jaredwilli/webernote-react.svg?branch=build-path)](https://travis-ci.org/jaredwilli/webernote-react)
 [![codebeat badge](https://codebeat.co/badges/1396f00a-f7ce-43a0-af73-1bfc2298213c)](https://codebeat.co/projects/github-com-jaredwilli-webernote-react-master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f00dd9a07d9407693d494c8803dd57d)](https://www.codacy.com/app/jaredwilli/webernote-react?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jaredwilli/webernote-react&amp;utm_campaign=Badge_Grade)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jaredwilli/webernote-react.svg)](https://greenkeeper.io/)
 [![dependencies Status](https://david-dm.org/jaredwilli/webernote-react/status.svg)](https://david-dm.org/jaredwilli/webernote-react)
 
