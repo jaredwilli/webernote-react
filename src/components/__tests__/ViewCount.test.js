@@ -6,18 +6,21 @@ import ViewCount from '../ViewCount';
 import * as mocks from '../../mocking/noteHelpers-mock';
 
 describe('ViewCount', () => {
-    const notebooks = mocks.notebooks;
-    const notes = mocks.notes;
-    const notebookFilter = mocks.notebookFilter;
+    const props = {
+        notebooks: mocks.notebooks,
+        notes: mocks.notes,
+        notebookFilter: mocks.notebookFilter,
+        onChange: jest.fn(() => {
+            return 'onChange called!';
+        })
+    };
 
     it('renders without crashing', () => {
-        const wrapper = shallow(<ViewCount
-            notes={notes}
-            notebooks={notebooks}
-            notebookFilter={notebookFilter} />);
-
-        // expect(wrapper.context
-
+        shallow(<ViewCount
+            notes={props.notes}
+            notebookFilter={props.snotebookFilter}
+            notebooks={props.notebooks}
+            onChange={() => props.onChange()} />);
     });
 
 });
