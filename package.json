@@ -30,7 +30,7 @@
     "pretty-format": "^21.2.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-beautiful-dnd": "^3.0.0",
+    "react-beautiful-dnd": "^5.0.0",
     "react-codemirror": "^1.0.0",
     "react-color": "^2.13.8",
     "react-dom": "^16.2.0",
