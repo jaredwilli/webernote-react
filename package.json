@@ -26,7 +26,7 @@
     "mousetrap": "^1.6.1",
     "node-sass-chokidar": "^1.0.0",
     "npm-run-all": "^4.1.2",
-    "prettier": "^1.9.1",
+    "prettier": "^1.18.2",
     "pretty-format": "^21.2.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
