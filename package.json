@@ -12,7 +12,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^10.0.3",
     "enzyme-to-json": "^3.2.2",
     "eslint": "^4.13.0",
     "expect": "^22.0.0",
