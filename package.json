@@ -16,7 +16,7 @@
     "enzyme-to-json": "^3.2.2",
     "eslint": "^4.13.0",
     "expect": "^22.0.0",
-    "firebase": "^4.8.0",
+    "firebase": "^6.6.0",
     "history": "^4.7.2",
     "husky": "^0.14.3",
     "jest-enzyme": "^5.0.0",
