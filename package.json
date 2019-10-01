@@ -87,7 +87,7 @@
   "devDependencies": {
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
-    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react": "^7.15.0",
     "eslint-plugin-react-native": "^3.2.0",
     "firebase-server": "^0.12.0",
     "git-scripts": "^0.2.1",
