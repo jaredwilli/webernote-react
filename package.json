@@ -24,7 +24,7 @@
     "lodash": "^4.17.4",
     "material-ui": "^0.20.0",
     "mousetrap": "^1.6.1",
-    "node-sass-chokidar": "^1.0.0",
+    "node-sass-chokidar": "^1.4.0",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.9.1",
     "pretty-format": "^21.2.1",
