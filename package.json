@@ -27,7 +27,7 @@
     "node-sass-chokidar": "^1.0.0",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.9.1",
-    "pretty-format": "^21.2.1",
+    "pretty-format": "^25.2.3",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-beautiful-dnd": "^4.0.0",
